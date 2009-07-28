@@ -40,6 +40,13 @@ import org.semanticweb.owl.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owl.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owl.model.SWRLRule;
 
+import de.langenmaier.u2r3.db.ClassAssertionRelation;
+import de.langenmaier.u2r3.db.DataPropertyDomainRelation;
+import de.langenmaier.u2r3.db.DataPropertyRangeRelation;
+import de.langenmaier.u2r3.db.DataSubPropertyRelation;
+import de.langenmaier.u2r3.db.ObjectPropertyAssertionRelation;
+import de.langenmaier.u2r3.db.ObjectPropertyDomainRelation;
+import de.langenmaier.u2r3.db.ObjectPropertyRangeRelation;
 import de.langenmaier.u2r3.db.SubClassRelation;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 
@@ -74,8 +81,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDataPropertyDomainAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDataPropertyDomainAxiom axiom) {
+		logger.debug("  adding DataProptertyDomain:" + axiom.toString());
+		DataPropertyDomainRelation.getRelation().add(axiom);
+		logger.debug("  added DataProptertyDomain");
 	}
 
 	@Override
@@ -89,8 +98,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyDomainAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLObjectPropertyDomainAxiom axiom) {
+		logger.debug("  adding ObjectProptertyDomain:" + axiom.toString());
+		ObjectPropertyDomainRelation.getRelation().add(axiom);
+		logger.debug("  added ObjectProptertyDomain");
 	}
 
 	@Override
@@ -119,13 +130,17 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyRangeAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLObjectPropertyRangeAxiom axiom) {
+		logger.debug("  adding ObjectPropertyRange:" + axiom.toString());
+		ObjectPropertyRangeRelation.getRelation().add(axiom);
+		logger.debug("  added ObjectPropertyRange");
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyAssertionAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+		logger.debug("  adding ObjectPropertyAssertion:" + axiom.toString());
+		ObjectPropertyAssertionRelation.getRelation().add(axiom);
+		logger.debug("  added ObjectPropertyAssertion");
 	}
 
 	@Override
@@ -164,8 +179,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDataPropertyRangeAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDataPropertyRangeAxiom axiom) {
+		logger.debug("  adding DataPropertyRange:" + axiom.toString());
+		DataPropertyRangeRelation.getRelation().add(axiom);
+		logger.debug("  added DataPropertyRange");
 	}
 
 	@Override
@@ -179,8 +196,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLClassAssertionAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLClassAssertionAxiom axiom) {
+		logger.debug("  adding ClassAssertionAxiom:" + axiom.toString());
+		ClassAssertionRelation.getRelation().add(axiom);
+		logger.debug("  added ClassAssertionAxiom");
 	}
 
 	@Override
@@ -204,8 +223,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDataSubPropertyAxiom arg0) {
-		//TODO throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDataSubPropertyAxiom axiom) {
+		logger.debug("  adding DataSubProperty:" + axiom.toString());
+		DataSubPropertyRelation.getRelation().add(axiom);
+		logger.debug("  added DataSubProperty");
 	}
 
 	@Override

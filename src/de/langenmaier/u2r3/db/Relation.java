@@ -2,6 +2,7 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import org.semanticweb.owl.model.OWLAxiom;
 
@@ -22,6 +23,14 @@ public abstract class Relation {
 	}
 	
 	public abstract void add(OWLAxiom axiom);
-	protected abstract void create();
+	
+	protected void create() {
+		try {
+			dropStatement.execute();
+			createStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 }

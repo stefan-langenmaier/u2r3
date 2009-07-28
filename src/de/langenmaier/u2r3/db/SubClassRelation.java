@@ -40,14 +40,6 @@ public class SubClassRelation extends Relation {
 		
 	}
 
-	protected void create() {
-		try {
-			dropStatement.execute();
-			createStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 
 

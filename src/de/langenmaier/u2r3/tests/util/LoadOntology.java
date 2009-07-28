@@ -5,7 +5,6 @@ import java.net.URI;
 import org.apache.log4j.BasicConfigurator;
 import org.semanticweb.owl.apibinding.OWLManager;
 import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLEntity;
 import org.semanticweb.owl.model.OWLOntology;
 import org.semanticweb.owl.model.OWLOntologyCreationException;
 import org.semanticweb.owl.model.OWLOntologyManager;
@@ -43,11 +42,6 @@ public class LoadOntology {
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder();
 			for(OWLAxiom ax : ontology.getAxioms()) {
-				//System.out.println(ax);
-				//System.out.println(ax.getAxiomType() + ": " + ax.getAxiomType().getIndex());
-				//for(OWLEntity e : ax.getSignature()) {
-				//	System.out.println("  " + e.getURI());
-				//}
 				ax.accept(axiomAdder);
 			}
 		} catch (OWLOntologyCreationException e) {

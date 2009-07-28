@@ -1,0 +1,44 @@
+package de.langenmaier.u2r3.db;
+
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
+import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owl.model.OWLDataPropertyDomainAxiom;
+
+public class DataPropertyDomainRelation extends Relation {
+	protected static DataPropertyDomainRelation theRelation;
+	static Logger logger = Logger.getLogger(DataPropertyDomainRelation.class);
+	
+	private DataPropertyDomainRelation() {
+		try {
+			createStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropStatement = conn.prepareStatement("DROP TABLE dataPropertyDomain IF EXISTS ");
+			create();
+			addStatement = conn.prepareStatement("INSERT INTO dataPropertyDomain (property, domain) VALUES (?, ?)");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static DataPropertyDomainRelation getRelation() {
+		if (theRelation == null) theRelation = new DataPropertyDomainRelation();
+		return theRelation;
+		
+	}
+	
+	@Override
+	public void add(OWLAxiom axiom) {
+		try {
+			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
+			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
+			logger.trace(addStatement.toString());
+			addStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+}
