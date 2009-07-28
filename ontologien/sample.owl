@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY sample "http://www.langenmaier.de/u2r3/sample.owl#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.langenmaier.de/u2r3/sample.owl#"
+     xml:base="http://www.langenmaier.de/u2r3/sample.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:sample="http://www.langenmaier.de/u2r3/sample.owl#">
+    <owl:Ontology rdf:about=""/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#isEmployedAt -->
+
+    <owl:ObjectProperty rdf:about="#isEmployedAt">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#UniversityLibrary"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#rentsMedium -->
+
+    <owl:ObjectProperty rdf:about="#rentsMedium">
+        <rdfs:range rdf:resource="#Medium"/>
+        <rdfs:domain rdf:resource="#Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#bookTitle -->
+
+    <owl:DatatypeProperty rdf:about="#bookTitle">
+        <rdfs:domain rdf:resource="#Book"/>
+        <rdfs:subPropertyOf rdf:resource="#mediumTitle"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#mediumTitle -->
+
+    <owl:DatatypeProperty rdf:about="#mediumTitle">
+        <rdfs:domain rdf:resource="#Medium"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Book -->
+
+    <owl:Class rdf:about="#Book">
+        <rdfs:subClassOf rdf:resource="#Medium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Employee -->
+
+    <owl:Class rdf:about="#Employee">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#ImageStorageMedium -->
+
+    <owl:Class rdf:about="#ImageStorageMedium">
+        <rdfs:subClassOf rdf:resource="#Medium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Medium -->
+
+    <owl:Class rdf:about="#Medium"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Movie -->
+
+    <owl:Class rdf:about="#Movie">
+        <rdfs:subClassOf rdf:resource="#Medium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Person -->
+
+    <owl:Class rdf:about="#Person">
+        <rdfs:subClassOf rdf:resource="&owl;Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Professor -->
+
+    <owl:Class rdf:about="#Professor">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#SoundStorageMedium -->
+
+    <owl:Class rdf:about="#SoundStorageMedium">
+        <rdfs:subClassOf rdf:resource="#Medium"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Student -->
+
+    <owl:Class rdf:about="#Student">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#UniversityLibrary -->
+
+    <owl:Class rdf:about="#UniversityLibrary"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Visitor -->
+
+    <owl:Class rdf:about="#Visitor">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/2002/07/owl#Thing -->
+
+    <owl:Class rdf:about="&owl;Thing"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Algorithmen -->
+
+    <owl:Thing rdf:about="#Algorithmen"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#FHUlm -->
+
+    <owl:Thing rdf:about="#FHUlm"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Hans -->
+
+    <owl:Thing rdf:about="#Hans">
+        <isEmployedAt rdf:resource="#UniUlm"/>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Maria -->
+
+    <owl:Thing rdf:about="#Maria"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#MausFilm -->
+
+    <owl:Thing rdf:about="#MausFilm"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#Peter -->
+
+    <owl:Thing rdf:about="#Peter"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#UniAugsburg -->
+
+    <owl:Thing rdf:about="#UniAugsburg"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#UniUlm -->
+
+    <owl:Thing rdf:about="#UniUlm"/>
+    
+
+
+    <!-- http://www.langenmaier.de/u2r3/sample.owl#WiMoSkript -->
+
+    <owl:Thing rdf:about="#WiMoSkript"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 2.2.1.1138) http://owlapi.sourceforge.net -->
+
