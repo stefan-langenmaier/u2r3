@@ -13,8 +13,13 @@ public class ObjectPropertyDomainRelation extends Relation {
 	
 	private ObjectPropertyDomainRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE objectPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
-			dropStatement = conn.prepareStatement("DROP TABLE objectPropertyDomain IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE objectPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE objectPropertyDomain IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE objectPropertyDomainAux (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE objectPropertyDomainAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE objectPropertyDomainDelta (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE objectPropertyDomainDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO objectPropertyDomain (property, domain) VALUES (?, ?)");
 		} catch (SQLException e) {

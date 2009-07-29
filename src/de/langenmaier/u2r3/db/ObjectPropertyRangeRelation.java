@@ -12,8 +12,13 @@ public class ObjectPropertyRangeRelation extends Relation {
 	
 	private ObjectPropertyRangeRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE objectPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-			dropStatement = conn.prepareStatement("DROP TABLE objectPropertyRange IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE objectPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE objectPropertyRange IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE objectPropertyRangeAux (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE objectPropertyRangeAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE objectPropertyRangeDelta (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE objectPropertyRangeDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO objectPropertyRange (property, range) VALUES (?, ?)");
 		} catch (SQLException e) {

@@ -12,8 +12,13 @@ public class ClassAssertionRelation extends Relation {
 	
 	private ClassAssertionRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE classAssertion (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
-			dropStatement = conn.prepareStatement("DROP TABLE classAssertion IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE classAssertion (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE classAssertion IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE classAssertionAux (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE classAssertionAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE classAssertionDelta (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE classAssertionDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO classAssertion (class, type) VALUES (?, ?)");
 		} catch (SQLException e) {

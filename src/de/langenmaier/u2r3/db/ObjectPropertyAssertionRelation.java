@@ -12,8 +12,13 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	
 	private ObjectPropertyAssertionRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE objectPropertyAssertion (subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");
-			dropStatement = conn.prepareStatement("DROP TABLE objectPropertyAssertion IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE objectPropertyAssertion (subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE objectPropertyAssertion IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE objectPropertyAssertionAux (subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE objectPropertyAssertionAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE objectPropertyAssertionDelta (subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE objectPropertyAssertionDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO objectPropertyAssertion (subject, property, object) VALUES (?, ?, ?)");
 		} catch (SQLException e) {

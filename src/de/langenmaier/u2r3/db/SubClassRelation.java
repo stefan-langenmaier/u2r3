@@ -6,16 +6,26 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLSubClassAxiom;
 
+import de.langenmaier.u2r3.rules.TransSubClassRule;
+
 public class SubClassRelation extends Relation {
 	protected static SubClassRelation theRelation;
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
 	
 	private SubClassRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE subClass (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-			dropStatement = conn.prepareStatement("DROP TABLE subClass IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE subClass (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE subClass IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE subClassAux (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE subClassAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE subClassDelta (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE subClassDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
+			
+			//add dependant rules
+			rules.add(new TransSubClassRule());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -12,8 +12,13 @@ public class DataSubPropertyRelation extends Relation {
 	
 	private DataSubPropertyRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE dataSubProperty (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-			dropStatement = conn.prepareStatement("DROP TABLE dataSubProperty IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE dataSubProperty (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE dataSubProperty IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE dataSubPropertyAux (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE dataSubPropertyAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataSubPropertyDelta (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataSubPropertyDelta IF EXISTS ");
+			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO dataSubProperty (sub, super) VALUES (?, ?)");
 		} catch (SQLException e) {

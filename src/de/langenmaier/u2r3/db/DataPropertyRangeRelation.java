@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyDomainAxiom;
 
 public class DataPropertyRangeRelation extends Relation {
 	protected static DataPropertyRangeRelation theRelation;
@@ -13,8 +12,13 @@ public class DataPropertyRangeRelation extends Relation {
 	
 	private DataPropertyRangeRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE dataPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-			dropStatement = conn.prepareStatement("DROP TABLE dataPropertyRange IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE dataPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE dataPropertyRange IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeAux (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeDelta (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO dataPropertyRange (property, range) VALUES (?, ?)");
 		} catch (SQLException e) {

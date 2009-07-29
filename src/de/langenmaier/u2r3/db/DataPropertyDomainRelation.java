@@ -12,8 +12,13 @@ public class DataPropertyDomainRelation extends Relation {
 	
 	private DataPropertyDomainRelation() {
 		try {
-			createStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
-			dropStatement = conn.prepareStatement("DROP TABLE dataPropertyDomain IF EXISTS ");
+			createMainStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE dataPropertyDomain IF EXISTS ");
+			createAuxStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomainAux (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropAuxStatement = conn.prepareStatement("DROP TABLE dataPropertyDomainAux IF EXISTS ");
+			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomainDelta (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataPropertyDomainDelta IF EXISTS ");
+
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO dataPropertyDomain (property, domain) VALUES (?, ?)");
 		} catch (SQLException e) {
