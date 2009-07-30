@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.db.SubClassRelation;
 import de.langenmaier.u2r3.rules.Rule;
 
 public class ReasonProcessor {
@@ -42,8 +43,16 @@ public class ReasonProcessor {
 				actions.remove(0);
 			}
 			actions = null;
-		} while (false); //applyAuxRelations();
+		} while (applyUpdates()); //applyAuxRelations();
 		
+	}
+
+	private boolean applyUpdates() {
+		if (SubClassRelation.getRelation().isDirty()) {
+			rp.add(new Reason(SubClassRelation.getRelation()));
+			SubClassRelation.getRelation().merge();
+		}
+		return actions.isEmpty();
 	}
 
 

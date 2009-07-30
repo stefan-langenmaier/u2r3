@@ -27,6 +27,8 @@ public abstract class Relation {
 	
 	protected HashSet<Rule> rules = new HashSet<Rule>();
 	
+	protected boolean isDirty = false;
+	
 	protected Relation() {
 		conn = U2R3DBConnection.getConnection();
 	}
@@ -48,6 +50,21 @@ public abstract class Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setDirty(boolean dirty) {
+		isDirty = dirty;
+	}
+	
+	public boolean isDirty() {
+		return isDirty;
+	}
+	
+	/**
+	 * Aux ins delta packen, und delta hinzufügen
+	 */
+	public void merge() {
+		//TODO
 	}
 
 }
