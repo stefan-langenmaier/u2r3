@@ -12,9 +12,10 @@ public class TransSubClassRule extends Rule {
 	
 	public TransSubClassRule() {
 		try {
-			statement = conn.prepareStatement("INSERT INTO subClass (sub, super) SELECT sub,  super FROM ( " +
+			//TODO zwei Abfragen machen, nur ein Delta und nur auf das gültige
+			statement = conn.prepareStatement("INSERT INTO subClassAux (sub, super) SELECT sub,  super FROM ( " +
 					" SELECT t1.sub AS sub, t2.super AS super " +
-					" FROM subClass AS t1 INNER JOIN subClass AS t2 " +
+					" FROM subClassDelta AS t1 INNER JOIN subClassDelta AS t2 " +
 					" WHERE t1.super = t2.sub  " +
 					"	EXCEPT " +
 					" SELECT sub, super " +
@@ -32,6 +33,14 @@ public class TransSubClassRule extends Rule {
 		if (delta == null) {
 			logger.debug(toString());
 			try {
+				statement = conn.prepareStatement("INSERT INTO subClassAux (sub, super) SELECT sub,  super FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super " +
+						" FROM subClass AS t1 INNER JOIN subClass AS t2 " +
+						" WHERE t1.super = t2.sub  " +
+						"	EXCEPT " +
+						" SELECT sub, super " +
+						" FROM subClassAux " +
+						")");
 				rows = statement.executeUpdate();
 				if (rows > 0) {
 					//rp.add(new Reason(SubClassRelation.getRelation()));
@@ -47,7 +56,41 @@ public class TransSubClassRule extends Rule {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}		
+		} else {
+			logger.debug(toString());
+			try {
+				statement = conn.prepareStatement("INSERT INTO subClassAux (sub, super) SELECT sub,  super FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super " +
+						" FROM subClassDelta AS t1 INNER JOIN subClass AS t2 " +
+						" WHERE t1.super = t2.sub  " +
+						"	EXCEPT " +
+						" SELECT sub, super " +
+						" FROM subClassAux " +
+						")");
+				rows = statement.executeUpdate();
+				if (rows > 0) {
+					//rp.add(new Reason(SubClassRelation.getRelation()));
+					SubClassRelation.getRelation().setDirty(true);
+					logger.debug("subClass is dirty");
+				}
+				statement = conn.prepareStatement("INSERT INTO subClassAux (sub, super) SELECT sub,  super FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super " +
+						" FROM subClass AS t1 INNER JOIN subClassDelta AS t2 " +
+						" WHERE t1.super = t2.sub  " +
+						"	EXCEPT " +
+						" SELECT sub, super " +
+						" FROM subClassAux " +
+						")");
+				rows = statement.executeUpdate();
+				if (rows > 0) {
+					//rp.add(new Reason(SubClassRelation.getRelation()));
+					SubClassRelation.getRelation().setDirty(true);
+					logger.debug("subClass is dirty");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@Override

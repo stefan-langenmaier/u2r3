@@ -4,6 +4,7 @@ import org.apache.log4j.BasicConfigurator;
 
 import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.Settings;
 import de.langenmaier.u2r3.db.SubClassRelation;
 
 /**
@@ -17,6 +18,7 @@ public class ProcessOntology {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		Settings.startClean(false);
 		BasicConfigurator.configure();
 		ReasonProcessor rp = ReasonProcessor.getReasonProcessor();
 		rp.add(new Reason(SubClassRelation.getRelation()));

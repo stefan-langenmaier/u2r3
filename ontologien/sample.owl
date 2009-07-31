@@ -99,6 +99,10 @@
         <rdfs:subClassOf rdf:resource="#Medium"/>
     </owl:Class>
     
+    <owl:Class rdf:about="#Comic">
+        <rdfs:subClassOf rdf:resource="#Book"/>
+    </owl:Class>
+    
 
 
     <!-- http://www.langenmaier.de/u2r3/sample.owl#Employee -->

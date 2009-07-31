@@ -25,7 +25,7 @@ public class ReasonProcessor {
 	public void add(Reason reason) {
 		for(Rule r : reason.getRelation().getRules()) {
 			logger.debug("adding Rule");
-			actions.add(new RuleAction(r));
+			actions.add(new RuleAction(r, reason.getDelta()));
 			logger.debug("added Rule");
 		}
 		
@@ -42,17 +42,17 @@ public class ReasonProcessor {
 				action.apply();
 				actions.remove(0);
 			}
-			actions = null;
+			
 		} while (applyUpdates()); //applyAuxRelations();
-		
+		actions = null;
 	}
 
 	private boolean applyUpdates() {
 		if (SubClassRelation.getRelation().isDirty()) {
-			rp.add(new Reason(SubClassRelation.getRelation()));
+			rp.add(new Reason(SubClassRelation.getRelation(), new DeltaRelation()));
 			SubClassRelation.getRelation().merge();
 		}
-		return actions.isEmpty();
+		return !(actions.isEmpty());
 	}
 
 

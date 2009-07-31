@@ -9,13 +9,20 @@ import de.langenmaier.u2r3.rules.Rule;
  */
 public class RuleAction {
 	private Rule rule = null;
+	private DeltaRelation delta = null;
 
 	public RuleAction(Rule r) {
 		rule = r;
+		delta = null;
+	}
+
+	public RuleAction(Rule r, DeltaRelation delta) {
+		rule = r;
+		this.delta = delta;
 	}
 
 	public void apply() {
-		rule.apply(null);
+		rule.apply(delta);
 	}
 
 }

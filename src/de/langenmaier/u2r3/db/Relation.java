@@ -3,10 +3,13 @@ package de.langenmaier.u2r3.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 
+import org.apache.log4j.Logger;
 import org.semanticweb.owl.model.OWLAxiom;
 
+import de.langenmaier.u2r3.Settings;
 import de.langenmaier.u2r3.rules.Rule;
 
 /**
@@ -15,7 +18,8 @@ import de.langenmaier.u2r3.rules.Rule;
  *
  */
 public abstract class Relation {
-
+	static Logger logger = Logger.getLogger(Relation.class);
+	
 	protected Connection conn = null;
 	protected PreparedStatement addStatement;
 	protected PreparedStatement createMainStatement;
@@ -24,6 +28,9 @@ public abstract class Relation {
 	protected PreparedStatement dropAuxStatement;
 	protected PreparedStatement createDeltaStatement;
 	protected PreparedStatement dropDeltaStatement;
+	
+	
+	protected String tableName;
 	
 	protected HashSet<Rule> rules = new HashSet<Rule>();
 	
@@ -41,12 +48,15 @@ public abstract class Relation {
 	
 	protected void create() {
 		try {
-			dropMainStatement.execute();
-			dropAuxStatement.execute();
-			dropDeltaStatement.execute();
-			createMainStatement.executeUpdate();
-			createAuxStatement.execute();
-			createDeltaStatement.execute();
+			if (Settings.startClean()) {
+				dropMainStatement.execute();
+				dropAuxStatement.execute();
+				dropDeltaStatement.execute();
+				createMainStatement.executeUpdate();
+				createAuxStatement.execute();
+				createDeltaStatement.execute();
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +74,23 @@ public abstract class Relation {
 	 * Aux ins delta packen, und delta hinzufügen
 	 */
 	public void merge() {
-		//TODO
+		try {
+			Statement stmt = conn.createStatement();
+			//was in delta steht muss erst mal in die haupttabellen
+			logger.debug("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
+			stmt.execute("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
+			
+			//dann muss das delta gelöscht werden
+			logger.debug("DELETE FROM " + tableName + "Delta");
+			stmt.execute("DELETE FROM " + tableName + "Delta");
+			
+			//dann können die neuen daten ins delta
+			logger.debug("INSERT INTO " + tableName + "Delta  SELECT * FROM (SELECT * FROM " + tableName + "Aux EXCEPT SELECT * FROM " + tableName+ ")");
+			stmt.execute("INSERT INTO " + tableName + "Delta  SELECT * FROM (SELECT * FROM " + tableName + "Aux EXCEPT SELECT * FROM " + tableName+ ")");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

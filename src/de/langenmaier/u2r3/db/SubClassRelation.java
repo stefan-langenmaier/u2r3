@@ -22,7 +22,9 @@ public class SubClassRelation extends Relation {
 			dropDeltaStatement = conn.prepareStatement("DROP TABLE subClassDelta IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO subClassDelta (sub, super) VALUES (?, ?)");
+			
+			tableName = "subClass";
 			
 			//add dependant rules
 			rules.add(new TransSubClassRule());
