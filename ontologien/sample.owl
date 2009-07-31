@@ -103,6 +103,10 @@
         <rdfs:subClassOf rdf:resource="#Book"/>
     </owl:Class>
     
+    <owl:Class rdf:about="#OriginalComic">
+        <rdfs:subClassOf rdf:resource="#Comic"/>
+    </owl:Class>
+    
 
 
     <!-- http://www.langenmaier.de/u2r3/sample.owl#Employee -->

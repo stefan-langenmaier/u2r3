@@ -73,24 +73,35 @@ public abstract class Relation {
 	/**
 	 * Aux ins delta packen, und delta hinzufügen
 	 */
-	public void merge() {
+	public long merge() {
 		try {
+			long rows = 0;
 			Statement stmt = conn.createStatement();
-			//was in delta steht muss erst mal in die haupttabellen
-			logger.debug("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
-			stmt.execute("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
-			
-			//dann muss das delta gelöscht werden
+	
+			//das zu letzt bearbeitet delta is fertig bearbeitet
 			logger.debug("DELETE FROM " + tableName + "Delta");
 			stmt.execute("DELETE FROM " + tableName + "Delta");
 			
-			//dann können die neuen daten ins delta
+			//die neu erarbeiteten daten können ins delta
 			logger.debug("INSERT INTO " + tableName + "Delta  SELECT * FROM (SELECT * FROM " + tableName + "Aux EXCEPT SELECT * FROM " + tableName+ ")");
 			stmt.execute("INSERT INTO " + tableName + "Delta  SELECT * FROM (SELECT * FROM " + tableName + "Aux EXCEPT SELECT * FROM " + tableName+ ")");
 			
+			//die neuen daten werden auch gleich in die haupttabelle mit aufgenommen
+			logger.debug("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
+			rows = stmt.executeUpdate("INSERT INTO " + tableName + "  SELECT * FROM " + tableName + "Delta");
+			
+			//dann muss noch die alte hilfstabelle bereinigt werden
+			logger.debug("DELETE FROM " + tableName + "Aux");
+			stmt.execute("DELETE FROM " + tableName + "Aux");
+			
+			//jetzt is wieder alles sauber
+			isDirty = false;
+			
+			return rows;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return 0;
 	}
 
 }

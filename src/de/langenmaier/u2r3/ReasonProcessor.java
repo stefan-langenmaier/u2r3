@@ -49,8 +49,10 @@ public class ReasonProcessor {
 
 	private boolean applyUpdates() {
 		if (SubClassRelation.getRelation().isDirty()) {
-			rp.add(new Reason(SubClassRelation.getRelation(), new DeltaRelation()));
-			SubClassRelation.getRelation().merge();
+			
+			if (SubClassRelation.getRelation().merge() > 0) {
+				rp.add(new Reason(SubClassRelation.getRelation(), new DeltaRelation()));
+			}
 		}
 		return !(actions.isEmpty());
 	}
