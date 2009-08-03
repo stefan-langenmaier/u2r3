@@ -7,10 +7,10 @@ import de.langenmaier.u2r3.rules.Rule;
  * @author stefan
  *
  */
-public class RuleAction {
+public class RuleAction implements Comparable<RuleAction>{
 	private Rule rule = null;
 	private DeltaRelation delta = null;
-	private double weight = 0;
+	private Double weight = new Double(0);
 
 	public RuleAction(Rule r) {
 		rule = r;
@@ -25,12 +25,17 @@ public class RuleAction {
 	public void apply() {
 		rule.apply(delta);
 	}
+	
 
-	public double getWeight() {
+	public Double getWeight() {
 		return weight;
 	}
 
 	public void setWeight(double weight) {
+		this.weight = new Double(weight);
+	}
+	
+	public void setWeight(Double weight) {
 		this.weight = weight;
 	}
 	
@@ -47,9 +52,17 @@ public class RuleAction {
 	
 	@Override
 	public int hashCode() {
-		//XXX koennte vllt noch besser gehen
-		//Annahme das Rule Objekte nur einmalig exisitieren und daher immer den selben HashCode haben
-		return rule.hashCode();
+		//This is under the assumption that there exist only unique rules;
+		return rule.hashCode() & delta.hashCode();
+	}
+
+	@Override
+	/**
+	 * This comparison is used to get an order for the execution of RuleAction.
+	 * Here is it possible to change the strategy.
+	 */
+	public int compareTo(RuleAction o) {
+		return (int)(weight-o.weight);
 	}
 
 }

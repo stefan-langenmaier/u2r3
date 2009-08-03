@@ -10,5 +10,20 @@ import de.langenmaier.u2r3.db.Relation;
 public class DeltaRelation {
 	long delta;
 	Relation relation;
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof DeltaRelation) {
+			DeltaRelation tmp = (DeltaRelation) obj;
+			if (tmp.delta == delta && relation.equals(tmp.relation)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return relation.hashCode() & (int) delta;
+	}
 }
