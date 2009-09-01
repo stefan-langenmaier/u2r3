@@ -65,4 +65,8 @@ public class RuleAction implements Comparable<RuleAction>{
 		return (int)(weight-o.weight);
 	}
 
+	public DeltaRelation getDeltaRelation() {
+		return delta;
+	}
+
 }

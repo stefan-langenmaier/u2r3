@@ -104,4 +104,13 @@ public abstract class Relation {
 		return 0;
 	}
 
+	public void addRules(Rule rule) {
+		rules.add(rule);
+	}
+
+	public void clear(long delta) {
+		// TODO CLEAR delta
+		
+	}
+
 }

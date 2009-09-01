@@ -7,13 +7,14 @@ import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.db.SubClassRelation;
 import de.langenmaier.u2r3.rules.Rule;
+import de.langenmaier.u2r3.util.RuleActionQueue;
 
 public class ReasonProcessor {
 	private static ReasonProcessor rp = null;
 	
 	static Logger logger = Logger.getLogger(ReasonProcessor.class);
 	
-	List<RuleAction> actions = new LinkedList<RuleAction>();
+	RuleActionQueue actions = new RuleActionQueue();
 	
 	private ReasonProcessor() {}
 	
@@ -32,18 +33,18 @@ public class ReasonProcessor {
 	}
 
 	public void classify() {
-		do {
+		//do {
 			/*for (RuleAction action : actions) {
 				action.apply();
 			}*/
 			RuleAction action;
 			while (!(actions.isEmpty())) {
-				action = actions.get(0);
+				action = actions.activate();
 				action.apply();
-				actions.remove(0);
+				actions.delete(action);
 			}
 			
-		} while (applyUpdates()); //applyAuxRelations();
+		//} while (applyUpdates()); //applyAuxRelations();
 		actions = null;
 	}
 

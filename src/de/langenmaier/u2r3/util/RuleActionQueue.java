@@ -1,10 +1,12 @@
 package de.langenmaier.u2r3.util;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Queue;
 
 import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.db.RelationMananger;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 
 /**
@@ -18,6 +20,9 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 public class RuleActionQueue implements Queue<RuleAction> {
 	RuleActionWeightMap weights = new RuleActionWeightMap();
 	RuleActionPriorityQueue priorityQueue = new RuleActionPriorityQueue();
+	RuleActionDeltaMap deltas = new RuleActionDeltaMap();
+	
+	HashSet<RuleAction> active = new HashSet<RuleAction>();
 	
 	/**
 	 * Returns a RuleAction object that should be processed.
@@ -26,7 +31,13 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	 * @return
 	 */
 	public RuleAction activate() {
-		//TODO
+		if (!priorityQueue.isEmpty()) {
+			RuleAction next = priorityQueue.remove();
+			weights.remove(next);
+			active.add(next);
+			
+			return next;
+		}
 		return null;
 	}
 	
@@ -35,13 +46,18 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	 * The RuleAction object that should be deleted must be activated before!
 	 * @param ra
 	 */
-	public void delete(RuleAction ra) {
-		
+	public boolean delete(RuleAction ra) {
+		if (deltas.reduce(ra)) {
+			ra.getDeltaRelation().clear();
+			//TODO hier kann man die delta-relation löschen, da sie nicht mehr gebraucht wird
+		}
+		return active.remove(ra);
 	}
 	
 	@Override
 	public boolean add(RuleAction ra) {
 		weights.put(ra);
+		deltas.put(ra);
 		priorityQueue.add(ra);
 		return true;
 	}

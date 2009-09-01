@@ -2,9 +2,13 @@ package de.langenmaier.u2r3.rules;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.HashSet;
 
 import de.langenmaier.u2r3.DeltaRelation;
+import de.langenmaier.u2r3.db.Relation;
+import de.langenmaier.u2r3.db.RelationMananger;
 import de.langenmaier.u2r3.db.U2R3DBConnection;
+import de.langenmaier.u2r3.db.RelationMananger.RelationName;
 
 
 /**
@@ -15,6 +19,7 @@ import de.langenmaier.u2r3.db.U2R3DBConnection;
 public abstract class Rule {
 	protected Connection conn = null;
 	protected PreparedStatement statement;
+	private HashSet<Relation> worksOn = new HashSet<Relation>();
 	
 	protected Rule() {
 		conn = U2R3DBConnection.getConnection();
@@ -23,5 +28,9 @@ public abstract class Rule {
 	public abstract void apply(DeltaRelation delta);
 	
 	public abstract String toString();
+
+	public void addRelation(RelationName name) {
+		worksOn.add(RelationMananger.getRelation(RelationMananger.RelationName.subClass));
+	}
 	
 }

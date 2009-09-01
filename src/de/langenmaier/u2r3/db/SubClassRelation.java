@@ -6,13 +6,13 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owl.model.OWLAxiom;
 import org.semanticweb.owl.model.OWLSubClassAxiom;
 
-import de.langenmaier.u2r3.rules.TransSubClassRule;
+import de.langenmaier.u2r3.rules.RuleManager;
 
 public class SubClassRelation extends Relation {
 	protected static SubClassRelation theRelation;
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
 	
-	private SubClassRelation() {
+	SubClassRelation() {
 		try {
 			createMainStatement = conn.prepareStatement("CREATE TABLE subClass (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE subClass IF EXISTS ");
@@ -26,8 +26,8 @@ public class SubClassRelation extends Relation {
 			
 			tableName = "subClass";
 			
-			//add dependant rules
-			rules.add(new TransSubClassRule());
+			//add dependent rules
+			rules.add(RuleManager.getRule(RuleManager.RuleName.transSubClass));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

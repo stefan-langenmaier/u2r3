@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.rules;
 
 import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.DeltaRelation;
