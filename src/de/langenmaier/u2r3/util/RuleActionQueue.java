@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.Queue;
 
 import de.langenmaier.u2r3.RuleAction;
-import de.langenmaier.u2r3.db.RelationMananger;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 
 /**

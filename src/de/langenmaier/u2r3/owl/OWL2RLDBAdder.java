@@ -1,49 +1,51 @@
 package de.langenmaier.u2r3.owl;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAntiSymmetricObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLAxiomAnnotationAxiom;
-import org.semanticweb.owl.model.OWLAxiomVisitor;
-import org.semanticweb.owl.model.OWLClassAssertionAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyDomainAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyRangeAxiom;
-import org.semanticweb.owl.model.OWLDataSubPropertyAxiom;
-import org.semanticweb.owl.model.OWLDeclarationAxiom;
-import org.semanticweb.owl.model.OWLDifferentIndividualsAxiom;
-import org.semanticweb.owl.model.OWLDisjointClassesAxiom;
-import org.semanticweb.owl.model.OWLDisjointDataPropertiesAxiom;
-import org.semanticweb.owl.model.OWLDisjointObjectPropertiesAxiom;
-import org.semanticweb.owl.model.OWLDisjointUnionAxiom;
-import org.semanticweb.owl.model.OWLEntityAnnotationAxiom;
-import org.semanticweb.owl.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owl.model.OWLEquivalentDataPropertiesAxiom;
-import org.semanticweb.owl.model.OWLEquivalentObjectPropertiesAxiom;
-import org.semanticweb.owl.model.OWLFunctionalDataPropertyAxiom;
-import org.semanticweb.owl.model.OWLFunctionalObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLImportsDeclaration;
-import org.semanticweb.owl.model.OWLInverseFunctionalObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLInverseObjectPropertiesAxiom;
-import org.semanticweb.owl.model.OWLIrreflexiveObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLNegativeDataPropertyAssertionAxiom;
-import org.semanticweb.owl.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyChainSubPropertyAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyRangeAxiom;
-import org.semanticweb.owl.model.OWLObjectSubPropertyAxiom;
-import org.semanticweb.owl.model.OWLOntologyAnnotationAxiom;
-import org.semanticweb.owl.model.OWLReflexiveObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLSameIndividualsAxiom;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
-import org.semanticweb.owl.model.OWLSymmetricObjectPropertyAxiom;
-import org.semanticweb.owl.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owl.model.SWRLRule;
+import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiomVisitor;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDatatypeDefinitionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLDifferentIndividualsAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointUnionAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentDataPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLSubAnnotationPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.SWRLRule;
 
 import de.langenmaier.u2r3.db.ClassAssertionRelation;
 import de.langenmaier.u2r3.db.DataPropertyDomainRelation;
 import de.langenmaier.u2r3.db.DataPropertyRangeRelation;
-import de.langenmaier.u2r3.db.DataSubPropertyRelation;
+import de.langenmaier.u2r3.db.SubDataPropertyRelation;
 import de.langenmaier.u2r3.db.ObjectPropertyAssertionRelation;
 import de.langenmaier.u2r3.db.ObjectPropertyDomainRelation;
 import de.langenmaier.u2r3.db.ObjectPropertyRangeRelation;
@@ -53,20 +55,9 @@ import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	static Logger logger = Logger.getLogger(OWL2RLDBAdder.class);
 
-	@Override
-	public void visit(OWLSubClassAxiom axiom) {
-		logger.debug("  adding SubClass:" + axiom.toString());
-		SubClassRelation.getRelation().add(axiom);
-		logger.debug("  added SubClass");
-	}
 
 	@Override
 	public void visit(OWLNegativeObjectPropertyAssertionAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
-	public void visit(OWLAntiSymmetricObjectPropertyAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
 
@@ -85,16 +76,6 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 		logger.debug("  adding DataProptertyDomain:" + axiom.toString());
 		DataPropertyDomainRelation.getRelation().add(axiom);
 		logger.debug("  added DataProptertyDomain");
-	}
-
-	@Override
-	public void visit(OWLImportsDeclaration arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
-	public void visit(OWLAxiomAnnotationAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
 	}
 
 	@Override
@@ -149,27 +130,12 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLObjectSubPropertyAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
 	public void visit(OWLDisjointUnionAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
 
 	@Override
 	public void visit(OWLDeclarationAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
-	public void visit(OWLEntityAnnotationAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
-	public void visit(OWLOntologyAnnotationAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
 
@@ -222,27 +188,12 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 		throw new U2R3NotInProfileException(arg0);
 	}
 
-	@Override
-	public void visit(OWLDataSubPropertyAxiom axiom) {
-		logger.debug("  adding DataSubProperty:" + axiom.toString());
-		DataSubPropertyRelation.getRelation().add(axiom);
-		logger.debug("  added DataSubProperty");
-	}
 
 	@Override
 	public void visit(OWLInverseFunctionalObjectPropertyAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
 
-	@Override
-	public void visit(OWLSameIndividualsAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
-
-	@Override
-	public void visit(OWLObjectPropertyChainSubPropertyAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-	}
 
 	@Override
 	public void visit(OWLInverseObjectPropertiesAxiom arg0) {
@@ -253,5 +204,82 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 	public void visit(SWRLRule arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
+
+	@Override
+	public void visit(OWLSubClassOfAxiom axiom) {
+		logger.debug("  adding SubClass:" + axiom.toString());
+		SubClassRelation.getRelation().add(axiom);
+		logger.debug("  added SubClass");
+		
+	}
+
+	@Override
+	public void visit(OWLAsymmetricObjectPropertyAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLSubObjectPropertyOfAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLSubDataPropertyOfAxiom axiom) {
+		logger.debug("  adding DataSubProperty:" + axiom.toString());
+		SubDataPropertyRelation.getRelation().add(axiom);
+		logger.debug("  added DataSubProperty");
+		
+	}
+
+	@Override
+	public void visit(OWLSameIndividualAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLSubPropertyChainOfAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLHasKeyAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLDatatypeDefinitionAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLAnnotationAssertionAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLSubAnnotationPropertyOfAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLAnnotationPropertyDomainAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
+	@Override
+	public void visit(OWLAnnotationPropertyRangeAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		
+	}
+
 
 }

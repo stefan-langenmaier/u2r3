@@ -3,8 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 public class ObjectPropertyAssertionRelation extends Relation {
 	protected static ObjectPropertyAssertionRelation theRelation;
@@ -36,9 +36,9 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	public void add(OWLAxiom axiom) {
 		try {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubject().asOWLIndividual().getURI().toString());
+			addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
 			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			addStatement.setString(3, naxiom.getObject().asOWLIndividual().getURI().toString());
+			addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
 		} catch (SQLException e) {

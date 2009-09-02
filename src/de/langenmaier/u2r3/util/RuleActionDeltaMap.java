@@ -2,8 +2,8 @@ package de.langenmaier.u2r3.util;
 
 import java.util.HashMap;
 
-import de.langenmaier.u2r3.DeltaRelation;
 import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.db.DeltaRelation;
 /**
  * This is a helper class for the RuleActionQueue. It stores the number of a certain DeltaRelation that is in the queue.
  * @author stefan

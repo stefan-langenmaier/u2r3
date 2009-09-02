@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 import de.langenmaier.u2r3.Settings;
 import de.langenmaier.u2r3.rules.Rule;

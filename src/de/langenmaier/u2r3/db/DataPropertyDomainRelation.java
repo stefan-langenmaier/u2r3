@@ -3,8 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 
 public class DataPropertyDomainRelation extends Relation {
 	protected static DataPropertyDomainRelation theRelation;

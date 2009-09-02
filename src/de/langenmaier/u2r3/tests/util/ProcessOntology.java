@@ -6,7 +6,6 @@ import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.Settings;
 import de.langenmaier.u2r3.db.RelationMananger;
-import de.langenmaier.u2r3.db.SubClassRelation;
 import de.langenmaier.u2r3.db.RelationMananger.RelationName;
 
 /**

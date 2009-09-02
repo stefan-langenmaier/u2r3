@@ -1,6 +1,5 @@
-package de.langenmaier.u2r3;
+package de.langenmaier.u2r3.db;
 
-import de.langenmaier.u2r3.db.Relation;
 
 /**
  * This class specifies a certain delta of a relation.

@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.HashSet;
 
-import de.langenmaier.u2r3.DeltaRelation;
+import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationMananger;
 import de.langenmaier.u2r3.db.U2R3DBConnection;

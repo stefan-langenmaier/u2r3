@@ -1,6 +1,6 @@
 package de.langenmaier.u2r3.exceptions;
 
-import org.semanticweb.owl.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
  * Gets thrown when an OWL2 Class should be process that is not in the RL Profile

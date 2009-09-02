@@ -3,8 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLSubClassAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 import de.langenmaier.u2r3.rules.RuleManager;
 
@@ -41,7 +41,7 @@ public class SubClassRelation extends Relation {
 	
 	public void add(OWLAxiom axiom) {
 		try {
-			OWLSubClassAxiom naxiom = (OWLSubClassAxiom) axiom;
+			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
 			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
 			logger.trace(addStatement.toString());

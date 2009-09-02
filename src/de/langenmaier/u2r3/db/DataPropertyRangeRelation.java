@@ -3,8 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 
 public class DataPropertyRangeRelation extends Relation {
 	protected static DataPropertyRangeRelation theRelation;
@@ -37,7 +37,7 @@ public class DataPropertyRangeRelation extends Relation {
 		try {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
-			addStatement.setString(2, naxiom.getRange().asOWLDataType().getURI().toString());
+			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getURI().toString());
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
 		} catch (SQLException e) {

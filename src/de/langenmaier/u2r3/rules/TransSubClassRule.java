@@ -3,7 +3,7 @@ package de.langenmaier.u2r3.rules;
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
-import de.langenmaier.u2r3.DeltaRelation;
+import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.SubClassRelation;
 
 public class TransSubClassRule extends Rule {

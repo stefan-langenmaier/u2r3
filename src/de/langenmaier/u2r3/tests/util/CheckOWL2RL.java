@@ -2,13 +2,13 @@ package de.langenmaier.u2r3.tests.util;
 
 import java.net.URI;
 
-import org.semanticweb.owl.apibinding.OWLManager;
-import org.semanticweb.owl.model.OWLOntology;
-import org.semanticweb.owl.model.OWLOntologyCreationException;
-import org.semanticweb.owl.model.OWLOntologyManager;
-import org.semanticweb.owl.profiles.ConstructNotAllowed;
-import org.semanticweb.owl.profiles.OWLProfileReport;
-import org.semanticweb.owl.profiles.RLProfile;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.OWL2RLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 
 /**
  * Tools to check OWL files for testing purposes.
@@ -34,14 +34,14 @@ public class CheckOWL2RL {
 			URI physicalURI = URI.create(args[0]);
 			OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
 
-			RLProfile profile = new RLProfile();
+			OWL2RLProfile profile = new OWL2RLProfile();
 			OWLProfileReport report = profile.checkOntology(ontology, manager);
 			
 			System.out.println("Is " + physicalURI.toString() + " in OWL2 RL?");
 			System.out.println(report.isInProfile());
 			
-			for(ConstructNotAllowed<?> cna : report.getDisallowedConstructs()) {
-				System.out.println(cna.toString());
+			for(OWLProfileViolation violation : report.getViolations()) {
+				System.out.println(violation.toString());
 			}
 			
 		} catch (OWLOntologyCreationException e) {

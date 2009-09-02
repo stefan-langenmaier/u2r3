@@ -1,11 +1,7 @@
 package de.langenmaier.u2r3;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
-import de.langenmaier.u2r3.db.SubClassRelation;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 
@@ -45,10 +41,10 @@ public class ReasonProcessor {
 			}
 			
 		//} while (applyUpdates()); //applyAuxRelations();
-		actions = null;
+		//actions = null;
 	}
 
-	private boolean applyUpdates() {
+	/*private boolean applyUpdates() {
 		if (SubClassRelation.getRelation().isDirty()) {
 			
 			if (SubClassRelation.getRelation().merge() > 0) {
@@ -56,7 +52,7 @@ public class ReasonProcessor {
 			}
 		}
 		return !(actions.isEmpty());
-	}
+	}*/
 
 
 }

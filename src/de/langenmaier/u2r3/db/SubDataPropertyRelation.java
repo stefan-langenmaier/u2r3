@@ -3,14 +3,14 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owl.model.OWLAxiom;
-import org.semanticweb.owl.model.OWLDataSubPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 
-public class DataSubPropertyRelation extends Relation {
-	protected static DataSubPropertyRelation theRelation;
-	static Logger logger = Logger.getLogger(DataSubPropertyRelation.class);
+public class SubDataPropertyRelation extends Relation {
+	protected static SubDataPropertyRelation theRelation;
+	static Logger logger = Logger.getLogger(SubDataPropertyRelation.class);
 	
-	private DataSubPropertyRelation() {
+	private SubDataPropertyRelation() {
 		try {
 			createMainStatement = conn.prepareStatement("CREATE TABLE dataSubProperty (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE dataSubProperty IF EXISTS ");
@@ -26,8 +26,8 @@ public class DataSubPropertyRelation extends Relation {
 		}
 	}
 
-	public static DataSubPropertyRelation getRelation() {
-		if (theRelation == null) theRelation = new DataSubPropertyRelation();
+	public static SubDataPropertyRelation getRelation() {
+		if (theRelation == null) theRelation = new SubDataPropertyRelation();
 		return theRelation;
 		
 	}
@@ -35,7 +35,7 @@ public class DataSubPropertyRelation extends Relation {
 	@Override
 	public void add(OWLAxiom axiom) {
 		try {
-			OWLDataSubPropertyAxiom naxiom = (OWLDataSubPropertyAxiom) axiom;
+			OWLSubDataPropertyOfAxiom naxiom = (OWLSubDataPropertyOfAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubProperty().asOWLDataProperty().getURI().toString());
 			addStatement.setString(2, naxiom.getSuperProperty().asOWLDataProperty().getURI().toString());
 			logger.trace(addStatement.toString());

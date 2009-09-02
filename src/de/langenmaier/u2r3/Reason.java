@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3;
 
+import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
 
 /**
