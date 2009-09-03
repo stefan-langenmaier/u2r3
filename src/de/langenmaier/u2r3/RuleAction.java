@@ -11,12 +11,12 @@ import de.langenmaier.u2r3.rules.Rule;
 public class RuleAction implements Comparable<RuleAction>{
 	private Rule rule = null;
 	private DeltaRelation delta = null;
-	private Double weight = new Double(0);
+	private double weight = 0;
 
-	public RuleAction(Rule r) {
+	/*public RuleAction(Rule r) {
 		rule = r;
-		delta = null;
-	}
+		delta = null; //NICHT OKAY es muss klar sein auf welche Relation es zumindest geht
+	}*/
 
 	public RuleAction(Rule r, DeltaRelation delta) {
 		rule = r;
@@ -54,7 +54,7 @@ public class RuleAction implements Comparable<RuleAction>{
 	@Override
 	public int hashCode() {
 		//This is under the assumption that there exist only unique rules;
-		return rule.hashCode() & delta.hashCode();
+		return rule.hashCode() ^ delta.hashCode();
 	}
 
 	@Override

@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Queue;
 
+import org.apache.log4j.Logger;
+
+import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 
 /**
@@ -17,6 +21,8 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  *
  */
 public class RuleActionQueue implements Queue<RuleAction> {
+	static Logger logger = Logger.getLogger(ReasonProcessor.class);
+	
 	RuleActionWeightMap weights = new RuleActionWeightMap();
 	RuleActionPriorityQueue priorityQueue = new RuleActionPriorityQueue();
 	RuleActionDeltaMap deltas = new RuleActionDeltaMap();
@@ -47,17 +53,22 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	 */
 	public boolean delete(RuleAction ra) {
 		if (deltas.reduce(ra)) {
-			//ra.getDeltaRelation().clear();
-			//TODO hier kann man die delta-relation löschen, da sie nicht mehr gebraucht wird
+			//the last used delta of this relation was used
+			long delta = ra.getDeltaRelation().getDelta();
+			if (delta != DeltaRelation.NO_DELTA) {
+				ra.getDeltaRelation().getRelation().dropDelta(delta);
+			}
 		}
 		return active.remove(ra);
 	}
 	
 	@Override
 	public boolean add(RuleAction ra) {
+		logger.trace("Adding RuleAction: " + ra.toString());
 		weights.put(ra);
 		deltas.put(ra);
 		priorityQueue.add(ra);
+		logger.trace("Added RuleAction: " + ra.toString());
 		return true;
 	}
 
@@ -108,7 +119,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 
 	@Override
 	public boolean isEmpty() {
-		return priorityQueue.isEmpty();
+		return priorityQueue.isEmpty() && active.isEmpty();
 	}
 
 	@Override
@@ -133,7 +144,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 
 	@Override
 	public int size() {
-		return priorityQueue.size();
+		return priorityQueue.size() + active.size();
 	}
 
 	@Override

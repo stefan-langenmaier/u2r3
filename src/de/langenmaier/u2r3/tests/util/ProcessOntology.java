@@ -1,12 +1,15 @@
 package de.langenmaier.u2r3.tests.util;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.Settings;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.rules.TransSubClassRule;
 
 /**
  * Processes axioms that are stored in a database. So it assumes tables and content are set up.
@@ -14,15 +17,18 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
  *
  */
 public class ProcessOntology {
-
+	static Logger logger = Logger.getLogger(TransSubClassRule.class);
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		Settings.startClean(false);
 		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.ALL);
+		
 		ReasonProcessor rp = ReasonProcessor.getReasonProcessor();
-		rp.add(new Reason(RelationManager.getRelation(RelationName.subClass)));
+		Reason r = new Reason(RelationManager.getRelation(RelationName.subClass));
+		rp.add(r);
 		
 		rp.classify();
 	}

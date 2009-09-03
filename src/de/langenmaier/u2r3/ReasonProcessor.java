@@ -2,6 +2,7 @@ package de.langenmaier.u2r3;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 
@@ -20,12 +21,17 @@ public class ReasonProcessor {
 	}
 	
 	public void add(Reason reason) {
+		logger.trace("Processing Reason: " + reason.toString());
 		for(Rule r : reason.getRelation().getRules()) {
-			logger.debug("adding Rule");
-			actions.add(new RuleAction(r, reason.getDelta()));
-			logger.debug("added Rule");
+			//if there is no delta for the reason then its created by the initial import
+			if (reason.getDelta() == null) {
+				actions.add(new RuleAction(r,
+						new DeltaRelation(reason.getRelation(), DeltaRelation.NO_DELTA)));
+			} else { // else some new data has created a delta
+				actions.add(new RuleAction(r, reason.getDelta()));
+			}
 		}
-		
+		logger.trace("Processed Reason: " + reason.toString());
 	}
 
 	public void classify() {

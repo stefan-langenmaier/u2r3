@@ -29,6 +29,8 @@ public abstract class Relation {
 	protected Statement createDeltaStatement;
 	protected Statement dropDeltaStatement;
 	
+	private long lastDelta = 0;
+	
 	
 	protected String tableName;
 	
@@ -75,6 +77,11 @@ public abstract class Relation {
 	public abstract void createDelta(long id);
 	
 	public abstract void dropDelta(long id);
+	
+	protected synchronized long getNewDelta() {
+		++lastDelta;
+		return lastDelta-1;
+	}
 	
 	/*public void setDirty(boolean dirty) {
 		isDirty = dirty;

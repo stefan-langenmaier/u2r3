@@ -18,9 +18,9 @@ public class RuleActionWeightMap extends HashMap<RuleAction, Double> {
 
 	public Double put(RuleAction key) {
 		if (containsKey(key)) {
-			Double oldWeight = get(key);
+			double oldWeight = get(key);
 			//here is it possible to tweak the strategy
-			key.setWeight(1+oldWeight.doubleValue());
+			key.setWeight(1+oldWeight);
 		}
 		return super.put(key, key.getWeight());
 	}
