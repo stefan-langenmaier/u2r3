@@ -26,10 +26,10 @@ public class DeltaRelation {
 		return relation.hashCode() & (int) delta;
 	}
 
-	public void clear() {
-		if (relation != null) {
-			relation.clear(delta);
-		}
-		
-	}
+//	public void clear() {
+//		if (relation != null) {
+//			relation.clear(delta);
+//		}
+//		
+//	}
 }

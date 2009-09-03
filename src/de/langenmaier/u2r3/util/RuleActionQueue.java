@@ -47,7 +47,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	 */
 	public boolean delete(RuleAction ra) {
 		if (deltas.reduce(ra)) {
-			ra.getDeltaRelation().clear();
+			//ra.getDeltaRelation().clear();
 			//TODO hier kann man die delta-relation löschen, da sie nicht mehr gebraucht wird
 		}
 		return active.remove(ra);

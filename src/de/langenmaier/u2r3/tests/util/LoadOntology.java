@@ -42,7 +42,7 @@ public class LoadOntology {
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder();
 			for(OWLAxiom ax : ontology.getAxioms()) {
-				System.out.println(ax.toString());
+				//System.out.println(ax.toString());
 				ax.accept(axiomAdder);
 			}
 		} catch (OWLOntologyCreationException e) {

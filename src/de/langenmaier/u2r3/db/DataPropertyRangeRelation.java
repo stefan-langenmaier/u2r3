@@ -7,17 +7,17 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
 
 public class DataPropertyRangeRelation extends Relation {
-	protected static DataPropertyRangeRelation theRelation;
+//	protected static DataPropertyRangeRelation theRelation;
 	static Logger logger = Logger.getLogger(DataPropertyRangeRelation.class);
 	
-	private DataPropertyRangeRelation() {
+	protected DataPropertyRangeRelation() {
 		try {
 			createMainStatement = conn.prepareStatement("CREATE TABLE dataPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE dataPropertyRange IF EXISTS ");
-			createAuxStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeAux (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-			dropAuxStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeAux IF EXISTS ");
-			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeDelta (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeDelta IF EXISTS ");
+//			createAuxStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeAux (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+//			dropAuxStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeAux IF EXISTS ");
+//			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataPropertyRangeDelta (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+//			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataPropertyRangeDelta IF EXISTS ");
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO dataPropertyRange (property, range) VALUES (?, ?)");
@@ -26,11 +26,11 @@ public class DataPropertyRangeRelation extends Relation {
 		}
 	}
 
-	public static DataPropertyRangeRelation getRelation() {
-		if (theRelation == null) theRelation = new DataPropertyRangeRelation();
-		return theRelation;
-		
-	}
+//	public static DataPropertyRangeRelation getRelation() {
+//		if (theRelation == null) theRelation = new DataPropertyRangeRelation();
+//		return theRelation;
+//		
+//	}
 	
 	@Override
 	public void add(OWLAxiom axiom) {
@@ -40,6 +40,25 @@ public class DataPropertyRangeRelation extends Relation {
 			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getURI().toString());
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void createDelta(long id) {
+		try {
+			dropDelta(id);
+			createDeltaStatement.execute("CREATE TABLE dataPropertyRangeDelta_d" + id + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void dropDelta(long id) {
+		try {
+			dropDeltaStatement.execute("DROP TABLE dataPropertyRangeDelta_d" + id + " IF EXISTS");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

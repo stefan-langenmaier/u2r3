@@ -9,17 +9,17 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import de.langenmaier.u2r3.rules.RuleManager;
 
 public class SubClassRelation extends Relation {
-	protected static SubClassRelation theRelation;
+//	protected static SubClassRelation theRelation;
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
 	
-	SubClassRelation() {
+	protected SubClassRelation() {
 		try {
 			createMainStatement = conn.prepareStatement("CREATE TABLE subClass (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE subClass IF EXISTS ");
-			createAuxStatement = conn.prepareStatement("CREATE TABLE subClassAux (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-			dropAuxStatement = conn.prepareStatement("DROP TABLE subClassAux IF EXISTS ");
-			createDeltaStatement = conn.prepareStatement("CREATE TABLE subClassDelta (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-			dropDeltaStatement = conn.prepareStatement("DROP TABLE subClassDelta IF EXISTS ");
+//			createAuxStatement = conn.prepareStatement("CREATE TABLE subClassAux (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+//			dropAuxStatement = conn.prepareStatement("DROP TABLE subClassAux IF EXISTS ");
+//			createDeltaStatement = conn.prepareStatement("CREATE TABLE subClassDelta (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+//			dropDeltaStatement = conn.prepareStatement("DROP TABLE subClassDelta IF EXISTS ");
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
@@ -33,11 +33,11 @@ public class SubClassRelation extends Relation {
 		}
 	}
 	
-	public static SubClassRelation getRelation() {
-		if (theRelation == null) theRelation = new SubClassRelation();
-		return theRelation;
-		
-	}
+//	public static SubClassRelation getRelation() {
+//		if (theRelation == null) theRelation = new SubClassRelation();
+//		return theRelation;
+//		
+//	}
 	
 	public void add(OWLAxiom axiom) {
 		try {
@@ -52,7 +52,24 @@ public class SubClassRelation extends Relation {
 		
 	}
 
+	@Override
+	public void createDelta(long id) {
+		try {
+			dropDelta(id);
+			createDeltaStatement.execute("CREATE TABLE subClass_d" + id + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
+	@Override
+	public void dropDelta(long id) {
+		try {
+			dropDeltaStatement.execute("DROP TABLE subClass_d" + id + " IF EXISTS");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 }

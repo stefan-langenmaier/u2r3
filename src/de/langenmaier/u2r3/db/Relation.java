@@ -24,20 +24,26 @@ public abstract class Relation {
 	protected PreparedStatement addStatement;
 	protected PreparedStatement createMainStatement;
 	protected PreparedStatement dropMainStatement;
-	protected PreparedStatement createAuxStatement;
-	protected PreparedStatement dropAuxStatement;
-	protected PreparedStatement createDeltaStatement;
-	protected PreparedStatement dropDeltaStatement;
+//	protected PreparedStatement createAuxStatement;
+//	protected PreparedStatement dropAuxStatement;
+	protected Statement createDeltaStatement;
+	protected Statement dropDeltaStatement;
 	
 	
 	protected String tableName;
 	
 	protected HashSet<Rule> rules = new HashSet<Rule>();
 	
-	protected boolean isDirty = false;
+	//protected boolean isDirty = false;
 	
 	protected Relation() {
 		conn = U2R3DBConnection.getConnection();
+		try {
+			createDeltaStatement = conn.createStatement();
+			dropDeltaStatement = conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public abstract void add(OWLAxiom axiom);
@@ -46,15 +52,19 @@ public abstract class Relation {
 		return rules;
 	}
 	
+	public void addRules(Rule rule) {
+		rules.add(rule);
+	}
+	
 	protected void create() {
 		try {
 			if (Settings.startClean()) {
 				dropMainStatement.execute();
-				dropAuxStatement.execute();
-				dropDeltaStatement.execute();
+//				dropAuxStatement.execute();
+//				dropDeltaStatement.execute();
 				createMainStatement.executeUpdate();
-				createAuxStatement.execute();
-				createDeltaStatement.execute();
+//				createAuxStatement.execute();
+//				createDeltaStatement.execute();
 			}
 			
 		} catch (SQLException e) {
@@ -62,7 +72,11 @@ public abstract class Relation {
 		}
 	}
 	
-	public void setDirty(boolean dirty) {
+	public abstract void createDelta(long id);
+	
+	public abstract void dropDelta(long id);
+	
+	/*public void setDirty(boolean dirty) {
 		isDirty = dirty;
 	}
 	
@@ -70,9 +84,9 @@ public abstract class Relation {
 		return isDirty;
 	}
 	
-	/**
+	*//**
 	 * Aux ins delta packen, und delta hinzufügen
-	 */
+	 *//*
 	public long merge() {
 		try {
 			long rows = 0;
@@ -104,13 +118,11 @@ public abstract class Relation {
 		return 0;
 	}
 
-	public void addRules(Rule rule) {
-		rules.add(rule);
-	}
+	
 
 	public void clear(long delta) {
 		// TODO CLEAR delta
 		
-	}
+	}*/
 
 }
