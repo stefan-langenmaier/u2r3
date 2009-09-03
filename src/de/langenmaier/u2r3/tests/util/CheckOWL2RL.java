@@ -39,7 +39,9 @@ public class CheckOWL2RL {
 			
 			System.out.println("Is " + physicalURI.toString() + " in OWL2 RL?");
 			System.out.println(report.isInProfile());
-			
+			if (!report.isInProfile()) {
+				System.out.println("Number of violations: " + report.getViolations().size());
+			}
 			for(OWLProfileViolation violation : report.getViolations()) {
 				System.out.println(violation.toString());
 			}
