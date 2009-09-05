@@ -36,7 +36,8 @@ public class DeltaRelation {
 	public DeltaRelation(Relation relation, long delta) {
 		this.relation = relation;
 		this.delta = delta;
-		if (delta != NO_DELTA) {
+		//does the relation already exist?
+		if (delta != NO_DELTA && delta >= relation.getDelta()+1) {
 			relation.createDelta(delta);
 		}
 		
@@ -48,6 +49,10 @@ public class DeltaRelation {
 	
 	public Relation getRelation() {
 		return relation;
+	}
+
+	public DeltaRelation getNextDelta() {
+		return new DeltaRelation(relation, delta+1);
 	}
 
 

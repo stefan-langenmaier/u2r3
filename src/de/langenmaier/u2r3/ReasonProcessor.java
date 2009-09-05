@@ -3,8 +3,12 @@ package de.langenmaier.u2r3;
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
+import de.langenmaier.u2r3.db.Relation;
+import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.RuleActionQueue;
+import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class ReasonProcessor {
 	private static ReasonProcessor rp = null;
@@ -35,10 +39,7 @@ public class ReasonProcessor {
 	}
 
 	public void classify() {
-		//do {
-			/*for (RuleAction action : actions) {
-				action.apply();
-			}*/
+		do {
 			RuleAction action;
 			while (!(actions.isEmpty())) {
 				action = actions.activate();
@@ -46,19 +47,23 @@ public class ReasonProcessor {
 				actions.delete(action);
 			}
 			
-		//} while (applyUpdates()); //applyAuxRelations();
-		//actions = null;
+		} while (applyUpdates());
+
 	}
 
-	/*private boolean applyUpdates() {
-		if (SubClassRelation.getRelation().isDirty()) {
-			
-			if (SubClassRelation.getRelation().merge() > 0) {
-				rp.add(new Reason(SubClassRelation.getRelation(), new DeltaRelation()));
+	private boolean applyUpdates() {
+		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+			return false;
+		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+			for (Relation r : RelationManager.getRelations()) {
+				if (r.isDirty()) {
+					r.merge();
+				}
 			}
+			return (!(actions.isEmpty()));
 		}
-		return !(actions.isEmpty());
-	}*/
+		return false;
+	}
 
 
 }

@@ -1,11 +1,15 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
+import de.langenmaier.u2r3.Reason;
+import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
 
 public class SubClassRelation extends Relation {
@@ -69,6 +73,36 @@ public class SubClassRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void merge(DeltaRelation delta) {
+		try {
+			Statement stmt = conn.createStatement();
+			long rows;
+			
+			///XXX this should be really optimizable
+			//komprimiertes delta erzeugen
+			rows = stmt.executeUpdate("DELETE FROM subClass_d"+ delta.getDelta() + " AS t1 WHERE EXISTS (SELECT sub, super FROM SUBCLASS AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
+			
+			//delta in haupttabelle
+			rows = stmt.executeUpdate("INSERT INTO subClass (sub, super) SELECT sub,  super FROM ( " +
+					" SELECT sub, super " +
+					" FROM subClass_d"+ delta.getDelta() + " " +
+					")");
+
+			//if here rows are added to the main table then, genuine facts have been added
+			if (rows > 0) {
+				//fire reason
+				logger.debug("Relation (" + toString()  + ") has got new data");
+				Reason r = new Reason(RelationManager.getRelation(RelationName.subClass), delta);
+				ReasonProcessor.getReasonProcessor().add(r);
+			}
+			
+			isDirty = false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 

@@ -65,4 +65,10 @@ public class ClassAssertionRelation extends Relation {
 		}
 	}
 
+	@Override
+	public void merge(DeltaRelation delta) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

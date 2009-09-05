@@ -5,12 +5,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.Vector;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-import de.langenmaier.u2r3.Settings;
+import de.langenmaier.u2r3.Reason;
+import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.Rule;
+import de.langenmaier.u2r3.util.Settings;
 
 /**
  * Contains the default methods that a relation should contain and tries to do much of the default connection stuff.
@@ -35,8 +39,9 @@ public abstract class Relation {
 	protected String tableName;
 	
 	protected HashSet<Rule> rules = new HashSet<Rule>();
-	
-	//protected boolean isDirty = false;
+	//private Vector<DeltaRelation> deltas = new Vector<DeltaRelation>();
+
+	protected boolean isDirty = false;
 	
 	protected Relation() {
 		conn = U2R3DBConnection.getConnection();
@@ -83,15 +88,31 @@ public abstract class Relation {
 		return lastDelta-1;
 	}
 	
+	protected synchronized long getDelta() {
+		return lastDelta;
+	}
+
+	public void makeDirty() {
+		isDirty = true;
+		
+	}
+	
+	public abstract void merge(DeltaRelation delta) ;
+	
 	/*public void setDirty(boolean dirty) {
 		isDirty = dirty;
-	}
+	}*/
 	
 	public boolean isDirty() {
 		return isDirty;
 	}
+
+	public void merge() {
+		merge(new DeltaRelation(this, this.getDelta()));
+		
+	}
 	
-	*//**
+	/**
 	 * Aux ins delta packen, und delta hinzufügen
 	 *//*
 	public long merge() {
