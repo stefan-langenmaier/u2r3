@@ -2,10 +2,8 @@ package de.langenmaier.u2r3.rules;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.HashSet;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.U2R3DBConnection;
 
 
@@ -17,8 +15,6 @@ import de.langenmaier.u2r3.db.U2R3DBConnection;
 public abstract class Rule {
 	protected Connection conn = null;
 	protected PreparedStatement statement;
-	private HashSet<Relation> worksOn = new HashSet<Relation>();
-	
 	protected Rule() {
 		conn = U2R3DBConnection.getConnection();
 	}
