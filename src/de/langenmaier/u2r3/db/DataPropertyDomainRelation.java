@@ -7,30 +7,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 
 public class DataPropertyDomainRelation extends Relation {
-//	protected static DataPropertyDomainRelation theRelation;
 	static Logger logger = Logger.getLogger(DataPropertyDomainRelation.class);
 	
 	protected DataPropertyDomainRelation() {
 		try {
-			createMainStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomain (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
-			dropMainStatement = conn.prepareStatement("DROP TABLE dataPropertyDomain IF EXISTS ");
-//			createAuxStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomainAux (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
-//			dropAuxStatement = conn.prepareStatement("DROP TABLE dataPropertyDomainAux IF EXISTS ");
-//			createDeltaStatement = conn.prepareStatement("CREATE TABLE dataPropertyDomainDelta (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
-//			dropDeltaStatement = conn.prepareStatement("DROP TABLE dataPropertyDomainDelta IF EXISTS ");
+			tableName = "dataPropertyDomain";
+			
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO dataPropertyDomain (property, domain) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, domain) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-//	public static DataPropertyDomainRelation getRelation() {
-//		if (theRelation == null) theRelation = new DataPropertyDomainRelation();
-//		return theRelation;
-//		
-//	}
 	
 	@Override
 	public void add(OWLAxiom axiom) {
@@ -49,7 +40,7 @@ public class DataPropertyDomainRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE dataPropertyDomainDelta_d" + id + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +49,7 @@ public class DataPropertyDomainRelation extends Relation {
 	@Override
 	public void dropDelta(long id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE dataPropertyDomainDelta_d" + id + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

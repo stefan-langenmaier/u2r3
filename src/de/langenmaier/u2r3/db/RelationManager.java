@@ -2,8 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * This class manages the access to and the creation of Relation objects.
@@ -43,7 +41,5 @@ public class RelationManager {
 	public static Collection<Relation> getRelations() {
 		return relations.values();
 	}
-
-
 
 }

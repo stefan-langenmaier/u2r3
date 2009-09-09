@@ -7,30 +7,23 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 
 public class ClassAssertionRelation extends Relation {
-	//protected static ClassAssertionRelation theRelation;
 	static Logger logger = Logger.getLogger(ClassAssertionRelation.class);
 	
 	protected ClassAssertionRelation() {
 		try {
-			createMainStatement = conn.prepareStatement("CREATE TABLE classAssertion (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
-			dropMainStatement = conn.prepareStatement("DROP TABLE classAssertion IF EXISTS ");
-//			createAuxStatement = conn.prepareStatement("CREATE TABLE classAssertionAux (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
-//			dropAuxStatement = conn.prepareStatement("DROP TABLE classAssertionAux IF EXISTS ");
-//			createDeltaStatement = conn.prepareStatement("CREATE TABLE classAssertionDelta (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
-//			dropDeltaStatement = conn.prepareStatement("DROP TABLE classAssertionDelta IF EXISTS ");
-
+			tableName = "classAssertion";
+			
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+			
+			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO classAssertion (class, type) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, type) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-/*	public static ClassAssertionRelation getRelation() {
-		if (theRelation == null) theRelation = new ClassAssertionRelation();
-		return theRelation;
-		
-	}*/
 	
 	@Override
 	public void add(OWLAxiom axiom) {
@@ -49,7 +42,7 @@ public class ClassAssertionRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE classAssertion_d" + id + " (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +52,7 @@ public class ClassAssertionRelation extends Relation {
 	@Override
 	public void dropDelta(long id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE classAssertion_d" + id + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

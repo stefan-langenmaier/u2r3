@@ -6,9 +6,7 @@ import java.util.HashSet;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.U2R3DBConnection;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
 /**
@@ -28,9 +26,4 @@ public abstract class Rule {
 	public abstract void apply(DeltaRelation delta);
 	
 	public abstract String toString();
-
-	public void addRelation(RelationName name) {
-		worksOn.add(RelationManager.getRelation(RelationManager.RelationName.subClass));
-	}
-	
 }

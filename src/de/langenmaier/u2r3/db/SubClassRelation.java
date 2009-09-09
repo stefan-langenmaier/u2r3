@@ -13,36 +13,24 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
 
 public class SubClassRelation extends Relation {
-//	protected static SubClassRelation theRelation;
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
 	
 	protected SubClassRelation() {
 		try {
-			createMainStatement = conn.prepareStatement("CREATE TABLE subClass (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-			dropMainStatement = conn.prepareStatement("DROP TABLE subClass IF EXISTS ");
-//			createAuxStatement = conn.prepareStatement("CREATE TABLE subClassAux (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-//			dropAuxStatement = conn.prepareStatement("DROP TABLE subClassAux IF EXISTS ");
-//			createDeltaStatement = conn.prepareStatement("CREATE TABLE subClassDelta (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-//			dropDeltaStatement = conn.prepareStatement("DROP TABLE subClassDelta IF EXISTS ");
+			tableName = "subClass";
+			
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
-			
-			tableName = "subClass";
-			
-			//add dependent rules
+
 			rules.add(RuleManager.getRule(RuleManager.RuleName.transSubClass));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-//	public static SubClassRelation getRelation() {
-//		if (theRelation == null) theRelation = new SubClassRelation();
-//		return theRelation;
-//		
-//	}
-	
+
 	public void add(OWLAxiom axiom) {
 		try {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
@@ -60,7 +48,7 @@ public class SubClassRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE subClass_d" + id + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -69,7 +57,7 @@ public class SubClassRelation extends Relation {
 	@Override
 	public void dropDelta(long id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE subClass_d" + id + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,12 +69,12 @@ public class SubClassRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM subClass_d"+ delta.getDelta() + " AS t1 WHERE EXISTS (SELECT sub, super FROM SUBCLASS AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
+			rows = stmt.executeUpdate("DELETE FROM " + getDeltaName(delta.getDelta()) + " AS t1 WHERE EXISTS (SELECT sub, super FROM " + getTableName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO subClass (sub, super) SELECT sub,  super FROM ( " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (sub, super) SELECT sub,  super FROM ( " +
 					" SELECT sub, super " +
-					" FROM subClass_d"+ delta.getDelta() + " " +
+					" FROM " + getDeltaName(delta.getDelta()) + " " +
 					")");
 
 			//if here rows are added to the main table then, genuine facts have been added

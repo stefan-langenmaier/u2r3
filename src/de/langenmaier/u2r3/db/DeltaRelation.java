@@ -24,7 +24,7 @@ public class DeltaRelation {
 	
 	@Override
 	public int hashCode() {
-		return relation.hashCode() & (int) delta;
+		return relation.hashCode() ^ (int) delta;
 	}
 	
 	public DeltaRelation(Relation relation) {
@@ -54,12 +54,14 @@ public class DeltaRelation {
 	public DeltaRelation getNextDelta() {
 		return new DeltaRelation(relation, delta+1);
 	}
+	
+	
+	public String getDeltaName () {
+		return relation.getDeltaName(delta);
+	}
+	
+	public String getTableName () {
+		return relation.getTableName();
+	}
 
-
-//	public void clear() {
-//		if (relation != null) {
-//			relation.clear(delta);
-//		}
-//		
-//	}
 }

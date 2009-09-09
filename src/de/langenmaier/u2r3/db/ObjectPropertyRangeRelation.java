@@ -7,30 +7,21 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 
 public class ObjectPropertyRangeRelation extends Relation {
-//	protected static ObjectPropertyRangeRelation theRelation;
 	static Logger logger = Logger.getLogger(ObjectPropertyRangeRelation.class);
 	
 	protected ObjectPropertyRangeRelation() {
 		try {
-			createMainStatement = conn.prepareStatement("CREATE TABLE objectPropertyRange (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-			dropMainStatement = conn.prepareStatement("DROP TABLE objectPropertyRange IF EXISTS ");
-//			createAuxStatement = conn.prepareStatement("CREATE TABLE objectPropertyRangeAux (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-//			dropAuxStatement = conn.prepareStatement("DROP TABLE objectPropertyRangeAux IF EXISTS ");
-//			createDeltaStatement = conn.prepareStatement("CREATE TABLE objectPropertyRangeDelta (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
-//			dropDeltaStatement = conn.prepareStatement("DROP TABLE objectPropertyRangeDelta IF EXISTS ");
+			tableName = "objectPropertyRange";
+			
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO objectPropertyRange (property, range) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-//	public static ObjectPropertyRangeRelation getRelation() {
-//		if (theRelation == null) theRelation = new ObjectPropertyRangeRelation();
-//		return theRelation;
-//		
-//	}
 	
 	@Override
 	public void add(OWLAxiom axiom) {
@@ -49,7 +40,7 @@ public class ObjectPropertyRangeRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE objectPropertyRange_d" + id + " (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -58,7 +49,7 @@ public class ObjectPropertyRangeRelation extends Relation {
 	@Override
 	public void dropDelta(long id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE objectPropertyRange_d" + id + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
