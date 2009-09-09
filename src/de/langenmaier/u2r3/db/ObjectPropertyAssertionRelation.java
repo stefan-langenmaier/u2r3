@@ -47,7 +47,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	public void createDelta(long id) {
+	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE objectPropertyAssertion_d" + id + " (subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");

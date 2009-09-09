@@ -46,7 +46,7 @@ public class DataPropertyRangeRelation extends Relation {
 	}
 
 	@Override
-	public void createDelta(long id) {
+	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE dataPropertyRangeDelta_d" + id + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");

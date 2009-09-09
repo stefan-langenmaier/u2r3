@@ -46,7 +46,7 @@ public class ClassAssertionRelation extends Relation {
 	}
 
 	@Override
-	public void createDelta(long id) {
+	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE classAssertion_d" + id + " (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");

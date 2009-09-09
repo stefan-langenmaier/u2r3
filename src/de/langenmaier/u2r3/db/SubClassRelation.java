@@ -57,7 +57,7 @@ public class SubClassRelation extends Relation {
 	}
 
 	@Override
-	public void createDelta(long id) {
+	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE subClass_d" + id + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
@@ -80,11 +80,10 @@ public class SubClassRelation extends Relation {
 			Statement stmt = conn.createStatement();
 			long rows;
 			
-			///XXX this should be really optimizable
-			//komprimiertes delta erzeugen
+			//create compressed/compacted delta
 			rows = stmt.executeUpdate("DELETE FROM subClass_d"+ delta.getDelta() + " AS t1 WHERE EXISTS (SELECT sub, super FROM SUBCLASS AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
 			
-			//delta in haupttabelle
+			//put delta in main table
 			rows = stmt.executeUpdate("INSERT INTO subClass (sub, super) SELECT sub,  super FROM ( " +
 					" SELECT sub, super " +
 					" FROM subClass_d"+ delta.getDelta() + " " +

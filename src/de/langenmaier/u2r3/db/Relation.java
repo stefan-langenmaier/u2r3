@@ -33,7 +33,7 @@ public abstract class Relation {
 	protected Statement createDeltaStatement;
 	protected Statement dropDeltaStatement;
 	
-	private long lastDelta = 0;
+	private long nextDelta = 0;
 	
 	
 	protected String tableName;
@@ -79,17 +79,24 @@ public abstract class Relation {
 		}
 	}
 	
-	public abstract void createDelta(long id);
+	public abstract void createDeltaImpl(long id);
+	
+	public void createDelta(long id) {
+		if (id >= nextDelta) {
+			++nextDelta;
+			createDeltaImpl(id);
+		}
+	}
 	
 	public abstract void dropDelta(long id);
 	
 	protected synchronized long getNewDelta() {
-		++lastDelta;
-		return lastDelta-1;
+		//++lastDelta;
+		return nextDelta;
 	}
 	
 	protected synchronized long getDelta() {
-		return lastDelta;
+		return nextDelta-1;
 	}
 
 	public void makeDirty() {
@@ -97,7 +104,7 @@ public abstract class Relation {
 		
 	}
 	
-	public abstract void merge(DeltaRelation delta) ;
+	public abstract void merge(DeltaRelation delta);
 	
 	/*public void setDirty(boolean dirty) {
 		isDirty = dirty;
@@ -109,7 +116,19 @@ public abstract class Relation {
 
 	public void merge() {
 		merge(new DeltaRelation(this, this.getDelta()));
-		
+		long pd = getPreviousDelta();
+		if (pd != DeltaRelation.NO_DELTA) {
+			dropDelta(getPreviousDelta());
+		}
+	}
+
+	/**
+	 * This method is only reasonable in the context of an execution
+	 * in the collective mode
+	 * @return
+	 */
+	private long getPreviousDelta() {
+		return nextDelta-2;
 	}
 	
 	/**

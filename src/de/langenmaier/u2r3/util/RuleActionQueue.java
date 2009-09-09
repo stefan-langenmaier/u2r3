@@ -11,6 +11,7 @@ import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.RuleAction;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
  * This class implements a specialized queue for RuleAction objects.
@@ -56,8 +57,11 @@ public class RuleActionQueue implements Queue<RuleAction> {
 			//the last used delta of this relation was used
 			long delta = ra.getDeltaRelation().getDelta();
 			if (delta != DeltaRelation.NO_DELTA) {
-				ra.getDeltaRelation().getRelation().dropDelta(delta);
-			}
+				if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+					ra.getDeltaRelation().getRelation().dropDelta(delta);
+				}
+				//the collective method drops its delta when its merged
+							}
 		}
 		return active.remove(ra);
 	}
