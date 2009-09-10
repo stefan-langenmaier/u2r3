@@ -24,16 +24,10 @@ public class DataPropertyDomainRelation extends Relation {
 	}
 	
 	@Override
-	public void add(OWLAxiom axiom) {
-		try {
+	public void addImpl(OWLAxiom axiom) throws SQLException {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
 			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

@@ -26,16 +26,14 @@ public class ClassAssertionRelation extends Relation {
 
 	
 	@Override
-	public void add(OWLAxiom axiom) {
-		try {
+	public void addImpl(OWLAxiom axiom) throws SQLException {
+		//try {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getURI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		//} catch (SQLException e) {
+		//	e.printStackTrace();
+		//}
 	}
 
 	@Override

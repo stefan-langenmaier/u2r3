@@ -24,17 +24,11 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	}
 	
 	@Override
-	public void add(OWLAxiom axiom) {
-		try {
+	public void addImpl(OWLAxiom axiom) throws SQLException {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
 			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
 			addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

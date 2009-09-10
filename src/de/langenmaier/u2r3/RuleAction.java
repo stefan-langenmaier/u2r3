@@ -70,4 +70,7 @@ public class RuleAction implements Comparable<RuleAction>{
 		return delta;
 	}
 
+	public String toString() {
+		return rule.toString() + "(" + weight + ") on " + delta.getTableName() + " (" + delta.getDelta() + ")";
+	}
 }

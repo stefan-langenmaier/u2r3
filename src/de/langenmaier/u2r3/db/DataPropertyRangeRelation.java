@@ -24,16 +24,10 @@ public class DataPropertyRangeRelation extends Relation {
 	}
 	
 	@Override
-	public void add(OWLAxiom axiom) {
-		try {
+	public void addImpl(OWLAxiom axiom) throws SQLException {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
 			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getURI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

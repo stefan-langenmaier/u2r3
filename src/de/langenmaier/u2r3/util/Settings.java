@@ -20,7 +20,7 @@ public class Settings {
 	private static DeltaIteration deltaIteration = DeltaIteration.IMMEDIATE;
 	
 	/**
-	 * ConsistencyLevel describes how and howmuch of the consistency rules are  applied.
+	 * ConsistencyLevel describes how and how much of the consistency rules are  applied.
 	 *
 	 */
 	public enum ConsistencyLevel { NONE, DEFAULT };
@@ -32,6 +32,19 @@ public class Settings {
 	 */
 	public enum InconsistencyReaction { WARN, FAIL };
 	private static InconsistencyReaction inconsistencyReaction = InconsistencyReaction.WARN;
+	
+	/**
+	 * DeletionType describes how the deletion of an axiom should be handled.
+	 */
+	public enum DeletionType { CLEAN, CASCADING };
+	private static DeletionType deletionType = DeletionType.CASCADING;
+	
+	/**
+	 * EvaluationStrategy describes which Rules should be deferred
+	 * to get executed.
+	 */
+	public enum EvaluationStrategy { COMMONLAST, RARELAST };
+	private static EvaluationStrategy evaluationStrategy = EvaluationStrategy.COMMONLAST;
 	
 	public static void startClean(boolean sc) {
 		startClean = sc;
@@ -64,5 +77,21 @@ public class Settings {
 	public static void setInconsistencyReaction(
 			InconsistencyReaction inconsistencyReaction) {
 		Settings.inconsistencyReaction = inconsistencyReaction;
+	}
+
+	public static void setDeletionType(DeletionType deletionType) {
+		Settings.deletionType = deletionType;
+	}
+
+	public static DeletionType getDeletionType() {
+		return deletionType;
+	}
+
+	public static void setEvaluationStrategy(EvaluationStrategy evaluationStrategy) {
+		Settings.evaluationStrategy = evaluationStrategy;
+	}
+
+	public static EvaluationStrategy getEvaluationStrategy() {
+		return evaluationStrategy;
 	}
 }

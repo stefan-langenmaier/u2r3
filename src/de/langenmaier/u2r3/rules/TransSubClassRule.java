@@ -10,12 +10,12 @@ import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
-public class TransSubClassRule extends Rule {
+public class TransSubClassRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(TransSubClassRule.class);
 	
 	@Override
 	public void apply(DeltaRelation delta) {
-		logger.trace("Applying Rule (" + toString()  + ") on DeltaRelation: " + delta.toString());
+		logger.trace("Applying Rule (" + toString() + ") on DeltaRelation: " + delta.toString());
 		long rows = 0;
 		
 		DeltaRelation newDelta = null;
@@ -60,7 +60,7 @@ public class TransSubClassRule extends Rule {
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			//There are no deltas yet		
 			try {
-				statement = conn.prepareStatement("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
+				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM " + aux.getTableName() + " AS t1 INNER JOIN " + aux.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
@@ -68,13 +68,12 @@ public class TransSubClassRule extends Rule {
 						" SELECT sub, super " +
 						" FROM " + aux.getDeltaName() + " " +
 						")");
-				rows = statement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				statement = conn.prepareStatement("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
+				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM "+ delta.getDeltaName() + " AS t1 INNER JOIN " + aux.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
@@ -82,9 +81,8 @@ public class TransSubClassRule extends Rule {
 						" SELECT sub, super " +
 						" FROM " + aux.getDeltaName() + " " +
 						")");
-				rows = statement.executeUpdate();
 
-				statement = conn.prepareStatement("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
+				rows += statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM " + aux.getTableName() + " AS t1 INNER JOIN "+ delta.getDeltaName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
@@ -92,7 +90,6 @@ public class TransSubClassRule extends Rule {
 						" SELECT sub, super " +
 						" FROM " + aux.getDeltaName() + " " +
 						")");
-				rows += statement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -105,25 +102,23 @@ public class TransSubClassRule extends Rule {
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			//There are no deltas yet		
 			try {
-				statement = conn.prepareStatement("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
+				rows = statement.executeUpdate("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM " + newDelta.getTableName() + " AS t1 INNER JOIN " + newDelta.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub " +
 						")");
-				rows = statement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				statement = conn.prepareStatement("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
+				rows = statement.executeUpdate("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM "+ delta.getDeltaName() + " AS t1 INNER JOIN " + newDelta.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
 						")");
-				rows = statement.executeUpdate();
 
-				statement = conn.prepareStatement("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
+				rows += statement.executeUpdate("INSERT INTO " + newDelta.getDeltaName() + " (sub, super) SELECT DISTINCT sub,  super FROM ( " +
 						" SELECT t1.sub AS sub, t2.super AS super " +
 						" FROM " + newDelta.getTableName() + " AS t1 INNER JOIN "+ delta.getDeltaName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
@@ -131,7 +126,6 @@ public class TransSubClassRule extends Rule {
 						" SELECT sub, super " +
 						" FROM " + newDelta.getDeltaName() + " " +
 						")");
-				rows += statement.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

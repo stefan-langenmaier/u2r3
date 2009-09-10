@@ -8,6 +8,9 @@ import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+
+import de.langenmaier.u2r3.Reason;
+import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
@@ -46,7 +49,19 @@ public abstract class Relation {
 		}
 	}
 	
-	public abstract void add(OWLAxiom axiom);
+	
+	public abstract void addImpl(OWLAxiom axiom) throws SQLException;
+	
+	public void add(OWLAxiom axiom) {
+		try {
+			addImpl(axiom);
+			logger.trace(addStatement.toString());
+			addStatement.executeUpdate();
+			ReasonProcessor.getReasonProcessor().add(new Reason(this));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public HashSet<Rule> getRules() {
 		return rules;

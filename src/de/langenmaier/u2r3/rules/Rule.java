@@ -1,7 +1,8 @@
 package de.langenmaier.u2r3.rules;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.U2R3DBConnection;
@@ -14,9 +15,14 @@ import de.langenmaier.u2r3.db.U2R3DBConnection;
  */
 public abstract class Rule {
 	protected Connection conn = null;
-	protected PreparedStatement statement;
+	protected Statement statement = null;
 	protected Rule() {
 		conn = U2R3DBConnection.getConnection();
+		try {
+			statement = conn.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public abstract void apply(DeltaRelation delta);

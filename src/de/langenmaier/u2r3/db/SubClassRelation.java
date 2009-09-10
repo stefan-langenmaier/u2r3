@@ -31,17 +31,10 @@ public class SubClassRelation extends Relation {
 		}
 	}
 
-	public void add(OWLAxiom axiom) {
-		try {
+	public void addImpl(OWLAxiom axiom) throws SQLException {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
 			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	@Override

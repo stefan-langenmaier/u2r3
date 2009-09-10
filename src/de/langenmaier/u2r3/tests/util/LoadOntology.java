@@ -3,6 +3,8 @@ package de.langenmaier.u2r3.tests.util;
 import java.net.URI;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -11,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 
+import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 
 /**
@@ -26,6 +29,7 @@ public class LoadOntology {
 	public static void main(String[] args) {
 		try {
 			BasicConfigurator.configure();
+			Logger.getRootLogger().setLevel(Level.ALL);
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");
@@ -45,6 +49,8 @@ public class LoadOntology {
 				//System.out.println(ax.toString());
 				ax.accept(axiomAdder);
 			}
+			
+			System.out.println(ReasonProcessor.getReasonProcessor().dump());
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

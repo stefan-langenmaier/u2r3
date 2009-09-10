@@ -161,4 +161,16 @@ public class RuleActionQueue implements Queue<RuleAction> {
 		throw new U2R3NotImplementedException();
 	}
 
+	/**
+	 * WARNING: destroys the queue
+	 */
+	public String toString() {
+		String tmp = "queue: \n";
+		while (!priorityQueue.isEmpty()) {
+			RuleAction ra = priorityQueue.poll();
+			tmp += ra.toString();
+		}
+		return tmp;
+	}
+
 }

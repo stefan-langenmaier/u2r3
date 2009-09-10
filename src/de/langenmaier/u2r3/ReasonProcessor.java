@@ -65,5 +65,9 @@ public class ReasonProcessor {
 		return false;
 	}
 
+	public String dump() {
+		return actions.toString();
+	}
+
 
 }
