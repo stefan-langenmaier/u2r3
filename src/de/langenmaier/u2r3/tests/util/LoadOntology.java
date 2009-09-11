@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
+import de.langenmaier.u2r3.rules.RuleManager;
 
 /**
  * This test class loads an ontology file into a h2 database
@@ -43,6 +44,8 @@ public class LoadOntology {
 			OWLProfileReport report = profile.checkOntology(ontology, manager);
 			
 			if (!report.isInProfile()) { throw new Exception("OWL file is not in RL Profile!"); }
+			
+			RuleManager.initialize();
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder();
 			for(OWLAxiom ax : ontology.getAxioms()) {

@@ -27,9 +27,10 @@ public class RuleManager {
 	}
 
 
-	private static void initialize() {
-		rules.put(RuleName.transSubClass, new TransSubClassRule());
-		
+	public static void initialize() {
+		if (! isInitialized) {
+			rules.put(RuleName.transSubClass, new TransSubClassRule());
+		}
 		isInitialized = true;
 	};
 	

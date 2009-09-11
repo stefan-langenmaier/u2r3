@@ -10,7 +10,6 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.rules.RuleManager;
 
 public class SubClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
@@ -25,7 +24,6 @@ public class SubClassRelation extends Relation {
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
 
-			rules.add(RuleManager.getRule(RuleManager.RuleName.transSubClass));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

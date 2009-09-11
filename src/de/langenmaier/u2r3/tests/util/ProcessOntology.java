@@ -8,6 +8,7 @@ import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.rules.TransSubClassRule;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
@@ -27,6 +28,8 @@ public class ProcessOntology {
 		Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.ALL);
+		
+		RuleManager.initialize();
 		
 		ReasonProcessor rp = ReasonProcessor.getReasonProcessor();
 		Reason r = new Reason(RelationManager.getRelation(RelationName.subClass));

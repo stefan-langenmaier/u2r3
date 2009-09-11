@@ -13,6 +13,10 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 public class TransSubClassRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(TransSubClassRule.class);
 	
+	TransSubClassRule() {
+		RelationManager.getRelation(RelationName.subClass).addRules(this);
+	}
+	
 	@Override
 	public void apply(DeltaRelation delta) {
 		logger.trace("Applying Rule (" + toString() + ") on DeltaRelation: " + delta.toString());
@@ -30,8 +34,6 @@ public class TransSubClassRule extends ApplicationRule {
 			throw new U2R3RuntimeException();
 		}
 		
-		
-
 		if (rows > 0) {
 			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				logger.debug("Applying Rule (" + toString()  + ") created data");
