@@ -13,6 +13,7 @@ public class RelationManager {
 		objectPropertyAssertion, objectPropertyDomain, objectPropertyRange, subClass};
 	private static boolean isInitialized = false;
 	private static HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
+	private static History history = null;
 	
 
 	public synchronized static Relation getRelation(RelationName name) {
@@ -27,6 +28,8 @@ public class RelationManager {
 
 
 	private static void initialize() {
+		history = new History();
+		
 		relations.put(RelationName.subClass, new SubClassRelation());
 		relations.put(RelationName.classAssertion, new ClassAssertionRelation());
 		relations.put(RelationName.dataPropertyDomain, new DataPropertyDomainRelation());
@@ -40,6 +43,11 @@ public class RelationManager {
 
 	public static Collection<Relation> getRelations() {
 		return relations.values();
+	}
+
+	public static void addHistory(String sql) {
+		history.add(sql);
+		
 	}
 
 }

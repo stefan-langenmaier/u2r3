@@ -92,7 +92,13 @@ public abstract class Relation {
 		}
 	}
 	
-	public abstract void dropDelta(long id);
+	public void dropDelta(long id) {
+		try {
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	protected synchronized long getNewDelta() {
 		return nextDelta;

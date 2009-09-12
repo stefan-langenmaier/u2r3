@@ -10,6 +10,8 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class SubClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
@@ -18,7 +20,7 @@ public class SubClassRelation extends Relation {
 		try {
 			tableName = "subClass";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -39,16 +41,7 @@ public class SubClassRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	public void dropDelta(long id) {
-		try {
-			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID NOT NULL, superSourceId UUID NOT NULL, PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -62,14 +55,31 @@ public class SubClassRelation extends Relation {
 			//create compressed/compacted delta
 			rows = stmt.executeUpdate("DELETE FROM " + getDeltaName(delta.getDelta()) + " AS t1 WHERE EXISTS (SELECT sub, super FROM " + getTableName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
 			
+			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (sub, super) SELECT sub,  super FROM ( " +
-					" SELECT sub, super " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, sub, super) SELECT id, sub,  super FROM ( " +
+					" SELECT id, sub, super " +
 					" FROM " + getDeltaName(delta.getDelta()) + " " +
 					")");
 
+			
+			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
+				
+				//save history
+				if (Settings.getDeletionType() == DeletionType.CASCADING) {
+					String sql = null;
+					
+					//subSource
+					sql = "SELECT id, " + RelationName.subClass.ordinal() + " AS table, subSourceId, " + RelationName.subClass.ordinal() + " AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					RelationManager.addHistory(sql);
+					
+					//superSource
+					sql = "SELECT id, " + RelationName.subClass.ordinal() + " AS table, superSourceId, " + RelationName.subClass.ordinal() + " AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					RelationManager.addHistory(sql);
+				}
+				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
 				Reason r = new Reason(RelationManager.getRelation(RelationName.subClass), delta);

@@ -39,15 +39,6 @@ public class ObjectPropertyRangeRelation extends Relation {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
-	public void dropDelta(long id) {
-		try {
-			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 
 	@Override
 	public void merge(DeltaRelation delta) {
