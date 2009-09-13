@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationManager;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 import de.langenmaier.u2r3.util.Settings;
@@ -67,6 +68,17 @@ public class ReasonProcessor {
 
 	public String dump() {
 		return actions.toString();
+	}
+
+	public void pause() {
+		if (!actions.isEmpty()) {
+			throw new U2R3RuntimeException();
+		}
+		
+	}
+
+	public void resume() {
+		classify();		
 	}
 
 

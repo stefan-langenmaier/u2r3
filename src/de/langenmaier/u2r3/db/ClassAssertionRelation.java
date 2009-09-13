@@ -16,7 +16,6 @@ public class ClassAssertionRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
-			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, type) VALUES (?, ?)");
 		} catch (SQLException e) {
@@ -27,13 +26,9 @@ public class ClassAssertionRelation extends Relation {
 	
 	@Override
 	public void addImpl(OWLAxiom axiom) throws SQLException {
-		//try {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getURI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
-		//} catch (SQLException e) {
-		//	e.printStackTrace();
-		//}
 	}
 
 	@Override

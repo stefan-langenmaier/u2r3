@@ -2,11 +2,14 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 
 /**
@@ -52,5 +55,31 @@ public class History {
 		}
 		logger.trace("Added history data from (" + sql + ")");
 		
+	}
+
+	public void remove(UUID sourceId, RelationName sourceTable) {
+		ResultSet rs = null;
+		String sql;
+		sql = "SELECT id, table FROM " + getTableName() + " WHERE sourceId = '" + sourceId.toString() + "'";
+		try {
+			//find dependencies
+			rs = stmt.executeQuery(sql);
+			
+			//remove dependecies
+			while (rs.next()) {
+				UUID id = UUID.fromString(rs.getString("id"));
+				RelationName name = RelationName.valueOf("subClass");
+				remove(id, name);
+				
+				//remove history
+				sql = "DELETE FROM " + getTableName() + " WHERE id = " + id.toString();
+			}	
+			
+			//remove value
+			sql = "DELETE FROM " + RelationManager.getRelation(sourceTable).getTableName() + " WHERE id = " + sourceId.toString();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

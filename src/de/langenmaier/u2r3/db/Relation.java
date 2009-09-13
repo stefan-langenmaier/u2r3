@@ -2,15 +2,19 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 import de.langenmaier.u2r3.Reason;
 import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
@@ -30,6 +34,7 @@ public abstract class Relation {
 	protected PreparedStatement dropMainStatement;
 	protected Statement createDeltaStatement;
 	protected Statement dropDeltaStatement;
+
 	
 	private long nextDelta = 0;
 	
@@ -58,6 +63,37 @@ public abstract class Relation {
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
 			ReasonProcessor.getReasonProcessor().add(new Reason(this));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//public abstract UUID removeImpl(OWLAxiom axiom) throws SQLException;
+	
+	public void remove(OWLAxiom axiom) {
+		try {
+			ReasonProcessor.getReasonProcessor().pause();
+			
+			//---
+			//get id
+			Statement stmt = conn.createStatement();
+			ResultSet rs;
+			String sql;
+			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
+			sql = "SELECT id FROM subClass WHERE sub='" + naxiom.getSubClass().asOWLClass().getURI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getURI().toString() + "'";
+			
+			rs = stmt.executeQuery(sql);
+			rs.next();
+			UUID id = UUID.fromString(rs.getString("id"));
+				
+			//axiom löschen
+			//rs.deleteRow();
+			
+			
+			//---
+			RelationManager.remove(id, RelationName.subClass);
+			
+			ReasonProcessor.getReasonProcessor().resume();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
