@@ -26,7 +26,7 @@ public class ProcessOntology {
 	 */
 	public static void main(String[] args) {
 		Settings.startClean(false);
-		Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
+		Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.ALL);
 		

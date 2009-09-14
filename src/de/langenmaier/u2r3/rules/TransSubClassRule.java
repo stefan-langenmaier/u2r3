@@ -64,36 +64,30 @@ public class TransSubClassRule extends ApplicationRule {
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			//There are no deltas yet		
 			try {
-				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
-						" SELECT t1.sub AS sub, t2.super AS super " +
-						" FROM " + aux.getTableName() + " AS t1 INNER JOIN " + aux.getTableName() + " AS t2 " +
+				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super, subSourceId, superSourceId) SELECT sub,  super, MIN(subSourceId) AS subSourceId, MIN(superSourceId) AS superSourceId  FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super, t1.id AS subSourceId, t2.id AS superSourceId  " +
+						" FROM " + delta.getTableName() + " AS t1 INNER JOIN " + delta.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
-						"   EXCEPT " + 
-						" SELECT sub, super " +
-						" FROM " + aux.getDeltaName() + " " +
-						")");
+						"   AND NOT EXISTS (SELECT sub, super, subSourceId, superSourceId  FROM " + aux.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) " +
+						") GROUP BY sub, super");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
-						" SELECT t1.sub AS sub, t2.super AS super " +
+				rows = statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super, subSourceId, superSourceId) SELECT sub,  super, MIN(subSourceId) AS subSourceId, MIN(superSourceId) AS superSourceId  FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super, t1.id AS subSourceId, t2.id AS superSourceId  " +
 						" FROM "+ delta.getDeltaName() + " AS t1 INNER JOIN " + aux.getTableName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
-						"   EXCEPT " + 
-						" SELECT sub, super " +
-						" FROM " + aux.getDeltaName() + " " +
-						")");
+						"   AND NOT EXISTS (SELECT sub, super, subSourceId, superSourceId  FROM " + aux.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) " +
+						") GROUP BY sub, super");
 
-				rows += statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super) SELECT sub,  super FROM ( " +
-						" SELECT t1.sub AS sub, t2.super AS super " +
+				rows += statement.executeUpdate("INSERT INTO " + aux.getDeltaName() + " (sub, super, subSourceId, superSourceId) SELECT sub,  super, MIN(subSourceId) AS subSourceId, MIN(superSourceId) AS superSourceId  FROM ( " +
+						" SELECT t1.sub AS sub, t2.super AS super, t1.id AS subSourceId, t2.id AS superSourceId  " +
 						" FROM " + aux.getTableName() + " AS t1 INNER JOIN "+ delta.getDeltaName() + " AS t2 " +
 						" WHERE t1.super = t2.sub  " +
-						"	EXCEPT " +
-						" SELECT sub, super " +
-						" FROM " + aux.getDeltaName() + " " +
-						")");
+						"	AND NOT EXISTS (SELECT sub, super, subSourceId, superSourceId  FROM " + aux.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) " +
+						") GROUP BY sub, super");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
