@@ -1,10 +1,14 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.Pair;
 
 public class DataPropertyRangeRelation extends Relation {
 	static Logger logger = Logger.getLogger(DataPropertyRangeRelation.class);
@@ -45,6 +49,13 @@ public class DataPropertyRangeRelation extends Relation {
 	public void merge(DeltaRelation delta) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

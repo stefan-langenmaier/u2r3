@@ -7,8 +7,8 @@ import java.util.Queue;
 
 import org.apache.log4j.Logger;
 
-import de.langenmaier.u2r3.ReasonProcessor;
-import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;

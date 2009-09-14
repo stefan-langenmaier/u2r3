@@ -32,7 +32,7 @@ public class History {
 				dropStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS");
 				dropStatement.execute();
 			
-				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID NOT NULL, table INTEGER, sourceId UUID, sourceTable INTEGER, PRIMARY KEY (id, sourceId))");
+				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID NOT NULL, table VARCHAR(100), sourceId UUID, sourceTable VARCHAR(100), PRIMARY KEY (id, sourceId))");
 				createStatement.execute();
 			}
 			stmt = conn.createStatement();
@@ -58,28 +58,42 @@ public class History {
 	}
 
 	public void remove(UUID sourceId, RelationName sourceTable) {
+		logger.trace(" removing UUID: "+ sourceId.toString());
+		
+		Statement stmt = null;
+		Statement deleteStatement = null;
 		ResultSet rs = null;
 		String sql;
 		sql = "SELECT id, table FROM " + getTableName() + " WHERE sourceId = '" + sourceId.toString() + "'";
 		try {
+			stmt = conn.createStatement();
+			deleteStatement = conn.createStatement();
+			
 			//find dependencies
 			rs = stmt.executeQuery(sql);
 			
 			//remove dependecies
 			while (rs.next()) {
 				UUID id = UUID.fromString(rs.getString("id"));
-				RelationName name = RelationName.valueOf("subClass");
+				RelationName name = RelationName.valueOf(rs.getString("table"));
 				remove(id, name);
 				
 				//remove history
-				sql = "DELETE FROM " + getTableName() + " WHERE id = " + id.toString();
+				logger.trace(" remove history: "+ sourceId.toString());
+				sql = "DELETE FROM " + getTableName() + " WHERE id = '" + id.toString() + "'";
+				deleteStatement.execute(sql);
 			}	
 			
 			//remove value
-			sql = "DELETE FROM " + RelationManager.getRelation(sourceTable).getTableName() + " WHERE id = " + sourceId.toString();
+			logger.trace(" remove value: "+ sourceId.toString());
+			sql = "DELETE FROM " + RelationManager.getRelation(sourceTable).getTableName() + " WHERE id = '" + sourceId.toString() + "'";
+			deleteStatement.execute(sql);
+		
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		logger.trace(" removing UUID: "+ sourceId.toString());
 	}
 }

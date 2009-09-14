@@ -1,4 +1,4 @@
-package de.langenmaier.u2r3;
+package de.langenmaier.u2r3.util;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.rules.Rule;

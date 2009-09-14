@@ -2,7 +2,7 @@ package de.langenmaier.u2r3.util;
 
 import java.util.HashMap;
 
-import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.util.RuleAction;
 
 /**
  * This class stores RuleActions with their last weight.

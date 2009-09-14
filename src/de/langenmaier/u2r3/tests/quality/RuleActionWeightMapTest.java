@@ -1,6 +1,6 @@
 package de.langenmaier.u2r3.tests.quality;
 
-import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;

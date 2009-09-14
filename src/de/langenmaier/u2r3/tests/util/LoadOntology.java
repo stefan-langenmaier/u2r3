@@ -13,7 +13,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 
-import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
 

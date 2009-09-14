@@ -4,12 +4,12 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import de.langenmaier.u2r3.Reason;
-import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.rules.TransSubClassRule;
+import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 

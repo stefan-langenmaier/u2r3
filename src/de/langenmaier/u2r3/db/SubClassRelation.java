@@ -1,15 +1,18 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-import de.langenmaier.u2r3.Reason;
-import de.langenmaier.u2r3.ReasonProcessor;
+import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.Pair;
+import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
@@ -72,11 +75,11 @@ public class SubClassRelation extends Relation {
 					String sql = null;
 					
 					//subSource
-					sql = "SELECT id, " + RelationName.subClass.ordinal() + " AS table, subSourceId, " + RelationName.subClass.ordinal() + " AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, '" + RelationName.subClass + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 					
 					//superSource
-					sql = "SELECT id, " + RelationName.subClass.ordinal() + " AS table, superSourceId, " + RelationName.subClass.ordinal() + " AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, '" + RelationName.subClass + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 				}
 				
@@ -91,6 +94,26 @@ public class SubClassRelation extends Relation {
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+			throws SQLException {
+		
+		//get id
+		Statement stmt = conn.createStatement();
+		ResultSet rs;
+		String sql;
+		OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
+		sql = "SELECT id FROM subClass WHERE sub='" + naxiom.getSubClass().asOWLClass().getURI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getURI().toString() + "'";
+		
+		rs = stmt.executeQuery(sql);
+		UUID id = null;
+		if (rs.next()) {
+			id = UUID.fromString(rs.getString("id"));
+		}
+		
+		return new Pair<UUID, RelationName>(id, RelationName.subClass);
 	}
 
 

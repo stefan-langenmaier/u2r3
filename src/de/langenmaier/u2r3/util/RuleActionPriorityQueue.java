@@ -2,7 +2,7 @@ package de.langenmaier.u2r3.util;
 
 import java.util.PriorityQueue;
 
-import de.langenmaier.u2r3.RuleAction;
+import de.langenmaier.u2r3.util.RuleAction;
 
 public class RuleActionPriorityQueue extends PriorityQueue<RuleAction> {
 

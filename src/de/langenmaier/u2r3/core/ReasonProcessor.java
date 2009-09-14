@@ -1,4 +1,4 @@
-package de.langenmaier.u2r3;
+package de.langenmaier.u2r3.core;
 
 import org.apache.log4j.Logger;
 
@@ -7,6 +7,8 @@ import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.rules.Rule;
+import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
