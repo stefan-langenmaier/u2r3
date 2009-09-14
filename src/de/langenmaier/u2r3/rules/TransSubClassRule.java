@@ -14,7 +14,9 @@ public class TransSubClassRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(TransSubClassRule.class);
 	
 	TransSubClassRule() {
-		RelationManager.getRelation(RelationName.subClass).addRules(this);
+		RelationManager.getRelation(RelationName.subClass).addAdditionRule(this);
+		
+		RelationManager.getRelation(RelationName.subClass).addDeletionRule(this);
 	}
 	
 	@Override

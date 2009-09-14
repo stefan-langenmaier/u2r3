@@ -12,8 +12,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.Rule;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
-import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
@@ -38,7 +38,11 @@ public abstract class Relation {
 	
 	protected String tableName;
 	
-	protected HashSet<Rule> rules = new HashSet<Rule>();
+	//rules that should be triggered when something is added to the relation
+	protected HashSet<Rule> additionRules = new HashSet<Rule>();
+	
+	//rules that should be triggered when something is removed from the relation
+	protected HashSet<Rule> deletionRules = new HashSet<Rule>();
 
 	protected boolean isDirty = false;
 	
@@ -60,7 +64,7 @@ public abstract class Relation {
 			addImpl(axiom);
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
-			ReasonProcessor.getReasonProcessor().add(new Reason(this));
+			ReasonProcessor.getReasonProcessor().add(new AdditionReason(this));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,19 +82,26 @@ public abstract class Relation {
 				RelationManager.remove(res.getFirst(), res.getSecond());
 			}
 			
-			
 			ReasonProcessor.getReasonProcessor().resume();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public HashSet<Rule> getRules() {
-		return rules;
+	public HashSet<Rule> getAdditionRules() {
+		return additionRules;
 	}
 	
-	public void addRules(Rule rule) {
-		rules.add(rule);
+	public void addAdditionRule(Rule rule) {
+		additionRules.add(rule);
+	}
+	
+	public HashSet<Rule> getDeletionRules() {
+		return deletionRules;
+	}
+	
+	public void addDeletionRule(Rule rule) {
+		deletionRules.add(rule);
 	}
 	
 	protected void create() {

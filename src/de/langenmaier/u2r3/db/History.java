@@ -9,7 +9,9 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.DeletionReason;
 import de.langenmaier.u2r3.util.Settings;
 
 /**
@@ -82,6 +84,9 @@ public class History {
 				logger.trace(" remove history: "+ sourceId.toString());
 				sql = "DELETE FROM " + getTableName() + " WHERE id = '" + id.toString() + "'";
 				deleteStatement.execute(sql);
+				
+				//fire reason - maybe data can be created again for this relation
+				ReasonProcessor.getReasonProcessor().add(new DeletionReason(RelationManager.getRelation(name)));
 			}	
 			
 			//remove value

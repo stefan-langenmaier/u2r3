@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 
+import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.owl.U2R3AxiomRemover;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.util.Settings;
@@ -80,7 +81,9 @@ public class EditOntology {
 			manager.applyChange(removeAxiom);
 			U2R3AxiomRemover axiomRemover = new U2R3AxiomRemover();
 			dax.accept(axiomRemover);
-
+			
+			System.out.println(ReasonProcessor.getReasonProcessor().dump());
+			
 			URI physicalURI2 = URI.create("file:/tmp/MyOnt2.owl");
 			manager.saveOntology(ontology, new DefaultOntologyFormat(),
 					physicalURI2);

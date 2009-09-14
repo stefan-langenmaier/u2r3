@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
@@ -85,7 +86,7 @@ public class SubClassRelation extends Relation {
 				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
-				Reason r = new Reason(RelationManager.getRelation(RelationName.subClass), delta);
+				Reason r = new AdditionReason(RelationManager.getRelation(RelationName.subClass), delta);
 				ReasonProcessor.getReasonProcessor().add(r);
 			}
 			

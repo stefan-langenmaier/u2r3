@@ -1,14 +1,17 @@
 package de.langenmaier.u2r3.util;
 
+import java.util.HashSet;
+
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
+import de.langenmaier.u2r3.rules.Rule;
 
 /**
  * The Reason class contains the information why something should be updated. This mean what has the data change triggerd.
  * @author stefan
  *
  */
-public class Reason {
+public abstract class Reason {
 	private Relation relation;
 	private DeltaRelation delta;
 	
@@ -29,4 +32,6 @@ public class Reason {
 	public Relation getRelation() {
 		return relation;
 	}
+
+	public abstract HashSet<Rule> getRules();
 }

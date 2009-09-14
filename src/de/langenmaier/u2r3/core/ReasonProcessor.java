@@ -29,7 +29,7 @@ public class ReasonProcessor {
 	
 	public void add(Reason reason) {
 		logger.trace("Processing Reason: " + reason.toString());
-		for(Rule r : reason.getRelation().getRules()) {
+		for(Rule r : reason.getRules()) {
 			//if there is no delta for the reason then its created by the initial import
 			if (reason.getDelta() == null) {
 				actions.add(new RuleAction(r,
@@ -80,7 +80,7 @@ public class ReasonProcessor {
 	}
 
 	public void resume() {
-		classify();		
+		//classify();		
 	}
 
 
