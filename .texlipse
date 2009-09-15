@@ -1,0 +1,13 @@
+#TeXlipse project settings
+#Mon Sep 14 23:37:42 CEST 2009
+builderNum=2
+outputDir=text/
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=text/tmp/
+mainTexFile=diplom.tex
+outputFile=diplom.pdf
+langSpell=
+markDer=true
+srcDir=text/
