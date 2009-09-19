@@ -31,6 +31,8 @@ public class LoadOntology {
 		try {
 			BasicConfigurator.configure();
 			Logger.getRootLogger().setLevel(Level.ALL);
+			
+			boolean process = true;
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");
@@ -53,7 +55,12 @@ public class LoadOntology {
 				ax.accept(axiomAdder);
 			}
 			
-			System.out.println(ReasonProcessor.getReasonProcessor().dump());
+			if (process) {
+				ReasonProcessor.getReasonProcessor().classify();
+			} else {
+				System.out.println(ReasonProcessor.getReasonProcessor().dump());
+			}
+			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

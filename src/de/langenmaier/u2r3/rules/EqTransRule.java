@@ -9,10 +9,10 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class TransSubClassRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(TransSubClassRule.class);
+public class EqTransRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(EqTransRule.class);
 	
-	TransSubClassRule() {
+	EqTransRule() {
 		targetRelation = RelationName.subClass;
 		
 		RelationManager.getRelation(RelationName.subClass).addAdditionRule(this);

@@ -28,7 +28,7 @@ public class SubClassRelation extends Relation {
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO subClass (sub, super) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (sub, super) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class SubClassRelation extends Relation {
 				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
-				Reason r = new AdditionReason(RelationManager.getRelation(RelationName.subClass), delta);
+				Reason r = new AdditionReason(this, delta);
 				ReasonProcessor.getReasonProcessor().add(r);
 			}
 			
@@ -106,7 +106,7 @@ public class SubClassRelation extends Relation {
 		ResultSet rs;
 		String sql;
 		OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-		sql = "SELECT id FROM subClass WHERE sub='" + naxiom.getSubClass().asOWLClass().getURI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getURI().toString() + "'";
+		sql = "SELECT id FROM " + getTableName() + " WHERE sub='" + naxiom.getSubClass().asOWLClass().getURI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getURI().toString() + "'";
 		
 		rs = stmt.executeQuery(sql);
 		UUID id = null;

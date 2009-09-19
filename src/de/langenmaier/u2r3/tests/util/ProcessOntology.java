@@ -8,7 +8,7 @@ import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
-import de.langenmaier.u2r3.rules.TransSubClassRule;
+import de.langenmaier.u2r3.rules.EqTransRule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
@@ -21,7 +21,7 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  *
  */
 public class ProcessOntology {
-	static Logger logger = Logger.getLogger(TransSubClassRule.class);
+	static Logger logger = Logger.getLogger(EqTransRule.class);
 	/**
 	 * @param args
 	 */

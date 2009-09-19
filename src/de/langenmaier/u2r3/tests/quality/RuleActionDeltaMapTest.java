@@ -5,6 +5,7 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
+import de.langenmaier.u2r3.rules.RuleManager.RuleName;
 import de.langenmaier.u2r3.util.RuleActionDeltaMap;
 import junit.framework.TestCase;
 
@@ -21,21 +22,21 @@ public class RuleActionDeltaMapTest extends TestCase {
 	public void testPutRuleAction() {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());
 		
-		ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		System.out.println(ra.hashCode());
 		dm.put(ra);
@@ -49,17 +50,17 @@ public class RuleActionDeltaMapTest extends TestCase {
 	public void testReduce() {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
-		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA));
 		
 		dm.put(ra2);
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		System.out.println(ra.hashCode());
 		dm.put(ra);

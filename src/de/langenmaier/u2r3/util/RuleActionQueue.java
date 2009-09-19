@@ -168,7 +168,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 		String tmp = "queue: \n";
 		while (!priorityQueue.isEmpty()) {
 			RuleAction ra = priorityQueue.poll();
-			tmp += ra.toString();
+			tmp += ra.toString() + "\n";
 		}
 		return tmp;
 	}

@@ -14,7 +14,7 @@ public class RuleActionWeightMapTest extends TestCase {
 	public void testPutRuleAction() {
 		RuleActionWeightMap wp = new RuleActionWeightMap();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.transSubClass),
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion), DeltaRelation.NO_DELTA));
 		wp.put(ra);
 		System.out.println(wp);System.out.println(wp.get(ra));
@@ -26,7 +26,7 @@ public class RuleActionWeightMapTest extends TestCase {
 		
 		assertEquals(0.0d+1, wp.get(ra));
 		
-		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.transSubClass),
+		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		wp.put(ra2);
 		System.out.println(wp);System.out.println(wp.get(ra2));

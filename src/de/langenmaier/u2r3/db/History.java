@@ -51,7 +51,7 @@ public class History {
 		logger.trace("Adding history data from (" + sql + ")");
 		
 		try {
-			stmt.execute("INSERT INTO history (id, table, sourceId, sourceTable) " + sql);
+			stmt.execute("MERGE INTO history (id, table, sourceId, sourceTable) " + sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -14,7 +14,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 	public void testAddRuleAction() {
 		RuleActionPriorityQueue pq = new RuleActionPriorityQueue();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.transSubClass),
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion), DeltaRelation.NO_DELTA));
 		pq.add(ra);
 		
@@ -23,7 +23,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 		pq.add(ra);
 		assertEquals(1, pq.size());
 		
-		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.transSubClass),
+		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion), DeltaRelation.NO_DELTA));
 		ra2.setWeight(2.0d);
 		pq.add(ra2);
@@ -31,7 +31,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 		assertEquals(2.0d, pq.remove().getWeight());
 		pq.add(ra2);
 		
-		RuleAction ra3 = new RuleAction(RuleManager.getRule(RuleName.transSubClass),
+		RuleAction ra3 = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		pq.add(ra3);
 		assertEquals(2, pq.size());

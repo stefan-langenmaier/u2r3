@@ -5,6 +5,7 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
+import de.langenmaier.u2r3.rules.RuleManager.RuleName;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 import junit.framework.TestCase;
 
@@ -13,7 +14,7 @@ public class RuleActionQueueTest extends TestCase {
 	public void testActivate() {
 		RuleActionQueue aq = new RuleActionQueue();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		
 		aq.add(ra);
@@ -25,7 +26,7 @@ public class RuleActionQueueTest extends TestCase {
 	public void testDelete() {
 		RuleActionQueue aq = new RuleActionQueue();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		
 		aq.add(ra);
@@ -39,7 +40,7 @@ public class RuleActionQueueTest extends TestCase {
 	public void testAdd() {
 		RuleActionQueue aq = new RuleActionQueue();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleManager.RuleName.transSubClass), 
+		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
 				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
 		
 		aq.add(ra);		

@@ -134,8 +134,10 @@ public class OWL2RLDBAdder implements OWLAxiomVisitor {
 
 	@Override
 	public void visit(OWLDeclarationAxiom axiom) {
-		System.out.println("  NOTHING TO DO" + axiom.getAxiomType().toString());
-	}
+		logger.debug("  adding Declaration:" + axiom.toString());
+		RelationManager.getRelation(RelationName.declaration).add(axiom);
+		//DataPropertyRangeRelation.getRelation().add(axiom);
+		logger.debug("  added Declaration");	}
 
 	@Override
 	public void visit(OWLSymmetricObjectPropertyAxiom arg0) {

@@ -10,7 +10,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  *
  */
 public class RuleManager {
-	public enum RuleName {transSubClass};
+	public enum RuleName {eq_trans, eq_ref};
 	private static boolean isInitialized = false;
 	private static HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	
@@ -29,7 +29,8 @@ public class RuleManager {
 
 	public static void initialize() {
 		if (! isInitialized) {
-			rules.put(RuleName.transSubClass, new TransSubClassRule());
+			rules.put(RuleName.eq_trans, new EqTransRule());
+			rules.put(RuleName.eq_ref, new EqRefRule());
 		}
 		isInitialized = true;
 	};
