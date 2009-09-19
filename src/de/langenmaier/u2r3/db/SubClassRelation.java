@@ -45,7 +45,7 @@ public class SubClassRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID NOT NULL, superSourceId UUID NOT NULL, PRIMARY KEY (sub, super))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, superSourceId UUID, PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

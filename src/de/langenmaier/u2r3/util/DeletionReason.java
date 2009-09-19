@@ -13,7 +13,7 @@ public class DeletionReason extends Reason {
 	
 	// cannot be applied to deltas
 	/*public DeletionReason(Relation relation, DeltaRelation delta) {
-		super(relation);
+		super(relation, delta);
 	}*/
 
 	public HashSet<Rule> getRules() {

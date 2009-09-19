@@ -12,6 +12,7 @@ import de.langenmaier.u2r3.rules.TransSubClassRule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
@@ -26,7 +27,8 @@ public class ProcessOntology {
 	 */
 	public static void main(String[] args) {
 		Settings.startClean(false);
-		Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
+		Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
+		Settings.setDeletionType(DeletionType.CLEAN);
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.ALL);
 		

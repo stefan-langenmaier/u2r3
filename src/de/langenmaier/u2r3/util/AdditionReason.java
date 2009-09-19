@@ -13,7 +13,7 @@ public class AdditionReason extends Reason {
 	}
 	
 	public AdditionReason(Relation relation, DeltaRelation delta) {
-		super(relation);
+		super(relation, delta);
 	}
 
 	public HashSet<Rule> getRules() {
