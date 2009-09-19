@@ -130,6 +130,24 @@ public class TransSubClassRule extends ApplicationRule {
 		}
 		return rows;
 	}
+	
+	private String buildQuery(DeltaRelation delta, DeltaRelation newDelta, boolean again) {
+		String sql = null;
+		String historyFields = ", subSourceId, superSourceId";
+		String historyAggregateFields = ", MIN(subSourceId) AS subSourceId, MIN(superSourceId) AS superSourceId";
+		String normalAggregateFields = "GROUP BY sub, super";
+		
+		sql = "INSERT INTO " + newDelta.getDeltaName() +
+				" (sub, super" + historyFields + ")" +
+				" SELECT sub, super " + historyAggregateFields +
+				" FROM ( " +
+					" SELECT t1.sub AS sub, t2.super AS super, t1.id AS subSourceId, t2.id AS superSourceId  " +
+					" FROM " + newDelta.getTableName() + " AS t1 INNER JOIN "+ delta.getDeltaName() + " AS t2 " +
+					" WHERE t1.super = t2.sub  " +
+					"	AND NOT EXISTS (SELECT sub, super, subSourceId, superSourceId  FROM " + newDelta.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) " +
+				" ) " + normalAggregateFields;
+		return sql;
+	}
 
 	@Override
 	public String toString() {
