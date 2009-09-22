@@ -16,6 +16,8 @@ import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
+import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
  * This test class loads an ontology file into a h2 database
@@ -33,6 +35,7 @@ public class LoadOntology {
 			Logger.getRootLogger().setLevel(Level.ALL);
 			
 			boolean process = true;
+			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");

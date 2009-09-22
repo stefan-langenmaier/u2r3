@@ -42,7 +42,7 @@ public class SameAsRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), leftSourceId UUID, rightSourceId UUID, PRIMARY KEY (left, right))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), leftSourceId UUID, leftSourceTable VARCHAR(100), rightSourceId UUID, rightSourceTable VARCHAR(100), PRIMARY KEY (left, right))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -74,11 +74,11 @@ public class SameAsRelation extends Relation {
 					String sql = null;
 					
 					//leftSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, '" + RelationName.declaration + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, leftSourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 					
 					//rightSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, '" + RelationName.declaration + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, rightSourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 				}
 				

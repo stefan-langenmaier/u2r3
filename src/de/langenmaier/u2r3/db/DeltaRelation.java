@@ -1,5 +1,9 @@
 package de.langenmaier.u2r3.db;
 
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
+import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeltaIteration;
+
 
 /**
  * This class specifies a certain delta of a relation.
@@ -51,10 +55,19 @@ public class DeltaRelation {
 		return relation;
 	}
 
-	public DeltaRelation getNextDelta() {
+	/*public DeltaRelation getNextDelta() {
 		return new DeltaRelation(relation, delta+1);
-	}
+	}*/
 	
+	/**
+	 * Sollte nur im collective Modues benutzt werden
+	 */
+	public static DeltaRelation getCurrentDelta(Relation relation) {
+		if (Settings.getDeltaIteration() != DeltaIteration.COLLECTIVE) {
+			throw new U2R3RuntimeException();
+		}
+		return new DeltaRelation(relation, relation.getNewDelta());
+	}
 	
 	public String getDeltaName () {
 		return relation.getDeltaName(delta);

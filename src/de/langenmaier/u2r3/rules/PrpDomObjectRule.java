@@ -10,15 +10,18 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EqRefRule extends Rule {
-	static Logger logger = Logger.getLogger(EqRefRule.class);
+public class PrpDomObjectRule extends Rule {
+	static Logger logger = Logger.getLogger(PrpDomObjectRule.class);
 	
-	EqRefRule() {
-		targetRelation = RelationName.sameAs;
+	PrpDomObjectRule() {
+		targetRelation = RelationName.declaration;
 		
-		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		//relations on the right side
+		RelationManager.getRelation(RelationName.objectPropertyDomain).addAdditionRule(this);
+		RelationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
-		RelationManager.getRelation(RelationName.sameAs).addDeletionRule(this);
+		//on the left side, aka targetRelation
+		RelationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 	@Override
@@ -73,28 +76,43 @@ public class EqRefRule extends Rule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (Settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT subject AS left, subject AS right, id AS leftSourceId, '" + RelationName.declaration.toString() + "' AS leftSourceTable, id AS rightSourceId, '" + RelationName.declaration.toString() + "' AS rightSourceTable");
+			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
 		} else {
-			sql.append("(left, right)");
-			sql.append("\n\t SELECT subject AS left, subject AS right");
+			sql.append("(subject, type)");
+			sql.append("\n\t SELECT DISTINCT ass.subject, dom.Domain");
 		}
-		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
-		
+		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
+			sql.append("\n\t FROM objectPropertyAssertion AS ass");
+			sql.append("\n\t\t INNER JOIN objectPropertyDomain AS dom");
+		} else {
+			if (RelationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
+				sql.append("\n\t FROM " + delta.getDeltaName() + " AS ass");
+				sql.append("\n\t\t INNER JOIN objectPropertyDomain AS dom");
+			} else {
+				sql.append("\n\t FROM objectPropertyAssertion AS ass");
+				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dom");
+			}
+		}
+		sql.append("\n\t\t ON ass.Property = dom.Property");
+
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT left, right");
+			sql.append("\n\t\t SELECT subject, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = top.subject AND bottom.right = top.subject");
+			sql.append("\n\t\t WHERE bottom.subject = ass.subject AND bottom.type = dom.domain");
 			sql.append("\n\t )");
+		}
+		
+		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+			sql.append("\n\t GROUP BY ass.subject, dom.Domain");
 		}
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "sameAs(A,A) :- declaration(A)";
+		return "declaration(X, C) :- objectPropertyDomain(P, C), objectPropertyAssertion(X, P, Y)";
 	}
 
 }

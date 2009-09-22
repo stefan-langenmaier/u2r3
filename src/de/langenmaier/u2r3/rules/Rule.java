@@ -46,7 +46,7 @@ public abstract class Rule {
 			newDelta = new DeltaRelation(RelationManager.getRelation(targetRelation));
 			rows = applyImmediate(delta, newDelta);
 		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
-			newDelta = delta.getNextDelta();
+			newDelta = DeltaRelation.getCurrentDelta(RelationManager.getRelation(targetRelation));
 			rows = applyCollective(delta, newDelta);
 		} else {
 			throw new U2R3RuntimeException();

@@ -187,6 +187,9 @@ public abstract class Relation {
 	}
 	
 	protected String getDeltaName(long delta) {
+		if (delta == DeltaRelation.NO_DELTA) {
+			return getTableName();
+		}
 		return getTableName() + "_d" + delta;
 	}
 }

@@ -17,7 +17,13 @@ public class ObjectPropertyDomainRelation extends Relation {
 		try {
 			tableName = "objectPropertyDomain";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			createMainStatement = conn.prepareStatement(
+					"CREATE TABLE " + getTableName() + " (" +
+							" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+							" property VARCHAR(100)," +
+							" domain VARCHAR(100)," +
+							" PRIMARY KEY (property, domain)" +
+							")");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -38,7 +44,15 @@ public class ObjectPropertyDomainRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
+					" property VARCHAR(100)," +
+					" domain VARCHAR(100)," +
+					" propertySourceId UUID, " +
+					" propertySourceTable VARCHAR(100), " +
+					" domainSourceId UUID, " +
+					" domainSourceTable VARCHAR(100), " +
+					" PRIMARY KEY (property, domain))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

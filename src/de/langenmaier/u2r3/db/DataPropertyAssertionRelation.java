@@ -5,19 +5,24 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Pair;
 
-public class ObjectPropertyAssertionRelation extends Relation {
-	static Logger logger = Logger.getLogger(ObjectPropertyAssertionRelation.class);
+public class DataPropertyAssertionRelation extends Relation {
+	static Logger logger = Logger.getLogger(DataPropertyAssertionRelation.class);
 	
-	protected ObjectPropertyAssertionRelation() {
+	protected DataPropertyAssertionRelation() {
 		try {
-			tableName = "objectPropertyAssertion";
+			tableName = "dataPropertyAssertion";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, subject VARCHAR(100), property VARCHAR(100), object VARCHAR(100), PRIMARY KEY (subject, property, object))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" subject VARCHAR(100)," +
+					" property VARCHAR(100)," +
+					" object VARCHAR(100)," +
+					" PRIMARY KEY (subject, property, object))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -29,10 +34,10 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	
 	@Override
 	public void addImpl(OWLAxiom axiom) throws SQLException {
-			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
+			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
-			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
+			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getURI().toString());
+			addStatement.setString(3, naxiom.getObject().getLiteral());
 	}
 
 	@Override
