@@ -51,6 +51,10 @@ public abstract class Relation {
 		try {
 			createDeltaStatement = conn.createStatement();
 			dropDeltaStatement = conn.createStatement();
+			
+			if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+				nextDelta++;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

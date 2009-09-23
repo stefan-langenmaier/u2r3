@@ -11,7 +11,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  */
 public class RuleManager {
 	public enum RuleName {eq_trans, eq_ref, eq_sym, prp_dom_object,
-		prp_dom_data};
+		prp_dom_data, prp_rng_object, prp_rng_data};
 	private static boolean isInitialized = false;
 	private static HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	
@@ -35,6 +35,8 @@ public class RuleManager {
 			rules.put(RuleName.eq_sym, new EqSymRule());
 			rules.put(RuleName.prp_dom_object, new PrpDomObjectRule());
 			rules.put(RuleName.prp_dom_data, new PrpDomDataRule());
+			rules.put(RuleName.prp_rng_object, new PrpRngObjectRule());
+			rules.put(RuleName.prp_rng_data, new PrpRngDataRule());
 			
 		}
 		isInitialized = true;

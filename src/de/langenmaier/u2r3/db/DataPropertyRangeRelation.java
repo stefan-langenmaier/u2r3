@@ -17,7 +17,11 @@ public class DataPropertyRangeRelation extends Relation {
 		try {
 			tableName = "dataPropertyRange";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (property VARCHAR(100), range VARCHAR(100), PRIMARY KEY (property, range))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
+					" property VARCHAR(100)," +
+					" range VARCHAR(100)," +
+					" PRIMARY KEY (property, range))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -38,7 +42,15 @@ public class DataPropertyRangeRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (property VARCHAR(100), domain VARCHAR(100), PRIMARY KEY (property, domain))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
+					" property VARCHAR(100)," +
+					" range VARCHAR(100)," +
+					" propertySourceId UUID, " +
+					" propertySourceTable VARCHAR(100), " +
+					" rangeSourceId UUID, " +
+					" rangeSourceTable VARCHAR(100), " +
+					" PRIMARY KEY (property, range))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

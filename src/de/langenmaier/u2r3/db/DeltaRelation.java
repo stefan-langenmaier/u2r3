@@ -60,12 +60,13 @@ public class DeltaRelation {
 	}*/
 	
 	/**
-	 * Sollte nur im collective Modues benutzt werden
+	 * Sollte nur im collective Modus benutzt werden
 	 */
 	public static DeltaRelation getCurrentDelta(Relation relation) {
 		if (Settings.getDeltaIteration() != DeltaIteration.COLLECTIVE) {
 			throw new U2R3RuntimeException();
 		}
+		///XXX das sollte eigentlich nicht getNewDelta sein
 		return new DeltaRelation(relation, relation.getNewDelta());
 	}
 	
