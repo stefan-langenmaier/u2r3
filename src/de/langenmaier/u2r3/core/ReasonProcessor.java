@@ -31,11 +31,11 @@ public class ReasonProcessor {
 		logger.trace("Processing Reason: " + reason.toString());
 		for(Rule r : reason.getRules()) {
 			//if there is no delta for the reason then its created by the initial import
-			if (reason.getDelta() == null) {
+			if (reason.getDeltaRelation() == null) {
 				actions.add(new RuleAction(r,
-						new DeltaRelation(reason.getRelation(), DeltaRelation.NO_DELTA)));
+						reason.getRelation().createDeltaRelation(DeltaRelation.NO_DELTA)));
 			} else { // else some new data has created a delta
-				actions.add(new RuleAction(r, reason.getDelta()));
+				actions.add(new RuleAction(r, reason.getDeltaRelation()));
 			}
 		}
 		logger.trace("Processed Reason: " + reason.toString());
@@ -58,6 +58,9 @@ public class ReasonProcessor {
 		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			return false;
 		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+			System.out.println(" ------------------------------------ ");
+			System.out.println(" --------     next round     -------- ");
+			System.out.println(" ------------------------------------ ");
 			for (Relation r : RelationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();

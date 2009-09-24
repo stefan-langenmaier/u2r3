@@ -11,9 +11,9 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  *
  */
 public class DeltaRelation {
-	private long delta;
+	private int delta;
 	private Relation relation;
-	public final static long NO_DELTA = -1;
+	public final static int NO_DELTA = -1;
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -31,19 +31,19 @@ public class DeltaRelation {
 		return relation.hashCode() ^ (int) delta;
 	}
 	
-	public DeltaRelation(Relation relation) {
+	/*public DeltaRelation(Relation relation) {
 		this.relation = relation;
 		delta = relation.getNewDelta();
-		relation.createDelta(delta);
-	}
+		//relation.createDelta(delta);
+	}*/
 	
-	public DeltaRelation(Relation relation, long delta) {
+	public DeltaRelation(Relation relation, int delta) {
 		this.relation = relation;
 		this.delta = delta;
-		//does the relation already exist?
+		/*//does the relation already exist?
 		if (delta != NO_DELTA && delta > relation.getDelta()) {
 			relation.createDelta(delta);
-		}
+		}*/
 		
 	}
 	
@@ -76,6 +76,10 @@ public class DeltaRelation {
 	
 	public String getTableName () {
 		return relation.getTableName();
+	}
+
+	public void dispose() {
+		relation.removeDeltaRelation(delta);
 	}
 
 }

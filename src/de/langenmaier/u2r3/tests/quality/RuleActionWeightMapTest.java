@@ -27,7 +27,7 @@ public class RuleActionWeightMapTest extends TestCase {
 		assertEquals(0.0d+1, wp.get(ra));
 		
 		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		wp.put(ra2);
 		System.out.println(wp);System.out.println(wp.get(ra2));
 		

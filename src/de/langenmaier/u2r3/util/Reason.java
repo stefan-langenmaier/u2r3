@@ -25,7 +25,7 @@ public abstract class Reason {
 		this.delta = null;
 	}
 
-	public DeltaRelation getDelta() {
+	public DeltaRelation getDeltaRelation() {
 		return delta;
 	}
 

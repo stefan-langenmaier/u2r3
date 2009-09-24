@@ -15,7 +15,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue();
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -27,7 +27,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue();
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -41,7 +41,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue();
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);		
 		assertEquals(1, aq.size());

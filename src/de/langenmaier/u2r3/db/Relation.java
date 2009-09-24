@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -34,7 +35,8 @@ public abstract class Relation {
 	protected Statement dropDeltaStatement;
 
 	
-	private long nextDelta = 0;
+	private int nextDelta = 0;
+	private HashMap<Integer, DeltaRelation> deltas = new HashMap<Integer, DeltaRelation>();
 	
 	protected String tableName;
 	
@@ -52,9 +54,6 @@ public abstract class Relation {
 			createDeltaStatement = conn.createStatement();
 			dropDeltaStatement = conn.createStatement();
 			
-			if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
-				nextDelta++;
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -122,14 +121,18 @@ public abstract class Relation {
 	
 	public abstract void createDeltaImpl(long id);
 	
-	public void createDelta(long id) {
+	private void createDelta(long id) {
 		if (id >= nextDelta) {
-			++nextDelta;
+			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+				++nextDelta;
+			}
 			createDeltaImpl(id);
+		} else {
+			//throw new U2R3RuntimeException();
 		}
 	}
 	
-	public void dropDelta(long id) {
+	protected void dropDelta(long id) {
 		try {
 			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
@@ -137,11 +140,11 @@ public abstract class Relation {
 		}
 	}
 	
-	protected synchronized long getNewDelta() {
+	protected synchronized int getNewDelta() {
 		return nextDelta;
 	}
 	
-	protected synchronized long getDelta() {
+	protected synchronized int getDelta() {
 		return nextDelta-1;
 	}
 
@@ -170,11 +173,12 @@ public abstract class Relation {
 	 * Merges the current delta to the main relation
 	 */
 	public void merge() {
-		merge(new DeltaRelation(this, this.getDelta()));
-		long pd = getPreviousDelta();
-		if (pd != DeltaRelation.NO_DELTA) {
-			dropDelta(getPreviousDelta());
+		merge(deltas.get(getNewDelta()));
+		//long pd = getPreviousDelta();
+		if (getDelta() != DeltaRelation.NO_DELTA) {
+			dropDelta(getDelta());
 		}
+		++nextDelta;
 	}
 
 	/**
@@ -182,9 +186,9 @@ public abstract class Relation {
 	 * in the collective mode
 	 * @return
 	 */
-	private long getPreviousDelta() {
+	/*private long getPreviousDelta() {
 		return nextDelta-2;
-	}
+	}*/
 
 	protected String getTableName() {
 		return tableName;
@@ -195,5 +199,30 @@ public abstract class Relation {
 			return getTableName();
 		}
 		return getTableName() + "_d" + delta;
+	}
+	
+	public DeltaRelation createDeltaRelation(int delta) {
+		if (!deltas.containsKey(delta)) {
+			if (delta != DeltaRelation.NO_DELTA) {
+				createDelta(delta);
+			}
+			deltas.put(delta, new DeltaRelation(this, delta));
+		}
+		DeltaRelation deltaRelation = deltas.get(delta);
+		return deltaRelation;
+	}
+	
+	public DeltaRelation createNewDeltaRelation() {
+		return createDeltaRelation(getNewDelta());
+	}
+	
+	public DeltaRelation getCurrentDeltaRelation() {
+		return createDeltaRelation(getDelta());
+	}
+
+
+	public void removeDeltaRelation(int delta) {
+		dropDelta(delta);
+		deltas.remove(delta);
 	}
 }

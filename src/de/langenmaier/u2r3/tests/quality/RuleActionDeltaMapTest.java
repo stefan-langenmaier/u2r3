@@ -31,13 +31,13 @@ public class RuleActionDeltaMapTest extends TestCase {
 		
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());
 		
 		ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(3, dm.size());
@@ -61,7 +61,7 @@ public class RuleActionDeltaMapTest extends TestCase {
 		
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion)));
+				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());

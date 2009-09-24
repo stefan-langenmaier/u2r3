@@ -43,10 +43,10 @@ public abstract class Rule {
 		DeltaRelation newDelta = null;
 
 		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
-			newDelta = new DeltaRelation(RelationManager.getRelation(targetRelation));
+			newDelta = RelationManager.getRelation(targetRelation).createNewDeltaRelation();
 			rows = applyImmediate(delta, newDelta);
 		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
-			newDelta = DeltaRelation.getCurrentDelta(RelationManager.getRelation(targetRelation));
+			newDelta = RelationManager.getRelation(targetRelation).getCurrentDeltaRelation();
 			rows = applyCollective(delta, newDelta);
 		} else {
 			throw new U2R3RuntimeException();
@@ -65,7 +65,7 @@ public abstract class Rule {
 		 * if there is no new data the delta can be immediately removed.
 		 */	
 			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
-				newDelta.getRelation().dropDelta(newDelta.getDelta());
+				newDelta.dispose();
 			}			
 		}
 		logger.trace("Applied Rule (" + toString() + ") on DeltaRelation: " + delta.toString());

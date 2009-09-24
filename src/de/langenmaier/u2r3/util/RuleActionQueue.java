@@ -58,7 +58,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 			long delta = ra.getDeltaRelation().getDelta();
 			if (delta != DeltaRelation.NO_DELTA) {
 				if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
-					ra.getDeltaRelation().getRelation().dropDelta(delta);
+					ra.getDeltaRelation().dispose();
 				}
 				//the collective method drops its delta when its merged
 							}

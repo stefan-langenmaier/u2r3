@@ -33,7 +33,7 @@ public class LoadOntology {
 		try {
 			BasicConfigurator.configure();
 			Logger.getRootLogger().setLevel(Level.ALL);
-			
+
 			boolean process = true;
 			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
 
