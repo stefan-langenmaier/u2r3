@@ -8,6 +8,7 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.rules.ConsistencyRule;
 import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
@@ -29,6 +30,8 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	RuleActionDeltaMap deltas = new RuleActionDeltaMap();
 	
 	HashSet<RuleAction> active = new HashSet<RuleAction>();
+	
+	HashSet<RuleAction> consistencyActions = new HashSet<RuleAction>();
 	
 	/**
 	 * Returns a RuleAction object that should be processed.
@@ -68,11 +71,15 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	
 	@Override
 	public boolean add(RuleAction ra) {
-		logger.trace("Adding RuleAction: " + ra.toString());
-		weights.put(ra);
-		deltas.put(ra);
-		priorityQueue.add(ra);
-		logger.trace("Added RuleAction: " + ra.toString());
+		if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE && ra.getRule() instanceof ConsistencyRule) {
+			consistencyActions.add(ra);
+		} else {
+			logger.trace("Adding RuleAction: " + ra.toString());
+			weights.put(ra);
+			deltas.put(ra);
+			priorityQueue.add(ra);
+			logger.trace("Added RuleAction: " + ra.toString());
+		}
 		return true;
 	}
 
@@ -166,11 +173,19 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	 */
 	public String toString() {
 		String tmp = "queue: \n";
+		
 		while (!priorityQueue.isEmpty()) {
 			RuleAction ra = priorityQueue.poll();
 			tmp += ra.toString() + "\n";
 		}
 		return tmp;
+	}
+	
+	public HashSet<RuleAction> getConsistencyRules() {
+		HashSet<RuleAction> tmp = consistencyActions;
+		consistencyActions = new HashSet<RuleAction>();
+		return tmp;
+		
 	}
 
 }

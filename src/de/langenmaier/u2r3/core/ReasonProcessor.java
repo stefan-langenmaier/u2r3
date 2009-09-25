@@ -58,6 +58,12 @@ public class ReasonProcessor {
 		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			return false;
 		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+			//Konsistenzregeln anwenden
+			logger.debug("Applying consistency rules");
+			for(RuleAction ra : actions.getConsistencyRules()) {
+				ra.apply();
+			}
+			logger.debug("Applied consistency rules");
 			System.out.println(" ------------------------------------ ");
 			System.out.println(" --------     next round     -------- ");
 			System.out.println(" ------------------------------------ ");

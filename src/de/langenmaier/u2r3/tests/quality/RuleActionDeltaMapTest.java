@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.tests.quality;
 
 import de.langenmaier.u2r3.util.RuleAction;
+
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -23,11 +24,11 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
 		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
+				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		assertEquals(1, dm.size());
 		
 		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
+				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
@@ -51,13 +52,13 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
 		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA));
+				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
 		
 		dm.put(ra2);
 		assertEquals(1, dm.size());
 		
 		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				new DeltaRelation(RelationManager.getRelation(RelationName.subClass), DeltaRelation.NO_DELTA)));
+				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 

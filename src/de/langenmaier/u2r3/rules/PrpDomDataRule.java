@@ -10,7 +10,7 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpDomDataRule extends Rule {
+public class PrpDomDataRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(PrpDomDataRule.class);
 	
 	PrpDomDataRule() {

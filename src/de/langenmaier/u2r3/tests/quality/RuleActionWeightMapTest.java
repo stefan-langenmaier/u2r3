@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.tests.quality;
 
 import de.langenmaier.u2r3.util.RuleAction;
+
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -15,7 +16,7 @@ public class RuleActionWeightMapTest extends TestCase {
 		RuleActionWeightMap wp = new RuleActionWeightMap();
 		
 		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
-				new DeltaRelation(RelationManager.getRelation(RelationName.classAssertion), DeltaRelation.NO_DELTA));
+				RelationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA));
 		wp.put(ra);
 		System.out.println(wp);System.out.println(wp.get(ra));
 		

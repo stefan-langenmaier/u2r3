@@ -216,9 +216,9 @@ public abstract class Relation {
 		return createDeltaRelation(getNewDelta());
 	}
 	
-	public DeltaRelation getCurrentDeltaRelation() {
+	/*public DeltaRelation getCurrentDeltaRelation() {
 		return createDeltaRelation(getDelta());
-	}
+	}*/
 
 
 	public void removeDeltaRelation(int delta) {
