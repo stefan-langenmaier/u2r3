@@ -45,7 +45,7 @@ public class SubClassRelation extends Relation {
 	public void createDeltaImpl(long id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, superSourceId UUID, PRIMARY KEY (sub, super))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, subSourceTable VARCHAR(100), superSourceId UUID, superSourceTable VARCHAR(100), PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -76,11 +76,11 @@ public class SubClassRelation extends Relation {
 					String sql = null;
 					
 					//subSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, '" + RelationName.subClass + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, subSourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 					
 					//superSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, '" + RelationName.subClass + "' AS sourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, superSourceTable FROM " + getDeltaName(delta.getDelta());
 					RelationManager.addHistory(sql);
 				}
 				

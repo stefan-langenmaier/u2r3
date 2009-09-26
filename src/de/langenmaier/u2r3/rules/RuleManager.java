@@ -12,7 +12,8 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 public class RuleManager {
 	public enum RuleName {eq_trans, eq_ref, eq_sym, prp_dom_object,
 		prp_dom_data, prp_rng_object, prp_rng_data, cls_nothing_2,
-		cls_int_2, cax_sco};
+		cls_int_2, cax_sco, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
+		scm_cls_equivalentClass};
 	private static boolean isInitialized = false;
 	private static HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	
@@ -41,6 +42,10 @@ public class RuleManager {
 			rules.put(RuleName.cls_nothing_2, new ClsNothing2Rule());
 			rules.put(RuleName.cls_int_2, new ClsInt2Rule());
 			rules.put(RuleName.cax_sco, new CaxScoRule());
+			rules.put(RuleName.scm_cls_subClass, new ScmClsSubClassRule());
+			rules.put(RuleName.scm_cls_thing, new ScmClsThingRule());
+			rules.put(RuleName.scm_cls_nothing, new ScmClsNothingRule());
+			rules.put(RuleName.scm_cls_equivalentClass, new ScmClsEquivalentClassRule());
 			
 		}
 		isInitialized = true;
