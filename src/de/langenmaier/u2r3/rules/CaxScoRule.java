@@ -10,15 +10,14 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ClsInt2Rule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(ClsInt2Rule.class);
+public class CaxScoRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(CaxScoRule.class);
 	
-	ClsInt2Rule() {
+	CaxScoRule() {
 		targetRelation = RelationName.declaration;
 		
 		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
-		RelationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
-		RelationManager.getRelation(RelationName.list).addAdditionRule(this);
+		RelationManager.getRelation(RelationName.subClass).addAdditionRule(this);
 		
 		RelationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -71,38 +70,25 @@ public class ClsInt2Rule extends ApplicationRule {
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
-
+		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (Settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT dec.subject, l.element, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(l.id) AS typeSourceId, '" + RelationName.list.toString() + "' AS typeSourceTable");
+			sql.append("\n\t SELECT dec.subject, sc.super, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(sc.id) AS typeSourceId, '" + RelationName.subClass.toString() + "' AS typeSourceTable");
 		} else {
 			sql.append(" (subject, type)");
-			sql.append("\n\t SELECT DISTINCT dec.subject, l.element");
+			sql.append("\n\t SELECT DISTINCT dec.subject, sc.super");
 		}
 		
+		//sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
-			sql.append("\n\t\t ON int.list = l.name");
-			sql.append("\n\t\t INNER JOIN declaration AS dec");
-			sql.append("\n\t\t ON dec.type = int.class");
+			sql.append("\n\t FROM declaration AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
 		} else {
-			if (delta.getRelation() == RelationManager.getRelation(RelationName.intersectionOf)) {
-				sql.append("\n\t FROM  " + delta.getDeltaName() + " AS int INNER JOIN list AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN declaration AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
-			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.list)) {
-				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN " + delta.getDeltaName() + " AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN declaration AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
-			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.declaration)) {
-				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
+			if (delta.getRelation() == RelationManager.getRelation(RelationName.declaration)) {
+				sql.append("\n\t FROM " + delta.getDeltaName() + " AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
+			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.subClass)) {
+				sql.append("\n\t FROM declaration AS dec INNER JOIN " + delta.getDeltaName() + " AS sc ON dec.type = sc.sub");
 			}
 		}
 		
@@ -110,16 +96,16 @@ public class ClsInt2Rule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = l.element");
+			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = sc.super");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY dec.subject, l.element");
+		sql.append("\n\t  GROUP BY dec.subject, sc.super");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "declaration(Y,C1..Cn) :- intersectionOf(C, X), list(x, C1..Cn), declaration(Y, C)";
+		return "declaration(X,C2) :- declaration(X, C1), subClass(C1, C2)";
 	}
 
 }
