@@ -77,10 +77,10 @@ public class PrpRngObjectRule extends ApplicationRule {
 		
 		if (Settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.subject, rng.range, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
 		} else {
 			sql.append("(subject, type)");
-			sql.append("\n\t SELECT DISTINCT ass.subject, rng.range");
+			sql.append("\n\t SELECT DISTINCT ass.object, rng.range");
 		}
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			sql.append("\n\t FROM objectPropertyAssertion AS ass");
@@ -100,12 +100,12 @@ public class PrpRngObjectRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = ass.subject AND bottom.type = rng.range");
+			sql.append("\n\t\t WHERE bottom.subject = ass.object AND bottom.type = rng.range");
 			sql.append("\n\t )");
 		}
 		
 		if (Settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ass.subject, rng.range");
+			sql.append("\n\t GROUP BY ass.object, rng.range");
 		}
 		return sql.toString();
 	}

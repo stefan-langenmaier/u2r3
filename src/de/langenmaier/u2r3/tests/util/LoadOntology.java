@@ -17,6 +17,7 @@ import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
@@ -36,6 +37,7 @@ public class LoadOntology {
 
 			boolean process = true;
 			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
+			Settings.setDeletionType(DeletionType.CLEAN);
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");

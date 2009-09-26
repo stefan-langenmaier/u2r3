@@ -10,17 +10,16 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpRngDataRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(PrpRngDataRule.class);
+public class ClsInt2Rule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(ClsInt2Rule.class);
 	
-	PrpRngDataRule() {
+	ClsInt2Rule() {
 		targetRelation = RelationName.declaration;
 		
-		//relations on the right side
-		RelationManager.getRelation(RelationName.dataPropertyRange).addAdditionRule(this);
-		RelationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
+		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		RelationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
+		RelationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
-		//on the left side, aka targetRelation
 		RelationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
@@ -72,48 +71,56 @@ public class PrpRngDataRule extends ApplicationRule {
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
-		
+
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (Settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append("\n\t SELECT dec.subject, l.element, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(l.id) AS typeSourceId, '" + RelationName.list.toString() + "' AS typeSourceTable");
 		} else {
-			sql.append("(subject, type)");
-			sql.append("\n\t SELECT DISTINCT ass.object, rng.range");
+			sql.append(" (subject, type)");
+			sql.append("\n\t SELECT DISTINCT dec.subject, l.element");
 		}
 		
+		//sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM dataPropertyAssertion AS ass");
-			sql.append("\n\t\t INNER JOIN dataPropertyRange AS rng");
+			sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
+			sql.append("\n\t\t ON int.list = l.name");
+			sql.append("\n\t\t INNER JOIN declaration AS dec");
+			sql.append("\n\t\t ON dec.type = int.class");
 		} else {
-			if (RelationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
-				sql.append("\n\t FROM " + delta.getDeltaName() + " AS ass");
-				sql.append("\n\t\t INNER JOIN dataPropertyRange AS rng");
-			} else {
-				sql.append("\n\t FROM dataPropertyAssertion AS ass");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS rng");
+			if (delta.getRelation() == RelationManager.getRelation(RelationName.intersectionOf)) {
+				sql.append("\n\t FROM  " + delta.getDeltaName() + " AS int INNER JOIN list AS l");
+				sql.append("\n\t\t ON int.list = l.name");
+				sql.append("\n\t\t INNER JOIN declaration AS dec");
+				sql.append("\n\t\t ON dec.type = int.class");
+			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.list)) {
+				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN " + delta.getDeltaName() + " AS l");
+				sql.append("\n\t\t ON int.list = l.name");
+				sql.append("\n\t\t INNER JOIN declaration AS dec");
+				sql.append("\n\t\t ON dec.type = int.class");
+			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.declaration)) {
+				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
+				sql.append("\n\t\t ON int.list = l.name");
+				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dec");
+				sql.append("\n\t\t ON dec.type = int.class");
 			}
 		}
-		sql.append("\n\t\t ON ass.Property = rng.Property");
-
+		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = ass.object AND bottom.type = rng.range");
+			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = l.element");
 			sql.append("\n\t )");
 		}
-		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ass.object, rng.range");
-		}
+		sql.append("\n\t  GROUP BY dec.subject, l.element");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "declaration(X, C) :- dataPropertyDomain(P, C), dataPropertyAssertion(X, P, Y)";
+		return "sameAs(A,A) :- declaration(A)";
 	}
 
 }
