@@ -36,8 +36,8 @@ public class LoadOntology {
 			Logger.getRootLogger().setLevel(Level.ALL);
 
 			boolean process = true;
-			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
-			Settings.setDeletionType(DeletionType.CLEAN);
+			Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
+			Settings.setDeletionType(DeletionType.CASCADING);
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");
