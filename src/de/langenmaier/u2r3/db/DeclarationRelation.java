@@ -105,12 +105,17 @@ public class DeclarationRelation extends Relation {
 				if (Settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
+					//remove rows without history
+					sql = "DELETE FROM " + delta.getDeltaName() + " WHERE subjectSourceId IS NULL";
+					rows = stmt.executeUpdate(sql);
+					
+					
 					//subjectSource
-					sql = "SELECT id, '" + RelationName.declaration + "' AS table, subjectSourceId, subjectSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.declaration + "' AS table, subjectSourceId, subjectSourceTable FROM " + delta.getDeltaName();
 					RelationManager.addHistory(sql);
 					
 					//superSource
-					sql = "SELECT id, '" + RelationName.declaration + "' AS table, typeSourceId, typeSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.declaration + "' AS table, typeSourceId, typeSourceTable FROM " + delta.getDeltaName();
 					RelationManager.addHistory(sql);
 				}
 				

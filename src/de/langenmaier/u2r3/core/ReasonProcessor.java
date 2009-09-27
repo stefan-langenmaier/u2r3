@@ -5,8 +5,11 @@ import org.apache.log4j.Logger;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationManager;
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.rules.Rule;
+import de.langenmaier.u2r3.rules.RuleManager;
+import de.langenmaier.u2r3.rules.RuleManager.RuleName;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.util.RuleActionQueue;
@@ -20,7 +23,9 @@ public class ReasonProcessor {
 	
 	RuleActionQueue actions = new RuleActionQueue();
 	
-	private ReasonProcessor() {}
+	private ReasonProcessor() {
+		actions.add(new RuleAction(RuleManager.getRule(RuleName.dt_type1), RelationManager.getRelation(RelationName.declaration).createDeltaRelation(DeltaRelation.NO_DELTA)));
+	}
 	
 	public synchronized static ReasonProcessor getReasonProcessor() {
 		if (rp == null) rp = new ReasonProcessor();

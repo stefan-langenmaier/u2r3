@@ -10,8 +10,8 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
+import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 import de.langenmaier.u2r3.core.ReasonProcessor;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
@@ -36,7 +36,7 @@ public class LoadOntology {
 			Logger.getRootLogger().setLevel(Level.ALL);
 
 			boolean process = true;
-			Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
+			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
 			Settings.setDeletionType(DeletionType.CASCADING);
 
 			if (args.length<=0) {
