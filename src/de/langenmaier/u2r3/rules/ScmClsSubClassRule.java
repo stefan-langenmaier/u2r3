@@ -52,7 +52,7 @@ public class ScmClsSubClassRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "subClass(C,C) :- declaration(C, class)";
+		return "subClass(C, C) :- declaration(C, class)";
 	}
 
 }

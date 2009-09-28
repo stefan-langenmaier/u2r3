@@ -28,16 +28,12 @@ public class RuleAction implements Comparable<RuleAction>{
 	}
 	
 
-	public Double getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
 	public void setWeight(double weight) {
 		this.weight = new Double(weight);
-	}
-	
-	public void setWeight(Double weight) {
-		this.weight = weight;
 	}
 	
 	@Override

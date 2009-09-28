@@ -13,13 +13,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
-import de.langenmaier.u2r3.core.ReasonProcessor;
-import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
-import de.langenmaier.u2r3.rules.RuleManager;
-import de.langenmaier.u2r3.util.Settings;
-import de.langenmaier.u2r3.util.Settings.DeletionType;
-import de.langenmaier.u2r3.util.Settings.DeltaIteration;
-
 /**
  * This test class loads an ontology file into a h2 database
  * @author stefan

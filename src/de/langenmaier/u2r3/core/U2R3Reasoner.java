@@ -35,6 +35,8 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	private RelationManager relationManager;
 	private ReasonProcessor reasonProcessor;
 	private Settings settings;
+	
+	private boolean isClassified = false;
 
 	protected U2R3Reasoner(OWLOntologyManager manager) throws OWLReasonerException {
 		super(manager);
@@ -81,7 +83,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 			for(OWLAxiom ax : ont.getAxioms()) {
-				//System.out.println(ax.toString());
 				ax.accept(axiomAdder);
 			}
 			
@@ -104,12 +105,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public void classify() throws OWLReasonerException {
 		reasonProcessor.classify();
+		isClassified = true;
 	}
 
 	@Override
 	public boolean isClassified() throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		return isClassified;
 	}
 
 	@Override

@@ -1,14 +1,10 @@
 package de.langenmaier.u2r3.rules;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class CaxScoRule extends ApplicationRule {
@@ -22,50 +18,6 @@ public class CaxScoRule extends ApplicationRule {
 		relationManager.getRelation(RelationName.subClass).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
-	}
-	
-	@Override
-	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-			} else {
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rows;
-	}
-
-	@Override
-	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			} else {
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-		
-			}
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		return rows;
 	}
 
 	@Override
@@ -83,7 +35,6 @@ public class CaxScoRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT dec.subject, sc.super");
 		}
 		
-		//sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			sql.append("\n\t FROM declaration AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
 		} else {

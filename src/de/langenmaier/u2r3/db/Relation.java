@@ -124,14 +124,14 @@ public abstract class Relation extends U2R3Component {
 	public abstract void createDeltaImpl(long id);
 	
 	private void createDelta(long id) {
-		if (id >= nextDelta) {
+		//if (id >= nextDelta) {
 			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				++nextDelta;
 			}
 			createDeltaImpl(id);
-		} else {
+		//} else {
 			//throw new U2R3RuntimeException();
-		}
+		//}
 	}
 	
 	protected void dropDelta(long id) {
@@ -176,21 +176,11 @@ public abstract class Relation extends U2R3Component {
 	 */
 	public void merge() {
 		merge(deltas.get(getNewDelta()));
-		//long pd = getPreviousDelta();
 		if (getDelta() != DeltaRelation.NO_DELTA) {
 			dropDelta(getDelta());
 		}
 		++nextDelta;
 	}
-
-	/**
-	 * This method is only reasonable in the context of an execution
-	 * in the collective mode
-	 * @return
-	 */
-	/*private long getPreviousDelta() {
-		return nextDelta-2;
-	}*/
 
 	protected String getTableName() {
 		return tableName;
@@ -217,11 +207,6 @@ public abstract class Relation extends U2R3Component {
 	public DeltaRelation createNewDeltaRelation() {
 		return createDeltaRelation(getNewDelta());
 	}
-	
-	/*public DeltaRelation getCurrentDeltaRelation() {
-		return createDeltaRelation(getDelta());
-	}*/
-
 
 	public void removeDeltaRelation(int delta) {
 		dropDelta(delta);

@@ -70,9 +70,7 @@ public class SameAsRelation extends Relation {
 			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) SELECT id, left, right FROM ( " +
 					" SELECT id, left, right " +
 					" FROM " + delta.getDeltaName() + " " +
-					")");
-
-			
+					")");			
 			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {

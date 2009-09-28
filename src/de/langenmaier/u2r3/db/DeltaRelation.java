@@ -28,20 +28,9 @@ public class DeltaRelation {
 		return relation.hashCode() ^ (int) delta;
 	}
 	
-	/*public DeltaRelation(Relation relation) {
-		this.relation = relation;
-		delta = relation.getNewDelta();
-		//relation.createDelta(delta);
-	}*/
-	
 	public DeltaRelation(Relation relation, int delta) {
 		this.relation = relation;
 		this.delta = delta;
-		/*//does the relation already exist?
-		if (delta != NO_DELTA && delta > relation.getDelta()) {
-			relation.createDelta(delta);
-		}*/
-		
 	}
 	
 	public long getDelta() {
@@ -50,21 +39,6 @@ public class DeltaRelation {
 	
 	public Relation getRelation() {
 		return relation;
-	}
-
-	/*public DeltaRelation getNextDelta() {
-		return new DeltaRelation(relation, delta+1);
-	}*/
-	
-	/**
-	 * Sollte nur im collective Modus benutzt werden
-	 */
-	public static DeltaRelation getCurrentDelta(Relation relation) {
-		//if (Settings.getDeltaIteration() != DeltaIteration.COLLECTIVE) {
-		//	throw new U2R3RuntimeException();
-		//}
-		///XXX das sollte eigentlich nicht getNewDelta sein
-		return new DeltaRelation(relation, relation.getNewDelta());
 	}
 	
 	public String getDeltaName () {

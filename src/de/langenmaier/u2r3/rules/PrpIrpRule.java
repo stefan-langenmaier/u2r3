@@ -17,7 +17,6 @@ public class PrpIrpRule extends ConsistencyRule {
 		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
 		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
-		//RelationManager.getRelation(RelationName.sameAs).addDeletionRule(this);
 	}
 	
 

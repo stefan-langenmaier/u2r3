@@ -1,14 +1,10 @@
 package de.langenmaier.u2r3.rules;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class ClsInt2Rule extends ApplicationRule {
@@ -25,50 +21,6 @@ public class ClsInt2Rule extends ApplicationRule {
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
-	@Override
-	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-			} else {
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rows;
-	}
-
-	@Override
-	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			} else {
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-		
-			}
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		return rows;
-	}
-
 	@Override
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
 			boolean again, int run) {

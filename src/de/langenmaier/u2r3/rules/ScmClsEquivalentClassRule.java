@@ -5,9 +5,7 @@ import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class ScmClsEquivalentClassRule extends ApplicationRule {
@@ -54,7 +52,7 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "subClass(C,C) :- declaration(C, class)";
+		return "equivalentClass(C, C) :- declaration(C, class)";
 	}
 
 }

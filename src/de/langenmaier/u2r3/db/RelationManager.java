@@ -17,21 +17,17 @@ public class RelationManager {
 		objectPropertyAssertion, objectPropertyDomain, objectPropertyRange, subClass,
 		declaration, sameAs, dataPropertyAssertion, list, intersectionOf,
 		equivalentClass};
-	//private static boolean isInitialized = false;
+
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
 	private U2R3Reasoner reasoner;
 
 	public synchronized Relation getRelation(RelationName name) {
-		/*if (! isInitialized) {
-			initialize();
-		}*/
 		return relations.get(name);
 	}
 	
 	public RelationManager(U2R3Reasoner reasoner) {
 		this.reasoner = reasoner;
-		//initialize(reasoner);
 	}
 
 
@@ -52,7 +48,6 @@ public class RelationManager {
 		relations.put(RelationName.intersectionOf, new IntersectionOfRelation(reasoner));
 		relations.put(RelationName.equivalentClass, new EquivalentClassRelation(reasoner));
 		
-		//isInitialized = true;
 	}
 
 	public Collection<Relation> getRelations() {

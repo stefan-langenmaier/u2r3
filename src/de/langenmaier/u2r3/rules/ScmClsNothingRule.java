@@ -53,7 +53,7 @@ public class ScmClsNothingRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "subClass(C,C) :- declaration(C, class)";
+		return "subClass(nothing, wC) :- declaration(C, class)";
 	}
 
 }

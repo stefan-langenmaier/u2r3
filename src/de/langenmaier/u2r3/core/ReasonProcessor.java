@@ -17,8 +17,6 @@ import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class ReasonProcessor {
-	//private static ReasonProcessor rp = null;
-	
 	static Logger logger = Logger.getLogger(ReasonProcessor.class);
 	
 	RuleActionQueue actions;
@@ -40,11 +38,6 @@ public class ReasonProcessor {
 				relationManager.getRelation(RelationName.declaration).createDeltaRelation(DeltaRelation.NO_DELTA)));
 
 	}
-	
-	/*public synchronized static ReasonProcessor getReasonProcessor() {
-		if (rp == null) rp = new ReasonProcessor();
-		return rp;
-	}*/
 	
 	public void add(Reason reason) {
 		logger.trace("Processing Reason: " + reason.toString());

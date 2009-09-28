@@ -14,10 +14,6 @@ public class DtType1Rule extends ApplicationRule {
 	DtType1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = RelationName.declaration;
-		
-		//RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
-		
-		//RelationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 
