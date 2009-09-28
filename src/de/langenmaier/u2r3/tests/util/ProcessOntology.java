@@ -26,7 +26,7 @@ public class ProcessOntology {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Settings.startClean(false);
+		/*Settings.startClean(false);
 		Settings.setDeltaIteration(DeltaIteration.IMMEDIATE);
 		Settings.setDeletionType(DeletionType.CLEAN);
 		BasicConfigurator.configure();
@@ -38,7 +38,7 @@ public class ProcessOntology {
 		Reason r = new AdditionReason(RelationManager.getRelation(RelationName.subClass));
 		rp.add(r);
 		
-		rp.classify();
+		rp.classify();*/
 	}
 
 }

@@ -1,7 +1,10 @@
 package de.langenmaier.u2r3.tests.quality;
 
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+
 import de.langenmaier.u2r3.util.RuleAction;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -15,8 +18,18 @@ public class RuleActionWeightMapTest extends TestCase {
 	public void testPutRuleAction() {
 		RuleActionWeightMap wp = new RuleActionWeightMap();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
-				RelationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA));
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (OWLReasonerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
+		
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans),
+				relationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA));
 		wp.put(ra);
 		System.out.println(wp);System.out.println(wp.get(ra));
 		
@@ -27,8 +40,8 @@ public class RuleActionWeightMapTest extends TestCase {
 		
 		assertEquals(0.0d+1, wp.get(ra));
 		
-		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans),
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans),
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		wp.put(ra2);
 		System.out.println(wp);System.out.println(wp.get(ra2));
 		

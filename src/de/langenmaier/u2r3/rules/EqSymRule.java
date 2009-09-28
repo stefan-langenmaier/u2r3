@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -13,14 +14,15 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class EqSymRule extends Rule {
 	static Logger logger = Logger.getLogger(EqSymRule.class);
 	
-	EqSymRule() {
+	EqSymRule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.sameAs;
 		
 		//relations on the right side
-		RelationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
+		relationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
-		RelationManager.getRelation(targetRelation).addDeletionRule(this);
+		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 	@Override
@@ -77,7 +79,7 @@ public class EqSymRule extends Rule {
 */
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
 			sql.append("\n\t SELECT right, left, id AS leftSourceId, '" + RelationName.sameAs.toString() + "' AS leftSourceTable, id AS rightSourceId, '" + RelationName.sameAs.toString() + "' AS rightSourceTable");
 		} else {

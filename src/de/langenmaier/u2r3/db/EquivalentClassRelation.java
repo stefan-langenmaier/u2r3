@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
@@ -13,7 +14,8 @@ import de.langenmaier.u2r3.util.Pair;
 public class EquivalentClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(EquivalentClassRelation.class);
 	
-	protected EquivalentClassRelation() {
+	protected EquivalentClassRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "equivalentClass";
 			

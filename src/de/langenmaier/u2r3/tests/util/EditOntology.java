@@ -35,7 +35,7 @@ public class EditOntology {
 	 *            Absolute file path to a OWL2 RL File
 	 */
 	public static void main(String[] args) {
-		try {
+		/*try {
 			BasicConfigurator.configure();
 			Logger.getRootLogger().setLevel(Level.ALL);
 
@@ -92,7 +92,7 @@ public class EditOntology {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

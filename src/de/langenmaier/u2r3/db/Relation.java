@@ -10,12 +10,13 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import de.langenmaier.u2r3.core.ReasonProcessor;
+
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
-import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.U2R3Component;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
@@ -24,7 +25,7 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  * @author stefan
  *
  */
-public abstract class Relation {
+public abstract class Relation extends U2R3Component {
 	static Logger logger = Logger.getLogger(Relation.class);
 	
 	protected Connection conn = null;
@@ -48,7 +49,8 @@ public abstract class Relation {
 
 	protected boolean isDirty = false;
 	
-	protected Relation() {
+	protected Relation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		conn = U2R3DBConnection.getConnection();
 		try {
 			createDeltaStatement = conn.createStatement();
@@ -67,7 +69,7 @@ public abstract class Relation {
 			addImpl(axiom);
 			logger.trace(addStatement.toString());
 			addStatement.executeUpdate();
-			ReasonProcessor.getReasonProcessor().add(new AdditionReason(this));
+			reasonProcessor.add(new AdditionReason(this));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,15 +79,15 @@ public abstract class Relation {
 	
 	public void remove(OWLAxiom axiom) {
 		try {
-			ReasonProcessor.getReasonProcessor().pause();
+			reasonProcessor.pause();
 			
 			Pair<UUID, RelationName> res = removeImpl(axiom);
 
 			if (res.getFirst() != null) {
-				RelationManager.remove(res.getFirst(), res.getSecond());
+				relationManager.remove(res.getFirst(), res.getSecond());
 			}
 			
-			ReasonProcessor.getReasonProcessor().resume();
+			reasonProcessor.resume();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -109,7 +111,7 @@ public abstract class Relation {
 	
 	protected void create() {
 		try {
-			if (Settings.startClean()) {
+			if (settings.startClean()) {
 				dropMainStatement.execute();
 				createMainStatement.executeUpdate();
 			}
@@ -123,7 +125,7 @@ public abstract class Relation {
 	
 	private void createDelta(long id) {
 		if (id >= nextDelta) {
-			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				++nextDelta;
 			}
 			createDeltaImpl(id);
@@ -152,7 +154,7 @@ public abstract class Relation {
 	 * Should only be used in the collective Mode
 	 */
 	public void makeDirty() {
-		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			throw new RuntimeException("this is not allowed in immediate mode");
 		}
 		isDirty = true;

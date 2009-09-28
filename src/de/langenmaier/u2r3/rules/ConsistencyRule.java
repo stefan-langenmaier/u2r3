@@ -2,6 +2,7 @@ package de.langenmaier.u2r3.rules;
 
 import java.sql.SQLException;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 
@@ -13,6 +14,10 @@ import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
  */
 public abstract class ConsistencyRule extends Rule {
 	
+	protected ConsistencyRule(U2R3Reasoner reasoner) {
+		super(reasoner);
+	}
+
 	@Override
 	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
 		long rows = 0;

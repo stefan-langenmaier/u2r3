@@ -3,6 +3,7 @@ package de.langenmaier.u2r3.rules;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -12,12 +13,13 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class ScmClsEquivalentClassRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(ScmClsEquivalentClassRule.class);
 	
-	ScmClsEquivalentClassRule() {
+	ScmClsEquivalentClassRule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.equivalentClass;
 		
-		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
 		
-		RelationManager.getRelation(targetRelation).addDeletionRule(this);
+		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 
@@ -28,7 +30,7 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
 			sql.append("\n\t SELECT dec.subject AS left, dec.subject AS right, MIN(dec.id) AS leftSourceId, '" + RelationName.declaration.toString() + "' AS leftSourceTable, MIN(dec.id) AS rightSourceId, '" + RelationName.declaration.toString() + "' AS rightSourceTable");
 		} else {

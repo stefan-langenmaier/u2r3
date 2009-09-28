@@ -5,13 +5,15 @@ import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
 public class ListRelation extends Relation {
 	
-	protected ListRelation() {
+	protected ListRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "list";
 			

@@ -17,6 +17,10 @@ public class U2R3NotInProfileException extends U2R3RuntimeException {
 		//TODO Wo gibt man an was das Axiom war?
 	}
 
+	public U2R3NotInProfileException(String string) {
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * 
 	 */

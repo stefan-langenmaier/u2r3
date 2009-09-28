@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -14,10 +15,11 @@ import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 public class ClsNothing2Rule extends ConsistencyRule {
 	static Logger logger = Logger.getLogger(ClsNothing2Rule.class);
 	
-	ClsNothing2Rule() {
+	ClsNothing2Rule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = null;
 		
-		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
 		
 		//RelationManager.getRelation(RelationName.sameAs).addDeletionRule(this);
 	}

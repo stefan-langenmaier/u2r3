@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.UUID;
 
-import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 /**
@@ -17,53 +17,55 @@ public class RelationManager {
 		objectPropertyAssertion, objectPropertyDomain, objectPropertyRange, subClass,
 		declaration, sameAs, dataPropertyAssertion, list, intersectionOf,
 		equivalentClass};
-	private static boolean isInitialized = false;
-	private static HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
-	private static History history = null;
-	
+	//private static boolean isInitialized = false;
+	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
+	private History history = null;
+	private U2R3Reasoner reasoner;
 
-	public synchronized static Relation getRelation(RelationName name) {
-		if (! isInitialized) {
+	public synchronized Relation getRelation(RelationName name) {
+		/*if (! isInitialized) {
 			initialize();
-		}
+		}*/
 		return relations.get(name);
 	}
 	
-	//There should be no objects of this class
-	private RelationManager() {}
-
-
-	private static void initialize() {
-		history = new History();
-		
-		relations.put(RelationName.subClass, new SubClassRelation());
-		relations.put(RelationName.classAssertion, new ClassAssertionRelation());
-		relations.put(RelationName.dataPropertyDomain, new DataPropertyDomainRelation());
-		relations.put(RelationName.dataPropertyRange, new DataPropertyRangeRelation());
-		relations.put(RelationName.objectPropertyAssertion, new ObjectPropertyAssertionRelation());
-		relations.put(RelationName.objectPropertyDomain, new ObjectPropertyDomainRelation());
-		relations.put(RelationName.objectPropertyRange, new ObjectPropertyRangeRelation());
-		relations.put(RelationName.declaration, new DeclarationRelation());
-		relations.put(RelationName.sameAs, new SameAsRelation());
-		relations.put(RelationName.dataPropertyAssertion, new DataPropertyAssertionRelation());
-		relations.put(RelationName.list, new ListRelation());
-		relations.put(RelationName.intersectionOf, new IntersectionOfRelation());
-		relations.put(RelationName.equivalentClass, new EquivalentClassRelation());
-		
-		isInitialized = true;
+	public RelationManager(U2R3Reasoner reasoner) {
+		this.reasoner = reasoner;
+		//initialize(reasoner);
 	}
 
-	public static Collection<Relation> getRelations() {
+
+	public void initialize() {
+		history = new History(reasoner);
+		
+		relations.put(RelationName.subClass, new SubClassRelation(reasoner));
+		relations.put(RelationName.classAssertion, new ClassAssertionRelation(reasoner));
+		relations.put(RelationName.dataPropertyDomain, new DataPropertyDomainRelation(reasoner));
+		relations.put(RelationName.dataPropertyRange, new DataPropertyRangeRelation(reasoner));
+		relations.put(RelationName.objectPropertyAssertion, new ObjectPropertyAssertionRelation(reasoner));
+		relations.put(RelationName.objectPropertyDomain, new ObjectPropertyDomainRelation(reasoner));
+		relations.put(RelationName.objectPropertyRange, new ObjectPropertyRangeRelation(reasoner));
+		relations.put(RelationName.declaration, new DeclarationRelation(reasoner));
+		relations.put(RelationName.sameAs, new SameAsRelation(reasoner));
+		relations.put(RelationName.dataPropertyAssertion, new DataPropertyAssertionRelation(reasoner));
+		relations.put(RelationName.list, new ListRelation(reasoner));
+		relations.put(RelationName.intersectionOf, new IntersectionOfRelation(reasoner));
+		relations.put(RelationName.equivalentClass, new EquivalentClassRelation(reasoner));
+		
+		//isInitialized = true;
+	}
+
+	public Collection<Relation> getRelations() {
 		return relations.values();
 	}
 
-	public static void addHistory(String sql) {
+	public void addHistory(String sql) {
 		history.add(sql);
 		
 	}
 
-	public static void remove(UUID id, RelationName name) {
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+	public void remove(UUID id, RelationName name) {
+		if (reasoner.getSettings().getDeletionType() == DeletionType.CASCADING) {
 			history.remove(id, name);
 		} //else if (Settings.getDeletionType() == DeletionType.CLEAN) {
 		//	Settings.startClean(true);

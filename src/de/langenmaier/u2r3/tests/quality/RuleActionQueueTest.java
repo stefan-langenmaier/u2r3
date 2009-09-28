@@ -1,6 +1,9 @@
 package de.langenmaier.u2r3.tests.quality;
 
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+
 import de.langenmaier.u2r3.util.RuleAction;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
@@ -11,10 +14,20 @@ import junit.framework.TestCase;
 public class RuleActionQueueTest extends TestCase {
 
 	public void testActivate() {
-		RuleActionQueue aq = new RuleActionQueue();
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (OWLReasonerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleActionQueue aq = new RuleActionQueue(reasoner);
+		
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -23,10 +36,20 @@ public class RuleActionQueueTest extends TestCase {
 	}
 
 	public void testDelete() {
-		RuleActionQueue aq = new RuleActionQueue();
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (OWLReasonerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleActionQueue aq = new RuleActionQueue(reasoner);
+		
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -37,10 +60,20 @@ public class RuleActionQueueTest extends TestCase {
 	}
 
 	public void testAdd() {
-		RuleActionQueue aq = new RuleActionQueue();
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (OWLReasonerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleActionQueue aq = new RuleActionQueue(reasoner);
+		
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		
 		aq.add(ra);		
 		assertEquals(1, aq.size());

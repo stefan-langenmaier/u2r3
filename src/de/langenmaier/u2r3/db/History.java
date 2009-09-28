@@ -9,17 +9,17 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
-import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.DeletionReason;
-import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.U2R3Component;
 
 /**
  * This class stores how facts have been inferred and manages in which order facts can be deleted.
  * @author stefan
  *
  */
-public class History {
+public class History extends U2R3Component {
 	static Logger logger = Logger.getLogger(History.class);
 	
 	private Connection conn = null;
@@ -27,10 +27,11 @@ public class History {
 	private PreparedStatement dropStatement = null;
 	private Statement stmt = null;
 	
-	protected History() {
+	protected History(U2R3Reasoner reasoner) {
+		super(reasoner);
 		conn = U2R3DBConnection.getConnection();
 		try {
-			if (Settings.startClean()) {
+			if (settings.startClean()) {
 				dropStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS");
 				dropStatement.execute();
 			
@@ -86,12 +87,12 @@ public class History {
 				deleteStatement.execute(sql);
 				
 				//fire reason - maybe data can be created again for this relation
-				ReasonProcessor.getReasonProcessor().add(new DeletionReason(RelationManager.getRelation(name)));
+				reasonProcessor.add(new DeletionReason(relationManager.getRelation(name)));
 			}	
 			
 			//remove value
 			logger.trace(" remove value: "+ sourceId.toString());
-			sql = "DELETE FROM " + RelationManager.getRelation(sourceTable).getTableName() + " WHERE id = '" + sourceId.toString() + "'";
+			sql = "DELETE FROM " + relationManager.getRelation(sourceTable).getTableName() + " WHERE id = '" + sourceId.toString() + "'";
 			deleteStatement.execute(sql);
 		
 			

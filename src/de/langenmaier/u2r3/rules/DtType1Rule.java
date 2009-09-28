@@ -4,13 +4,15 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 public class DtType1Rule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(DtType1Rule.class);
 	
-	DtType1Rule() {
+	DtType1Rule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.declaration;
 		
 		//RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);

@@ -17,20 +17,34 @@ import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class ReasonProcessor {
-	private static ReasonProcessor rp = null;
+	//private static ReasonProcessor rp = null;
 	
 	static Logger logger = Logger.getLogger(ReasonProcessor.class);
 	
-	RuleActionQueue actions = new RuleActionQueue();
+	RuleActionQueue actions;
 	
-	private ReasonProcessor() {
-		actions.add(new RuleAction(RuleManager.getRule(RuleName.dt_type1), RelationManager.getRelation(RelationName.declaration).createDeltaRelation(DeltaRelation.NO_DELTA)));
+	private RuleManager ruleManager;
+	private RelationManager relationManager;
+	private Settings settings;
+	
+	ReasonProcessor(U2R3Reasoner reasoner) {
+		actions = new RuleActionQueue(reasoner);
+		ruleManager = reasoner.getRuleManager();
+		relationManager = reasoner.getRelationManager();
+		settings = reasoner.getSettings();
+		//set the Rule that are always true and need to be run
 	}
 	
-	public synchronized static ReasonProcessor getReasonProcessor() {
+	public void initialize() {
+		actions.add(new RuleAction(ruleManager.getRule(RuleName.dt_type1),
+				relationManager.getRelation(RelationName.declaration).createDeltaRelation(DeltaRelation.NO_DELTA)));
+
+	}
+	
+	/*public synchronized static ReasonProcessor getReasonProcessor() {
 		if (rp == null) rp = new ReasonProcessor();
 		return rp;
-	}
+	}*/
 	
 	public void add(Reason reason) {
 		logger.trace("Processing Reason: " + reason.toString());
@@ -60,9 +74,9 @@ public class ReasonProcessor {
 	}
 
 	private boolean applyUpdates() {
-		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			return false;
-		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+		} else if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
 			//Konsistenzregeln anwenden
 			logger.debug("Applying consistency rules");
 			for(RuleAction ra : actions.getConsistencyRules()) {
@@ -72,7 +86,7 @@ public class ReasonProcessor {
 			System.out.println(" ------------------------------------ ");
 			System.out.println(" --------     next round     -------- ");
 			System.out.println(" ------------------------------------ ");
-			for (Relation r : RelationManager.getRelations()) {
+			for (Relation r : relationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();
 				}

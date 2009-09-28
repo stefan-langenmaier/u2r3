@@ -42,10 +42,15 @@ import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
 
-import de.langenmaier.u2r3.db.RelationManager;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.util.U2R3Component;
 
-public class U2R3AxiomRemover implements OWLAxiomVisitor {
+public class U2R3AxiomRemover extends U2R3Component implements OWLAxiomVisitor {
+	protected U2R3AxiomRemover(U2R3Reasoner reasoner) {
+		super(reasoner);
+	}
+
 	static Logger logger = Logger.getLogger(U2R3AxiomRemover.class);
 	
 	@Override
@@ -57,7 +62,7 @@ public class U2R3AxiomRemover implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLSubClassOfAxiom axiom) {
 		logger.debug("  removing SubClass:" + axiom.toString());
-		RelationManager.getRelation(RelationName.subClass).remove(axiom);
+		relationManager.getRelation(RelationName.subClass).remove(axiom);
 		//DataPropertyDomainRelation.getRelation().add(axiom);
 		logger.debug("  removed SubClass");
 	}

@@ -7,13 +7,15 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Pair;
 
 public class ObjectPropertyDomainRelation extends Relation {
 	static Logger logger = Logger.getLogger(ObjectPropertyDomainRelation.class);
 	
-	protected ObjectPropertyDomainRelation() {
+	protected ObjectPropertyDomainRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "objectPropertyDomain";
 			

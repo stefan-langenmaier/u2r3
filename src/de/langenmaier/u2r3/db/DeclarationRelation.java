@@ -10,17 +10,17 @@ import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.vocab.OWLXMLVocabulary;
 
-import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class DeclarationRelation extends Relation {
 	
-	protected DeclarationRelation() {
+	protected DeclarationRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "declaration";
 			
@@ -102,7 +102,7 @@ public class DeclarationRelation extends Relation {
 			if (rows > 0) {
 				
 				//save history
-				if (Settings.getDeletionType() == DeletionType.CASCADING) {
+				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
 					//remove rows without history
@@ -112,17 +112,17 @@ public class DeclarationRelation extends Relation {
 					
 					//subjectSource
 					sql = "SELECT id, '" + RelationName.declaration + "' AS table, subjectSourceId, subjectSourceTable FROM " + delta.getDeltaName();
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 					
 					//superSource
 					sql = "SELECT id, '" + RelationName.declaration + "' AS table, typeSourceId, typeSourceTable FROM " + delta.getDeltaName();
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 				}
 				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
 				Reason r = new AdditionReason(this, delta);
-				ReasonProcessor.getReasonProcessor().add(r);
+				reasonProcessor.add(r);
 			}
 			
 			isDirty = false;

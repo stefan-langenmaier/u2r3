@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -13,15 +14,16 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class PrpRngObjectRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(PrpRngObjectRule.class);
 	
-	PrpRngObjectRule() {
+	PrpRngObjectRule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.declaration;
 		
 		//relations on the right side
-		RelationManager.getRelation(RelationName.objectPropertyRange).addAdditionRule(this);
-		RelationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyRange).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
-		RelationManager.getRelation(targetRelation).addDeletionRule(this);
+		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 	@Override
@@ -75,7 +77,7 @@ public class PrpRngObjectRule extends ApplicationRule {
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
 			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
 		} else {
@@ -86,7 +88,7 @@ public class PrpRngObjectRule extends ApplicationRule {
 			sql.append("\n\t FROM objectPropertyAssertion AS ass");
 			sql.append("\n\t\t INNER JOIN objectPropertyRange AS rng");
 		} else {
-			if (RelationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
+			if (relationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
 				sql.append("\n\t FROM " + delta.getDeltaName() + " AS ass");
 				sql.append("\n\t\t INNER JOIN objectPropertyRange AS rng");
 			} else {
@@ -104,7 +106,7 @@ public class PrpRngObjectRule extends ApplicationRule {
 			sql.append("\n\t )");
 		}
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append("\n\t GROUP BY ass.object, rng.range");
 		}
 		return sql.toString();

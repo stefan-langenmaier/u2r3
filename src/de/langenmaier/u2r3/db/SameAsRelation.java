@@ -6,18 +6,18 @@ import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
-import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class SameAsRelation extends Relation {
 	
-	protected SameAsRelation() {
+	protected SameAsRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "sameAs";
 			
@@ -78,22 +78,22 @@ public class SameAsRelation extends Relation {
 			if (rows > 0) {
 				
 				//save history
-				if (Settings.getDeletionType() == DeletionType.CASCADING) {
+				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
 					//leftSource
 					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, leftSourceTable FROM " + getDeltaName(delta.getDelta());
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 					
 					//rightSource
 					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, rightSourceTable FROM " + getDeltaName(delta.getDelta());
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 				}
 				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
 				Reason r = new AdditionReason(this, delta);
-				ReasonProcessor.getReasonProcessor().add(r);
+				reasonProcessor.add(r);
 			}
 			
 			isDirty = false;

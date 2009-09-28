@@ -2,6 +2,7 @@ package de.langenmaier.u2r3.rules;
 
 import java.sql.SQLException;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 
 /**
@@ -12,6 +13,10 @@ import de.langenmaier.u2r3.db.DeltaRelation;
  */
 public abstract class ApplicationRule extends Rule {
 	
+	protected ApplicationRule(U2R3Reasoner reasoner) {
+		super(reasoner);
+	}
+
 	@Override
 	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
 		long rows = 0;

@@ -1,8 +1,5 @@
 package de.langenmaier.u2r3.db;
 
-import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
-import de.langenmaier.u2r3.util.Settings;
-import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 
 /**
@@ -63,9 +60,9 @@ public class DeltaRelation {
 	 * Sollte nur im collective Modus benutzt werden
 	 */
 	public static DeltaRelation getCurrentDelta(Relation relation) {
-		if (Settings.getDeltaIteration() != DeltaIteration.COLLECTIVE) {
-			throw new U2R3RuntimeException();
-		}
+		//if (Settings.getDeltaIteration() != DeltaIteration.COLLECTIVE) {
+		//	throw new U2R3RuntimeException();
+		//}
 		///XXX das sollte eigentlich nicht getNewDelta sein
 		return new DeltaRelation(relation, relation.getNewDelta());
 	}

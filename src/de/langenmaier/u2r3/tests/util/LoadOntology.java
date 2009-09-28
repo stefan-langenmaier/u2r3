@@ -36,8 +36,9 @@ public class LoadOntology {
 			Logger.getRootLogger().setLevel(Level.ALL);
 
 			boolean process = true;
-			Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
-			Settings.setDeletionType(DeletionType.CASCADING);
+			
+			//Settings.setDeltaIteration(DeltaIteration.COLLECTIVE);
+			//Settings.setDeletionType(DeletionType.CASCADING);
 
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");
@@ -52,18 +53,18 @@ public class LoadOntology {
 			
 			if (!report.isInProfile()) { throw new Exception("OWL file is not in RL Profile!"); }
 			
-			RuleManager.initialize();
+			//RuleManager.initialize();
 			
-			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder();
+			//OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder();
 			for(OWLAxiom ax : ontology.getAxioms()) {
 				//System.out.println(ax.toString());
-				ax.accept(axiomAdder);
+				//ax.accept(axiomAdder);
 			}
 			
 			if (process) {
-				ReasonProcessor.getReasonProcessor().classify();
+				//ReasonProcessor.getReasonProcessor().classify();
 			} else {
-				System.out.println(ReasonProcessor.getReasonProcessor().dump());
+				//System.out.println(ReasonProcessor.getReasonProcessor().dump());
 			}
 			
 		} catch (OWLOntologyCreationException e) {

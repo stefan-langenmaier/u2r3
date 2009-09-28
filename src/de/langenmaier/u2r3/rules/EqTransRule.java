@@ -3,21 +3,21 @@ package de.langenmaier.u2r3.rules;
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class EqTransRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(EqTransRule.class);
 	
-	EqTransRule() {
+	EqTransRule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.subClass;
 		
-		RelationManager.getRelation(RelationName.subClass).addAdditionRule(this);
+		relationManager.getRelation(RelationName.subClass).addAdditionRule(this);
 		
-		RelationManager.getRelation(RelationName.subClass).addDeletionRule(this);
+		relationManager.getRelation(RelationName.subClass).addDeletionRule(this);
 	}
 	
 	@Override
@@ -80,13 +80,13 @@ public class EqTransRule extends ApplicationRule {
 
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, subSourceId, superSourceId)");
 		} else {
 			sql.append(" (sub, super)");
 		}
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append("\n\t SELECT sub, super, MIN(subSourceId) AS subSourceId, MIN(superSourceId) AS superSourceId");
 		} else {
 			sql.append("\n\t SELECT DISTINCT sub, super ");
@@ -94,7 +94,7 @@ public class EqTransRule extends ApplicationRule {
 				
 		sql.append("\n\t FROM ( ");
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append("\n\t\t SELECT t1.sub AS sub, t2.super AS super, t1.id AS subSourceId, t2.id AS superSourceId ");
 		} else {
 			sql.append("\n\t\t SELECT t1.sub AS sub, t2.super AS super ");
@@ -113,14 +113,14 @@ public class EqTransRule extends ApplicationRule {
 		sql.append(" WHERE t1.super = t2.sub  ");
 		
 		if (again) {
-			if (Settings.getDeletionType() == DeletionType.CASCADING) {
+			if (settings.getDeletionType() == DeletionType.CASCADING) {
 				sql.append("\n\t\t\t AND NOT EXISTS (SELECT sub, super, subSourceId, superSourceId  FROM " + newDelta.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) ");
 			} else {
 				sql.append("\n\t\t\t AND NOT EXISTS (SELECT sub, super FROM " + newDelta.getDeltaName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t2.super) ");
 			}
 		}
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append("\n\t ) GROUP BY sub, super");
 		} else {
 			sql.append("\n\t )");

@@ -6,12 +6,12 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.U2R3DBConnection;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
-import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.U2R3Component;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 
@@ -20,22 +20,24 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  * @author stefan
  *
  */
-public abstract class Rule {
+public abstract class Rule extends U2R3Component{
 	static Logger logger = Logger.getLogger(Rule.class);
 	
 	protected Connection conn = null;
 	protected Statement statement = null;
 	protected RelationName targetRelation = null;
 	
-	protected Rule() {
+	protected Rule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		conn = U2R3DBConnection.getConnection();
+		
 		try {
 			statement = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void apply(DeltaRelation delta) {
 		logger.trace("Applying Rule (" + toString() + ") on DeltaRelation: " + delta.toString());
 		long rows = 0;
@@ -43,22 +45,22 @@ public abstract class Rule {
 		DeltaRelation newDelta = null;
 		
 		if (targetRelation != null) {
-			newDelta = RelationManager.getRelation(targetRelation).createNewDeltaRelation();
+			newDelta = relationManager.getRelation(targetRelation).createNewDeltaRelation();
 		}
 		
-		if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			rows = applyImmediate(delta, newDelta);
-		} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+		} else if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
 			rows = applyCollective(delta, newDelta);
 		} else {
 			throw new U2R3RuntimeException();
 		}
 		
 		if (rows > 0) {
-			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				logger.debug("Applying Rule (" + toString()  + ") created data");
 				newDelta.getRelation().merge(newDelta);
-			} else if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
+			} else if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
 				newDelta.getRelation().makeDirty();
 			}
 			
@@ -66,7 +68,7 @@ public abstract class Rule {
 		/**
 		 * if there is no new data the delta can be immediately removed.
 		 */	
-			if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE && newDelta != null) {
+			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE && newDelta != null) {
 				newDelta.dispose();
 			}			
 		}

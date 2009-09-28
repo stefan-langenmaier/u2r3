@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -13,13 +14,14 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class CaxScoRule extends ApplicationRule {
 	static Logger logger = Logger.getLogger(CaxScoRule.class);
 	
-	CaxScoRule() {
+	CaxScoRule(U2R3Reasoner reasoner) {
+		super(reasoner);
 		targetRelation = RelationName.declaration;
 		
-		RelationManager.getRelation(RelationName.declaration).addAdditionRule(this);
-		RelationManager.getRelation(RelationName.subClass).addAdditionRule(this);
+		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.subClass).addAdditionRule(this);
 		
-		RelationManager.getRelation(targetRelation).addDeletionRule(this);
+		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
 	@Override
@@ -73,7 +75,7 @@ public class CaxScoRule extends ApplicationRule {
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
-		if (Settings.getDeletionType() == DeletionType.CASCADING) {
+		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
 			sql.append("\n\t SELECT dec.subject, sc.super, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(sc.id) AS typeSourceId, '" + RelationName.subClass.toString() + "' AS typeSourceTable");
 		} else {
@@ -85,9 +87,9 @@ public class CaxScoRule extends ApplicationRule {
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			sql.append("\n\t FROM declaration AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
 		} else {
-			if (delta.getRelation() == RelationManager.getRelation(RelationName.declaration)) {
+			if (delta.getRelation() == relationManager.getRelation(RelationName.declaration)) {
 				sql.append("\n\t FROM " + delta.getDeltaName() + " AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
-			} else if (delta.getRelation() == RelationManager.getRelation(RelationName.subClass)) {
+			} else if (delta.getRelation() == relationManager.getRelation(RelationName.subClass)) {
 				sql.append("\n\t FROM declaration AS dec INNER JOIN " + delta.getDeltaName() + " AS sc ON dec.type = sc.sub");
 			}
 		}

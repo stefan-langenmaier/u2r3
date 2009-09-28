@@ -9,18 +9,18 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
-import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
-import de.langenmaier.u2r3.util.Settings;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class SubClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(SubClassRelation.class);
 	
-	protected SubClassRelation() {
+	protected SubClassRelation(U2R3Reasoner reasoner) {
+		super(reasoner);
 		try {
 			tableName = "subClass";
 			
@@ -72,22 +72,22 @@ public class SubClassRelation extends Relation {
 			if (rows > 0) {
 				
 				//save history
-				if (Settings.getDeletionType() == DeletionType.CASCADING) {
+				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
 					//subSource
 					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, subSourceTable FROM " + getDeltaName(delta.getDelta());
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 					
 					//superSource
 					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, superSourceTable FROM " + getDeltaName(delta.getDelta());
-					RelationManager.addHistory(sql);
+					relationManager.addHistory(sql);
 				}
 				
 				//fire reason
 				logger.debug("Relation (" + toString()  + ") has got new data");
 				Reason r = new AdditionReason(this, delta);
-				ReasonProcessor.getReasonProcessor().add(r);
+				reasonProcessor.add(r);
 			}
 			
 			isDirty = false;

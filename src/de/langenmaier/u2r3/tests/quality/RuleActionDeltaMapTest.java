@@ -1,7 +1,10 @@
 package de.langenmaier.u2r3.tests.quality;
 
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+
 import de.langenmaier.u2r3.util.RuleAction;
 
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -23,22 +26,32 @@ public class RuleActionDeltaMapTest extends TestCase {
 	public void testPutRuleAction() {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
+		
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());
 		
-		ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(3, dm.size());
@@ -51,18 +64,28 @@ public class RuleActionDeltaMapTest extends TestCase {
 	public void testReduce() {
 		RuleActionDeltaMap dm = new RuleActionDeltaMap();
 		
-		RuleAction ra2 = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
+		U2R3Reasoner reasoner = null;
+		try {
+			reasoner = new U2R3Reasoner(null, null);
+		} catch (OWLReasonerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		RuleManager ruleManager = reasoner.getRuleManager();
+		RelationManager relationManager = reasoner.getRelationManager();
+		
+		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
 		
 		dm.put(ra2);
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(RuleManager.getRule(RuleName.eq_trans), 
-				RelationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+				relationManager.getRelation(RelationName.classAssertion).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());

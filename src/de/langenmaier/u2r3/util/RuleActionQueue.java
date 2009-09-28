@@ -8,6 +8,7 @@ import java.util.Queue;
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.ReasonProcessor;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.rules.ConsistencyRule;
 import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.db.DeltaRelation;
@@ -22,7 +23,11 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  * @author stefan
  *
  */
-public class RuleActionQueue implements Queue<RuleAction> {
+public class RuleActionQueue extends U2R3Component implements Queue<RuleAction> {
+	public RuleActionQueue(U2R3Reasoner reasoner) {
+		super(reasoner);
+	}
+
 	static Logger logger = Logger.getLogger(ReasonProcessor.class);
 	
 	RuleActionWeightMap weights = new RuleActionWeightMap();
@@ -60,7 +65,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 			//the last used delta of this relation was used
 			long delta = ra.getDeltaRelation().getDelta();
 			if (delta != DeltaRelation.NO_DELTA) {
-				if (Settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
+				if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 					ra.getDeltaRelation().dispose();
 				}
 				//the collective method drops its delta when its merged
@@ -71,7 +76,7 @@ public class RuleActionQueue implements Queue<RuleAction> {
 	
 	@Override
 	public boolean add(RuleAction ra) {
-		if (Settings.getDeltaIteration() == DeltaIteration.COLLECTIVE && ra.getRule() instanceof ConsistencyRule) {
+		if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE && ra.getRule() instanceof ConsistencyRule) {
 			consistencyActions.add(ra);
 		} else {
 			logger.trace("Adding RuleAction: " + ra.toString());
