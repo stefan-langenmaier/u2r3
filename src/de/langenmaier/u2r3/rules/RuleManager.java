@@ -13,7 +13,7 @@ public class RuleManager {
 	public enum RuleName {eq_trans, eq_ref, eq_sym, prp_dom_object,
 		prp_dom_data, prp_rng_object, prp_rng_data, cls_nothing_2,
 		cls_int_2, cax_sco, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
-		scm_cls_equivalentClass, prp_irp, dt_type1};
+		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1};
 	private static boolean isInitialized = false;
 	private static HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	
@@ -48,6 +48,8 @@ public class RuleManager {
 			rules.put(RuleName.scm_cls_equivalentClass, new ScmClsEquivalentClassRule());
 			rules.put(RuleName.prp_irp, new PrpIrpRule());
 			rules.put(RuleName.dt_type1, new DtType1Rule());
+			rules.put(RuleName.cls_int_1, new ClsInt1Rule());
+			
 			
 		}
 		isInitialized = true;
