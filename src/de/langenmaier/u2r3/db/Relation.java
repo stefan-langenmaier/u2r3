@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
@@ -211,5 +212,23 @@ public abstract class Relation extends U2R3Component {
 	public void removeDeltaRelation(int delta) {
 		dropDelta(delta);
 		deltas.remove(delta);
+	}
+
+
+	public boolean exists(String... args) throws U2R3ReasonerException {
+		//TODO abstract machen und in die einzelnen Klassen schreiben
+		try {
+			Statement stmt = conn.createStatement();
+			String sql;
+			if (args.length == 1) {
+				sql = "SELECT subject FROM declaration WHERE subject = '" + args[0] + "'";
+			} else {
+				sql = "SELECT subject, type FROM declaration WHERE subject = '" + args[0] + "' AND type = '" + args[1] + "'";
+			}
+			
+			return stmt.executeQuery(sql).next();
+		} catch (SQLException e) {
+			throw new U2R3ReasonerException(e);
+		}
 	}
 }

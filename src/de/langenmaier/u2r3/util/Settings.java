@@ -46,6 +46,12 @@ public class Settings {
 	public enum EvaluationStrategy { COMMONLAST, RARELAST };
 	private EvaluationStrategy evaluationStrategy = EvaluationStrategy.COMMONLAST;
 	
+	
+	/**
+	 * Should a loaded ontology be checked if it is in the RL Profile
+	 */
+	private boolean checkProfile = true;
+	
 	public void startClean(boolean sc) {
 		startClean = sc;
 	}
@@ -93,5 +99,13 @@ public class Settings {
 
 	public EvaluationStrategy getEvaluationStrategy() {
 		return evaluationStrategy;
+	}
+
+	public void checkProfile(boolean b) {
+		checkProfile = b;
+	}
+	
+	public boolean checkProfile() {
+		return checkProfile;
 	}
 }

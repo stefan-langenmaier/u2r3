@@ -25,6 +25,7 @@ import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 import de.langenmaier.u2r3.db.RelationManager;
+import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
@@ -56,7 +57,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			Set<OWLOntology> importsClosure) throws OWLReasonerException {
 		this(manager);
 		
-		ontologiesChanged();		
+		loadOntologies(importsClosure);		
 	}
 
 	@Override
@@ -76,10 +77,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	protected void ontologiesChanged() throws OWLReasonerException {
 		//check if current ontologies are conform and add the axioms
 		for(OWLOntology ont : getLoadedOntologies()) {
-			OWL2RLProfile profile = new OWL2RLProfile();
-			OWLProfileReport report = profile.checkOntology(ont, getOWLOntologyManager());
-			
-			if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
+			if (settings.checkProfile()) {
+				OWL2RLProfile profile = new OWL2RLProfile();
+				OWLProfileReport report = profile.checkOntology(ont, getOWLOntologyManager());
+				
+				if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
+			}
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 			for(OWLAxiom ax : ont.getAxioms()) {
@@ -134,20 +137,18 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isDefined(OWLIndividual arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		String subject = arg0.asNamedIndividual().getIRI().toString();
+		return relationManager.getRelation(RelationName.declaration).exists(subject);
 	}
 
 	@Override
 	public boolean isRealised() throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		return isClassified;
 	}
 
 	@Override
 	public void realise() throws OWLReasonerException {
-		// TODO Auto-generated method stub
-
+		classify();
 	}
 
 	@Override
@@ -274,8 +275,9 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public boolean hasType(OWLNamedIndividual arg0, OWLClassExpression arg1,
 			boolean arg2) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		String clazz = arg0.getIRI().toString();
+		String type = arg1.asOWLClass().getIRI().toString();
+		return relationManager.getRelation(RelationName.declaration).exists(clazz, type);
 	}
 
 	@Override

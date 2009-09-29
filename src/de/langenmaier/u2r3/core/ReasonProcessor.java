@@ -76,9 +76,9 @@ public class ReasonProcessor {
 				ra.apply();
 			}
 			logger.debug("Applied consistency rules");
-			System.out.println(" ------------------------------------ ");
-			System.out.println(" --------     next round     -------- ");
-			System.out.println(" ------------------------------------ ");
+			logger.trace(" ------------------------------------ ");
+			logger.trace(" --------     next round     -------- ");
+			logger.trace(" ------------------------------------ ");
 			for (Relation r : relationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();
