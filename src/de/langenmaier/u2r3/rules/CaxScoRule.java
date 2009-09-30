@@ -47,9 +47,9 @@ public class CaxScoRule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject, type");
+			sql.append("\n\t\t SELECT class, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = clsAsubject AND bottom.type = sc.super");
+			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = sc.super");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t  GROUP BY clsA.class, sc.super");

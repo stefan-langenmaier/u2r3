@@ -31,7 +31,7 @@ public abstract class ConsistencyRule extends Rule {
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(true, this);
+				reasonProcessor.setInconsistent(this);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public abstract class ConsistencyRule extends Rule {
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(true, this);
+				reasonProcessor.setInconsistent(this);
 			}
 				
 		} catch (SQLException e) {

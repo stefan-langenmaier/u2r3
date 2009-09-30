@@ -107,9 +107,10 @@ public class ReasonProcessor {
 		//classify();		
 	}
 
-	public void setInconsistent(boolean b, ConsistencyRule consistencyRule) {
-		consistent = b;
-		System.out.println("XXXXXXXXXXXXXXXXX" + consistencyRule.toString());
+	public void setInconsistent(ConsistencyRule consistencyRule) {
+		consistent = false;
+		//System.out.println(consistent);
+		//System.out.println("XXXXXXXXXXXXXXXXX" + consistencyRule.toString());
 	}
 	
 	public boolean isConsistent() {

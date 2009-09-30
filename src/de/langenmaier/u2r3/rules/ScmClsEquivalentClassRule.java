@@ -41,7 +41,7 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject");
+			sql.append("\n\t\t SELECT bottom.left");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
 			sql.append("\n\t\t WHERE bottom.left = clsA.class AND bottom.right = clsA.class");
 			sql.append("\n\t )");

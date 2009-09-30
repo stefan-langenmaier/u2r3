@@ -221,9 +221,9 @@ public abstract class Relation extends U2R3Component {
 			Statement stmt = conn.createStatement();
 			String sql;
 			if (args.length == 1) {
-				sql = "SELECT subject FROM declaration WHERE subject = '" + args[0] + "'";
+				sql = "SELECT class FROM classAssertion WHERE class = '" + args[0] + "'";
 			} else {
-				sql = "SELECT subject, type FROM declaration WHERE subject = '" + args[0] + "' AND type = '" + args[1] + "'";
+				sql = "SELECT class, type FROM classAssertion WHERE class = '" + args[0] + "' AND type = '" + args[1] + "'";
 			}
 			
 			return stmt.executeQuery(sql).next();

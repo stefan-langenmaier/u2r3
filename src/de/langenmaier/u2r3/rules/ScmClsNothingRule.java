@@ -42,7 +42,7 @@ public class ScmClsNothingRule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject");
+			sql.append("\n\t\t SELECT bottom.sub");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
 			sql.append("\n\t\t WHERE bottom.sub = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AND bottom.super = clsA.class");
 			sql.append("\n\t )");

@@ -28,7 +28,7 @@ public class RunTestCase {
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.ALL);
+		Logger.getRootLogger().setLevel(Level.INFO);
 		
 		String folder = "file:///home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/";
 		String name;

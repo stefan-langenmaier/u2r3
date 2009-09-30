@@ -101,6 +101,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isConsistent(OWLOntology arg0) throws OWLReasonerException {
+		//System.out.println(reasonProcessor.isConsistent());
 		return reasonProcessor.isConsistent();
 	}
 
