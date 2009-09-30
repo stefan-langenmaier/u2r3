@@ -85,7 +85,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			}
 			
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-			for(OWLAxiom ax : ont.getAxioms()) {
+			for(OWLAxiom ax : ont.getLogicalAxioms()) {
 				ax.accept(axiomAdder);
 			}
 			
@@ -101,8 +101,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isConsistent(OWLOntology arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		return reasonProcessor.isConsistent();
 	}
 
 	@Override

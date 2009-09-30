@@ -7,6 +7,7 @@ import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
+import de.langenmaier.u2r3.rules.ConsistencyRule;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.rules.RuleManager.RuleName;
@@ -24,6 +25,8 @@ public class ReasonProcessor {
 	private RuleManager ruleManager;
 	private RelationManager relationManager;
 	private Settings settings;
+
+	private boolean consistent = true;
 	
 	ReasonProcessor(U2R3Reasoner reasoner) {
 		actions = new RuleActionQueue(reasoner);
@@ -102,6 +105,15 @@ public class ReasonProcessor {
 
 	public void resume() {
 		//classify();		
+	}
+
+	public void setInconsistent(boolean b, ConsistencyRule consistencyRule) {
+		consistent = b;
+		System.out.println("XXXXXXXXXXXXXXXXX" + consistencyRule.toString());
+	}
+	
+	public boolean isConsistent() {
+		return consistent;
 	}
 
 

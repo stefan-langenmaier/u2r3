@@ -33,6 +33,8 @@ public class LoadReasoner {
 				return;
 			}
 			
+			//LogicalAxiom lax;
+			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
 			OWLOntology ont;
@@ -40,7 +42,7 @@ public class LoadReasoner {
 			logger.info("Loaded " + ont.getOntologyID());
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
-			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, manager.getImportsClosure(ont));
+			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.IMMEDIATE);
 			
 			reasoner.loadOntologies(Collections.singleton(ont));

@@ -21,13 +21,14 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 public class RunTestCase {
 	
 	static Logger logger = Logger.getLogger(RunTestCase.class);
+	enum CheckType {entailment_check, consistency_check};
 	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.INFO);
+		Logger.getRootLogger().setLevel(Level.ALL);
 		
 		String folder = "file:///home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/";
 		String name;
@@ -35,19 +36,40 @@ public class RunTestCase {
 		logger.info("Started Testcases");
 		
 		name = "rdfbased-sem-rdfs-domain-cond";
-		runTestCase(name, folder);
+		runTestCase(name, folder, CheckType.entailment_check);
 		
 		name = "rdfbased-sem-rdfs-range-cond";
-		runTestCase(name, folder);
+		runTestCase(name, folder, CheckType.entailment_check);
+		
+		//rdfbased-sem-class-nothing-ext
+		name = "rdfbased-sem-class-nothing-ext";
+		runTestCase(name, folder, CheckType.consistency_check);
 
 	}
 	
-	public static void runTestCase(String name, String folder) {
+	public static void runTestCase(String name, String folder, CheckType checkType) {
 		try {
 			
 			
 			String premise_uri = folder + name + "/" + name + ".premisegraph.xml";
+			if (checkType == CheckType.consistency_check) {
+				premise_uri = folder + name + "/" + name + ".graph.xml";
+			}
 			String conclusion_uri = folder + name + "/" + name + ".conclusiongraph.xml";
+			//String metadata_path = "/home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/" + name + "/" + name + ".metadata.properties";
+			
+			/*Properties prop = new Properties();
+			prop.load(new FileInputStream(metadata_path));
+			
+			System.out.println(prop);
+			System.out.println(prop.values());*/
+			
+			//CheckType checkType = CheckType.entailment_check;
+			/*if (prop.getProperty("testcase.type").equals("POSTIVE_ENTAILMENT")) {
+				checkType = CheckType.entailment_check;
+			} else {
+				checkType = CheckType.consistency_check;
+			}*/
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
@@ -63,19 +85,27 @@ public class RunTestCase {
 		
 			reasoner.classify();
 
-			OWLOntology conclusion;
-			conclusion = manager.loadOntologyFromPhysicalURI(URI.create(conclusion_uri));
-			logger.debug("Loaded " + conclusion.getOntologyID());
-			
-			FZITestAxiomChecker axiomChecker = new FZITestAxiomChecker(reasoner);
-			for(OWLAxiom ax : conclusion.getAxioms()) {
-				ax.accept(axiomChecker);
-			}
-			
-			if (!axiomChecker.isCorrect()) {
-				logger.error("Fehler in Testfall <" + name + ">!");
+			if (checkType == CheckType.entailment_check) {
+				OWLOntology conclusion;
+				conclusion = manager.loadOntologyFromPhysicalURI(URI.create(conclusion_uri));
+				logger.debug("Loaded " + conclusion.getOntologyID());
+				
+				FZITestAxiomChecker axiomChecker = new FZITestAxiomChecker(reasoner);
+				for(OWLAxiom ax : conclusion.getAxioms()) {
+					ax.accept(axiomChecker);
+				}
+				
+				if (!axiomChecker.isCorrect()) {
+					logger.error("Fehler in Testfall <" + name + ">!");
+				} else {
+					logger.info("Tesfall <" + name + "> okay.");
+				}
 			} else {
-				logger.info("Tesfall <" + name + "> okay.");
+				if (!reasoner.isConsistent(premise)) {
+					logger.info("Tesfall <" + name + "> okay.");
+				} else {
+					logger.error("Fehler in Testfall <" + name + ">!");
+				}
 			}
 			
 		} catch (OWLOntologyCreationException e) {

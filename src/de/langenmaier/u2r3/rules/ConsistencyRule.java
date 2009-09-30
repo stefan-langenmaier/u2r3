@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 
 /**
  * This class is just a layer to get the difference between consistency rules
@@ -32,7 +31,7 @@ public abstract class ConsistencyRule extends Rule {
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");
-				throw new U2R3RuntimeException();
+				reasonProcessor.setInconsistent(true, this);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,7 +53,7 @@ public abstract class ConsistencyRule extends Rule {
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");
-				throw new U2R3RuntimeException();
+				reasonProcessor.setInconsistent(true, this);
 			}
 				
 		} catch (SQLException e) {

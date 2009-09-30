@@ -16,6 +16,8 @@ public class ClsNothing2Rule extends ConsistencyRule {
 		targetRelation = null;
 		
 		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		
+		//add deletion rule
 	}
 
 	@Override
@@ -23,7 +25,7 @@ public class ClsNothing2Rule extends ConsistencyRule {
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
 		
-		sql.append("SELECT subject, type");
+		sql.append("SELECT subject");
 		sql.append("\nFROM " + delta.getDeltaName());
 		sql.append("\nWHERE type = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
 		
