@@ -168,12 +168,6 @@
     
 
 
-    <!-- http://www.w3.org/2002/07/owl#Thing -->
-
-    <owl:Class rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
-    
-
-
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -254,6 +248,7 @@
 
     <owl:NamedIndividual rdf:about="#WiMoSkript">
         <rdf:type rdf:resource="#Movie"/>
+        <mediumTitle rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Das WiMo Skript</mediumTitle>
     </owl:NamedIndividual>
 </rdf:RDF>
 
