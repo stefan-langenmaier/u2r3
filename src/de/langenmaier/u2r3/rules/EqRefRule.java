@@ -14,7 +14,7 @@ public class EqRefRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.sameAs;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		
 		relationManager.getRelation(RelationName.sameAs).addDeletionRule(this);
 	}
@@ -28,10 +28,10 @@ public class EqRefRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT subject AS left, subject AS right, MIN(id) AS leftSourceId, '" + RelationName.declaration.toString() + "' AS leftSourceTable, MIN(id) AS rightSourceId, '" + RelationName.declaration.toString() + "' AS rightSourceTable");
+			sql.append("\n\t SELECT class AS left, class AS right, MIN(id) AS leftSourceId, '" + RelationName.classAssertion.toString() + "' AS leftSourceTable, MIN(id) AS rightSourceId, '" + RelationName.classAssertion.toString() + "' AS rightSourceTable");
 		} else {
 			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT subject AS left, subject AS right");
+			sql.append("\n\t SELECT DISTINCT class AS left, subject AS right");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
@@ -40,7 +40,7 @@ public class EqRefRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = top.subject AND bottom.right = top.subject");
+			sql.append("\n\t\t WHERE bottom.left = top.class AND bottom.right = top.class");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t GROUP BY left, right");
@@ -49,7 +49,7 @@ public class EqRefRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(A,A) :- declaration(A, X)";
+		return "sameAs(A,A) :- classAssertion(A, X)";
 	}
 
 }

@@ -13,7 +13,7 @@ public class DtType1Rule extends ApplicationRule {
 	
 	DtType1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 	}
 	
 
@@ -24,7 +24,7 @@ public class DtType1Rule extends ApplicationRule {
 		String datatype = OWLRDFVocabulary.OWL_DATATYPE.getURI().toString();
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
-		sql.append(" (subject, type) VALUES ");
+		sql.append(" (class, type) VALUES ");
 
 		sql.append("\n ('" + OWLRDFVocabulary.RDF_PLAIN_LITERAL.getURI().toString() + "', '" + datatype + "'),");
 		sql.append("\n ('" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().toString() + "', '" + datatype + "'),");
@@ -64,7 +64,7 @@ public class DtType1Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "declaration(dt, datatype) :- true";
+		return "classAssertion(dt, datatype) :- true";
 	}
 
 }

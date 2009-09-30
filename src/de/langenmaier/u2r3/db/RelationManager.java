@@ -15,7 +15,7 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class RelationManager {
 	public enum RelationName {classAssertion, dataPropertyDomain, dataPropertyRange,
 		objectPropertyAssertion, objectPropertyDomain, objectPropertyRange, subClass,
-		declaration, sameAs, dataPropertyAssertion, list, intersectionOf,
+		 sameAs, dataPropertyAssertion, list, intersectionOf,
 		equivalentClass};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
@@ -41,7 +41,6 @@ public class RelationManager {
 		relations.put(RelationName.objectPropertyAssertion, new ObjectPropertyAssertionRelation(reasoner));
 		relations.put(RelationName.objectPropertyDomain, new ObjectPropertyDomainRelation(reasoner));
 		relations.put(RelationName.objectPropertyRange, new ObjectPropertyRangeRelation(reasoner));
-		relations.put(RelationName.declaration, new DeclarationRelation(reasoner));
 		relations.put(RelationName.sameAs, new SameAsRelation(reasoner));
 		relations.put(RelationName.dataPropertyAssertion, new DataPropertyAssertionRelation(reasoner));
 		relations.put(RelationName.list, new ListRelation(reasoner));

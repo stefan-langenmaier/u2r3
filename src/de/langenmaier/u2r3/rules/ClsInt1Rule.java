@@ -12,9 +12,9 @@ public class ClsInt1Rule extends ApplicationRule {
 	
 	ClsInt1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
 		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
@@ -30,43 +30,43 @@ public class ClsInt1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT dec.subject AS subject, int.class AS type, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(int.id) AS typeSourceId, '" + RelationName.intersectionOf.toString() + "' AS typeSourceTable");
+			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT clsA.class AS class, int.class AS type, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion.toString() + "' AS classSourceTable, MIN(int.id) AS typeSourceId, '" + RelationName.intersectionOf.toString() + "' AS typeSourceTable");
 		} else {
-			sql.append(" (subject, type)");
-			sql.append("\n\t SELECT DISTINCT dec.subject AS subject, int.class AS type");
+			sql.append(" (class, type)");
+			sql.append("\n\t SELECT DISTINCT clsA.class AS subject, int.class AS type");
 		}
 		
 		sql.append("\n\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS  anzl");
 		sql.append("\n\t\t INNER JOIN list AS l ON anzl.name = l.name");
 		if (delta.getDelta() == DeltaRelation.NO_DELTA || delta.getRelation() == relationManager.getRelation(RelationName.list)) {	
-			sql.append("\n\t\t INNER JOIN declaration AS dec ON l.element = dec.type");
+			sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
 			sql.append("\n\t\t INNER JOIN intersectionOf AS int ON int.list = l.name");
 		} else {
 			if (delta.getRelation() == relationManager.getRelation(RelationName.intersectionOf)) {
-				sql.append("\n\t\t INNER JOIN declaration AS dec ON l.element = dec.type");
+				sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
 				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS int ON int.list = l.name");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.declaration)) {
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dec ON l.element = dec.type");
+			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
+				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS clsA ON l.element = clsA.type");
 				sql.append("\n\t\t INNER JOIN intersectionOf AS int ON int.list = l.name");
 			}
 		}
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.subject");
+			sql.append("\n\t\t SELECT bottom.class");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = int.class");
+			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = int.class");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY l.name, dec.subject, type");
+		sql.append("\n\t GROUP BY l.name, clsA.class, type");
 		sql.append("\n\t HAVING COUNT(l.name) = anzl.anzahl");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "declaration(Y,C) :- intersectionOf(C, X), list(X, C1..Cn), declaration(Y, C1..Cn)";
+		return "classAssertion(Y,C) :- intersectionOf(C, X), list(X, C1..Cn), classAssertion(Y, C1..Cn)";
 	}
 
 }

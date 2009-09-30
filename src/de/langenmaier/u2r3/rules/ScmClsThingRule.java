@@ -16,7 +16,7 @@ public class ScmClsThingRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.subClass;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -31,29 +31,29 @@ public class ScmClsThingRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT dec.subject AS sub, '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "' AS super, MIN(dec.id) AS subSourceId, '" + RelationName.declaration.toString() + "' AS subSourceTable, MIN(dec.id) AS superSourceId, '" + RelationName.declaration.toString() + "' AS superSourceTable");
+			sql.append("\n\t SELECT clsA.class AS sub, '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "' AS super, MIN(clsA.id) AS subSourceId, '" + RelationName.classAssertion.toString() + "' AS subSourceTable, MIN(clsA.id) AS superSourceId, '" + RelationName.classAssertion.toString() + "' AS superSourceTable");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT dec.subject AS sub, '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "' AS super");
+			sql.append("\n\t SELECT DISTINCT clsA.class AS sub, '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "' AS super");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS dec");
+		sql.append("\n\t FROM " + delta.getDeltaName() + " AS clsA");
 		sql.append("\n\t WHERE type = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = dec.subject AND bottom.super = '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "'");
+			sql.append("\n\t\t WHERE bottom.sub = clsA.class AND bottom.super = '" + OWLRDFVocabulary.OWL_THING.getURI().toString() + "'");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY dec.subject");
+		sql.append("\n\t  GROUP BY clsA.class");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "subClass(C, thing) :- declaration(C, class)";
+		return "subClass(C, thing) :- classAssertion(C, class)";
 	}
 
 }

@@ -12,7 +12,7 @@ public class PrpRngDataRule extends ApplicationRule {
 	
 	PrpRngDataRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.dataPropertyRange).addAdditionRule(this);
@@ -30,10 +30,10 @@ public class PrpRngDataRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS classSourceId, '" + RelationName.objectPropertyAssertion + "' AS classSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
 		} else {
-			sql.append("(subject, type)");
+			sql.append("(class, type)");
 			sql.append("\n\t SELECT DISTINCT ass.object, rng.range");
 		}
 		
@@ -53,9 +53,9 @@ public class PrpRngDataRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject, type");
+			sql.append("\n\t\t SELECT class, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = ass.object AND bottom.type = rng.range");
+			sql.append("\n\t\t WHERE bottom.class = ass.object AND bottom.type = rng.range");
 			sql.append("\n\t )");
 		}
 		
@@ -67,7 +67,7 @@ public class PrpRngDataRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "declaration(Y, C) :- dataPropertyRange(P, C), dataPropertyAssertion(X, P, Y)";
+		return "classAssertion(Y, C) :- dataPropertyRange(P, C), dataPropertyAssertion(X, P, Y)";
 	}
 
 }

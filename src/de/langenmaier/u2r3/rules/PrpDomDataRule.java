@@ -12,7 +12,7 @@ public class PrpDomDataRule extends ApplicationRule {
 	
 	PrpDomDataRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.dataPropertyDomain).addAdditionRule(this);
@@ -30,8 +30,8 @@ public class PrpDomDataRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS subjectSourceId, '" + RelationName.objectPropertyAssertion + "' AS subjectSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS classSourceId, '" + RelationName.objectPropertyAssertion + "' AS classSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
 		} else {
 			sql.append("(subject, type)");
 			sql.append("\n\t SELECT DISTINCT ass.subject, dom.Domain");
@@ -53,9 +53,9 @@ public class PrpDomDataRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject, type");
+			sql.append("\n\t\t SELECT class, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = ass.subject AND bottom.type = dom.domain");
+			sql.append("\n\t\t WHERE bottom.class = ass.subject AND bottom.type = dom.domain");
 			sql.append("\n\t )");
 		}
 		
@@ -67,7 +67,7 @@ public class PrpDomDataRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "declaration(X, C) :- dataPropertyDomain(P, C), dataPropertyAssertion(X, P, Y)";
+		return "classAssertion(X, C) :- dataPropertyDomain(P, C), dataPropertyAssertion(X, P, Y)";
 	}
 
 }

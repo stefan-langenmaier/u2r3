@@ -38,7 +38,7 @@ public class ReasonProcessor {
 	
 	public void initialize() {
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.dt_type1),
-				relationManager.getRelation(RelationName.declaration).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA)));
 
 	}
 	

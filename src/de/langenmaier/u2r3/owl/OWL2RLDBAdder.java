@@ -139,10 +139,11 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 
 	@Override
 	public void visit(OWLDeclarationAxiom axiom) {
-		logger.debug("  adding Declaration:" + axiom.toString());
+		/*logger.debug("  adding Declaration:" + axiom.toString());
 		relationManager.getRelation(RelationName.declaration).add(axiom);
-		//DataPropertyRangeRelation.getRelation().add(axiom);
-		logger.debug("  added Declaration");	}
+		logger.debug("  added Declaration");*/
+		logger.error("Add Declaration sollte nicht passieren!");
+	}
 
 	@Override
 	public void visit(OWLSymmetricObjectPropertyAxiom arg0) {
@@ -153,7 +154,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLDataPropertyRangeAxiom axiom) {
 		logger.debug("  adding DataPropertyRange:" + axiom.toString());
 		relationManager.getRelation(RelationName.dataPropertyRange).add(axiom);
-		//DataPropertyRangeRelation.getRelation().add(axiom);
 		logger.debug("  added DataPropertyRange");
 	}
 
@@ -171,7 +171,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLClassAssertionAxiom axiom) {
 		logger.debug("  adding ClassAssertionAxiom:" + axiom.toString());
 		relationManager.getRelation(RelationName.classAssertion).add(axiom);
-		//ClassAssertionRelation.getRelation().add(axiom);
 		logger.debug("  added ClassAssertionAxiom");
 	}
 

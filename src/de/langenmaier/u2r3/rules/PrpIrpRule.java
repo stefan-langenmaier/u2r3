@@ -14,7 +14,7 @@ public class PrpIrpRule extends ConsistencyRule {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 	}
@@ -27,10 +27,10 @@ public class PrpIrpRule extends ConsistencyRule {
 		StringBuilder sql = new StringBuilder(400);
 
 		sql.append("SELECT '1' AS res");
-		if (delta.getRelation() == relationManager.getRelation(RelationName.declaration)) {
-			sql.append("\nFROM " + delta.getDeltaName() + " AS dec INNER JOIN objectPropertyAssertion AS prp ON dec.subject = prp.property");
+		if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
+			sql.append("\nFROM " + delta.getDeltaName() + " AS clsA INNER JOIN objectPropertyAssertion AS prp ON clsA.class = prp.property");
 		} else if (delta.getRelation() == relationManager.getRelation(RelationName.objectPropertyAssertion)) {
-			sql.append("\nFROM declaration AS dec INNER JOIN " + delta.getDeltaName() + " AS prp ON dec.subject = prp.property");
+			sql.append("\nFROM classAssertion AS clsA INNER JOIN " + delta.getDeltaName() + " AS prp ON clsA.class = prp.property");
 		}
 		sql.append("\nWHERE type = '" + OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString() + "'");
 
@@ -39,7 +39,7 @@ public class PrpIrpRule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- declaration(A, irreflexiv), objectPropertyAssertion(X, A, X)";
+		return "FALSE :- classAssertion(A, irreflexiv), objectPropertyAssertion(X, A, X)";
 	}
 
 }

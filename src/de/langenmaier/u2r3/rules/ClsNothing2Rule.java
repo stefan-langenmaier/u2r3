@@ -15,7 +15,7 @@ public class ClsNothing2Rule extends ConsistencyRule {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		
 		//add deletion rule
 	}
@@ -25,7 +25,7 @@ public class ClsNothing2Rule extends ConsistencyRule {
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
 		
-		sql.append("SELECT subject");
+		sql.append("SELECT class");
 		sql.append("\nFROM " + delta.getDeltaName());
 		sql.append("\nWHERE type = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
 		
@@ -35,7 +35,7 @@ public class ClsNothing2Rule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- declaration(A, nothing)";
+		return "FALSE :- classAssertion(A, nothing)";
 	}
 
 }

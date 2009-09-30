@@ -12,9 +12,9 @@ public class ClsInt2Rule extends ApplicationRule {
 	
 	ClsInt2Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
 		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
@@ -29,51 +29,51 @@ public class ClsInt2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT dec.subject, l.element, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(l.id) AS typeSourceId, '" + RelationName.list.toString() + "' AS typeSourceTable");
+			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT clsA.class, l.element, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion.toString() + "' AS classSourceTable, MIN(l.id) AS typeSourceId, '" + RelationName.list.toString() + "' AS typeSourceTable");
 		} else {
-			sql.append(" (subject, type)");
-			sql.append("\n\t SELECT DISTINCT dec.subject, l.element");
+			sql.append(" (class, type)");
+			sql.append("\n\t SELECT DISTINCT clsA.class, l.element");
 		}
 		
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 			sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
 			sql.append("\n\t\t ON int.list = l.name");
-			sql.append("\n\t\t INNER JOIN declaration AS dec");
-			sql.append("\n\t\t ON dec.type = int.class");
+			sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
+			sql.append("\n\t\t ON clsA.type = int.class");
 		} else {
 			if (delta.getRelation() == relationManager.getRelation(RelationName.intersectionOf)) {
 				sql.append("\n\t FROM  " + delta.getDeltaName() + " AS int INNER JOIN list AS l");
 				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN declaration AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
+				sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
+				sql.append("\n\t\t ON clsA.type = int.class");
 			} else if (delta.getRelation() == relationManager.getRelation(RelationName.list)) {
 				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN " + delta.getDeltaName() + " AS l");
 				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN declaration AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.declaration)) {
+				sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
+				sql.append("\n\t\t ON clsA.type = int.class");
+			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
 				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
 				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dec");
-				sql.append("\n\t\t ON dec.type = int.class");
+				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS clsA");
+				sql.append("\n\t\t ON clsA.type = int.class");
 			}
 		}
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT subject, type");
+			sql.append("\n\t\t SELECT class, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = l.element");
+			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = l.element");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY dec.subject, l.element");
+		sql.append("\n\t  GROUP BY clsA.class, l.element");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "declaration(Y,C1..Cn) :- intersectionOf(C, X), list(x, C1..Cn), declaration(Y, C)";
+		return "classAssertion(Y,C1..Cn) :- intersectionOf(C, X), list(x, C1..Cn), classAssertion(Y, C)";
 	}
 
 }

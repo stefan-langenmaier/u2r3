@@ -137,7 +137,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public boolean isDefined(OWLIndividual arg0) throws OWLReasonerException {
 		String subject = arg0.asNamedIndividual().getIRI().toString();
-		return relationManager.getRelation(RelationName.declaration).exists(subject);
+		return relationManager.getRelation(RelationName.classAssertion).exists(subject);
 	}
 
 	@Override
@@ -276,7 +276,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			boolean arg2) throws OWLReasonerException {
 		String clazz = arg0.getIRI().toString();
 		String type = arg1.asOWLClass().getIRI().toString();
-		return relationManager.getRelation(RelationName.declaration).exists(clazz, type);
+		return relationManager.getRelation(RelationName.classAssertion).exists(clazz, type);
 	}
 
 	@Override

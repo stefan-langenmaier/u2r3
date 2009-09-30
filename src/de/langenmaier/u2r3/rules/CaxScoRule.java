@@ -12,9 +12,9 @@ public class CaxScoRule extends ApplicationRule {
 	
 	CaxScoRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.declaration;
+		targetRelation = RelationName.classAssertion;
 		
-		relationManager.getRelation(RelationName.declaration).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.subClass).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -28,20 +28,20 @@ public class CaxScoRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, type, subjectSourceId, subjectSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT dec.subject, sc.super, MIN(dec.id) AS subjectSourceId, '" + RelationName.declaration.toString() + "' AS subjectSourceTable, MIN(sc.id) AS typeSourceId, '" + RelationName.subClass.toString() + "' AS typeSourceTable");
+			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
+			sql.append("\n\t SELECT clsA.class, sc.super, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion.toString() + "' AS classSourceTable, MIN(sc.id) AS typeSourceId, '" + RelationName.subClass.toString() + "' AS typeSourceTable");
 		} else {
-			sql.append(" (subject, type)");
-			sql.append("\n\t SELECT DISTINCT dec.subject, sc.super");
+			sql.append(" (class, type)");
+			sql.append("\n\t SELECT DISTINCT clsA.class, sc.super");
 		}
 		
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM declaration AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
+			sql.append("\n\t FROM classAssertion AS clsA INNER JOIN subClass AS sc ON clsA.type = sc.sub");
 		} else {
-			if (delta.getRelation() == relationManager.getRelation(RelationName.declaration)) {
-				sql.append("\n\t FROM " + delta.getDeltaName() + " AS dec INNER JOIN subClass AS sc ON dec.type = sc.sub");
+			if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
+				sql.append("\n\t FROM " + delta.getDeltaName() + " AS clsA INNER JOIN subClass AS sc ON clsA.type = sc.sub");
 			} else if (delta.getRelation() == relationManager.getRelation(RelationName.subClass)) {
-				sql.append("\n\t FROM declaration AS dec INNER JOIN " + delta.getDeltaName() + " AS sc ON dec.type = sc.sub");
+				sql.append("\n\t FROM classAssertion AS clsA INNER JOIN " + delta.getDeltaName() + " AS sc ON clsA.type = sc.sub");
 			}
 		}
 		
@@ -49,16 +49,16 @@ public class CaxScoRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = dec.subject AND bottom.type = sc.super");
+			sql.append("\n\t\t WHERE bottom.subject = clsAsubject AND bottom.type = sc.super");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY dec.subject, sc.super");
+		sql.append("\n\t  GROUP BY clsA.class, sc.super");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "declaration(X,C2) :- declaration(X, C1), subClass(C1, C2)";
+		return "classAssertion(X,C2) :- classAssertion(X, C1), subClass(C1, C2)";
 	}
 
 }
