@@ -6,18 +6,19 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Pair;
 
-public class DataPropertyRangeRelation extends Relation {
-	static Logger logger = Logger.getLogger(DataPropertyRangeRelation.class);
+public class PropertyRangeRelation extends Relation {
+	static Logger logger = Logger.getLogger(PropertyRangeRelation.class);
 	
-	protected DataPropertyRangeRelation(U2R3Reasoner reasoner) {
+	protected PropertyRangeRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "dataPropertyRange";
+			tableName = "propertyRange";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
@@ -27,7 +28,7 @@ public class DataPropertyRangeRelation extends Relation {
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO dataPropertyRange (property, range) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,9 +36,15 @@ public class DataPropertyRangeRelation extends Relation {
 	
 	@Override
 	public void addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLDataPropertyRangeAxiom) {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
 			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getURI().toString());
+		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
+			OWLObjectPropertyRangeAxiom naxiom = (OWLObjectPropertyRangeAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
+			addStatement.setString(2, naxiom.getRange().asOWLClass().getURI().toString());
+		}
 	}
 
 	@Override

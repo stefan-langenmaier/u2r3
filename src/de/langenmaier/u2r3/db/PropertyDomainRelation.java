@@ -5,29 +5,30 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Pair;
 
-public class ObjectPropertyRangeRelation extends Relation {
-	static Logger logger = Logger.getLogger(ObjectPropertyRangeRelation.class);
+public class PropertyDomainRelation extends Relation {
+	static Logger logger = Logger.getLogger(PropertyDomainRelation.class);
 	
-	protected ObjectPropertyRangeRelation(U2R3Reasoner reasoner) {
+	protected PropertyDomainRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "objectPropertyRange";
+			tableName = "propertyDomain";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
 					" property VARCHAR(100)," +
-					" range VARCHAR(100)," +
-					" PRIMARY KEY (property, range))");
+					" domain VARCHAR(100)," +
+					" PRIMARY KEY (property, domain))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, domain) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -35,9 +36,15 @@ public class ObjectPropertyRangeRelation extends Relation {
 	
 	@Override
 	public void addImpl(OWLAxiom axiom) throws SQLException {
-			OWLObjectPropertyRangeAxiom naxiom = (OWLObjectPropertyRangeAxiom) axiom;
+		if (axiom instanceof OWLDataPropertyDomainAxiom) {
+			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
+			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
+		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
+			OWLObjectPropertyDomainAxiom naxiom = (OWLObjectPropertyDomainAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			addStatement.setString(2, naxiom.getRange().asOWLClass().getURI().toString());
+			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
+		}
 	}
 
 	@Override
@@ -47,12 +54,12 @@ public class ObjectPropertyRangeRelation extends Relation {
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
 					" property VARCHAR(100)," +
-					" range VARCHAR(100)," +
+					" domain VARCHAR(100)," +
 					" propertySourceId UUID, " +
 					" propertySourceTable VARCHAR(100), " +
-					" rangeSourceId UUID, " +
-					" rangeSourceTable VARCHAR(100), " +
-					" PRIMARY KEY (property, range))");
+					" domainSourceId UUID, " +
+					" domainSourceTable VARCHAR(100), " +
+					" PRIMARY KEY (property, domain))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

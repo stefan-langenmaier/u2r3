@@ -73,7 +73,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDataPropertyDomainAxiom axiom) {
 		logger.debug("  adding DataProptertyDomain:" + axiom.toString());
-		relationManager.getRelation(RelationName.dataPropertyDomain).add(axiom);
+		relationManager.getRelation(RelationName.propertyDomain).add(axiom);
 		//DataPropertyDomainRelation.getRelation().add(axiom);
 		logger.debug("  added DataProptertyDomain");
 	}
@@ -81,7 +81,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLObjectPropertyDomainAxiom axiom) {
 		logger.debug("  adding ObjectProptertyDomain:" + axiom.toString());
-		relationManager.getRelation(RelationName.objectPropertyDomain).add(axiom);
+		relationManager.getRelation(RelationName.propertyDomain).add(axiom);
 		//ObjectPropertyDomainRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectProptertyDomain");
 	}
@@ -114,7 +114,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLObjectPropertyRangeAxiom axiom) {
 		logger.debug("  adding ObjectPropertyRange:" + axiom.toString());
-		relationManager.getRelation(RelationName.objectPropertyRange).add(axiom);
+		relationManager.getRelation(RelationName.propertyRange).add(axiom);
 		//ObjectPropertyRangeRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectPropertyRange");
 	}
@@ -122,7 +122,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
 		logger.debug("  adding ObjectPropertyAssertion:" + axiom.toString());
-		relationManager.getRelation(RelationName.objectPropertyAssertion).add(axiom);
+		relationManager.getRelation(RelationName.propertyAssertion).add(axiom);
 		//ObjectPropertyAssertionRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectPropertyAssertion");
 	}
@@ -153,7 +153,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDataPropertyRangeAxiom axiom) {
 		logger.debug("  adding DataPropertyRange:" + axiom.toString());
-		relationManager.getRelation(RelationName.dataPropertyRange).add(axiom);
+		relationManager.getRelation(RelationName.propertyRange).add(axiom);
 		logger.debug("  added DataPropertyRange");
 	}
 
@@ -182,7 +182,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDataPropertyAssertionAxiom axiom) {
 		logger.debug("  adding DataPropertyAssertionAxiom:" + axiom.toString());
-		relationManager.getRelation(RelationName.dataPropertyAssertion).add(axiom);
+		relationManager.getRelation(RelationName.propertyAssertion).add(axiom);
 		logger.debug("  added DataPropertyssertionAxiom");
 	}
 

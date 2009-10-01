@@ -7,16 +7,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpDomDataRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(PrpDomDataRule.class);
+public class PrpDomRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(PrpDomRule.class);
 	
-	PrpDomDataRule(U2R3Reasoner reasoner) {
+	PrpDomRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = RelationName.classAssertion;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.dataPropertyDomain).addAdditionRule(this);
-		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.propertyDomain).addAdditionRule(this);
+		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,21 +31,21 @@ public class PrpDomDataRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS classSourceId, '" + RelationName.objectPropertyAssertion + "' AS classSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS classSourceId, '" + RelationName.propertyAssertion + "' AS classSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.propertyDomain + "' AS typeSourceTable");
 		} else {
 			sql.append("(subject, type)");
 			sql.append("\n\t SELECT DISTINCT ass.subject, dom.Domain");
 		}
 		
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM dataPropertyAssertion AS ass");
-			sql.append("\n\t\t INNER JOIN dataPropertyDomain AS dom");
+			sql.append("\n\t FROM propertyAssertion AS ass");
+			sql.append("\n\t\t INNER JOIN propertyDomain AS dom");
 		} else {
-			if (relationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
+			if (relationManager.getRelation(RelationName.propertyAssertion) == delta.getRelation()) {
 				sql.append("\n\t FROM " + delta.getDeltaName() + " AS ass");
-				sql.append("\n\t\t INNER JOIN dataPropertyDomain AS dom");
+				sql.append("\n\t\t INNER JOIN propertyDomain AS dom");
 			} else {
-				sql.append("\n\t FROM dataPropertyAssertion AS ass");
+				sql.append("\n\t FROM propertyAssertion AS ass");
 				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dom");
 			}
 		}
@@ -67,7 +67,7 @@ public class PrpDomDataRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(X, C) :- dataPropertyDomain(P, C), dataPropertyAssertion(X, P, Y)";
+		return "classAssertion(X, C) :- propertyDomain(P, C), propertyAssertion(X, P, Y)";
 	}
 
 }

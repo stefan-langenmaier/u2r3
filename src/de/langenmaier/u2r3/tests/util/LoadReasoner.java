@@ -29,11 +29,9 @@ public class LoadReasoner {
 			Logger logger = Logger.getLogger(LoadReasoner.class);
 			
 			if (args.length<=0) {
-				System.err.println("USAGE: java " + CheckOWL2RL.class.getName() + " <filename>");
+				System.err.println("USAGE: java " + LoadReasoner.class.getName() + " <filename>");
 				return;
 			}
-			
-			//LogicalAxiom lax;
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
@@ -43,13 +41,11 @@ public class LoadReasoner {
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
-			reasoner.getSettings().setDeltaIteration(DeltaIteration.IMMEDIATE);
+			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
 			
 			reasoner.loadOntologies(Collections.singleton(ont));
 			reasoner.classify();
 
-
-			
 			
 		} catch (OWLOntologyCreationException e) {
 			e.printStackTrace();

@@ -7,16 +7,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpDomObjectRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(PrpDomObjectRule.class);
+public class PrpRngRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(PrpRngRule.class);
 	
-	PrpDomObjectRule(U2R3Reasoner reasoner) {
+	PrpRngRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = RelationName.classAssertion;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.objectPropertyDomain).addAdditionRule(this);
-		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.propertyRange).addAdditionRule(this);
+		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,42 +31,43 @@ public class PrpDomObjectRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS classSourceId, '" + RelationName.objectPropertyAssertion + "' AS classSourceTable, MIN(dom.id) AS typeSourceId, '" + RelationName.objectPropertyDomain + "' AS typeSourceTable");
+			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS classSourceId, '" + RelationName.propertyAssertion + "' AS classSourceTable, MIN(rng.id) AS typeSourceId, '" + RelationName.propertyDomain + "' AS typeSourceTable");
 		} else {
 			sql.append("(class, type)");
-			sql.append("\n\t SELECT DISTINCT ass.subject, dom.Domain");
+			sql.append("\n\t SELECT DISTINCT ass.object, rng.range");
 		}
+		
 		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM objectPropertyAssertion AS ass");
-			sql.append("\n\t\t INNER JOIN objectPropertyDomain AS dom");
+			sql.append("\n\t FROM propertyAssertion AS ass");
+			sql.append("\n\t\t INNER JOIN propertyRange AS rng");
 		} else {
-			if (relationManager.getRelation(RelationName.objectPropertyAssertion) == delta.getRelation()) {
+			if (relationManager.getRelation(RelationName.propertyAssertion) == delta.getRelation()) {
 				sql.append("\n\t FROM " + delta.getDeltaName() + " AS ass");
-				sql.append("\n\t\t INNER JOIN objectPropertyDomain AS dom");
+				sql.append("\n\t\t INNER JOIN propertyRange AS rng");
 			} else {
-				sql.append("\n\t FROM objectPropertyAssertion AS ass");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS dom");
+				sql.append("\n\t FROM propertyAssertion AS ass");
+				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS rng");
 			}
 		}
-		sql.append("\n\t\t ON ass.Property = dom.Property");
+		sql.append("\n\t\t ON ass.Property = rng.Property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT class, type");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = ass.subject AND bottom.type = dom.domain");
+			sql.append("\n\t\t WHERE bottom.class = ass.object AND bottom.type = rng.range");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ass.subject, dom.Domain");
+			sql.append("\n\t GROUP BY ass.object, rng.range");
 		}
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "classAssertion(X, C) :- objectPropertyDomain(P, C), objectPropertyAssertion(X, P, Y)";
+		return "classAssertion(Y, C) :- propertyRange(P, C), propertyAssertion(X, P, Y)";
 	}
 
 }

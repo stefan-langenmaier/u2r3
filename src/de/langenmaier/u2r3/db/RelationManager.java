@@ -13,9 +13,8 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
  *
  */
 public class RelationManager {
-	public enum RelationName {classAssertion, dataPropertyDomain, dataPropertyRange,
-		objectPropertyAssertion, objectPropertyDomain, objectPropertyRange, subClass,
-		 sameAs, dataPropertyAssertion, list, intersectionOf,
+	public enum RelationName {classAssertion, subClass, propertyDomain,
+		propertyRange, propertyAssertion, sameAs, list, intersectionOf,
 		equivalentClass};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
@@ -36,16 +35,13 @@ public class RelationManager {
 		
 		relations.put(RelationName.subClass, new SubClassRelation(reasoner));
 		relations.put(RelationName.classAssertion, new ClassAssertionRelation(reasoner));
-		relations.put(RelationName.dataPropertyDomain, new DataPropertyDomainRelation(reasoner));
-		relations.put(RelationName.dataPropertyRange, new DataPropertyRangeRelation(reasoner));
-		relations.put(RelationName.objectPropertyAssertion, new ObjectPropertyAssertionRelation(reasoner));
-		relations.put(RelationName.objectPropertyDomain, new ObjectPropertyDomainRelation(reasoner));
-		relations.put(RelationName.objectPropertyRange, new ObjectPropertyRangeRelation(reasoner));
 		relations.put(RelationName.sameAs, new SameAsRelation(reasoner));
-		relations.put(RelationName.dataPropertyAssertion, new DataPropertyAssertionRelation(reasoner));
 		relations.put(RelationName.list, new ListRelation(reasoner));
 		relations.put(RelationName.intersectionOf, new IntersectionOfRelation(reasoner));
 		relations.put(RelationName.equivalentClass, new EquivalentClassRelation(reasoner));
+		relations.put(RelationName.propertyAssertion, new PropertyAssertionRelation(reasoner));
+		relations.put(RelationName.propertyDomain, new PropertyDomainRelation(reasoner));
+		relations.put(RelationName.propertyRange, new PropertyRangeRelation(reasoner));
 		
 	}
 

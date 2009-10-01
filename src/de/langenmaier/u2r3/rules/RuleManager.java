@@ -11,10 +11,10 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  *
  */
 public class RuleManager {
-	public enum RuleName {eq_trans, eq_ref, eq_sym, prp_dom_object,
-		prp_dom_data, prp_rng_object, prp_rng_data, cls_nothing_2,
+	public enum RuleName {eq_trans, eq_ref, eq_sym, cls_nothing_2,
 		cls_int_2, cax_sco, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
-		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1};
+		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom, prp_rng,
+		eq_rep_s};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -36,10 +36,6 @@ public class RuleManager {
 		rules.put(RuleName.eq_trans, new EqTransRule(reasoner));
 		rules.put(RuleName.eq_ref, new EqRefRule(reasoner));
 		rules.put(RuleName.eq_sym, new EqSymRule(reasoner));
-		rules.put(RuleName.prp_dom_object, new PrpDomObjectRule(reasoner));
-		rules.put(RuleName.prp_dom_data, new PrpDomDataRule(reasoner));
-		rules.put(RuleName.prp_rng_object, new PrpRngObjectRule(reasoner));
-		rules.put(RuleName.prp_rng_data, new PrpRngDataRule(reasoner));
 		rules.put(RuleName.cls_nothing_2, new ClsNothing2Rule(reasoner));
 		rules.put(RuleName.cls_int_2, new ClsInt2Rule(reasoner));
 		rules.put(RuleName.cax_sco, new CaxScoRule(reasoner));
@@ -50,6 +46,9 @@ public class RuleManager {
 		rules.put(RuleName.prp_irp, new PrpIrpRule(reasoner));
 		rules.put(RuleName.dt_type1, new DtType1Rule(reasoner));
 		rules.put(RuleName.cls_int_1, new ClsInt1Rule(reasoner));
+		rules.put(RuleName.prp_dom, new PrpDomRule(reasoner));
+		rules.put(RuleName.prp_rng, new PrpRngRule(reasoner));
+		rules.put(RuleName.eq_rep_s, new EqRepSRule(reasoner));
 	};
 	
 }
