@@ -14,7 +14,7 @@ public class RuleManager {
 	public enum RuleName {eq_trans, eq_ref, eq_sym, cls_nothing_2,
 		cls_int_2, cax_sco, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom, prp_rng,
-		eq_rep_s};
+		eq_rep_s, eq_rep_p, eq_rep_o};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -49,6 +49,8 @@ public class RuleManager {
 		rules.put(RuleName.prp_dom, new PrpDomRule(reasoner));
 		rules.put(RuleName.prp_rng, new PrpRngRule(reasoner));
 		rules.put(RuleName.eq_rep_s, new EqRepSRule(reasoner));
+		rules.put(RuleName.eq_rep_p, new EqRepPRule(reasoner));
+		rules.put(RuleName.eq_rep_o, new EqRepORule(reasoner));
 	};
 	
 }

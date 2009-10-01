@@ -25,9 +25,9 @@ public abstract class ConsistencyRule extends Rule {
 			sql = buildQuery(delta, aux, false, 0);
 			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 				//There are no deltas yet						
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				logger.debug("Adding delta data (NO_DELTA): " + sql);
 			} else {
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				logger.debug("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");
@@ -47,9 +47,9 @@ public abstract class ConsistencyRule extends Rule {
 			sql = buildQuery(delta, newDelta, false, 0);
 			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 				//There are no deltas yet						
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				logger.debug("Adding delta data (NO_DELTA): " + sql);
 			} else {
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				logger.debug("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
 			}
 			if (statement.executeQuery(sql).next()) {
 				logger.warn("Inconsistency found!");

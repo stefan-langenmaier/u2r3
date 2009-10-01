@@ -25,11 +25,11 @@ public abstract class ApplicationRule extends Rule {
 			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 				//There are no deltas yet		
 				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				logger.debug("Adding delta data (NO_DELTA): " + sql);
 				rows = statement.executeUpdate(sql);
 			} else {
 				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				logger.debug("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
 				rows = statement.executeUpdate(sql);
 			}
 		} catch (SQLException e) {
@@ -46,12 +46,12 @@ public abstract class ApplicationRule extends Rule {
 			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
 				//There are no deltas yet		
 				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				logger.debug("Adding delta data (NO_DELTA): " + sql);
 				rows = statement.executeUpdate(sql);
 	
 			} else {
 				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				logger.debug("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
 				rows = statement.executeUpdate(sql);
 		
 			}
