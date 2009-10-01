@@ -42,7 +42,7 @@ public class ClassAssertionRelation extends Relation {
 	}
 
 	@Override
-	public void createDeltaImpl(long id) {
+	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + 
@@ -73,7 +73,7 @@ public class ClassAssertionRelation extends Relation {
 			//put delta in main table
 			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, class, type) " +
 					" SELECT id, class, type " +
-					" FROM " + getDeltaName(delta.getDelta()));
+					" FROM " + delta.getDeltaName());
 
 			
 			

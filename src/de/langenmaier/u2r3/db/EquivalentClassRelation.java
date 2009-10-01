@@ -38,7 +38,7 @@ public class EquivalentClassRelation extends Relation {
 	}
 
 	@Override
-	public void createDeltaImpl(long id) {
+	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), leftSourceId UUID, leftSourceTable VARCHAR(100), rightSourceId UUID, rightSourceTable VARCHAR(100), PRIMARY KEY (left, right))");

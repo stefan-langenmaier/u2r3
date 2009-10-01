@@ -52,7 +52,7 @@ public class PropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	public void createDeltaImpl(long id) {
+	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +

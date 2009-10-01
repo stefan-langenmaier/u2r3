@@ -53,4 +53,8 @@ public class DeltaRelation {
 		relation.removeDeltaRelation(delta);
 	}
 
+	public String getDeltaName(String table) {
+		return relation.getDeltaName(delta, table);
+	}
+
 }

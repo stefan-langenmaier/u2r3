@@ -42,7 +42,7 @@ public class SubClassRelation extends Relation {
 	}
 
 	@Override
-	public void createDeltaImpl(long id) {
+	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, subSourceTable VARCHAR(100), superSourceId UUID, superSourceTable VARCHAR(100), PRIMARY KEY (sub, super))");
@@ -57,13 +57,13 @@ public class SubClassRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + getDeltaName(delta.getDelta()) + " AS t1 WHERE EXISTS (SELECT sub, super FROM " + getTableName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT sub, super FROM " + getTableName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
 			
 			
 			//put delta in main table
 			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, sub, super) SELECT id, sub,  super FROM ( " +
 					" SELECT id, sub, super " +
-					" FROM " + getDeltaName(delta.getDelta()) + " " +
+					" FROM " + delta.getDeltaName() + " " +
 					")");
 
 			
@@ -76,11 +76,11 @@ public class SubClassRelation extends Relation {
 					String sql = null;
 					
 					//subSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, subSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, subSourceTable FROM " + delta.getDeltaName();
 					relationManager.addHistory(sql);
 					
 					//superSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, superSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, superSourceTable FROM " + delta.getDeltaName();
 					relationManager.addHistory(sql);
 				}
 				

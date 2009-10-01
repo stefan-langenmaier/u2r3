@@ -45,7 +45,7 @@ public class EqRepORule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, property, object");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = sa.right AND bottom.property = ass.property AND bottom.object=ass.object");
+			sql.append("\n\t\t WHERE bottom.subject = ass.subject AND bottom.property = ass.property AND bottom.object = sa.right");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t GROUP BY ass.subject, ass.property, sa.right");

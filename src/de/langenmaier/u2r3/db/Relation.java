@@ -122,20 +122,16 @@ public abstract class Relation extends U2R3Component {
 		}
 	}
 	
-	public abstract void createDeltaImpl(long id);
+	public abstract void createDeltaImpl(int id);
 	
-	private void createDelta(long id) {
-		//if (id >= nextDelta) {
+	private void createDelta(int id) {
 			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				++nextDelta;
 			}
 			createDeltaImpl(id);
-		//} else {
-			//throw new U2R3RuntimeException();
-		//}
 	}
 	
-	protected void dropDelta(long id) {
+	protected void dropDelta(int id) {
 		try {
 			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
 		} catch (SQLException e) {
@@ -187,11 +183,8 @@ public abstract class Relation extends U2R3Component {
 		return tableName;
 	}
 	
-	protected String getDeltaName(long delta) {
-		if (delta == DeltaRelation.NO_DELTA) {
-			return getTableName();
-		}
-		return getTableName() + "_d" + delta;
+	protected String getDeltaName(int delta) {
+		return getDeltaName(delta, tableName);
 	}
 	
 	public DeltaRelation createDeltaRelation(int delta) {
@@ -230,5 +223,14 @@ public abstract class Relation extends U2R3Component {
 		} catch (SQLException e) {
 			throw new U2R3ReasonerException(e);
 		}
+	}
+
+
+	public String getDeltaName(int delta, String table) {
+		if (!table.equals(tableName)) return table;
+		if (delta == DeltaRelation.NO_DELTA) {
+			return getTableName();
+		}
+		return getTableName() + "_d" + delta;
 	}
 }

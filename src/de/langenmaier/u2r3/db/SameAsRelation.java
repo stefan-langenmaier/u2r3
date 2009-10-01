@@ -39,7 +39,7 @@ public class SameAsRelation extends Relation {
 	}
 
 	@Override
-	public void createDeltaImpl(long id) {
+	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
@@ -80,11 +80,11 @@ public class SameAsRelation extends Relation {
 					String sql = null;
 					
 					//leftSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, leftSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, leftSourceTable FROM " + delta.getDeltaName();
 					relationManager.addHistory(sql);
 					
 					//rightSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, rightSourceTable FROM " + getDeltaName(delta.getDelta());
+					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, rightSourceTable FROM " + delta.getDeltaName();
 					relationManager.addHistory(sql);
 				}
 				
