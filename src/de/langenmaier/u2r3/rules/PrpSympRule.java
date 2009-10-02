@@ -1,7 +1,5 @@
 package de.langenmaier.u2r3.rules;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -25,65 +23,6 @@ public class PrpSympRule extends ApplicationRule {
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
-	/**
-	 * Query muss zweimal laufen
-	 */
-	@Override
-	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-
-			} else {
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-
-				sql = buildQuery(delta, aux, true, 1);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rows;
-	}
-
-	/**
-	 * Query muss zweimal laufen
-	 */
-	@Override
-	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			} else {
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-				
-				sql = buildQuery(delta, newDelta, true, 1);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
-		
-			}
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		return rows;
-	}
 	
 	@Override
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
@@ -121,7 +60,7 @@ public class PrpSympRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(Y1, Y2) :- classAssertion(P, 'functional'), propertyAssertion(X, P, Y1), propertyAssertion(X, P, Y2)";
+		return "propertyAssertion(Y, P, X) :- classAssertion(P, 'symmetric'), propertyAssertion(X, P, Y)";
 	}
 
 }
