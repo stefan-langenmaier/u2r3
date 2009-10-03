@@ -32,7 +32,7 @@ public class PrpEqp1Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t SELECT prp.subject AS subject, eqP.right AS property, prp.object AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(subP.id) AS propertySourceId, '" + RelationName.subProperty + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
+			sql.append("\n\t SELECT prp.subject AS subject, eqP.right AS property, prp.object AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(eqP.id) AS propertySourceId, '" + RelationName.equivalentProperty + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
 		} else {
 			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, eqP.right AS property, prp.object AS object");
