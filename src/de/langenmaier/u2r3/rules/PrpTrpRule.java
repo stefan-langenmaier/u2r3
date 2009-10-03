@@ -10,12 +10,12 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpFpRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(PrpFpRule.class);
+public class PrpTrpRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(PrpTrpRule.class);
 	
-	PrpFpRule(U2R3Reasoner reasoner) {
+	PrpTrpRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.propertyAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
@@ -95,11 +95,11 @@ public class PrpFpRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT prp1.object AS left, prp2.object AS right, MIN(prp1.id) AS leftSourceId, '" + RelationName.propertyAssertion + "' AS leftSourceTable, MIN(prp2.id) AS rightSourceId, '" + RelationName.propertyAssertion + "' AS rightSourceTable");
+			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
+			sql.append("\n\t SELECT prp1.subject AS subject, prp2.property AS property, prp2.object AS object, MIN(prp1.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(prp1.id) AS propertySourceId, '" + RelationName.propertyAssertion + "' AS propertySourceTable, MIN(prp2.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
 		} else {
-			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT prp1.object AS left, prp2.object AS right");
+			sql.append("(subject, property, object)");
+			sql.append("\n\t SELECT DISTINCT prp1.subject AS subject, prp2.property AS property, prp2.object AS object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
@@ -110,19 +110,19 @@ public class PrpFpRule extends ApplicationRule {
 			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp1 ON clsA.class = prp1.property");
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON clsA.class = prp2.property");
 		}
-		sql.append("\n\t\t\t  AND prp1.property = prp2.subject");
-		sql.append("\n\t WHERE clsA.type = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_PROPERTY + "'");
+		sql.append("\n\t\t\t  AND prp1.object = prp2.subject");
+		sql.append("\n\t WHERE clsA.type = '" + OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.left");
+			sql.append("\n\t\t SELECT bottom.subject");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = prp1.object AND bottom.right = prp2.object");
+			sql.append("\n\t\t WHERE bottom.subject = prp1.subject AND bottom.property = prp1.property AND bottom.object = prp2.object");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY prp1.object, prp2.object");
+			sql.append("\n\t GROUP BY prp1.subject, prp1.property, prp2.object");
 		}
 		return sql.toString();
 	}
