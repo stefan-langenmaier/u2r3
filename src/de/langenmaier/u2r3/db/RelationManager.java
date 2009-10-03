@@ -15,7 +15,7 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
 public class RelationManager {
 	public enum RelationName {classAssertion, subClass, propertyDomain,
 		propertyRange, propertyAssertion, sameAs, list, intersectionOf,
-		equivalentClass, differentFrom, members, distinctMembers};
+		equivalentClass, differentFrom, members, distinctMembers, subProperty};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -45,6 +45,7 @@ public class RelationManager {
 		relations.put(RelationName.differentFrom, new DifferentFromRelation(reasoner));
 		relations.put(RelationName.members, new MembersRelation(reasoner));
 		relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
+		relations.put(RelationName.subProperty, new SubPropertyRelation(reasoner));
 	}
 
 	public Collection<Relation> getRelations() {
