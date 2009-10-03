@@ -34,7 +34,7 @@ public class PrpSpo1Rule extends ApplicationRule {
 			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
 			sql.append("\n\t SELECT prp.subject AS subject, subP.super AS property, prp.object AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(subP.id) AS propertySourceId, '" + RelationName.subProperty + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
 		} else {
-			sql.append("(subject, type)");
+			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, subP.super AS property, prp.object AS object");
 		}
 		
