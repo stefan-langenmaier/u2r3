@@ -33,7 +33,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t prpAnfang.subject, pc.property, prpEnde.object, MIN(prpAnfang.id) AS subjectSourceId, 'propertyAssertion' AS subjectSourceTable, MIN(pc.id) AS propertySourceId, 'propertyChain' AS propertySourceTable, MIN(prpEnde.id) AS objectSourceId, 'propertyAssertion' AS objectSourceTable");
+			sql.append("\n\t SELECT prpAnfang.subject, pc.property, prpEnde.object, MIN(prpAnfang.id) AS subjectSourceId, 'propertyAssertion' AS subjectSourceTable, MIN(pc.id) AS propertySourceId, 'propertyChain' AS propertySourceTable, MIN(prpEnde.id) AS objectSourceId, 'propertyAssertion' AS objectSourceTable");
 		} else {
 			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prpAnfang.subject, pc.property, prpEnde.object");

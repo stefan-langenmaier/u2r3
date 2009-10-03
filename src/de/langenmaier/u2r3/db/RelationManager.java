@@ -16,7 +16,7 @@ public class RelationManager {
 	public enum RelationName {classAssertion, subClass, propertyDomain,
 		propertyRange, propertyAssertion, sameAs, list, intersectionOf,
 		equivalentClass, differentFrom, members, distinctMembers, subProperty,
-		propertyChain};
+		propertyChain, equivalentProperty};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -48,6 +48,7 @@ public class RelationManager {
 		relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
 		relations.put(RelationName.subProperty, new SubPropertyRelation(reasoner));
 		relations.put(RelationName.propertyChain, new PropertyChainRelation(reasoner));
+		relations.put(RelationName.equivalentProperty, new EquivalentPropertyRelation(reasoner));
 	}
 
 	public Collection<Relation> getRelations() {
