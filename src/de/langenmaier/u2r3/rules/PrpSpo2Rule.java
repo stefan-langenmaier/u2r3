@@ -71,7 +71,6 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t\t HAVING COUNT(l2.name) = anzl2.anzahl");
 		sql.append("\n\t\t ) AS endel ON endel.name = endeE.name AND endel.last = endeE.ordnung");
 	
-
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.subject");
@@ -80,9 +79,8 @@ public class PrpSpo2Rule extends ApplicationRule {
 			sql.append("\n\t )");
 		}
 		
-		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY prpAnfang.subject, pc.property, prpEnde.object");
-		}
+		sql.append("\n\t GROUP BY prpAnfang.subject, pc.property, prpEnde.object");
+		
 		return sql.toString();
 	}
 

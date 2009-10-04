@@ -84,9 +84,9 @@ public class PrpAdwRule extends ConsistencyRule {
 		
 		if (run == 0) {
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON l.element = prp1.property");
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp2 ON pdw.right = prp2.property");
+			sql.append("\n\t INNER JOIN propertyAssertion AS prp2 ON l.element = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp1 ON pdw.left = prp1.property");
+			sql.append("\n\t INNER JOIN propertyAssertion AS prp1 ON l.element = prp1.property");
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON l.element = prp2.property");
 		}
 		sql.append("\n WHERE clsA.type = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES + "'");

@@ -16,7 +16,8 @@ public class RelationManager {
 	public enum RelationName {classAssertion, subClass, propertyDomain,
 		propertyRange, propertyAssertion, sameAs, list, intersectionOf,
 		equivalentClass, differentFrom, members, distinctMembers, subProperty,
-		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf};
+		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
+		hasKey};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -51,6 +52,7 @@ public class RelationManager {
 		relations.put(RelationName.equivalentProperty, new EquivalentPropertyRelation(reasoner));
 		relations.put(RelationName.propertyDisjointWith, new PropertyDisjointWithRelation(reasoner));
 		relations.put(RelationName.inverseOf, new InverseOfRelation(reasoner));
+		relations.put(RelationName.hasKey, new HasKeyRelation(reasoner));
 	}
 
 	public Collection<Relation> getRelations() {
