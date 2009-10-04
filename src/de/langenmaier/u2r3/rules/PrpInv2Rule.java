@@ -57,7 +57,7 @@ public class PrpInv2Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "propertyAssertion(Y, P2, X) :- inverseOf(P1, P2), propertyAssertion(X, P1, Y)";
+		return "propertyAssertion(Y, P1, X) :- inverseOf(P1, P2), propertyAssertion(X, P2, Y)";
 	}
 
 }
