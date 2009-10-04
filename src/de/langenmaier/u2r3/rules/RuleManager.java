@@ -16,7 +16,7 @@ public class RuleManager {
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom, prp_rng,
 		eq_rep_s, eq_rep_p, eq_rep_o, eq_diff_1, eq_diff_2, eq_diff_3,
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1, prp_spo_2,
-		prp_eqp_1, prp_eqp_2, prp_pdw, prp_adw};
+		prp_eqp_1, prp_eqp_2, prp_pdw, prp_adw, prp_inv_1, prp_inv_2};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -67,6 +67,8 @@ public class RuleManager {
 		rules.put(RuleName.prp_eqp_2, new PrpEqp2Rule(reasoner));
 		rules.put(RuleName.prp_pdw, new PrpPdwRule(reasoner));
 		rules.put(RuleName.prp_adw, new PrpAdwRule(reasoner));
+		rules.put(RuleName.prp_inv_1, new PrpInv1Rule(reasoner));
+		rules.put(RuleName.prp_inv_2, new PrpInv2Rule(reasoner));
 	};
 	
 }
