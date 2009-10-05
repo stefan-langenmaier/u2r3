@@ -89,7 +89,7 @@ public class ClsComRule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- complementOf(C1, C2), classAssertion(X, C1), propertyAssertion(X, C2)";
+		return "FALSE :- complementOf(C1, C2), classAssertion(X, C1), classAssertion(X, C2)";
 	}
 
 }
