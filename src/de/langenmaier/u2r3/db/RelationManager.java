@@ -19,7 +19,7 @@ public class RelationManager {
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey, sourceIndividual, targetIndividual, assertionProperty,
 		targetValue, unionOf, complementOf, someValuesFrom, onProperty,
-		allValuesFrom};
+		allValuesFrom, hasValue};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -64,6 +64,7 @@ public class RelationManager {
 		relations.put(RelationName.someValuesFrom, new SomeValuesFromRelation(reasoner));
 		relations.put(RelationName.onProperty, new OnPropertyRelation(reasoner));
 		relations.put(RelationName.allValuesFrom, new AllValuesFromRelation(reasoner));
+		relations.put(RelationName.hasValue, new HasValueRelation(reasoner));
 	}
 
 	public Collection<Relation> getRelations() {
