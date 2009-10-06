@@ -19,7 +19,8 @@ public class RelationManager {
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey, sourceIndividual, targetIndividual, assertionProperty,
 		targetValue, unionOf, complementOf, someValuesFrom, onProperty,
-		allValuesFrom, hasValue};
+		allValuesFrom, hasValue, maxCardinality, maxQualifiedCardinality,
+		onClass, oneOf};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -65,6 +66,10 @@ public class RelationManager {
 		relations.put(RelationName.onProperty, new OnPropertyRelation(reasoner));
 		relations.put(RelationName.allValuesFrom, new AllValuesFromRelation(reasoner));
 		relations.put(RelationName.hasValue, new HasValueRelation(reasoner));
+		relations.put(RelationName.maxCardinality, new MaxCardinalityRelation(reasoner));
+		relations.put(RelationName.maxQualifiedCardinality, new MaxQualifiedCardinalityRelation(reasoner));
+		relations.put(RelationName.onClass, new OnClassRelation(reasoner));
+		relations.put(RelationName.oneOf, new OneOfRelation(reasoner));
 	}
 
 	public Collection<Relation> getRelations() {
