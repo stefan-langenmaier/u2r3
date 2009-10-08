@@ -73,7 +73,7 @@ public class ClsInt2Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(Y,C1..Cn) :- intersectionOf(C, X), list(x, C1..Cn), classAssertion(Y, C)";
+		return "classAssertion(Y,C1..Cn) :- intersectionOf(C, X), list(X, C1..Cn), classAssertion(Y, C)";
 	}
 
 }

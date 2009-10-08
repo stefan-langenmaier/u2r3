@@ -53,7 +53,7 @@ public class ScmClsNothingRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "subClass(nothing, wC) :- classAssertion(C, class)";
+		return "subClass(nothing, C) :- classAssertion(C, class)";
 	}
 
 }
