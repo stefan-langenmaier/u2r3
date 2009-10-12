@@ -8,14 +8,14 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EqTransRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(EqTransRule.class);
+public class ScmEqp2Rule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(ScmEqp2Rule.class);
 	
-	EqTransRule(U2R3Reasoner reasoner) {
+	ScmEqp2Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.equivalentProperty;
 		
-		relationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
+		relationManager.getRelation(RelationName.subProperty).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -82,29 +82,29 @@ public class EqTransRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT sa1.left, sa2.right, MIN(sa1.id) AS leftSourceId, '" + RelationName.sameAs + "' AS leftSourceTable, MIN(sa2.id) AS rightSourceId, '" + RelationName.sameAs + "' AS rightSourceTable");
+			sql.append("\n\t SELECT sp1.sub, sp2.sub, MIN(sp1.id) AS subSourceId, '" + RelationName.subProperty + "' AS subSourceTable, MIN(sp2.id) AS superSourceId, '" + RelationName.subProperty + "' AS superSourceTable");
 		} else {
-			sql.append(" (left, right)");
-			sql.append("\n\t SELECT DISTINCT sa1.left, sa2.right ");
+			sql.append(" (sub, super)");
+			sql.append("\n\t SELECT DISTINCT sp1.sub, sp2.sub ");
 		}
 		
 		if (run == 0) {
-			sql.append("\n\t FROM " + delta.getDeltaName("sameAs") + " AS sa1 ");
-			sql.append("\n\t\t INNER JOIN sameAs AS sa2 ON sa1.right = sa2.left");
+			sql.append("\n\t FROM " + delta.getDeltaName("subProperty") + " AS sp1 ");
+			sql.append("\n\t\t INNER JOIN subProperty AS sp2 ON sp1.super = sp2.sub AND sp1.sub = sp2.super");
 		} else if (run == 1) {
-			sql.append("\n\t FROM sameAs AS sa1 ");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("sameAs") + " AS sa2 ON sa1.right = sa2.left");
+			sql.append("\n\t FROM subProperty AS sp1 ");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subProperty") + " AS sp2 ON sp1.super = sp2.sub AND sp1.sub = sp2.super");
 		}
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = sa1.left AND bottom.right = sa2.right) ");
+			sql.append("\n\t\t WHERE bottom.left = sp1.sub AND bottom.right = sp2.sub) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY sa1.left, sa2.right");
+			sql.append("\n\t GROUP BY sp1.sub, sp2.sub");
 		}
 
 		return sql.toString();
@@ -112,7 +112,7 @@ public class EqTransRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(A,C) :- sameAs(A,B), sameAs(B,C)";
+		return "equivalentProperty(A,B) :- subProperty(A,B), subProperty(B,A)";
 	}
 
 }
