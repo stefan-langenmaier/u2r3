@@ -35,7 +35,7 @@ public class ScmDom1Rule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("propertyDomain") + " AS dom ");
-		sql.append("\n\t\t INNER JOIN subClass AS sc ON sc.sub = dom.domain");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subClass") + " AS sc ON sc.sub = dom.domain");
 		
 		
 		if (again) {
