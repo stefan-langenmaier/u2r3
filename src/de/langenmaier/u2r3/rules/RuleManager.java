@@ -23,7 +23,8 @@ public class RuleManager {
 		cls_maxqc_4, cls_oo, cax_eqc_1, cax_eqc_2, cax_dw, scm_sco,
 		scm_eqc_1, scm_eqc_2, scm_op_sub, scm_op_eq, scm_dp_sub, scm_dp_eq,
 		scm_spo, scm_eqp_1, scm_eqp_2, scm_dom_1, scm_dom_2, scm_rng_1,
-		scm_rng_2};
+		scm_rng_2, scm_hv, scm_svf_2, scm_svf_1, scm_avf_1, scm_avf_2,
+		scm_int, scm_uni};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -111,6 +112,13 @@ public class RuleManager {
 		rules.put(RuleName.scm_dom_2, new ScmDom2Rule(reasoner));
 		rules.put(RuleName.scm_rng_1, new ScmRng1Rule(reasoner));
 		rules.put(RuleName.scm_rng_2, new ScmRng2Rule(reasoner));
+		rules.put(RuleName.scm_hv, new ScmHvRule(reasoner));
+		rules.put(RuleName.scm_svf_2, new ScmSvf2Rule(reasoner));
+		rules.put(RuleName.scm_svf_1, new ScmSvf1Rule(reasoner));
+		rules.put(RuleName.scm_avf_1, new ScmAvf1Rule(reasoner));
+		rules.put(RuleName.scm_avf_2, new ScmAvf2Rule(reasoner));
+		rules.put(RuleName.scm_int, new ScmIntRule(reasoner));
+		rules.put(RuleName.scm_uni, new ScmUniRule(reasoner));
 		
 	};
 	
