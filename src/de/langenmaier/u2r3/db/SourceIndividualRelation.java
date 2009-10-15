@@ -33,7 +33,7 @@ public class SourceIndividualRelation extends Relation {
 	}
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
@@ -67,5 +67,11 @@ public class SourceIndividualRelation extends Relation {
 		
 		throw new U2R3NotImplementedException();
 	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
+	}
+	
 
 }

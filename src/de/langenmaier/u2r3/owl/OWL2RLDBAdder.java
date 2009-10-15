@@ -244,9 +244,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLSameIndividualAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-		
+	public void visit(OWLSameIndividualAxiom axiom) {
+		logger.debug(" adding SameIndividual:" + axiom.toString());
+		relationManager.getRelation(RelationName.sameAs).add(axiom);
+		logger.debug(" added SameIndividual");
 	}
 
 	@Override

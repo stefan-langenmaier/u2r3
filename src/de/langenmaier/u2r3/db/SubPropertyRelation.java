@@ -31,10 +31,11 @@ public class SubPropertyRelation extends Relation {
 		}
 	}
 
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
 			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
+			return true;
 	}
 
 	@Override
@@ -59,5 +60,9 @@ public class SubPropertyRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
+	}
 
 }

@@ -62,15 +62,24 @@ public abstract class Relation extends U2R3Component {
 		}
 	}
 	
-	
-	public abstract void addImpl(OWLAxiom axiom) throws SQLException;
+	/**
+	 * Prepares the insert statement for the facts from the axiom
+	 * If the return value is false, the method has executed the
+	 * statement by itself. Necessary for complex or special axioms.
+	 * @param axiom
+	 * @return TODO
+	 * @return true the statement needs to be executed otherwise not
+	 * @throws SQLException
+	 */
+	public abstract boolean addImpl(OWLAxiom axiom) throws SQLException;
 	
 	public void add(OWLAxiom axiom) {
 		try {
-			addImpl(axiom);
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-			reasonProcessor.add(new AdditionReason(this));
+			if (addImpl(axiom)) {
+				logger.trace(addStatement.toString());
+				addStatement.executeUpdate();
+				reasonProcessor.add(new AdditionReason(this));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -206,18 +215,12 @@ public abstract class Relation extends U2R3Component {
 		dropDelta(delta);
 		deltas.remove(delta);
 	}
-
-
+	protected abstract String existsImpl(String... args);
+	
 	public boolean exists(String... args) throws U2R3ReasonerException {
-		//TODO abstract machen und in die einzelnen Klassen schreiben
 		try {
 			Statement stmt = conn.createStatement();
-			String sql;
-			if (args.length == 1) {
-				sql = "SELECT class FROM classAssertion WHERE class = '" + args[0] + "'";
-			} else {
-				sql = "SELECT class, type FROM classAssertion WHERE class = '" + args[0] + "' AND type = '" + args[1] + "'";
-			}
+			String sql = existsImpl(args);
 			
 			return stmt.executeQuery(sql).next();
 		} catch (SQLException e) {

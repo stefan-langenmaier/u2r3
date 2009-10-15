@@ -1,13 +1,9 @@
 package de.langenmaier.u2r3.tests.quality.fzitestcases;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
-import java.util.Properties;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -27,7 +23,7 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 public class RunTestCase {
 	
 	static Logger logger = Logger.getLogger(RunTestCase.class);
-	enum CheckType {entailment_check, consistency_check};
+	
 	
 	/**
 	 * @param args
@@ -38,51 +34,16 @@ public class RunTestCase {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
 		
-		String folder = null; // = "file:///home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/";
+		String folder = "/home/stefan/.workspace/u2r2/ontologien/tests/fzi/owl2rl";
 		String name;
-		
-		File dir = new File("/home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/");
-	    
-	    // This filter only returns directories
-	    FileFilter fileFilter = new FileFilter() {
-	        public boolean accept(File file) {
-	            return file.isDirectory();
-	        }
-	    };
-	    File[] files = dir.listFiles(fileFilter);
-	    
-	    for (File f : files) {
-	    	name = f.getName();
-	    	folder = f.getAbsolutePath();
-	    	
-	    	Properties prop = new Properties();
-			prop.loadFromXML(new FileInputStream(folder + "/" + name + ".metadata.properties"));
-			if (prop.getProperty("testcase.type").equals("POSITIVE_ENTAILMENT")) {
-				runTestCase(name, folder, CheckType.entailment_check);
-			} else {
-				runTestCase(name, folder, CheckType.consistency_check);
-			}
-			
-			
-	    }
-
-		
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-rdfs-domain-cond";
+		name = "rdfbased-ont-graph-form";
+		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);
 		
-		name = "rdfbased-sem-rdfs-range-cond";
-		folder = folder + "/" + name;
-		runTestCase(name, folder, CheckType.entailment_check);
-		
-		//rdfbased-sem-class-nothing-ext
-		name = "rdfbased-sem-class-nothing-ext";
-		folder = folder + "/" + name;
-		runTestCase(name, folder, CheckType.consistency_check);
-
 	}
 	
 	public static void runTestCase(String name, String folder, CheckType checkType) {
@@ -95,8 +56,8 @@ public class RunTestCase {
 			}
 			String conclusion_uri = folder + name + ".conclusiongraph.xml";
 			
-			System.out.println(premise_uri);
-			System.out.println(conclusion_uri);
+			//System.out.println(premise_uri);
+			//System.out.println(conclusion_uri);
 
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();

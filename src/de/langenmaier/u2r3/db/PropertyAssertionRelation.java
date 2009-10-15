@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
 public class PropertyAssertionRelation extends Relation {
@@ -22,9 +23,9 @@ public class PropertyAssertionRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" subject VARCHAR(100)," +
-					" property VARCHAR(100)," +
-					" object VARCHAR(100)," +
+					" subject TEXT," +
+					" property TEXT," +
+					" object TEXT," +
 					" PRIMARY KEY (subject, property, object))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -36,19 +37,38 @@ public class PropertyAssertionRelation extends Relation {
 	}
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyAssertionAxiom) {
 			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+			if (naxiom.getSubject().isAnonymous()) {
+				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+			} else {
+				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+			}
 			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getURI().toString());
+			if (naxiom.getObject().isTyped()) {
+				/*for (OWLDatatype dt : naxiom.getObject().getDatatypesInSignature()) {
+					//TODO add für classassertion aufrufen mit dt und literal
+					OWLDataFactory df;// = new OWLDataFactory();
+					//df.
+				}*/
+			}
 			addStatement.setString(3, naxiom.getObject().getLiteral());
 		} else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+			if (naxiom.getSubject().isAnonymous()) {
+				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+			} else {
+				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+			}
 			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
-
+			if (naxiom.getObject().isAnonymous()) {
+				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
+			} else {
+				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
+			}
 		}
+		return true;
 	}
 
 	@Override
@@ -57,9 +77,9 @@ public class PropertyAssertionRelation extends Relation {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +
 					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" subject VARCHAR(100)," +
-					" property VARCHAR(100)," +
-					" object VARCHAR(100)," +
+					" subject TEXT," +
+					" property TEXT," +
+					" object TEXT," +
 					" subjectSourceId UUID, " +
 					" subjectSourceTable VARCHAR(100), " +
 					" propertySourceId UUID, " +
@@ -83,6 +103,11 @@ public class PropertyAssertionRelation extends Relation {
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
 	}
 
 }

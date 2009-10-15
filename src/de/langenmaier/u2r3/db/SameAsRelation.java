@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
+import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -33,9 +35,16 @@ public class SameAsRelation extends Relation {
 	}
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+		OWLSameIndividualAxiom naxiom = (OWLSameIndividualAxiom) axiom;
+		for (OWLIndividual ind : naxiom.getIndividuals()) {
+			addStatement.setString(1, ind.asNamedIndividual().getIRI().toString());
+			addStatement.setString(2, ind.asNamedIndividual().getIRI().toString());
+			logger.trace(addStatement.toString());
+			addStatement.executeUpdate();
+			reasonProcessor.add(new AdditionReason(this));
+		}
+		return false;
 	}
 
 	@Override
@@ -104,6 +113,14 @@ public class SameAsRelation extends Relation {
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		if (args.length == 1) {
+			return "SELECT left FROM " + getTableName() + " WHERE left = '" + args[0] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

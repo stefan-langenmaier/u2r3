@@ -25,11 +25,13 @@ import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
@@ -54,7 +56,7 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	static Logger logger = Logger.getLogger(OWL2RLDBAdder.class);
 	OWLReasoner reasoner;
 	private boolean correct = true;
-	private boolean used = false;
+	private boolean used = true;
 	
 	public boolean isCorrect() {
 		return correct && used;
@@ -150,8 +152,19 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyAssertionAxiom arg0) {
-		// TODO Auto-generated method stub
+	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
+		try {
+			used = false;
+			logger.trace("Testing for axiom:" + axiom.toString());
+			logger.trace("Is axiom defined?");
+			if(!reasoner.isDefined((OWLObjectProperty) axiom)) {
+				correct = false;
+			}
+			
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -200,6 +213,7 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	@Override
 	public void visit(OWLClassAssertionAxiom arg0) {
 		try {
+			used = false;
 			logger.trace("Testing for axiom:" + arg0.toString());
 			logger.trace("Is axiom defined?");
 			if(!reasoner.isDefined(arg0.getIndividual())) {
@@ -225,7 +239,7 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	@Override
 	public void visit(OWLDataPropertyAssertionAxiom arg0) {
 		// TODO Auto-generated method stub
-
+		//XXX
 	}
 
 	@Override
@@ -253,9 +267,21 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLSameIndividualAxiom arg0) {
-		// TODO Auto-generated method stub
-
+	public void visit(OWLSameIndividualAxiom axiom) {
+		try {
+			used = false;
+			logger.trace("Testing for axiom:" + axiom.toString());
+			logger.trace("Is axiom defined?");
+			for (OWLIndividual ind : axiom.getIndividuals()) {
+				if(!((U2R3Reasoner) reasoner).hasSame(ind)) {
+					correct = false;
+				}
+			}
+			
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

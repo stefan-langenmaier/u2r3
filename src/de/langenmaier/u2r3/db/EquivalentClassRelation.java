@@ -30,7 +30,7 @@ public class EquivalentClassRelation extends Relation {
 		}
 	}
 
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			//OWLEquivalentClassesAxiom naxiom = (OWLEquivalentClassesAxiom) axiom;
 			throw new U2R3NotImplementedException();
 			//addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
@@ -55,6 +55,11 @@ public class EquivalentClassRelation extends Relation {
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
 				return null;
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
 	}
 
 

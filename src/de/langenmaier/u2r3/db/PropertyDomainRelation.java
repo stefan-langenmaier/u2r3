@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
 public class PropertyDomainRelation extends Relation {
@@ -35,7 +36,7 @@ public class PropertyDomainRelation extends Relation {
 	}
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyDomainAxiom) {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
@@ -45,6 +46,7 @@ public class PropertyDomainRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
 			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
 		}
+		return true;
 	}
 
 	@Override
@@ -76,6 +78,11 @@ public class PropertyDomainRelation extends Relation {
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
 	}
 
 }

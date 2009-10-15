@@ -33,7 +33,7 @@ public class TargetValueRelation extends Relation {
 	}
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
@@ -65,6 +65,11 @@ public class TargetValueRelation extends Relation {
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();
 	}
 

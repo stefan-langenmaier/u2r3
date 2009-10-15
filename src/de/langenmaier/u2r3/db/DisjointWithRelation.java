@@ -34,7 +34,7 @@ public class DisjointWithRelation extends Relation {
 		}
 	}
 
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			throw new U2R3NotImplementedException();
 	}
 
@@ -64,6 +64,11 @@ public class DisjointWithRelation extends Relation {
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
 				return null;
+	}
+
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
 	}
 
 

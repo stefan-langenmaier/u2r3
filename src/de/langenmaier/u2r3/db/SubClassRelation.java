@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
@@ -35,10 +36,11 @@ public class SubClassRelation extends Relation {
 		}
 	}
 
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
 			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
+			return true;
 	}
 
 	@Override
@@ -117,5 +119,9 @@ public class SubClassRelation extends Relation {
 		return new Pair<UUID, RelationName>(id, RelationName.subClass);
 	}
 
+	@Override
+	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
+	}
 
 }

@@ -83,9 +83,19 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 				
 				if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
 			}
+			/*System.out.println("empty?: " + ont.isEmpty());
+			System.out.println(ont.getReferencedAnonymousIndividuals().size());
+			System.out.println(ont.getReferencedClasses().size());
+			System.out.println(ont.getReferencedDataProperties().size());
+			System.out.println(ont.getReferencedDatatypes().size());
+			System.out.println(ont.getReferencedEntities().size());
 			
+			System.out.println(ont.isAnonymous());
+			
+			System.out.println(ont.getGeneralClassAxioms());
+			*/
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-			for(OWLAxiom ax : ont.getLogicalAxioms()) {
+			for(OWLAxiom ax : ont.getAxioms()) {
 				ax.accept(axiomAdder);
 			}
 			
@@ -455,6 +465,11 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	public ReasonProcessor getReasonProcessor() {
 		return reasonProcessor;
+	}
+
+	public boolean hasSame(OWLIndividual ind) throws OWLReasonerException {
+		return relationManager.getRelation(RelationName.sameAs)
+			.exists(ind.asNamedIndividual().getIRI().toString());
 	}
 
 }

@@ -35,10 +35,11 @@ public class ClassAssertionRelation extends Relation {
 
 	
 	@Override
-	public void addImpl(OWLAxiom axiom) throws SQLException {
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getURI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
+			return true;
 	}
 
 	@Override
@@ -115,6 +116,16 @@ public class ClassAssertionRelation extends Relation {
 			throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	protected String existsImpl(String... args) {
+		if (args.length == 1) {
+			return "SELECT class FROM classAssertion WHERE class = '" + args[0] + "'";
+		} else {
+			return "SELECT class, type FROM classAssertion WHERE class = '" + args[0] + "' AND type = '" + args[1] + "'";
+		}
 	}
 
 }
