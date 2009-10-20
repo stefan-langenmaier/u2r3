@@ -183,6 +183,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLDataPropertyAssertionAxiom axiom) {
 		logger.debug("  adding DataPropertyAssertionAxiom:" + axiom.toString());
 		relationManager.getRelation(RelationName.propertyAssertion).add(axiom);
+		if (axiom.getObject().isTyped()) {
+			logger.error("AUCH den type hinzufügen!");
+		}
 		logger.debug("  added DataPropertyssertionAxiom");
 	}
 
@@ -269,8 +272,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLAnnotationAssertionAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLAnnotationAssertionAxiom axiom) {
+		//System.out.println(axiom.toString());
+		throw new U2R3NotInProfileException(axiom);
 		
 	}
 
