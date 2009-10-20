@@ -10,14 +10,18 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
-public class DifferentFromRelation extends Relation {
+public class DifferentFromLitRelation extends Relation {
 	
-	protected DifferentFromRelation(U2R3Reasoner reasoner) {
+	protected DifferentFromLitRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "differentFrom";
+			tableName = "differentFromLit";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), PRIMARY KEY (left, right))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" left TEXT," +
+					" right TEXT," +
+					" PRIMARY KEY (left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -40,12 +44,12 @@ public class DifferentFromRelation extends Relation {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
-					" leftSourceId UUID," +
-					" leftSourceTable VARCHAR(100)," +
-					" rightSourceId UUID," +
-					" rightSourceTable VARCHAR(100)," +
+					" left TEXT," +
+					" right TEXT," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
 					" PRIMARY KEY (left, right))");
 		} catch (SQLException e) {
 			e.printStackTrace();

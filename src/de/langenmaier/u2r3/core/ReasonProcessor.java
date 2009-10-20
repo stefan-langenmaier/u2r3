@@ -38,11 +38,11 @@ public class ReasonProcessor {
 	
 	public void initialize() {
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.dt_type1),
-				relationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.cls_thing),
-				relationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.cls_nothing_1),
-				relationManager.getRelation(RelationName.classAssertion).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 
 	}
 	

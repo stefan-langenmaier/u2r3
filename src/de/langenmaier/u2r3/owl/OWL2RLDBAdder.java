@@ -122,7 +122,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
 		logger.debug("  adding ObjectPropertyAssertion:" + axiom.toString());
-		relationManager.getRelation(RelationName.propertyAssertion).add(axiom);
+		relationManager.getRelation(RelationName.propertyAssertionEnt).add(axiom);
 		//ObjectPropertyAssertionRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectPropertyAssertion");
 	}
@@ -170,7 +170,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLClassAssertionAxiom axiom) {
 		logger.debug("  adding ClassAssertionAxiom:" + axiom.toString());
-		relationManager.getRelation(RelationName.classAssertion).add(axiom);
+		relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
 		logger.debug("  added ClassAssertionAxiom");
 	}
 
@@ -182,7 +182,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDataPropertyAssertionAxiom axiom) {
 		logger.debug("  adding DataPropertyAssertionAxiom:" + axiom.toString());
-		relationManager.getRelation(RelationName.propertyAssertion).add(axiom);
+		relationManager.getRelation(RelationName.propertyAssertionLit).add(axiom);
 		if (axiom.getObject().isTyped()) {
 			logger.error("AUCH den type hinzufügen!");
 		}
@@ -249,7 +249,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLSameIndividualAxiom axiom) {
 		logger.debug(" adding SameIndividual:" + axiom.toString());
-		relationManager.getRelation(RelationName.sameAs).add(axiom);
+		relationManager.getRelation(RelationName.sameAsEnt).add(axiom);
 		logger.debug(" added SameIndividual");
 	}
 

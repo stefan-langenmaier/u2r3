@@ -15,19 +15,19 @@ import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ClassAssertionRelation extends Relation {
-	static Logger logger = Logger.getLogger(ClassAssertionRelation.class);
+public class ClassAssertionEntRelation extends Relation {
+	static Logger logger = Logger.getLogger(ClassAssertionEntRelation.class);
 	
-	protected ClassAssertionRelation(U2R3Reasoner reasoner) {
+	protected ClassAssertionEntRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "classAssertion";
+			tableName = "classAssertionEnt";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, class VARCHAR(100), type VARCHAR(100), PRIMARY KEY (class, type))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, entity TEXT, class TEXT, PRIMARY KEY (entity, class))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, type) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, class) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,15 +46,20 @@ public class ClassAssertionRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
+			//max 4 quellen außer in cls-int1
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + 
 					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" type VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" typeSourceId UUID," +
-					" typeSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, type))");
+					" entity TEXT," +
+					" class TEXT," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
+					" sourceId3 UUID," +
+					" sourceTable3 VARCHAR(100)," +
+					" sourceId4 UUID," +
+					" sourceTable4 VARCHAR(100)," +
+					" PRIMARY KEY (entity, class))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -68,16 +73,15 @@ public class ClassAssertionRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT class, type FROM " + getTableName() + " AS bottom WHERE bottom.class = t1.class AND bottom.type = t1.type)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT entity, class FROM " + getTableName() + " AS bottom WHERE bottom.entity = t1.entity AND bottom.class = t1.class)");
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, class, type) " +
-					" SELECT id, class, type " +
-					" FROM " + delta.getDeltaName());
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, entity, class) " +
+					" SELECT MIN(id), entity, class " +
+					" FROM " + delta.getDeltaName() +
+					" GROUP BY entity, class");
 
-			
-			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
 				
@@ -85,17 +89,15 @@ public class ClassAssertionRelation extends Relation {
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
-					//remove rows without history
-					sql = "DELETE FROM " + delta.getDeltaName() + " WHERE classSourceId IS NULL";
-					rows = stmt.executeUpdate(sql);				
-					
-					//subjectSource
-					sql = "SELECT id, '" + RelationName.classAssertion + "' AS table, classSourceId, classSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
-					
-					//superSource
-					sql = "SELECT id, '" + RelationName.classAssertion + "' AS table, typeSourceId, typeSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
+					for (int i=1; i<=4; ++i) {
+						//remove rows without history
+						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
+						rows = stmt.executeUpdate(sql);				
+						
+						//source
+						sql = "SELECT id, '" + RelationName.classAssertionEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						relationManager.addHistory(sql);
+					}
 				}
 				
 				//fire reason

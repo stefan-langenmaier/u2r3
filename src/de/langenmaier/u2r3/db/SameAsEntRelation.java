@@ -16,14 +16,18 @@ import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class SameAsRelation extends Relation {
+public class SameAsEntRelation extends Relation {
 	
-	protected SameAsRelation(U2R3Reasoner reasoner) {
+	protected SameAsEntRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "sameAs";
+			tableName = "sameAsEnt";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), PRIMARY KEY (left, right))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" left TEXT," +
+					" right TEXT," +
+					" PRIMARY KEY (left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -51,14 +55,27 @@ public class SameAsRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
+			// bis zu 8 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left VARCHAR(100)," +
 					" right VARCHAR(100)," +
-					" leftSourceId UUID," +
-					" leftSourceTable VARCHAR(100)," +
-					" rightSourceId UUID," +
-					" rightSourceTable VARCHAR(100)," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
+					" sourceId3 UUID," +
+					" sourceTable3 VARCHAR(100)," +
+					" sourceId4 UUID," +
+					" sourceTable4 VARCHAR(100)," +
+					" sourceId5 UUID," +
+					" sourceTable5 VARCHAR(100)," +
+					" sourceId6 UUID," +
+					" sourceTable6 VARCHAR(100)," +
+					" sourceId7 UUID," +
+					" sourceTable7 VARCHAR(100)," +
+					" sourceId8 UUID," +
+					" sourceTable8 VARCHAR(100)," +
 					" PRIMARY KEY (left, right))");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -76,10 +93,10 @@ public class SameAsRelation extends Relation {
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) SELECT id, left, right FROM ( " +
-					" SELECT id, left, right " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) " +
+					" SELECT MIN(id), left, right " +
 					" FROM " + delta.getDeltaName() + " " +
-					")");			
+					" GROUP BY left, right");			
 			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
@@ -88,13 +105,15 @@ public class SameAsRelation extends Relation {
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
-					//leftSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, leftSourceId, leftSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
-					
-					//rightSource
-					sql = "SELECT id, '" + RelationName.sameAs + "' AS table, rightSourceId, rightSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
+					for (int i=1; i<=8; ++i) {
+						//remove rows without history
+						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
+						rows = stmt.executeUpdate(sql);				
+						
+						//source
+						sql = "SELECT id, '" + RelationName.sameAsEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						relationManager.addHistory(sql);
+					}
 				}
 				
 				//fire reason

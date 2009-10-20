@@ -13,14 +13,15 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
  *
  */
 public class RelationManager {
-	public enum RelationName {classAssertion, subClass, propertyDomain,
-		propertyRange, propertyAssertion, sameAs, list, intersectionOf,
-		equivalentClass, differentFrom, members, distinctMembers, subProperty,
+	public enum RelationName {classAssertionEnt, classAssertionLit, subClass,
+		propertyDomain, sameAsLit, propertyAssertionLit, hasValueLit,
+		propertyRange, propertyAssertionEnt, sameAsEnt, list, intersectionOf,
+		equivalentClass, differentFromEnt, members, distinctMembers, subProperty,
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey, sourceIndividual, targetIndividual, assertionProperty,
 		targetValue, unionOf, complementOf, someValuesFrom, onProperty,
-		allValuesFrom, hasValue, maxCardinality, maxQualifiedCardinality,
-		onClass, oneOf, disjointWith};
+		allValuesFrom, hasValueEnt, maxCardinality, maxQualifiedCardinality,
+		onClass, oneOf, disjointWith, differentFromLit};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -38,16 +39,21 @@ public class RelationManager {
 	public void initialize() {
 		history = new History(reasoner);
 		
-		relations.put(RelationName.subClass, new SubClassRelation(reasoner));
-		relations.put(RelationName.classAssertion, new ClassAssertionRelation(reasoner));
-		relations.put(RelationName.sameAs, new SameAsRelation(reasoner));
 		relations.put(RelationName.list, new ListRelation(reasoner));
+		
+		relations.put(RelationName.subClass, new SubClassRelation(reasoner));
+		relations.put(RelationName.classAssertionEnt, new ClassAssertionEntRelation(reasoner));
+		relations.put(RelationName.classAssertionLit, new ClassAssertionLitRelation(reasoner));		
+		relations.put(RelationName.sameAsEnt, new SameAsEntRelation(reasoner));
+		relations.put(RelationName.sameAsLit, new SameAsLitRelation(reasoner));
 		relations.put(RelationName.intersectionOf, new IntersectionOfRelation(reasoner));
 		relations.put(RelationName.equivalentClass, new EquivalentClassRelation(reasoner));
-		relations.put(RelationName.propertyAssertion, new PropertyAssertionRelation(reasoner));
+		relations.put(RelationName.propertyAssertionEnt, new PropertyAssertionEntRelation(reasoner));
+		relations.put(RelationName.propertyAssertionLit, new PropertyAssertionLitRelation(reasoner));
 		relations.put(RelationName.propertyDomain, new PropertyDomainRelation(reasoner));
 		relations.put(RelationName.propertyRange, new PropertyRangeRelation(reasoner));
-		relations.put(RelationName.differentFrom, new DifferentFromRelation(reasoner));
+		relations.put(RelationName.differentFromEnt, new DifferentFromEntRelation(reasoner));
+		relations.put(RelationName.differentFromLit, new DifferentFromLitRelation(reasoner));
 		relations.put(RelationName.members, new MembersRelation(reasoner));
 		relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
 		relations.put(RelationName.subProperty, new SubPropertyRelation(reasoner));
@@ -65,7 +71,8 @@ public class RelationManager {
 		relations.put(RelationName.someValuesFrom, new SomeValuesFromRelation(reasoner));
 		relations.put(RelationName.onProperty, new OnPropertyRelation(reasoner));
 		relations.put(RelationName.allValuesFrom, new AllValuesFromRelation(reasoner));
-		relations.put(RelationName.hasValue, new HasValueRelation(reasoner));
+		relations.put(RelationName.hasValueEnt, new HasValueEntRelation(reasoner));
+		relations.put(RelationName.hasValueLit, new HasValueLitRelation(reasoner));
 		relations.put(RelationName.maxCardinality, new MaxCardinalityRelation(reasoner));
 		relations.put(RelationName.maxQualifiedCardinality, new MaxQualifiedCardinalityRelation(reasoner));
 		relations.put(RelationName.onClass, new OnClassRelation(reasoner));

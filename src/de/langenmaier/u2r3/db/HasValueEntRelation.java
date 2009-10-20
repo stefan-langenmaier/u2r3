@@ -10,15 +10,15 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
-public class HasValueRelation extends Relation {
+public class HasValueEntRelation extends Relation {
 	
-	protected HasValueRelation(U2R3Reasoner reasoner) {
+	protected HasValueEntRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "hasValue";
+			tableName = "hasValueEnt";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" class VARCHAR(100)," +
 					" object VARCHAR(100)," +
 					" PRIMARY KEY (class, object))");
@@ -40,20 +40,7 @@ public class HasValueRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" object VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" objectSourceId UUID," +
-					" objectSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, object))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
