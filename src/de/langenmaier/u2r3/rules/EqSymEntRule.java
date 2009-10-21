@@ -7,15 +7,15 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EqSymRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(EqSymRule.class);
+public class EqSymEntRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(EqSymEntRule.class);
 	
-	EqSymRule(U2R3Reasoner reasoner) {
+	EqSymEntRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.sameAsEnt;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
+		relationManager.getRelation(RelationName.sameAsEnt).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -29,8 +29,8 @@ public class EqSymRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT right, left, id AS leftSourceId, '" + RelationName.sameAs.toString() + "' AS leftSourceTable, id AS rightSourceId, '" + RelationName.sameAs.toString() + "' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT right, left, id AS sourceId1, '" + RelationName.sameAsEnt + "' AS sourceTable1");
 		} else {
 			sql.append("(left, right)");
 			sql.append("\n\t SELECT right, left");
@@ -50,7 +50,7 @@ public class EqSymRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(B,A) :- sameAs(A,B)";
+		return "sameAsEnt(B,A) :- sameAsEnt(A,B)";
 	}
 
 }

@@ -8,14 +8,14 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EqTransRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(EqTransRule.class);
+public class EqTransLitRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(EqTransLitRule.class);
 	
-	EqTransRule(U2R3Reasoner reasoner) {
+	EqTransLitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.sameAsLit;
 		
-		relationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
+		relationManager.getRelation(RelationName.sameAsLit).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -81,19 +81,19 @@ public class EqTransRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT sa1.left, sa2.right, MIN(sa1.id) AS leftSourceId, '" + RelationName.sameAs + "' AS leftSourceTable, MIN(sa2.id) AS rightSourceId, '" + RelationName.sameAs + "' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT sa1.left, sa2.right, MIN(sa1.id) AS sourceId1, '" + RelationName.sameAsLit + "' AS sourceTable1, MIN(sa2.id) AS sourceId2, '" + RelationName.sameAsLit + "' AS sourceTable2");
 		} else {
 			sql.append(" (left, right)");
 			sql.append("\n\t SELECT DISTINCT sa1.left, sa2.right ");
 		}
 		
 		if (run == 0) {
-			sql.append("\n\t FROM " + delta.getDeltaName("sameAs") + " AS sa1 ");
-			sql.append("\n\t\t INNER JOIN sameAs AS sa2 ON sa1.right = sa2.left");
+			sql.append("\n\t FROM " + delta.getDeltaName("sameAsLit") + " AS sa1 ");
+			sql.append("\n\t\t INNER JOIN sameAsLit AS sa2 ON sa1.right = sa2.left");
 		} else if (run == 1) {
-			sql.append("\n\t FROM sameAs AS sa1 ");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("sameAs") + " AS sa2 ON sa1.right = sa2.left");
+			sql.append("\n\t FROM sameAsLit AS sa1 ");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("sameAsLit") + " AS sa2 ON sa1.right = sa2.left");
 		}
 		
 		if (again) {
@@ -112,7 +112,7 @@ public class EqTransRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(A,C) :- sameAs(A,B), sameAs(B,C)";
+		return "sameAsLit(A,C) :- sameAsLit(A,B), sameAsLit(B,C)";
 	}
 
 }

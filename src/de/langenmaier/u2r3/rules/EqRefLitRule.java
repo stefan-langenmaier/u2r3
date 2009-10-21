@@ -7,16 +7,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EqRefRule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(EqRefRule.class);
+public class EqRefLitRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(EqRefLitRule.class);
 	
-	EqRefRule(U2R3Reasoner reasoner) {
+	EqRefLitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.sameAsLit;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionLit).addAdditionRule(this);
 		
-		relationManager.getRelation(RelationName.sameAs).addDeletionRule(this);
+		relationManager.getRelation(RelationName.sameAsLit).addDeletionRule(this);
 	}
 
 	@Override
@@ -27,11 +27,11 @@ public class EqRefRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT class AS left, class AS right, MIN(id) AS leftSourceId, '" + RelationName.classAssertion.toString() + "' AS leftSourceTable, MIN(id) AS rightSourceId, '" + RelationName.classAssertion.toString() + "' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT literal AS left, class AS right, MIN(id) AS sourceId1, '" + RelationName.classAssertionLit + "' AS sourceTable1, MIN(id) AS sourceId2, '" + RelationName.classAssertionLit + "' AS sourceTable2");
 		} else {
 			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT class AS left, subject AS right");
+			sql.append("\n\t SELECT DISTINCT literal AS left, class AS right");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
@@ -49,7 +49,7 @@ public class EqRefRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(A,A) :- classAssertion(A, X)";
+		return "sameAsLit(A,A) :- classAssertionLit(A, X)";
 	}
 
 }

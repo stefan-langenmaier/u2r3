@@ -11,10 +11,10 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  *
  */
 public class RuleManager {
-	public enum RuleName {eq_trans, eq_ref, eq_sym, cls_nothing_2,
+	public enum RuleName {eq_trans_ent, eq_ref_ent, eq_sym_ent, cls_nothing_2,
 		cls_int_2, cax_sco, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom, prp_rng,
-		eq_rep_s, eq_rep_p, eq_rep_o, eq_diff_1, eq_diff_2, eq_diff_3,
+		eq_rep_s_ent, eq_rep_p_ent, eq_rep_o_ent, eq_diff_1, eq_diff_2, eq_diff_3,
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1, prp_spo_2,
 		prp_eqp_1, prp_eqp_2, prp_pdw, prp_adw, prp_inv_1, prp_inv_2,
 		prp_key, prp_npa_1, prp_npa_2, cls_thing, cls_nothing_1, cls_uni,
@@ -24,7 +24,8 @@ public class RuleManager {
 		scm_eqc_1, scm_eqc_2, scm_op_sub, scm_op_eq, scm_dp_sub, scm_dp_eq,
 		scm_spo, scm_eqp_1, scm_eqp_2, scm_dom_1, scm_dom_2, scm_rng_1,
 		scm_rng_2, scm_hv, scm_svf_2, scm_svf_1, scm_avf_1, scm_avf_2,
-		scm_int, scm_uni};
+		scm_int, scm_uni, eq_ref_lit, eq_sym_lit, eq_trans_lit, eq_rep_s_lit,
+		eq_rep_p_lit, eq_rep_o_lit};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -43,9 +44,12 @@ public class RuleManager {
 
 
 	public void initialize() {
-		rules.put(RuleName.eq_trans, new EqTransRule(reasoner));
-		rules.put(RuleName.eq_ref, new EqRefRule(reasoner));
-		rules.put(RuleName.eq_sym, new EqSymRule(reasoner));
+		rules.put(RuleName.eq_trans_ent, new EqTransEntRule(reasoner));
+		rules.put(RuleName.eq_trans_lit, new EqTransLitRule(reasoner));
+		rules.put(RuleName.eq_ref_ent, new EqRefEntRule(reasoner));
+		rules.put(RuleName.eq_ref_lit, new EqRefLitRule(reasoner));
+		rules.put(RuleName.eq_sym_ent, new EqSymEntRule(reasoner));
+		rules.put(RuleName.eq_sym_lit, new EqSymLitRule(reasoner));
 		rules.put(RuleName.cls_nothing_2, new ClsNothing2Rule(reasoner));
 		rules.put(RuleName.cls_int_2, new ClsInt2Rule(reasoner));
 		rules.put(RuleName.cax_sco, new CaxScoRule(reasoner));
@@ -58,9 +62,12 @@ public class RuleManager {
 		rules.put(RuleName.cls_int_1, new ClsInt1Rule(reasoner));
 		rules.put(RuleName.prp_dom, new PrpDomRule(reasoner));
 		rules.put(RuleName.prp_rng, new PrpRngRule(reasoner));
-		rules.put(RuleName.eq_rep_s, new EqRepSRule(reasoner));
-		rules.put(RuleName.eq_rep_p, new EqRepPRule(reasoner));
-		rules.put(RuleName.eq_rep_o, new EqRepORule(reasoner));
+		rules.put(RuleName.eq_rep_s_ent, new EqRepSEntRule(reasoner));
+		rules.put(RuleName.eq_rep_s_lit, new EqRepSLitRule(reasoner));
+		rules.put(RuleName.eq_rep_p_ent, new EqRepPEntRule(reasoner));
+		rules.put(RuleName.eq_rep_p_lit, new EqRepPLitRule(reasoner));
+		rules.put(RuleName.eq_rep_o_ent, new EqRepOEntRule(reasoner));
+		rules.put(RuleName.eq_rep_o_lit, new EqRepOLitRule(reasoner));
 		rules.put(RuleName.eq_diff_1, new EqDiff1Rule(reasoner));
 		rules.put(RuleName.eq_diff_2, new EqDiff2Rule(reasoner));
 		rules.put(RuleName.eq_diff_3, new EqDiff3Rule(reasoner));
