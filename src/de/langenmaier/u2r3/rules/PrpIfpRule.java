@@ -15,11 +15,11 @@ public class PrpIfpRule extends ApplicationRule {
 	
 	PrpIfpRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.sameAsEnt;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -93,8 +93,11 @@ public class PrpIfpRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT prp1.subject AS left, prp2.subject AS right, MIN(prp1.id) AS leftSourceId, '" + RelationName.propertyAssertion + "' AS leftSourceTable, MIN(prp2.id) AS rightSourceId, '" + RelationName.propertyAssertion + "' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT prp1.subject AS left, prp2.subject AS right, ");
+			sql.append("MIN(prp1.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
+			sql.append("MIN(prp1.id) AS sourceId2, '" + RelationName.objectPropertyAssertion + "' AS sourceTable2, ");
+			sql.append("MIN(clsA.id) AS sourceId3, '" + RelationName.classAssertionEnt + "' AS sourceTable3");
 		} else {
 			sql.append("(left, right)");
 			sql.append("\n\t SELECT DISTINCT prp1.subject AS left, prp2.subject AS right");
@@ -102,13 +105,13 @@ public class PrpIfpRule extends ApplicationRule {
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
 		if (run == 0) {
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON clsA.class = prp1.property");
-			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp2 ON clsA.class = prp2.property AND prp1.object = prp2.object");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON clsA.entity = prp1.property");
+			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp2 ON clsA.entity = prp2.property AND prp1.object = prp2.object");
 		} else if (run == 1) {
-			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp1 ON clsA.class = prp1.property");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON clsA.class = prp2.property AND prp1.object = prp2.object");
+			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp1 ON clsA.entity = prp1.property");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON clsA.entity = prp2.property AND prp1.object = prp2.object");
 		}
-		sql.append("\n\t WHERE clsA.type = '" + OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY + "'");
+		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
@@ -126,7 +129,7 @@ public class PrpIfpRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(X1, X2) :- classAssertion(P, 'inverse_functional'), propertyAssertion(X1, P, Y), propertyAssertion(X2, P, Y)";
+		return "sameAsEnt(X1, X2) :- classAssertionEnt(P, 'inverse_functional'), propertyAssertionEnt(X1, P, Y), propertyAssertionEnt(X2, P, Y)";
 	}
 
 }

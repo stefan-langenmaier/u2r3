@@ -12,12 +12,11 @@ public class ClsInt2Rule extends ApplicationRule {
 	
 	ClsInt2Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		relationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
-		
+	
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
@@ -29,51 +28,34 @@ public class ClsInt2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT clsA.class, l.element, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion.toString() + "' AS classSourceTable, MIN(l.id) AS typeSourceId, '" + RelationName.list.toString() + "' AS typeSourceTable");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT clsA.entity, l.element, ");
+			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable2, ");
+			sql.append(" MIN(int.id) AS sourceId2, '" + RelationName.intersectionOf + "' AS sourceTable2");
 		} else {
-			sql.append(" (class, type)");
-			sql.append("\n\t SELECT DISTINCT clsA.class, l.element");
+			sql.append(" (entity, class)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity, l.element");
 		}
 		
-		if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-			sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
-			sql.append("\n\t\t ON int.list = l.name");
-			sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
-			sql.append("\n\t\t ON clsA.type = int.class");
-		} else {
-			if (delta.getRelation() == relationManager.getRelation(RelationName.intersectionOf)) {
-				sql.append("\n\t FROM  " + delta.getDeltaName() + " AS int INNER JOIN list AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
-				sql.append("\n\t\t ON clsA.type = int.class");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.list)) {
-				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN " + delta.getDeltaName() + " AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN classAssertion AS clsA");
-				sql.append("\n\t\t ON clsA.type = int.class");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
-				sql.append("\n\t FROM  intersectionOf AS int INNER JOIN list AS l");
-				sql.append("\n\t\t ON int.list = l.name");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS clsA");
-				sql.append("\n\t\t ON clsA.type = int.class");
-			}
-		}
+		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS int INNER JOIN list AS l");
+		sql.append("\n\t\t ON int.list = l.name");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS clsA");
+		sql.append("\n\t\t ON clsA.class = int.class");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT class, type");
+			sql.append("\n\t\t SELECT entity, class");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = l.element");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = l.element");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY clsA.class, l.element");
+		sql.append("\n\t  GROUP BY clsA.entity, l.element");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "classAssertion(Y,C1..Cn) :- intersectionOf(C, X), list(X, C1..Cn), classAssertion(Y, C)";
+		return "classAssertionEnt(Y,C1..Cn) :- intersectionOf(C, X), list(X, C1..Cn), classAssertionEnt(Y, C)";
 	}
 
 }

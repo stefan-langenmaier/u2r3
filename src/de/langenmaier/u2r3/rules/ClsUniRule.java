@@ -12,9 +12,9 @@ public class ClsUniRule extends ApplicationRule {
 	
 	ClsUniRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		relationManager.getRelation(RelationName.unionOf).addAdditionRule(this);
 		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
@@ -30,11 +30,13 @@ public class ClsUniRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT clsA.class AS class, uo.class AS type, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion + "' AS classSourceTable, MIN(uo.id) AS typeSourceId, '" + RelationName.unionOf + "' AS typeSourceTable");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT clsA.entity, uo.class, ");
+			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
+			sql.append(" MIN(uo.id) AS sourceId2, '" + RelationName.unionOf + "' AS sourceTable2");
 		} else {
-			sql.append(" (class, type)");
-			sql.append("\n\t SELECT DISTINCT clsA.class AS class, uo.class AS type");
+			sql.append(" (entity, class)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity, uo.class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("unionOf") + " AS uo");
@@ -44,23 +46,23 @@ public class ClsUniRule extends ApplicationRule {
 		sql.append("\n\t\t\t FROM  list");
 		sql.append("\n\t\t\t GROUP BY name");
 		sql.append("\n\t\t ) AS anzl ON l.name = anzl.name");
-		sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA ON l.element = clsA.class");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.class");
+			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = uo.class");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = uo.class");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY clsA.class, uo.class");
+		sql.append("\n\t GROUP BY clsA.entity, uo.class");
 		sql.append("\n\t HAVING COUNT(*) = anzl.anzahl");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "classAssertion(Y,C) :- unionOf(C, X), list(X, C1..Cn), classAssertion(Y, C1..Cn)";
+		return "classAssertionEnt(Y,C) :- unionOf(C, X), list(X, C1..Cn), classAssertionEnt(Y, C1..Cn)";
 	}
 
 }

@@ -7,16 +7,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PrpSpo1Rule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(PrpSpo1Rule.class);
+public class PrpSpo1LitRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(PrpSpo1LitRule.class);
 	
-	PrpSpo1Rule(U2R3Reasoner reasoner) {
+	PrpSpo1LitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.propertyAssertion;
+		targetRelation = RelationName.dataPropertyAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.subProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,15 +31,17 @@ public class PrpSpo1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t SELECT prp.subject AS subject, subP.super AS property, prp.object AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(subP.id) AS propertySourceId, '" + RelationName.subProperty + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT prp.subject AS subject, subP.super AS property, prp.object AS object, ");
+			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.subProperty + "' AS sourceTable1, ");
+			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, subP.super AS property, prp.object AS object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("subProperty") + " AS subP");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON subP.sub = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON subP.sub = prp.property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
@@ -57,7 +59,7 @@ public class PrpSpo1Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "propertyAssertion(Y, P2, X) :- subProperty(P, P2), propertyAssertion(X, P1, Y)";
+		return "dataPropertyAssertion(Y, P2, X) :- subProperty(P, P2), dataPropertyAssertion(X, P1, Y)";
 	}
 
 }

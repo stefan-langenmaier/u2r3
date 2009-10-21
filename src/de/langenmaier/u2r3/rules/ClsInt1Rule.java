@@ -12,11 +12,10 @@ public class ClsInt1Rule extends ApplicationRule {
 	
 	ClsInt1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		relationManager.getRelation(RelationName.intersectionOf).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -31,7 +30,7 @@ public class ClsInt1Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT clsA.class AS class, int.class AS type, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertion.toString() + "' AS classSourceTable, MIN(int.id) AS typeSourceId, '" + RelationName.intersectionOf.toString() + "' AS typeSourceTable");
+			sql.append("\n\t SELECT clsA.class AS class, int.class AS type, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertionEnt + "' AS classSourceTable, MIN(int.id) AS typeSourceId, '" + RelationName.intersectionOf + "' AS typeSourceTable");
 		} else {
 			sql.append(" (class, type)");
 			sql.append("\n\t SELECT DISTINCT clsA.class AS subject, int.class AS type");
@@ -46,7 +45,7 @@ public class ClsInt1Rule extends ApplicationRule {
 			if (delta.getRelation() == relationManager.getRelation(RelationName.intersectionOf)) {
 				sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
 				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS int ON int.list = l.name");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
+			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertionEnt)) {
 				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS clsA ON l.element = clsA.type");
 				sql.append("\n\t\t INNER JOIN intersectionOf AS int ON int.list = l.name");
 			}
@@ -66,7 +65,7 @@ public class ClsInt1Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(Y,C) :- intersectionOf(C, X), list(X, C1..Cn), classAssertion(Y, C1..Cn)";
+		return "classAssertionEnt(Y,C) :- intersectionOf(C, X), list(X, C1..Cn), classAssertionEnt(Y, C1..Cn)";
 	}
 
 }

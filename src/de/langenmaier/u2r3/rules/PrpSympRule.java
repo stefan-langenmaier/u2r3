@@ -13,11 +13,11 @@ public class PrpSympRule extends ApplicationRule {
 	
 	PrpSympRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.propertyAssertion;
+		targetRelation = RelationName.objectPropertyAssertion;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -32,17 +32,19 @@ public class PrpSympRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t SELECT prp.object AS subject, prp.property AS property, prp.subject AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(prp.id) AS propertySourceId, '" + RelationName.propertyAssertion + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT prp.object AS subject, prp.property AS property, prp.subject AS object, ");
+			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
+			sql.append(" MIN(clsA.id) AS sourceId2, '" + RelationName.classAssertionEnt + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, type)");
 			sql.append("\n\t SELECT DISTINCT prp.object AS subject, prp.property AS property, prp.subject AS object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON clsA.class = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON clsA.entity = prp.property");
 
-		sql.append("\n\t WHERE clsA.type = '" + OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY + "'");
+		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
@@ -60,7 +62,7 @@ public class PrpSympRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "propertyAssertion(Y, P, X) :- classAssertion(P, 'symmetric'), propertyAssertion(X, P, Y)";
+		return "objectPropertyAssertion(Y, P, X) :- classAssertionEnt(P, 'symmetric'), objectPropertyAssertion(X, P, Y)";
 	}
 
 }

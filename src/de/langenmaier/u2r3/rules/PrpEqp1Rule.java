@@ -12,11 +12,11 @@ public class PrpEqp1Rule extends ApplicationRule {
 	
 	PrpEqp1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.propertyAssertion;
+		targetRelation = RelationName.objectPropertyAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.equivalentProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,15 +31,17 @@ public class PrpEqp1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t SELECT prp.subject AS subject, eqP.right AS property, prp.object AS object, MIN(prp.id) AS subjectSourceId, '" + RelationName.propertyAssertion + "' AS subjectSourceTable, MIN(eqP.id) AS propertySourceId, '" + RelationName.equivalentProperty + "' AS propertySourceTable, MIN(prp.id) AS objectSourceId, '" + RelationName.propertyAssertion + "' AS objectSourceTable");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT prp.subject AS subject, eqP.right AS property, prp.object AS object, ");
+			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
+			sql.append(" MIN(eqP.id) AS sourceId2, '" + RelationName.equivalentProperty + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, eqP.right AS property, prp.object AS object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("equivalentProperty") + " AS eqP");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON eqP.left = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON eqP.left = prp.property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
@@ -57,7 +59,7 @@ public class PrpEqp1Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "propertyAssertion(Y, P2, X) :- equivalentProperty(P1, P2), propertyAssertion(X, P1, Y)";
+		return "objectPropertyAssertion(Y, P2, X) :- equivalentProperty(P1, P2), objectPropertyAssertion(X, P1, Y)";
 	}
 
 }

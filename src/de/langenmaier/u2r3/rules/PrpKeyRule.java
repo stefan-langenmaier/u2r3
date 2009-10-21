@@ -12,12 +12,12 @@ public class PrpKeyRule extends ApplicationRule {
 	
 	PrpKeyRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.sameAs;
+		targetRelation = RelationName.sameAsEnt;
 		
 		//relations on the right side
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.hasKey).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
@@ -69,7 +69,7 @@ public class PrpKeyRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "sameAs(X, Y) :- hasKey(C, U), list(U, P1..Pn), classAssertion(X, C), propertyAssertion(X, P1..Pn, Z1..Zn), classAssertion(Y, C), propertyAssertion(Y, P1..Pn, Z1..Zn)";
+		return "sameAsEnt(X, Y) :- hasKey(C, U), list(U, P1..Pn), classAssertionEnt(X, C), propertyAssertionXXX(X, P1..Pn, Z1..Zn), classAssertionEnt(Y, C), propertyAssertionXXX(Y, P1..Pn, Z1..Zn)";
 	}
 
 }

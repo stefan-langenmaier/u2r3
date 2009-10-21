@@ -12,12 +12,11 @@ public class PrpSpo2Rule extends ApplicationRule {
 	
 	PrpSpo2Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.propertyAssertion;
+		targetRelation = RelationName.objectPropertyAssertion;
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.propertyChain).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -86,7 +85,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "propertyAssertion(Y, P2, X) :- subProperty(P, P2), propertyAssertion(X, P1, Y)";
+		return "objectPropertyAssertion(Y, P2, X) :- subProperty(P, P2), objectPropertyAssertion(X, P1, Y)";
 	}
 
 }
