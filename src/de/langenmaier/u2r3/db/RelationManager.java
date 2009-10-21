@@ -14,8 +14,8 @@ import de.langenmaier.u2r3.util.Settings.DeletionType;
  */
 public class RelationManager {
 	public enum RelationName {classAssertionEnt, classAssertionLit, subClass,
-		propertyDomain, sameAsLit, propertyAssertionLit, hasValueLit,
-		propertyRange, propertyAssertionEnt, sameAsEnt, list, intersectionOf,
+		propertyDomain, sameAsLit, dataPropertyAssertion, hasValueLit,
+		propertyRange, objectPropertyAssertion, sameAsEnt, list, intersectionOf,
 		equivalentClass, differentFromEnt, members, distinctMembers, subProperty,
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey, sourceIndividual, targetIndividual, assertionProperty,
@@ -48,8 +48,8 @@ public class RelationManager {
 		relations.put(RelationName.sameAsLit, new SameAsLitRelation(reasoner));
 		relations.put(RelationName.intersectionOf, new IntersectionOfRelation(reasoner));
 		relations.put(RelationName.equivalentClass, new EquivalentClassRelation(reasoner));
-		relations.put(RelationName.propertyAssertionEnt, new PropertyAssertionEntRelation(reasoner));
-		relations.put(RelationName.propertyAssertionLit, new PropertyAssertionLitRelation(reasoner));
+		relations.put(RelationName.objectPropertyAssertion, new ObjectPropertyAssertionRelation(reasoner));
+		relations.put(RelationName.dataPropertyAssertion, new DataPropertyAssertionRelation(reasoner));
 		relations.put(RelationName.propertyDomain, new PropertyDomainRelation(reasoner));
 		relations.put(RelationName.propertyRange, new PropertyRangeRelation(reasoner));
 		relations.put(RelationName.differentFromEnt, new DifferentFromEntRelation(reasoner));
