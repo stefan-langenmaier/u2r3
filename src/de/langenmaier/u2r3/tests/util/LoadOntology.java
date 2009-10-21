@@ -1,17 +1,5 @@
 package de.langenmaier.u2r3.tests.util;
 
-import java.net.URI;
-
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.profiles.OWL2RLProfile;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 /**
  * This test class loads an ontology file into a h2 database
@@ -24,7 +12,7 @@ public class LoadOntology {
 	 * @param args Absolute file path to a OWL2 RL File
 	 */
 	public static void main(String[] args) {
-		try {
+		/*try {
 			BasicConfigurator.configure();
 			Logger.getRootLogger().setLevel(Level.ALL);
 
@@ -64,7 +52,7 @@ public class LoadOntology {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

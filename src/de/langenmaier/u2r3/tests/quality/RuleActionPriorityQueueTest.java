@@ -27,7 +27,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 		RuleManager ruleManager = reasoner.getRuleManager();
 		RelationManager relationManager = reasoner.getRelationManager();
 		
-		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans),
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent),
 				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA));
 		pq.add(ra);
 		
@@ -36,7 +36,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 		pq.add(ra);
 		assertEquals(1, pq.size());
 		
-		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans),
+		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent),
 				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA));
 		ra2.setWeight(2.0d);
 		pq.add(ra2);
@@ -44,7 +44,7 @@ public class RuleActionPriorityQueueTest extends TestCase {
 		assertEquals(2.0d, pq.remove().getWeight());
 		pq.add(ra2);
 		
-		RuleAction ra3 = new RuleAction(ruleManager.getRule(RuleName.eq_trans),
+		RuleAction ra3 = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent),
 				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		pq.add(ra3);
 		assertEquals(2, pq.size());

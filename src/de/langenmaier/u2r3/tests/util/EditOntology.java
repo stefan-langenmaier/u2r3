@@ -1,26 +1,5 @@
 package de.langenmaier.u2r3.tests.util;
 
-import java.net.URI;
-
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.io.DefaultOntologyFormat;
-import org.semanticweb.owlapi.model.AxiomType;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.profiles.OWLProfileReport;
-import org.semanticweb.owlapi.profiles.OWL2RLProfile;
-
-import de.langenmaier.u2r3.core.ReasonProcessor;
-import de.langenmaier.u2r3.owl.U2R3AxiomRemover;
-import de.langenmaier.u2r3.rules.RuleManager;
-import de.langenmaier.u2r3.util.Settings;
 
 /**
  * This test class edits an ontology file and the reasoned data in a h2 database

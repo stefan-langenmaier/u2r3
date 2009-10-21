@@ -36,21 +36,21 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RuleManager ruleManager = reasoner.getRuleManager();
 		RelationManager relationManager = reasoner.getRelationManager();
 		
-		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());
 		
-		ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
@@ -74,17 +74,17 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RuleManager ruleManager = reasoner.getRuleManager();
 		RelationManager relationManager = reasoner.getRelationManager();
 		
-		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
 		
 		dm.put(ra2);
 		assertEquals(1, dm.size());
 		
-		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
-		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans), 
+		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
 				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
