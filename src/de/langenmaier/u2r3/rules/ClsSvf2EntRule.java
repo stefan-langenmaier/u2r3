@@ -8,16 +8,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ClsSvf2Rule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(ClsSvf2Rule.class);
+public class ClsSvf2EntRule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(ClsSvf2EntRule.class);
 	
-	ClsSvf2Rule(U2R3Reasoner reasoner) {
+	ClsSvf2EntRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 		
 		relationManager.getRelation(RelationName.someValuesFrom).addAdditionRule(this);
 		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -31,23 +31,26 @@ public class ClsSvf2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT prp.subject AS class, svf.part AS type, MIN(prp.id) AS classSourceId, '" + RelationName.propertyAssertion + "' AS classSourceTable, MIN(svf.id) AS typeSourceId, '" + RelationName.someValuesFrom + "' AS typeSourceTable ");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT prp.subject AS entity, svf.part AS class, ");
+			sql.append(" MIN(svf.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1, ");
+			sql.append(" MIN(op.id) AS sourceId1, '" + RelationName.onProperty + "' AS sourceTable1, ");
+			sql.append(" MIN(prp.id) AS sourceId3, '" + RelationName.objectPropertyAssertion + "' AS sourceTable3 ");
 		} else {
-			sql.append(" (class, type)");
-			sql.append("\n\t SELECT DISTINCT prp.subject AS class, svf.part AS type");
+			sql.append(" (entity, class)");
+			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, svf.part AS class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON svf.part = op.class AND svf.total = '" + OWLRDFVocabulary.OWL_THING + "'");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON prp.property = op.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON prp.property = op.property");
 
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.class");
+			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = prp.subject AND bottom.type = svf.part");
+			sql.append("\n\t\t WHERE bottom.entity = prp.subject AND bottom.class = svf.part");
 			sql.append("\n\t )");
 		}
 		
@@ -60,7 +63,7 @@ public class ClsSvf2Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(U, X) :- someValuesFrom(X, thing), onProperty(X, P), propertyAssertion(U, P, V)";
+		return "classAssertionEnt(U, X) :- someValuesFrom(X, thing), onProperty(X, P), objectPropertyAssertion(U, P, V)";
 	}
 
 }

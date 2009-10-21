@@ -19,14 +19,17 @@ public class RuleManager {
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1_ent, prp_spo_2,
 		prp_eqp_1, prp_eqp_2, prp_pdw, prp_adw, prp_inv_1, prp_inv_2,
 		prp_key, prp_npa_1, prp_npa_2, cls_thing, cls_nothing_1, cls_uni,
-		cls_com, cls_svf_1_ent, cls_svf_2, cls_avf, cls_hv_1, cls_hv_2,
-		cls_maxc_1, cls_maxc_2, cls_maxqc_1, cls_maxqc_2, cls_maxqc_3,
-		cls_maxqc_4, cls_oo, cax_eqc_1, cax_eqc_2, cax_dw, scm_sco,
+		cls_com, cls_svf_1_ent, 
+		cls_maxc_1,  cls_maxqc_1, cls_maxqc_2,
+		cls_oo, cax_eqc_1, cax_eqc_2, cax_dw, scm_sco,
 		scm_eqc_1, scm_eqc_2, scm_op_sub, scm_op_eq, scm_dp_sub, scm_dp_eq,
 		scm_spo, scm_eqp_1, scm_eqp_2, scm_dom_1, scm_dom_2, scm_rng_1,
 		scm_rng_2, scm_hv, scm_svf_2, scm_svf_1, scm_avf_1, scm_avf_2,
 		scm_int, scm_uni, eq_ref_lit, eq_sym_lit, eq_trans_lit, eq_rep_s_lit,
-		eq_rep_p_lit, eq_rep_o_lit};
+		eq_rep_p_lit, eq_rep_o_lit, cls_svf_2_ent, cls_svf_2_lit, cls_avf_ent,
+		cls_avf_lit, cls_hv_1_ent, cls_hv_1_lit, cls_hv_2_ent, cls_hv_2_lit,
+		cls_maxc_2_ent, cls_maxc_2_lit, cls_maxqc_3_ent, cls_maxqc_3_lit,
+		cls_maxqc_4_ent, cls_maxqc_4_lit};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -97,16 +100,23 @@ public class RuleManager {
 		rules.put(RuleName.cls_com, new ClsComRule(reasoner));
 		rules.put(RuleName.cls_svf_1_ent, new ClsSvf1EntRule(reasoner));
 		rules.put(RuleName.cls_svf_1_lit, new ClsSvf1LitRule(reasoner));
-		rules.put(RuleName.cls_svf_2, new ClsSvf2Rule(reasoner));
-		rules.put(RuleName.cls_avf, new ClsAvfRule(reasoner));
-		rules.put(RuleName.cls_hv_1, new ClsHv1Rule(reasoner));
-		rules.put(RuleName.cls_hv_2, new ClsHv2Rule(reasoner));
+		rules.put(RuleName.cls_svf_2_ent, new ClsSvf2EntRule(reasoner));
+		rules.put(RuleName.cls_svf_2_lit, new ClsSvf2LitRule(reasoner));
+		rules.put(RuleName.cls_avf_ent, new ClsAvfEntRule(reasoner));
+		rules.put(RuleName.cls_avf_lit, new ClsAvfLitRule(reasoner));
+		rules.put(RuleName.cls_hv_1_ent, new ClsHv1EntRule(reasoner));
+		rules.put(RuleName.cls_hv_1_lit, new ClsHv1LitRule(reasoner));
+		rules.put(RuleName.cls_hv_2_ent, new ClsHv2EntRule(reasoner));
+		rules.put(RuleName.cls_hv_2_lit, new ClsHv2LitRule(reasoner));
 		rules.put(RuleName.cls_maxc_1, new ClsMaxc1Rule(reasoner));
-		rules.put(RuleName.cls_maxc_2, new ClsMaxc2Rule(reasoner));
+		rules.put(RuleName.cls_maxc_2_ent, new ClsMaxc2EntRule(reasoner));
+		rules.put(RuleName.cls_maxc_2_lit, new ClsMaxc2LitRule(reasoner));
 		rules.put(RuleName.cls_maxqc_1, new ClsMaxqc1Rule(reasoner));
 		rules.put(RuleName.cls_maxqc_2, new ClsMaxqc2Rule(reasoner));
-		rules.put(RuleName.cls_maxqc_3, new ClsMaxqc3Rule(reasoner));
-		rules.put(RuleName.cls_maxqc_4, new ClsMaxqc4Rule(reasoner));
+		rules.put(RuleName.cls_maxqc_3_ent, new ClsMaxqc3EntRule(reasoner));
+		rules.put(RuleName.cls_maxqc_3_lit, new ClsMaxqc3LitRule(reasoner));
+		rules.put(RuleName.cls_maxqc_4_ent, new ClsMaxqc4EntRule(reasoner));
+		rules.put(RuleName.cls_maxqc_4_lit, new ClsMaxqc4LitRule(reasoner));
 		rules.put(RuleName.cls_oo, new ClsOoRule(reasoner));
 		rules.put(RuleName.cax_eqc_2, new CaxEqc2Rule(reasoner));
 		rules.put(RuleName.cax_dw, new CaxDwRule(reasoner));

@@ -12,10 +12,9 @@ public class ClsOoRule extends ApplicationRule {
 	
 	ClsOoRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 		
 		relationManager.getRelation(RelationName.oneOf).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -29,11 +28,12 @@ public class ClsOoRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT l.element AS class, oo.class AS type, MIN(l.id) AS classSourceId, '" + RelationName.list + "' AS classSourceTable, MIN(oo.id) AS typeSourceId, '" + RelationName.oneOf + "' AS typeSourceTable");
+			sql.append(" (entity, class, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT l.element AS entity, oo.class AS class, ");
+			sql.append(" MIN(oo.id) AS sourceId1, '" + RelationName.oneOf + "' AS sourceTable1");
 		} else {
-			sql.append(" (class, type)");
-			sql.append("\n\t SELECT DISTINCT l.element AS class, oo.class AS type");
+			sql.append(" (entity, class)");
+			sql.append("\n\t SELECT DISTINCT l.element AS entity, oo.class AS class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("oneOf") + " AS oo");
@@ -41,9 +41,9 @@ public class ClsOoRule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.class");
+			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = l.element AND bottom.type = oo.class");
+			sql.append("\n\t\t WHERE bottom.entity = l.element AND bottom.class = oo.class");
 			sql.append("\n\t )");
 		}
 		
@@ -56,7 +56,7 @@ public class ClsOoRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(Y1..Yn, C) :- oneOf(X, C), list(X, Y1..Yn)";
+		return "classAssertionEnt(Y1..Yn, C) :- oneOf(X, C), list(X, Y1..Yn)";
 	}
 
 }
