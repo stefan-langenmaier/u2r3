@@ -112,17 +112,17 @@ public class ClsMaxqc3EntRule extends ApplicationRule {
 		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON op.class = mqc.class");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onClass") + " AS oc ON oc.name = mqc.class");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.type = op.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = op.class");
 		if (run == 0) {
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON ca1.class = prp1.subject AND op.property = prp1.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.class = prp1.subject AND ca2.type = oc.class");
-			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON ca1.class = prp2.subject AND op.property = prp2.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.class = prp1.subject AND ca3.type = oc.class");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON ca1.entity = prp1.subject AND op.property = prp1.property");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.class = oc.class");
+			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON ca1.entity = prp2.subject AND op.property = prp2.property");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.class = oc.class");
 		} else if (run == 1) {
-			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON ca1.class = prp1.subject AND op.property = prp1.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.class = prp1.subject AND ca2.type = oc.class");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectropertyAssertion") + " AS prp2 ON ca1.class = prp2.subject AND op.property = prp2.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.class = prp1.subject AND ca3.type = oc.class");
+			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON ca1.entity = prp1.subject AND op.property = prp1.property");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.class = oc.class");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectropertyAssertion") + " AS prp2 ON ca1.entity = prp2.subject AND op.property = prp2.property");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.class = oc.class");
 			}
 		sql.append("\n\t WHERE mqc.value = '1' ");
 		

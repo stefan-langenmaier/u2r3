@@ -25,7 +25,11 @@ public class SubClassRelation extends Relation {
 		try {
 			tableName = "subClass";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" sub TEXT," +
+					" super TEXT," +
+					" PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -47,7 +51,21 @@ public class SubClassRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, subSourceTable VARCHAR(100), superSourceId UUID, superSourceTable VARCHAR(100), PRIMARY KEY (sub, super))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" sub TEXT," +
+					" super TEXT," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
+					" sourceId3 UUID," +
+					" sourceTable3 VARCHAR(100)," +
+					" sourceId4 UUID," +
+					" sourceTable4 VARCHAR(100)," +
+					" sourceId5 UUID," +
+					" sourceTable5 VARCHAR(100)," +
+					" PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -77,13 +95,15 @@ public class SubClassRelation extends Relation {
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
-					//subSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, subSourceId, subSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
-					
-					//superSource
-					sql = "SELECT id, '" + RelationName.subClass + "' AS table, superSourceId, superSourceTable FROM " + delta.getDeltaName();
-					relationManager.addHistory(sql);
+					for (int i=1; i<=5; ++i) {
+						//remove rows without history
+						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
+						rows = stmt.executeUpdate(sql);				
+						
+						//source
+						sql = "SELECT id, '" + RelationName.sameAsEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						relationManager.addHistory(sql);
+					}
 				}
 				
 				//fire reason

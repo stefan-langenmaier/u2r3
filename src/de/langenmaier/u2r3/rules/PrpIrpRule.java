@@ -28,7 +28,7 @@ public class PrpIrpRule extends ConsistencyRule {
 		sql.append("\nFROM " + delta.getDeltaName() + " AS clsA");
 		sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp ON clsA.entity = prp.property");
 
-		sql.append("\nWHERE prp.class = '" + OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString() + "'");
+		sql.append("\nWHERE clsA.class = '" + OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString() + "'");
 
 		return sql.toString();
 	}

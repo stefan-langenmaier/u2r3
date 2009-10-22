@@ -18,7 +18,7 @@ public class DataPropertyAssertionRelation extends Relation {
 	protected DataPropertyAssertionRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "propertyAssertionLit";
+			tableName = "dataPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +

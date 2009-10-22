@@ -25,7 +25,7 @@ public class LoadReasoner {
 	public static void main(String[] args) {
 		try {
 			BasicConfigurator.configure();
-			Logger.getRootLogger().setLevel(Level.DEBUG);
+			Logger.getRootLogger().setLevel(Level.ERROR);
 			Logger logger = Logger.getLogger(LoadReasoner.class);
 			
 			if (args.length<=0) {
