@@ -17,9 +17,7 @@ public class PrpNpa2Rule extends ConsistencyRule {
 		relationManager.getRelation(RelationName.sourceIndividual).addAdditionRule(this);
 		relationManager.getRelation(RelationName.targetValue).addAdditionRule(this);
 		relationManager.getRelation(RelationName.assertionProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
-		
-		//add deletion rule
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 	}
 
 	@Override
@@ -31,7 +29,7 @@ public class PrpNpa2Rule extends ConsistencyRule {
 		sql.append("\n FROM " + delta.getDeltaName("sourceIndividual") +" AS si");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("assertionProperty") +" AS ap ON si.name = ap.name");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("targetValue") +" AS tv ON si.name = tv.name");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") +" AS prp ON");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") +" AS prp ON");
 		sql.append("\n\t\t prp.subject = si.subject AND prp.property = ap.property AND prp.object = tv.value");
 
 		return sql.toString();
@@ -39,7 +37,7 @@ public class PrpNpa2Rule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- sourceIndividual(X, I1), assertionProperty(X, P), targetValue(X, I2), propertyAssertion(I1, P, I2)";
+		return "FALSE :- sourceIndividual(X, I1), assertionProperty(X, P), targetValue(X, I2), dataPropertyAssertion(I1, P, I2)";
 	}
 
 }

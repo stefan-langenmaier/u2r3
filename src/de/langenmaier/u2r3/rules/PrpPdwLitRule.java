@@ -3,22 +3,21 @@ package de.langenmaier.u2r3.rules;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class PrpAsypRule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(PrpAsypRule.class);
+public class PrpPdwLitRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(PrpPdwLitRule.class);
 	
-	PrpAsypRule(U2R3Reasoner reasoner) {
+	PrpPdwLitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
-		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.propertyDisjointWith).addAdditionRule(this);
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 	}
 	
 	@Override
@@ -76,24 +75,22 @@ public class PrpAsypRule extends ConsistencyRule {
 		StringBuilder sql = new StringBuilder(400);
 	 	
 		sql.append("SELECT '1' AS res");
-		sql.append("\nFROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
+		sql.append("\nFROM " + delta.getDeltaName("propertyDisjointWith") + " AS pdw");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON clsA.entity = prp1.property");
-			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp2 ON clsA.entity = prp2.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp1 ON pdw.left = prp1.property");
+			sql.append("\n\t INNER JOIN dataPropertyAssertion AS prp2 ON pdw.right = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp1 ON clsA.entity = prp1.property");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property");
+			sql.append("\n\t INNER JOIN dataPropertyAssertion AS prp1 ON pdw.left = prp1.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp2 ON pdw.right = prp2.property");
 		}
-		sql.append("\n\t\t AND prp1.subject = prp2.object AND prp1.object = prp2.subject");
-		sql.append("\nWHERE clsA.class = '" + OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY + "'");
-		
+		sql.append("\n WHERE prp1.subject = prp2.subject AND prp1.object = prp2.object");
 
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "FALSE :- classAssertionEnt(P, asymmetric), objectPropertyAssertion(X, P, Y), objectPropertyAssertion(Y, P, X)";
+		return "FALSE :- propertyDisjointWith(P1, P2), dataPropertyAssertion(X, P1, Y), dataPropertyAssertion(X, P2, Y)";
 	}
 
 }

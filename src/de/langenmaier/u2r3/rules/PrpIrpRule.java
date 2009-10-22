@@ -14,32 +14,28 @@ public class PrpIrpRule extends ConsistencyRule {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 	}
 	
-
-
 	@Override
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
 
 		sql.append("SELECT '1' AS res");
-		if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertion)) {
-			sql.append("\nFROM " + delta.getDeltaName() + " AS clsA INNER JOIN propertyAssertion AS prp ON clsA.class = prp.property");
-		} else if (delta.getRelation() == relationManager.getRelation(RelationName.propertyAssertion)) {
-			sql.append("\nFROM classAssertion AS clsA INNER JOIN " + delta.getDeltaName() + " AS prp ON clsA.class = prp.property");
-		}
-		sql.append("\nWHERE type = '" + OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString() + "'");
+		sql.append("\nFROM " + delta.getDeltaName() + " AS clsA");
+		sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp ON clsA.entity = prp.property");
+
+		sql.append("\nWHERE prp.class = '" + OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString() + "'");
 
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "FALSE :- classAssertion(A, irreflexiv), propertyAssertion(X, A, X)";
+		return "FALSE :- classAssertion(A, irreflexiv), objectPropertyAssertion(X, A, X)";
 	}
 
 }

@@ -17,7 +17,7 @@ public class RuleManager {
 		prp_rng_ent, prp_dom_lit, prp_rng_lit, prp_spo_1_lit, cls_svf_1_lit,
 		eq_rep_s_ent, eq_rep_p_ent, eq_rep_o_ent, eq_diff_1_lit, eq_diff_2, eq_diff_3,
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1_ent, prp_spo_2,
-		prp_eqp_1, prp_eqp_2, prp_pdw, prp_inv_1, prp_inv_2,
+		prp_eqp_1, prp_eqp_2, prp_pdw_lit, prp_inv_1, prp_inv_2,
 		prp_key, prp_npa_1, prp_npa_2, cls_thing, cls_nothing_1, cls_uni,
 		cls_com_lit, cls_svf_1_ent, prp_adp_lit,
 		cls_maxc_1_lit, cls_maxqc_1_lit, cls_maxqc_2_lit,
@@ -31,7 +31,8 @@ public class RuleManager {
 		cls_maxc_2_ent, cls_maxc_2_lit, cls_maxqc_3_ent, cls_maxqc_3_lit,
 		cls_maxqc_4_ent, cls_maxqc_4_lit, cax_eqc_2_ent, cax_sco_ent,
 		cls_nothing_2_ent, cls_com_ent, cls_maxc_1_ent, cls_maxqc_1_ent,
-		cls_maxqc_2_ent, cax_dw_ent, scm_hv_ent, eq_diff_1_ent, prp_adp_ent};
+		cls_maxqc_2_ent, cax_dw_ent, scm_hv_ent, eq_diff_1_ent, prp_adp_ent,
+		prp_pdw_ent};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -92,7 +93,8 @@ public class RuleManager {
 		//rules.put(RuleName.prp_spo_2, new PrpSpo2Rule(reasoner));
 		rules.put(RuleName.prp_eqp_1, new PrpEqp1Rule(reasoner));
 		rules.put(RuleName.prp_eqp_2, new PrpEqp2Rule(reasoner));
-		rules.put(RuleName.prp_pdw, new PrpPdwRule(reasoner));
+		rules.put(RuleName.prp_pdw_ent, new PrpPdwEntRule(reasoner));
+		rules.put(RuleName.prp_pdw_lit, new PrpPdwLitRule(reasoner));
 		rules.put(RuleName.prp_adp_ent, new PrpAdpEntRule(reasoner));
 		rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
 		rules.put(RuleName.prp_inv_1, new PrpInv1Rule(reasoner));

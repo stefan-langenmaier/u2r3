@@ -9,15 +9,15 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class PrpPdwRule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(PrpPdwRule.class);
+public class PrpPdwEntRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(PrpPdwEntRule.class);
 	
-	PrpPdwRule(U2R3Reasoner reasoner) {
+	PrpPdwEntRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
 		relationManager.getRelation(RelationName.propertyDisjointWith).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 	}
 	
 	@Override
@@ -77,19 +77,20 @@ public class PrpPdwRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("propertyDisjointWith") + " AS pdw");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON pdw.left = prp1.property");
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp2 ON pdw.right = prp2.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON pdw.left = prp1.property");
+			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp2 ON pdw.right = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp1 ON pdw.left = prp1.property");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON pdw.right = prp2.property");
+			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp1 ON pdw.left = prp1.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON pdw.right = prp2.property");
 		}
+		sql.append("\n WHERE prp1.subject = prp2.subject AND prp1.object = prp2.object");
 
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "FALSE :- propertyDisjointWith(P1, P2), propertyAssertion(X, P1, Y), propertyAssertion(X, P2, Y)";
+		return "FALSE :- propertyDisjointWith(P1, P2), objectPropertyAssertion(X, P1, Y), objectPropertyAssertion(X, P2, Y)";
 	}
 
 }
