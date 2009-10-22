@@ -9,14 +9,14 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class ClsComRule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(ClsComRule.class);
+public class ClsComLitRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(ClsComLitRule.class);
 	
-	ClsComRule(U2R3Reasoner reasoner) {
+	ClsComLitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionLit).addAdditionRule(this);
 		relationManager.getRelation(RelationName.complementOf).addAdditionRule(this);
 	}
 	
@@ -77,11 +77,11 @@ public class ClsComRule extends ConsistencyRule {
 		sql.append("SELECT 1 AS res");
 		sql.append("\nFROM " + delta.getDeltaName("complementOf") + " AS co");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca1 ON co.left = ca1.type");
-			sql.append("\n\t INNER JOIN classAssertion AS ca2 ON co.right = ca2.type");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca1 ON co.left = ca1.class");
+			sql.append("\n\t INNER JOIN classAssertionLit AS ca2 ON co.right = ca2.class");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN classAssertion AS ca1 ON co.left = ca1.type");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca2 ON co.right = ca2.type");
+			sql.append("\n\t INNER JOIN classAssertionLit AS ca1 ON co.left = ca1.class");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca2 ON co.right = ca2.class");
 		}
 
 		return sql.toString();
@@ -89,7 +89,7 @@ public class ClsComRule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- complementOf(C1, C2), classAssertion(X, C1), classAssertion(X, C2)";
+		return "FALSE :- complementOf(C1, C2), classAssertionLit(X, C1), classAssertionLit(X, C2)";
 	}
 
 }

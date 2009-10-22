@@ -15,8 +15,8 @@ public class EqDiff2Rule extends ConsistencyRule {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.sameAs).addAdditionRule(this);
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.sameAsEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		relationManager.getRelation(RelationName.members).addAdditionRule(this);
 		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 		
@@ -29,18 +29,18 @@ public class EqDiff2Rule extends ConsistencyRule {
 		StringBuilder sql = new StringBuilder(400);
 
 		sql.append("SELECT '1' AS res");
-		sql.append("\n FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON clsA.class = m.class");
+		sql.append("\n FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON clsA.entity = m.class");
 		sql.append("\n\t INNER JOIN list AS l ON m.list = l.name");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("sameAs") + " AS sa ON l.element = sa.left AND sa.left != sa.right");
-		sql.append("\n WHERE clsA.type = '" + OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString() + "'");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("sameAsEnt") + " AS sa ON l.element = sa.left AND sa.left != sa.right");
+		sql.append("\n WHERE clsA.class = '" + OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString() + "'");
 
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "FALSE :- classAssertion(X, alldifferent), members(X, Y), list(Y, Z1..Zn), sameAs(Zi, Zj)";
+		return "FALSE :- classAssertionEnt(X, alldifferent), members(X, Y), list(Y, Z1..Zn), sameAsEnt(Zi, Zj)";
 	}
 
 }

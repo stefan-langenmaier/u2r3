@@ -15,7 +15,7 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.equivalentClass;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -29,30 +29,31 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT clsA.class AS left, clsA.class AS right, MIN(clsA.id) AS leftSourceId, '" + RelationName.classAssertion.toString() + "' AS leftSourceTable, MIN(clsA.id) AS rightSourceId, '" + RelationName.classAssertion.toString() + "' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT clsA.entity AS left, clsA.entity AS right, ");
+			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
 			sql.append(" (left, right)");
-			sql.append("\n\t SELECT DISTINCT clsA.class AS left, clsA.class AS right");
+			sql.append("\n\t SELECT DISTINCT clsA.entity AS left, clsA.entity AS right");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS clsA");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
 		sql.append("\n\t WHERE type = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.left");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = clsA.class AND bottom.right = clsA.class");
+			sql.append("\n\t\t WHERE bottom.left = clsA.entity AND bottom.right = clsA.entity");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY clsA.class");
+		sql.append("\n\t  GROUP BY clsA.entity");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "equivalentClass(C, C) :- classAssertion(C, class)";
+		return "equivalentClass(C, C) :- classAssertionEnt(C, class)";
 	}
 
 }

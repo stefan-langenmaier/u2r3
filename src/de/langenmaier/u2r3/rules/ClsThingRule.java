@@ -12,7 +12,7 @@ public class ClsThingRule extends ApplicationRule {
 	
 	ClsThingRule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 	}
 	
 
@@ -23,7 +23,7 @@ public class ClsThingRule extends ApplicationRule {
 		String datatype = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
-		sql.append(" (class, type) VALUES ");
+		sql.append(" (entity, class) VALUES ");
 
 		sql.append("\n ('" + OWLRDFVocabulary.OWL_THING + "', '" + datatype + "')");
 	
@@ -32,7 +32,7 @@ public class ClsThingRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(thing, class) :- true";
+		return "classAssertionEnt(thing, class) :- true";
 	}
 
 }

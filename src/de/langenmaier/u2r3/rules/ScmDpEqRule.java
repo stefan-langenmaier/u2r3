@@ -15,7 +15,7 @@ public class ScmDpEqRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.equivalentProperty;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -27,25 +27,26 @@ public class ScmDpEqRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT ca.class, ca.class, MIN(ca.id) AS subSourceId, '" + RelationName.classAssertion + "' AS subSourceTable, MIN(ca.id) AS superSourceId, '" + RelationName.classAssertion + "' AS superSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT ca.entity, ca.entity, ");
+			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
 			sql.append(" (left, right)");
-			sql.append("\n\t SELECT DISTINCT ca.class, ca.class ");
+			sql.append("\n\t SELECT DISTINCT ca.entity, ca.entity ");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS ca ");
-		sql.append("\n\t WHERE ca.type = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS ca ");
+		sql.append("\n\t WHERE ca.class = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = ca.class AND bottom.right = ca.class) ");
+			sql.append("\n\t\t WHERE bottom.left = ca.entity AND bottom.right = ca.entity) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ca.class");
+			sql.append("\n\t GROUP BY ca.entity");
 		}
 
 		return sql.toString();
@@ -53,7 +54,7 @@ public class ScmDpEqRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "equivalentProperty(A,A) :- classAssertion(A, dataProp)";
+		return "equivalentProperty(A,A) :- classAssertionEnt(A, dataProp)";
 	}
 
 }

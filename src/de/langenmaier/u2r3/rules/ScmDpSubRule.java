@@ -15,7 +15,7 @@ public class ScmDpSubRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.subProperty;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -27,25 +27,26 @@ public class ScmDpSubRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT ca.class, ca.class, MIN(ca.id) AS subSourceId, '" + RelationName.classAssertion + "' AS subSourceTable, MIN(ca.id) AS superSourceId, '" + RelationName.classAssertion + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1, superSourceId, superSourceTable)");
+			sql.append("\n\t SELECT ca.entity, ca.entity, ");
+			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT ca.class, ca.class ");
+			sql.append("\n\t SELECT DISTINCT ca.entity, ca.entity ");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName() + " AS ca ");
-		sql.append("\n\t WHERE ca.type = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
+		sql.append("\n\t WHERE ca.class = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = ca.class AND bottom.super = ca.class) ");
+			sql.append("\n\t\t WHERE bottom.sub = ca.entity AND bottom.super = ca.entity) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ca.class");
+			sql.append("\n\t GROUP BY ca.entity");
 		}
 
 		return sql.toString();
@@ -53,7 +54,7 @@ public class ScmDpSubRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "subProperty(A,A) :- classAssertion(A, dataProp)";
+		return "subProperty(A,A) :- classAssertionEnt(A, dataProp)";
 	}
 
 }

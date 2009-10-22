@@ -7,15 +7,15 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class ClsMaxc1Rule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(ClsMaxc1Rule.class);
+public class ClsMaxc1LitRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(ClsMaxc1LitRule.class);
 	
-	ClsMaxc1Rule(U2R3Reasoner reasoner) {
+	ClsMaxc1LitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.maxCardinality).addAdditionRule(this);
 		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		
@@ -30,8 +30,8 @@ public class ClsMaxc1Rule extends ConsistencyRule {
 		sql.append("SELECT 1 AS res");
 		sql.append("\n FROM " + delta.getDeltaName("maxCardinality") + " AS mc");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON op.class = mc.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca ON ca.type = op.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON ca.class = prp.subject AND op.property = prp.property");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = op.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON ca.literal = prp.subject AND op.property = prp.property");
 		sql.append("\n WHERE mc.value = '0'");	
 
 		return sql.toString();
@@ -39,7 +39,7 @@ public class ClsMaxc1Rule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- maxCardinality(X, 0), onProperty(X, P), classAssertion(U, X), propertyAssertion(U, P, Y)";
+		return "FALSE :- maxCardinality(X, 0), onProperty(X, P), classAssertionEnt(U, X), dataPropertyAssertion(U, P, Y)";
 	}
 
 }

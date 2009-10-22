@@ -13,7 +13,7 @@ public class DtType1Rule extends ApplicationRule {
 	
 	DtType1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
-		targetRelation = RelationName.classAssertion;
+		targetRelation = RelationName.classAssertionEnt;
 	}
 	
 
@@ -64,7 +64,7 @@ public class DtType1Rule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertion(dt, datatype) :- true";
+		return "classAssertionEnt(dt, datatype) :- true";
 	}
 
 }

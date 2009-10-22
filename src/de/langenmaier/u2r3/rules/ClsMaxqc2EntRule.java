@@ -8,15 +8,15 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class ClsMaxqc2Rule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(ClsMaxqc2Rule.class);
+public class ClsMaxqc2EntRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(ClsMaxqc2EntRule.class);
 	
-	ClsMaxqc2Rule(U2R3Reasoner reasoner) {
+	ClsMaxqc2EntRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.maxQualifiedCardinality).addAdditionRule(this);
 		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.onClass).addAdditionRule(this);
@@ -33,8 +33,8 @@ public class ClsMaxqc2Rule extends ConsistencyRule {
 		sql.append("\n FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON op.class = mqc.class");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("onClass") + " AS oc ON oc.name = mqc.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca1 ON ca1.type = op.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON ca1.class = prp.subject AND op.property = prp.property");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = op.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON ca1.entity = prp.subject AND op.property = prp.property");
 		sql.append("\n WHERE mqc.value = '0' AND  oc.class = '" + OWLRDFVocabulary.OWL_THING + "'");	
 
 		return sql.toString();
@@ -42,7 +42,7 @@ public class ClsMaxqc2Rule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- maxQualifiedCardinality(X, 0), onProperty(X, P), onClass(X, thing), classAssertion(U, X), propertyAssertion(U, P, Y)";
+		return "FALSE :- maxQualifiedCardinality(X, 0), onProperty(X, P), onClass(X, thing), classAssertionEnt(U, X), objectPropertyAssertion(U, P, Y)";
 	}
 
 }

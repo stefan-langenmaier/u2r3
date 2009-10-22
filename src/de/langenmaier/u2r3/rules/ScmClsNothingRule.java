@@ -16,7 +16,7 @@ public class ScmClsNothingRule extends ApplicationRule {
 		super(reasoner);
 		targetRelation = RelationName.subClass;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
@@ -30,30 +30,31 @@ public class ScmClsNothingRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AS sub, clsA.class AS super, MIN(clsA.id) AS subSourceId, '" + RelationName.classAssertion.toString() + "' AS subSourceTable, MIN(clsA.id) AS superSourceId, '" + RelationName.classAssertion.toString() + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AS sub, clsA.entity AS super, ");
+			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AS sub, clsA.class AS super");
+			sql.append("\n\t SELECT DISTINCT '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AS sub, clsA.entity AS super");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS clsA");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
 		sql.append("\n\t WHERE type = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.sub");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AND bottom.super = clsA.class");
+			sql.append("\n\t\t WHERE bottom.sub = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "' AND bottom.super = clsA.entity");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY clsA.class");
+		sql.append("\n\t  GROUP BY clsA.entity");
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "subClass(nothing, C) :- classAssertion(C, class)";
+		return "subClass(nothing, C) :- classAssertionEnt(C, class)";
 	}
 
 }

@@ -8,14 +8,14 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class ClsNothing2Rule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(ClsNothing2Rule.class);
+public class ClsNothing2LitRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(ClsNothing2LitRule.class);
 	
-	ClsNothing2Rule(U2R3Reasoner reasoner) {
+	ClsNothing2LitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionLit).addAdditionRule(this);
 		
 		//add deletion rule
 	}
@@ -25,9 +25,9 @@ public class ClsNothing2Rule extends ConsistencyRule {
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
 		
-		sql.append("SELECT class");
-		sql.append("\nFROM " + delta.getDeltaName());
-		sql.append("\nWHERE type = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
+		sql.append("SELECT literal");
+		sql.append("\nFROM " + delta.getDeltaName("classAssertionLit"));
+		sql.append("\nWHERE class = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
 		
 
 		return sql.toString();
@@ -35,7 +35,7 @@ public class ClsNothing2Rule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- classAssertion(A, nothing)";
+		return "FALSE :- classAssertionLit(A, nothing)";
 	}
 
 }

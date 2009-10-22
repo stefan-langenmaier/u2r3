@@ -9,15 +9,15 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class CaxDwRule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(CaxDwRule.class);
+public class CaxDwEntRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(CaxDwEntRule.class);
 	
-	CaxDwRule(U2R3Reasoner reasoner) {
+	CaxDwEntRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
 		relationManager.getRelation(RelationName.disjointWith).addAdditionRule(this);
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 	}
 	
 	@Override
@@ -77,11 +77,11 @@ public class CaxDwRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("disjointWith") + " AS dw");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca1 ON dw.left = ca1.type");
-			sql.append("\n\t INNER JOIN classAssertion AS ca2 ON dw.right = ca2.type");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON dw.left = ca1.type");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON dw.right = ca2.type");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN classAssertion AS ca1 ON dw.left = ca1.type");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS ca2 ON dw.right = ca2.type");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON dw.left = ca1.type");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON dw.right = ca2.type");
 		}
 
 		return sql.toString();
@@ -89,7 +89,7 @@ public class CaxDwRule extends ConsistencyRule {
 
 	@Override
 	public String toString() {
-		return "FALSE :- disjointWith(C1, C2), classAssertion(X, C1), classAssertion(X, C2)";
+		return "FALSE :- disjointWith(C1, C2), classAssertionEnt(X, C1), classAssertionEnt(X, C2)";
 	}
 
 }

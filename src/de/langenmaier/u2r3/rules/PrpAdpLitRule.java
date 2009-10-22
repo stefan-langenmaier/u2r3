@@ -10,17 +10,16 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 
 
-public class PrpAdwRule extends ConsistencyRule {
-	static Logger logger = Logger.getLogger(PrpAdwRule.class);
+public class PrpAdpLitRule extends ConsistencyRule {
+	static Logger logger = Logger.getLogger(PrpAdpLitRule.class);
 	
-	PrpAdwRule(U2R3Reasoner reasoner) {
+	PrpAdpLitRule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.classAssertion).addAdditionRule(this);
-		relationManager.getRelation(RelationName.propertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
+		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.members).addAdditionRule(this);
-		relationManager.getRelation(RelationName.list).addAdditionRule(this);
 	}
 	
 	@Override
@@ -78,25 +77,26 @@ public class PrpAdwRule extends ConsistencyRule {
 		StringBuilder sql = new StringBuilder(400);
 	
 		sql.append("SELECT '1' AS res");
-		sql.append("\nFROM " + delta.getDeltaName("classAssertion") + " AS clsA");
-		sql.append("\n\t INNER JOIN members AS m ON m.class = clsA.class");
+		sql.append("\nFROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON m.class = clsA.entity");
 		sql.append("\n\t INNER JOIN list AS l ON m.list = l.name");
 		
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON l.element = prp1.property");
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp2 ON l.element = prp2.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp1 ON l.element = prp1.property");
+			sql.append("\n\t INNER JOIN dataPropertyAssertion AS prp2 ON l.element = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN propertyAssertion AS prp1 ON l.element = prp1.property");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON l.element = prp2.property");
+			sql.append("\n\t INNER JOIN dataPropertyAssertion AS prp1 ON l.element = prp1.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp2 ON l.element = prp2.property");
 		}
 		sql.append("\n WHERE clsA.type = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES + "'");
+		sql.append("\n\t AND prp1.subject = prp2.subject AND prp1.object = prp2.object AND prp1.property != prp2.propery ");
 		
 		return sql.toString();
 	}
 
 	@Override
 	public String toString() {
-		return "FALSE :- classAssertion(X, all_disjoint_prop), members(X, Y), list(Y, P1..Pn), propertyAssertion(U, Pi, V), propertyAssertion(U, Pj, V)";
+		return "FALSE :- classAssertion(X, all_disjoint_prop), members(X, Y), list(Y, P1..Pn), dataPropertyAssertion(U, Pi, V), dataPropertyAssertion(U, Pj, V)";
 	}
 
 }
