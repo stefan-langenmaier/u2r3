@@ -20,7 +20,11 @@ public class SubPropertyRelation extends Relation {
 		try {
 			tableName = "subProperty";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), PRIMARY KEY (sub, super))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" sub TEXT," +
+					" super TEXT," +
+					" PRIMARY KEY (sub, super))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -42,7 +46,14 @@ public class SubPropertyRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, sub VARCHAR(100), super VARCHAR(100), subSourceId UUID, subSourceTable VARCHAR(100), superSourceId UUID, superSourceTable VARCHAR(100), PRIMARY KEY (sub, super))");
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" sub TEXT," +
+					" super TEXT," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
+					" PRIMARY KEY (sub, super))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

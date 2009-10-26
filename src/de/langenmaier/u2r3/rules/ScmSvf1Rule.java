@@ -83,8 +83,13 @@ public class ScmSvf1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT op1.class, op2.class, MIN(op1.id) AS subSourceId, '" + RelationName.onProperty + "' AS subSourceTable, MIN(op2.id) AS superSourceId, '" + RelationName.onProperty + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
+			sql.append("\n\t SELECT op1.class, op2.class,");
+			sql.append(" MIN(svf1.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1,");
+			sql.append(" MIN(op1.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2,");
+			sql.append(" MIN(svf2.id) AS sourceId3, '" + RelationName.someValuesFrom + "' AS sourceTable3,");
+			sql.append(" MIN(op2.id) AS sourceId4, '" + RelationName.onProperty + "' AS sourceTable4,");
+			sql.append(" MIN(sc.id) AS sourceId5, '" + RelationName.subClass + "' AS sourceTable5");
 		} else {
 			sql.append(" (sub, super)");
 			sql.append("\n\t SELECT DISTINCT op1.class, op2.class ");

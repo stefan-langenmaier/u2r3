@@ -81,8 +81,10 @@ public class ScmEqp2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT sp1.sub, sp2.sub, MIN(sp1.id) AS subSourceId, '" + RelationName.subProperty + "' AS subSourceTable, MIN(sp2.id) AS superSourceId, '" + RelationName.subProperty + "' AS superSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT sp1.sub, sp2.sub,");
+			sql.append(" MIN(sp1.id) AS sourceId1, '" + RelationName.subProperty + "' AS sourceTable1,");
+			sql.append(" MIN(sp2.id) AS sourceId2, '" + RelationName.subProperty + "' AS sourceTable2");
 		} else {
 			sql.append(" (sub, super)");
 			sql.append("\n\t SELECT DISTINCT sp1.sub, sp2.sub ");

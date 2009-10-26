@@ -29,8 +29,9 @@ public class ScmIntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT is.class, l.element, MIN(is.id) AS subSourceId, '" + RelationName.intersectionOf + "' AS subSourceTable, MIN(l.id) AS superSourceId, '" + RelationName.list + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT is.class, l.element,");
+			sql.append(" MIN(is.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
 			sql.append("\n\t SELECT DISTINCT is.class, l.element");

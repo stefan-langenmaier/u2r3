@@ -27,7 +27,7 @@ public class ScmDpSubRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, sourceId1, sourceTable1, superSourceId, superSourceTable)");
+			sql.append(" (sub, super, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT ca.entity, ca.entity, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {

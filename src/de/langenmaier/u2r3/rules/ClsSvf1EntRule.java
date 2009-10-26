@@ -45,7 +45,7 @@ public class ClsSvf1EntRule extends ApplicationRule {
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON svf.part = op.class");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON prp.property = op.property");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = object AND ca.type = svf.total");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.entity = prp.object AND ca.class = svf.total");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

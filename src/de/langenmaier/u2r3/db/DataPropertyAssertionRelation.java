@@ -54,6 +54,7 @@ public class DataPropertyAssertionRelation extends Relation {
 				}*/
 			}
 			addStatement.setString(3, naxiom.getObject().getLiteral());
+			addStatement.setString(4, "");
 		} /*else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {

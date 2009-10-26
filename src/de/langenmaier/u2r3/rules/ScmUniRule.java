@@ -29,8 +29,9 @@ public class ScmUniRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT l.element, uni.class, MIN(l.id) AS subSourceId, '" + RelationName.list + "' AS subSourceTable, MIN(uni.id) AS superSourceId, '" + RelationName.unionOf + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1");
+			sql.append("\n\t SELECT l.element, uni.class,");
+			sql.append(" MIN(uni.id) AS sourceId1, '" + RelationName.unionOf + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
 			sql.append("\n\t SELECT DISTINCT l.element, uni.class");

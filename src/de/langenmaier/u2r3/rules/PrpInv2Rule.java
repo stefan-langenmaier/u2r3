@@ -31,7 +31,7 @@ public class PrpInv2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, sourceId1, sourceTable2, sourceId2, sourceTable2)");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT prp.object AS subject, inv.left AS property, prp.subject AS object, ");
 			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
 			sql.append(" MIN(inv.id) AS sourceId2, '" + RelationName.inverseOf + "' AS sourceTable2");

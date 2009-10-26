@@ -39,7 +39,7 @@ public class ClsInt2Rule extends ApplicationRule {
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS int INNER JOIN list AS l");
 		sql.append("\n\t\t ON int.list = l.name");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertion") + " AS clsA");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
 		sql.append("\n\t\t ON clsA.class = int.class");
 		
 		if (again) {

@@ -81,8 +81,10 @@ public class ScmSpoRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, subSourceId, subSourceTable, superSourceId, superSourceTable)");
-			sql.append("\n\t SELECT sp1.sub, sp2.super, MIN(sp1.id) AS subSourceId, '" + RelationName.subProperty + "' AS subSourceTable, MIN(sp2.id) AS superSourceId, '" + RelationName.subProperty + "' AS superSourceTable");
+			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT sp1.sub, sp2.super,");
+			sql.append(" MIN(sp1.id) AS sourceId1, '" + RelationName.subProperty + "' AS sourceTable1,");
+			sql.append(" MIN(sp2.id) AS sourceId2, '" + RelationName.subProperty + "' AS sourceTable2");
 		} else {
 			sql.append(" (sub, super)");
 			sql.append("\n\t SELECT DISTINCT sp1.sub, sp2.super ");

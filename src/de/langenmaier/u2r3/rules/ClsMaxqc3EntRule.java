@@ -121,7 +121,7 @@ public class ClsMaxqc3EntRule extends ApplicationRule {
 		} else if (run == 1) {
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON ca1.entity = prp1.subject AND op.property = prp1.property");
 			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.class = oc.class");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectropertyAssertion") + " AS prp2 ON ca1.entity = prp2.subject AND op.property = prp2.property");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON ca1.entity = prp2.subject AND op.property = prp2.property");
 			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.class = oc.class");
 			}
 		sql.append("\n\t WHERE mqc.value = '1' ");

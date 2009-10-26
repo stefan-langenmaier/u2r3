@@ -105,13 +105,13 @@ public class PrpTrpRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT prp1.subject AS subject, prp2.property AS property, prp2.object AS object");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
 		if (run == 0) {
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp1 ON clsA.entity = prp1.property");
-			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp2 ON clsA.class = prp2.property AND prp1.entity = prp2.subject");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON clsA.entity = prp1.property");
+			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON clsA.entity = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t\t INNER JOIN propertyAssertion AS prp1 ON clsA.entity = prp1.property");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp2 ON clsA.entity = prp2.property");
+			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON clsA.entity = prp1.property");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property");
 		}
 		sql.append("\n\t\t\t  AND prp1.object = prp2.subject");
 		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY + "'");

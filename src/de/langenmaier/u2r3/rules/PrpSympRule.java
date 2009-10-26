@@ -41,8 +41,8 @@ public class PrpSympRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT prp.object AS subject, prp.property AS property, prp.subject AS object");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("classAssertion") + " AS clsA");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyAssertion") + " AS prp ON clsA.entity = prp.property");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON clsA.entity = prp.property");
 
 		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY + "'");
 
