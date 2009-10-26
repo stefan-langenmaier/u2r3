@@ -37,23 +37,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-		/*if (axiom instanceof OWLDataPropertyAssertionAxiom) {
-			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
-			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
-			}
-			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getURI().toString());
-			if (naxiom.getObject().isTyped()) {
-				for (OWLDatatype dt : naxiom.getObject().getDatatypesInSignature()) {
-					//TODO add für classassertion aufrufen mit dt und literal
-					OWLDataFactory df;// = new OWLDataFactory();
-					//df.
-				}
-			}
-			addStatement.setString(3, naxiom.getObject().getLiteral());
-		} else */if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
 				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
@@ -107,6 +91,9 @@ public class ObjectPropertyAssertionRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 3) {
+			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

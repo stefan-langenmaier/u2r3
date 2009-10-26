@@ -25,7 +25,7 @@ public class DataPropertyAssertionRelation extends Relation {
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
-					" language TEXT,"+
+					" language TEXT NULL,"+
 					" PRIMARY KEY (subject, property, object))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -46,29 +46,14 @@ public class DataPropertyAssertionRelation extends Relation {
 				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getURI().toString());
-			if (naxiom.getObject().isTyped()) {
-				/*for (OWLDatatype dt : naxiom.getObject().getDatatypesInSignature()) {
-					//TODO add für classassertion aufrufen mit dt und literal
-					OWLDataFactory df;// = new OWLDataFactory();
-					//df.
-				}*/
-			}
 			addStatement.setString(3, naxiom.getObject().getLiteral());
-			addStatement.setString(4, "");
-		} /*else if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
-			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
-			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+			if (!naxiom.getObject().isTyped()) {
+				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+				addStatement.setString(4, "");
 			}
-			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			if (naxiom.getObject().isAnonymous()) {
-				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
-			}
-		}*/
+			
+		}
 		return true;
 	}
 
@@ -110,6 +95,11 @@ public class DataPropertyAssertionRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 3) {
+			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "'";
+		} else if (args.length == 4) {
+			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "' AND (language = '" + args[3] + "' OR language IS NULL)";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

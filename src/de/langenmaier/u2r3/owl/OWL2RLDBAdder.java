@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.owl;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -40,6 +41,7 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -48,8 +50,11 @@ import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.util.U2R3Component;
 
 public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
+	OWLDataFactory df;
+	
 	public OWL2RLDBAdder(U2R3Reasoner reasoner) {
 		super(reasoner);
+		 df = reasoner.getDataFactory();
 	}
 
 	static Logger logger = Logger.getLogger(OWL2RLDBAdder.class);
@@ -184,7 +189,8 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 		logger.debug("  adding DataPropertyAssertionAxiom:" + axiom.toString());
 		relationManager.getRelation(RelationName.dataPropertyAssertion).add(axiom);
 		if (axiom.getObject().isTyped()) {
-			logger.error("AUCH den type hinzufügen!");
+			OWLTypedLiteral tl = df.getOWLTypedLiteral(axiom.getObject().getLiteral(), axiom.getObject().asOWLStringLiteral().getDatatype());
+			relationManager.getRelation(RelationName.classAssertionLit).add(tl);
 		}
 		logger.debug("  added DataPropertyssertionAxiom");
 	}

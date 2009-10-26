@@ -34,7 +34,7 @@ public class RunTestCase {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
 		
-		String folder = "/home/stefan/.workspace/u2r2/ontologien/tests/fzi/owl2rl";
+		String folder = "/home/sl17/workspace/u2r2/ontologien/tests/fzi/owl2rl";
 		String name;
 		
 		logger.info("Started Testcases");
@@ -55,10 +55,6 @@ public class RunTestCase {
 				premise_uri = folder + name + ".graph.xml";
 			}
 			String conclusion_uri = folder + name + ".conclusiongraph.xml";
-			
-			//System.out.println(premise_uri);
-			//System.out.println(conclusion_uri);
-
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		

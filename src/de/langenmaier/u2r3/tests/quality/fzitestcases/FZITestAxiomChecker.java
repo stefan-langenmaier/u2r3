@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.tests.quality.fzitestcases;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.inference.OWLReasoner;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
@@ -9,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
@@ -54,7 +53,8 @@ public class FZITestAxiomChecker extends U2R3Component implements
 		OWLAxiomVisitor {
 	
 	static Logger logger = Logger.getLogger(OWL2RLDBAdder.class);
-	OWLReasoner reasoner;
+	U2R3Reasoner reasoner;
+	OWLDataFactory df;
 	private boolean correct = true;
 	private boolean used = true;
 	
@@ -157,15 +157,16 @@ public class FZITestAxiomChecker extends U2R3Component implements
 			used = false;
 			logger.trace("Testing for axiom:" + axiom.toString());
 			logger.trace("Is axiom defined?");
-			if(!reasoner.isDefined((OWLObjectProperty) axiom)) {
-				correct = false;
-			}
 			
+			if (!(axiom.getSubject().isAnonymous() || axiom.getObject().isAnonymous())) {
+				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject().asNamedIndividual())) {
+					correct = false;
+				}
+			}
 			used = true;
 		} catch (OWLReasonerException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -237,9 +238,25 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLDataPropertyAssertionAxiom arg0) {
-		// TODO Auto-generated method stub
-		//XXX
+	public void visit(OWLDataPropertyAssertionAxiom axiom) {
+		try {
+			used = false;
+			logger.trace("Testing for axiom:" + axiom.toString());
+			logger.trace("Is axiom defined?");
+			
+			if (!(axiom.getSubject().isAnonymous())) {
+				if(!reasoner.hasDataPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject())) {
+					correct = false;
+				}
+				if (axiom.getObject().isTyped()) {
+					//Type überprüfen XXX
+					reasoner.hasType(axiom.getObject(), axiom.getObject().asOWLStringLiteral().getDatatype());
+				}
+			}
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

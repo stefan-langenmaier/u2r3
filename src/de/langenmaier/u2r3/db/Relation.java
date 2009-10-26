@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -83,6 +84,12 @@ public abstract class Relation extends U2R3Component {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	
+	public void add(OWLObject o) {
+		;
 	}
 	
 	public abstract Pair<UUID, RelationName> removeImpl(OWLAxiom axiom) throws SQLException;

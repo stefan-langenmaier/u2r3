@@ -10,6 +10,7 @@ import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
@@ -124,10 +125,11 @@ public class ClassAssertionEntRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		if (args.length == 1) {
-			return "SELECT class FROM classAssertion WHERE class = '" + args[0] + "'";
-		} else {
-			return "SELECT class, type FROM classAssertion WHERE class = '" + args[0] + "' AND type = '" + args[1] + "'";
+			return "SELECT entity FROM classAssertionEnt WHERE entity = '" + args[0] + "'";
+		} else if (args.length == 2) {
+			return "SELECT entity, class FROM classAssertionEnt WHERE entity = '" + args[0] + "' AND class = '" + args[1] + "'";
 		}
+		throw new U2R3NotImplementedException();
 	}
 
 }

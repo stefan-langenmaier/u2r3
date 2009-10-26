@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -83,19 +85,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 				
 				if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
 			}
-			/*System.out.println("empty?: " + ont.isEmpty());
-			System.out.println(ont.getReferencedAnonymousIndividuals().size());
-			System.out.println(ont.getReferencedClasses().size());
-			System.out.println(ont.getReferencedDataProperties().size());
-			System.out.println(ont.getReferencedDatatypes().size());
-			System.out.println(ont.getReferencedEntities().size());
-			
-			System.out.println(ont.isAnonymous());
-			
-			System.out.println(ont.getGeneralClassAxioms());
-			*/
+
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 			for(OWLAxiom ax : ont.getAxioms()) {
+				System.out.println(ax);
 				ax.accept(axiomAdder);
 			}
 			
@@ -270,16 +263,24 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	public boolean hasDataPropertyRelationship(OWLNamedIndividual arg0,
 			OWLDataPropertyExpression arg1, OWLLiteral arg2)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		String subject = arg0.getIRI().toString();
+		String property = arg1.asOWLDataProperty().getIRI().toString();
+		String object = arg2.getLiteral();
+		if (!arg2.isTyped()) {
+			String lang = arg2.asRDFTextLiteral().getLang();
+			return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object, lang);
+		}
+		return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object);
 	}
 
 	@Override
 	public boolean hasObjectPropertyRelationship(OWLNamedIndividual arg0,
 			OWLObjectPropertyExpression arg1, OWLNamedIndividual arg2)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		String subject = arg0.getIRI().toString();
+		String property = arg1.asOWLObjectProperty().getIRI().toString();
+		String object = arg2.getIRI().toString();
+		return relationManager.getRelation(RelationName.objectPropertyAssertion).exists(subject, property, object);
 	}
 
 	@Override
@@ -288,6 +289,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		String clazz = arg0.getIRI().toString();
 		String type = arg1.asOWLClass().getIRI().toString();
 		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
+	}
+	
+	
+	public boolean hasType(OWLLiteral arg0, OWLDatatype arg1) throws OWLReasonerException {
+		String literal = arg0.getLiteral();
+		String clazz = arg1.getIRI().toString();
+		return relationManager.getRelation(RelationName.classAssertionLit).exists(literal, clazz);
 	}
 
 	@Override
@@ -470,6 +478,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	public boolean hasSame(OWLIndividual ind) throws OWLReasonerException {
 		return relationManager.getRelation(RelationName.sameAsEnt)
 			.exists(ind.asNamedIndividual().getIRI().toString());
+	}
+	
+	public OWLDataFactory getDataFactory() {
+		return getOWLDataFactory();
 	}
 
 }

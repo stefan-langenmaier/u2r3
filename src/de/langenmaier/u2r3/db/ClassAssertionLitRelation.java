@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -23,7 +25,11 @@ public class ClassAssertionLitRelation extends Relation {
 		try {
 			tableName = "classAssertionLit";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, literal TEXT, class TEXT, PRIMARY KEY (literal, class))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" literal TEXT," +
+					" class TEXT," +
+					" PRIMARY KEY (literal, class))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
@@ -37,6 +43,22 @@ public class ClassAssertionLitRelation extends Relation {
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void add(OWLObject o) {
+		OWLTypedLiteral tl = (OWLTypedLiteral) o;
+		try {
+			addStatement.setString(1, tl.getLiteral());
+			addStatement.setString(2, tl.getDatatype().getIRI().toString());
+			addStatement.executeUpdate();		
+		} catch (SQLException e) {
+			//schon eingefügt
+			if (e.getErrorCode() != 23001) {
+				e.printStackTrace();
+			}			
+		}
+		reasonProcessor.add(new AdditionReason(this));
 	}
 
 	@Override
@@ -124,9 +146,9 @@ public class ClassAssertionLitRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		if (args.length == 1) {
-			return "SELECT class FROM classAssertion WHERE class = '" + args[0] + "'";
+			return "SELECT literal FROM classAssertionLit WHERE literal = '" + args[0] + "'";
 		} else {
-			return "SELECT class, type FROM classAssertion WHERE class = '" + args[0] + "' AND type = '" + args[1] + "'";
+			return "SELECT literal, class FROM classAssertionLit WHERE literal = '" + args[0] + "' AND class = '" + args[1] + "'";
 		}
 	}
 
