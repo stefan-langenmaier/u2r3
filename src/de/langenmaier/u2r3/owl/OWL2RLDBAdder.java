@@ -1,13 +1,13 @@
 package de.langenmaier.u2r3.owl;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyRangeAxiom;
@@ -120,7 +120,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLObjectPropertyRangeAxiom axiom) {
 		logger.debug("  adding ObjectPropertyRange:" + axiom.toString());
 		relationManager.getRelation(RelationName.propertyRange).add(axiom);
-		//ObjectPropertyRangeRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectPropertyRange");
 	}
 
@@ -128,7 +127,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
 		logger.debug("  adding ObjectPropertyAssertion:" + axiom.toString());
 		relationManager.getRelation(RelationName.objectPropertyAssertion).add(axiom);
-		//ObjectPropertyAssertionRelation.getRelation().add(axiom);
 		logger.debug("  added ObjectPropertyAssertion");
 	}
 
@@ -180,8 +178,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLEquivalentClassesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLEquivalentClassesAxiom axiom) {
+		logger.debug("  adding EquivalentClassesAxiom:" + axiom.toString());
+		relationManager.getRelation(RelationName.equivalentClass).add(axiom);
+		logger.debug("  added EquivalentClassesAxiom");
 	}
 
 	@Override
@@ -192,7 +192,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 			OWLTypedLiteral tl = df.getOWLTypedLiteral(axiom.getObject().getLiteral(), axiom.getObject().asOWLStringLiteral().getDatatype());
 			relationManager.getRelation(RelationName.classAssertionLit).add(tl);
 		}
-		logger.debug("  added DataPropertyssertionAxiom");
+		logger.debug("  added DataPropertyAssertionAxiom");
 	}
 
 	@Override

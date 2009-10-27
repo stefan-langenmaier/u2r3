@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
@@ -242,5 +244,9 @@ public abstract class Relation extends U2R3Component {
 			return getTableName();
 		}
 		return getTableName() + "_d" + delta;
+	}
+
+	public void add(NodeID nodeID, OWLClassExpression ce1) {
+		
 	}
 }

@@ -35,7 +35,7 @@ public class CheckOWL2RL {
 			OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
 
 			OWL2RLProfile profile = new OWL2RLProfile();
-			OWLProfileReport report = profile.checkOntology(ontology, manager);
+			OWLProfileReport report = profile.checkOntology(ontology);
 			
 			System.out.println("Is " + physicalURI.toString() + " in OWL2 RL?");
 			System.out.println(report.isInProfile());

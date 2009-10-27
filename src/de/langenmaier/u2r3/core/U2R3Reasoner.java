@@ -58,7 +58,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	public U2R3Reasoner(OWLOntologyManager manager,
 			Set<OWLOntology> importsClosure) throws OWLReasonerException {
 		this(manager);
-		
+
 		loadOntologies(importsClosure);		
 	}
 
@@ -81,7 +81,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		for(OWLOntology ont : getLoadedOntologies()) {
 			if (settings.checkProfile()) {
 				OWL2RLProfile profile = new OWL2RLProfile();
-				OWLProfileReport report = profile.checkOntology(ont, getOWLOntologyManager());
+				OWLProfileReport report = profile.checkOntology(ont);
 				
 				if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
 			}
@@ -404,13 +404,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public boolean isAntiSymmetric(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean isFunctional(OWLObjectProperty arg0)
 			throws OWLReasonerException {
 		// TODO Auto-generated method stub
@@ -482,6 +475,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	
 	public OWLDataFactory getDataFactory() {
 		return getOWLDataFactory();
+	}
+
+	@Override
+	public boolean isAsymmetric(OWLObjectProperty arg0)
+			throws OWLReasonerException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
