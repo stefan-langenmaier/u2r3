@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="import/owlapi-bin.jar"/>
 	<classpathentry kind="lib" path="import/h2-1.1.116.jar"/>
 	<classpathentry kind="lib" path="import/log4j-1.2.15.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="lib" path="import/owlapi-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -67,9 +67,10 @@ public class EquivalentClassRelation extends Relation {
 					}
 				}
 				if (ce1.isAnonymous()) {
-					System.out.println(ce1.getClassExpressionType());
+					//System.out.println(ce1.getClassExpressionType());
 					if (ce1.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 						relationManager.getRelation(RelationName.complementOf).add(refs.get(ce1), ce1);
+						//relationManager.getRelation(RelationName.complementOf).add(ce1);
 					} else {
 						throw new U2R3NotImplementedException();
 					}

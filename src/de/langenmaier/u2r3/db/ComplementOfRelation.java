@@ -49,10 +49,10 @@ public class ComplementOfRelation extends Relation {
 	
 	@Override
 	public void add(OWLObject o) {
-		OWLObjectComplementOf oco = (OWLObjectComplementOf) o;
+		/*OWLObjectComplementOf oco = (OWLObjectComplementOf) o;
 		OWLObjectComplementOfExtractor cex = new OWLObjectComplementOfExtractor();
-		cex.getComplementedClassExpressions(oco);
-		//XXX schauen was diese methode liefert!!!!!!!!!!!
+		System.out.println(oco.getOperand() + "->" + cex.getComplementedClassExpressions(oco.getOperand()));
+		*///XXX schauen was diese methode liefert!!!!!!!!!!! STRANGE
 	}
 
 	@Override

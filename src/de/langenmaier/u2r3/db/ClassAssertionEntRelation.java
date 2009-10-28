@@ -92,11 +92,12 @@ public class ClassAssertionEntRelation extends Relation {
 					
 					for (int i=1; i<=4; ++i) {
 						//remove rows without history
-						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
-						rows = stmt.executeUpdate(sql);				
+						///XXX is nicht gut da am Ende keine Zeilen mehr übrig bleiben
+						//sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
+						//rows = stmt.executeUpdate(sql);				
 						
 						//source
-						sql = "SELECT id, '" + RelationName.classAssertionEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						sql = "SELECT id, '" + RelationName.classAssertionEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName() +  " WHERE sourceId" + i + " IS NOT NULL";
 						relationManager.addHistory(sql);
 					}
 				}
