@@ -38,7 +38,7 @@ public class ClassAssertionEntRelation extends Relation {
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getURI().toString());
+			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getIRI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
 			return true;
 	}

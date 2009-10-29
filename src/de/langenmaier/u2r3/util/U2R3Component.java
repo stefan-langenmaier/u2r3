@@ -10,11 +10,13 @@ public class U2R3Component {
 	protected RelationManager relationManager;
 	protected RuleManager ruleManager;
 	protected ReasonProcessor reasonProcessor;
+	protected NodeIDMapper nidMapper;
 	
 	protected U2R3Component(U2R3Reasoner reasoner) {
 		settings = reasoner.getSettings();
 		relationManager = reasoner.getRelationManager();
 		ruleManager = reasoner.getRuleManager();
 		reasonProcessor = reasoner.getReasonProcessor();
+		nidMapper = reasoner.getNIDMapper();
 	}
 }

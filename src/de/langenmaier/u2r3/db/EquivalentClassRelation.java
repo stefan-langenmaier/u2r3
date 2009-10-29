@@ -1,19 +1,17 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.model.ClassExpressionType;
-import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLEquivalentClassesAxiom;
-import org.semanticweb.owlapi.model.OWLAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class EquivalentClassRelation extends Relation {
@@ -41,39 +39,25 @@ public class EquivalentClassRelation extends Relation {
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLEquivalentClassesAxiom naxiom = (OWLEquivalentClassesAxiom) axiom;
-			HashMap<OWLClassExpression, NodeID> refs = new HashMap<OWLClassExpression, NodeID>();
 			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
 				for (OWLClassExpression ce2 : naxiom.getClassExpressions()) {
 					if (!ce1.equals(ce2)) {
 						if (ce1.isAnonymous()) {
-							if (!refs.containsKey(ce1)) {
-								refs.put(ce1, NodeID.getNodeID());
-							}
-							addStatement.setString(1, refs.get(ce1).toString());
+							addStatement.setString(1, nidMapper.get(ce1).toString());
 						} else {
 							addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
 						}
 						if (ce2.isAnonymous()) {
-							if (!refs.containsKey(ce2)) {
-								refs.put(ce2, NodeID.getNodeID());
-							}
-							addStatement.setString(2, refs.get(ce2).toString());
+							addStatement.setString(2, nidMapper.get(ce2).toString());
 						} else {
 							addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
 						}
-
-						System.out.println(addStatement);
 						addStatement.execute();
+						reasonProcessor.add(new AdditionReason(this));
 					}
 				}
 				if (ce1.isAnonymous()) {
-					//System.out.println(ce1.getClassExpressionType());
-					if (ce1.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
-						relationManager.getRelation(RelationName.complementOf).add(refs.get(ce1), ce1);
-						//relationManager.getRelation(RelationName.complementOf).add(ce1);
-					} else {
-						throw new U2R3NotImplementedException();
-					}
+					handleAnonymousClassExpression(ce1);
 				}
 			}
 			return false;

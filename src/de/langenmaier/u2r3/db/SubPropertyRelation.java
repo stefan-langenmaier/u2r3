@@ -37,8 +37,8 @@ public class SubPropertyRelation extends Relation {
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
-			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
+			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
+			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
 			return true;
 	}
 

@@ -31,6 +31,7 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
+import de.langenmaier.u2r3.util.NodeIDMapper;
 import de.langenmaier.u2r3.util.Settings;
 
 public class U2R3Reasoner extends OWLReasonerAdapter {
@@ -38,6 +39,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	private RelationManager relationManager;
 	private ReasonProcessor reasonProcessor;
 	private Settings settings;
+	private NodeIDMapper nidMapper;
 	
 	private boolean isClassified = false;
 
@@ -48,10 +50,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		relationManager = new RelationManager(this);
 		settings = new Settings();
 		reasonProcessor = new ReasonProcessor(this);
+		nidMapper = new NodeIDMapper();
 		
 		relationManager.initialize();
 		ruleManager.initialize();
 		reasonProcessor.initialize();
+		
+		
 		
 	}
 
@@ -88,7 +93,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 			for(OWLAxiom ax : ont.getAxioms()) {
-				System.out.println(ax);
+				//System.out.println(ax);
 				ax.accept(axiomAdder);
 			}
 			
@@ -482,6 +487,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			throws OWLReasonerException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public NodeIDMapper getNIDMapper() {
+		return nidMapper;
 	}
 
 }

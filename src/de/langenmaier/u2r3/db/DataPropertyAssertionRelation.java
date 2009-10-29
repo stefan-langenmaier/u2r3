@@ -43,9 +43,9 @@ public class DataPropertyAssertionRelation extends Relation {
 			if (naxiom.getSubject().isAnonymous()) {
 				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
 			}
-			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getURI().toString());
+			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
 			addStatement.setString(3, naxiom.getObject().getLiteral());
 			if (!naxiom.getObject().isTyped()) {
 				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());

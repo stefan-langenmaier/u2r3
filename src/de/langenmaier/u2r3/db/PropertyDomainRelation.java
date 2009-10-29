@@ -39,12 +39,12 @@ public class PropertyDomainRelation extends Relation {
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyDomainAxiom) {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getURI().toString());
-			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
+			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+			addStatement.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
 		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
 			OWLObjectPropertyDomainAxiom naxiom = (OWLObjectPropertyDomainAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
-			addStatement.setString(2, naxiom.getDomain().asOWLClass().getURI().toString());
+			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+			addStatement.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
 		}
 		return true;
 	}

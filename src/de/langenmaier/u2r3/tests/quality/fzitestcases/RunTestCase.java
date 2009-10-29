@@ -34,7 +34,12 @@ public class RunTestCase {
 		BasicConfigurator.configure();
 		Logger.getRootLogger().setLevel(Level.INFO);
 		
-		String folder = "/home/sl17/workspace/u2r2/ontologien/tests/fzi/owl2rl";
+		if (args.length<=0) {
+			System.err.println("USAGE: java " + RunTestCase.class.getName() + " <filename>");
+			return;
+		}
+		String folder = args[0];
+		//"/home/sl17/workspace/u2r2/ontologien/tests/fzi/owl2rl";
 		String name;
 		
 		logger.info("Started Testcases");

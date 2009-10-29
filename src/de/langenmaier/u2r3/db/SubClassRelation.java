@@ -42,8 +42,8 @@ public class SubClassRelation extends Relation {
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getURI().toString());
-			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getURI().toString());
+			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
+			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
 			return true;
 	}
 
@@ -128,7 +128,7 @@ public class SubClassRelation extends Relation {
 		ResultSet rs;
 		String sql;
 		OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-		sql = "SELECT id FROM " + getTableName() + " WHERE sub='" + naxiom.getSubClass().asOWLClass().getURI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getURI().toString() + "'";
+		sql = "SELECT id FROM " + getTableName() + " WHERE sub='" + naxiom.getSubClass().asOWLClass().getIRI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getIRI().toString() + "'";
 		
 		rs = stmt.executeQuery(sql);
 		UUID id = null;

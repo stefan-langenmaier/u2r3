@@ -42,13 +42,13 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			if (naxiom.getSubject().isAnonymous()) {
 				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getURI().toString());
+				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
 			}
-			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getURI().toString());
+			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 			if (naxiom.getObject().isAnonymous()) {
 				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getURI().toString());
+				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getIRI().toString());
 			}
 		}
 		return true;

@@ -9,13 +9,14 @@ import java.util.HashSet;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.model.NodeID;
+import org.semanticweb.owlapi.model.ClassExpressionType;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
@@ -70,7 +71,6 @@ public abstract class Relation extends U2R3Component {
 	 * If the return value is false, the method has executed the
 	 * statement by itself. Necessary for complex or special axioms.
 	 * @param axiom
-	 * @return TODO
 	 * @return true the statement needs to be executed otherwise not
 	 * @throws SQLException
 	 */
@@ -236,6 +236,14 @@ public abstract class Relation extends U2R3Component {
 			throw new U2R3ReasonerException(e);
 		}
 	}
+	
+	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
+		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
+			relationManager.getRelation(RelationName.complementOf).add(ce);
+		} else {
+			throw new U2R3NotImplementedException();
+		}
+	}
 
 
 	public String getDeltaName(int delta, String table) {
@@ -244,9 +252,5 @@ public abstract class Relation extends U2R3Component {
 			return getTableName();
 		}
 		return getTableName() + "_d" + delta;
-	}
-
-	public void add(NodeID nodeID, OWLClassExpression ce1) {
-		
 	}
 }
