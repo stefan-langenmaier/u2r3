@@ -13,6 +13,7 @@ import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -250,6 +251,10 @@ public abstract class Relation extends U2R3Component {
 		} else {
 			throw new U2R3NotImplementedException();
 		}
+	}
+	
+	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
+		throw new U2R3NotImplementedException();
 	}
 
 

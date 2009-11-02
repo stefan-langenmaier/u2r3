@@ -260,9 +260,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLSubPropertyChainOfAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-		
+	public void visit(OWLSubPropertyChainOfAxiom axiom) {
+		logger.debug(" adding PropertyChain:" + axiom.toString());
+		relationManager.getRelation(RelationName.propertyChain).add(axiom);
+		logger.debug(" added PropertyChain");
 	}
 
 	@Override

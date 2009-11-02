@@ -31,57 +31,80 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, subjectSourceId, subjectSourceTable, propertySourceId, propertySourceTable, objectSourceId, objectSourceTable)");
-			sql.append("\n\t SELECT prpAnfang.subject, pc.property, prpEnde.object, MIN(prpAnfang.id) AS subjectSourceId, 'propertyAssertion' AS subjectSourceTable, MIN(pc.id) AS propertySourceId, 'propertyChain' AS propertySourceTable, MIN(prpEnde.id) AS objectSourceId, 'propertyAssertion' AS objectSourceTable");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT start.start, pc.property, ende.ende,");
+			sql.append(" ref.opaid AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
+			sql.append(" pc.id AS sourceId2, '" + RelationName.propertyChain + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT prpAnfang.subject, pc.property, prpEnde.object");
+			sql.append("\n\t SELECT DISTINCT start.start, pc.property, ende.ende");
 		}
 		
-		sql.append("\n\t FROM propertyChain AS pc");
-		sql.append("\n\t\t INNER JOIN propertyAssertion AS prpAnfang ON pc.list = anfangsE.name");
-		sql.append("\n\t\t INNER JOIN list AS anfangsE ON anfangsE.element = prpAnfang.property");
-		sql.append("\n\t\t INNER JOIN (");
-		sql.append("\n\t\t SELECT  l1.name, MIN(l1.ordnung) AS first");
-		sql.append("\n\t\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS  anzl1");
-		sql.append("\n\t\t\t INNER JOIN list AS l1 ON anzl1.name = l1.name");
-		sql.append("\n\t\t\t INNER JOIN propertyAssertion AS prp1 ON l1.element = prp1.property");
-		sql.append("\n\t\t WHERE EXISTS (");
-		sql.append("\n\t\t\t SELECT prp1_n.subject");
-		sql.append("\n\t\t\t FROM list AS l1_n INNER JOIN propertyAssertion AS prp1_n ON l1_n.element = prp1_n.property");
-		sql.append("\n\t\t\t WHERE (prp1.object = prp1_n.subject AND l1.name = l1_n.name) OR (prp1.subject = prp1_n.object AND l1.name = l1_n.name)");
-		sql.append("\n\t\t )");
-		sql.append("\n\t\t GROUP BY l1.name");
-		sql.append("\n\t\t HAVING COUNT(l1.name) = anzl1.anzahl");
-		sql.append("\n\t ) AS anfangsl ON anfangsl.name = anfangsE.name AND anfangsl.first = anfangsE.ordnung");
-		sql.append("\n\t\t INNER JOIN propertyAssertion AS prpEnde ON pc.list = endeE.name");
-		sql.append("\n\t\t INNER JOIN list AS endeE ON endeE.element = prpEnde.property");
-		sql.append("\n\t\t INNER JOIN (");
-		sql.append("\n\t\t SELECT  l2.name, MAX(l2.ordnung) AS last");
-		sql.append("\n\t\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS  anzl2");
-		sql.append("\n\t\t\t INNER JOIN list AS l2 ON anzl2.name = l2.name");
-		sql.append("\n\t\t\t INNER JOIN propertyAssertion AS prp2 ON l2.element = prp2.property");
-		sql.append("\n\t\t WHERE EXISTS (");
-		sql.append("\n\t\t\t SELECT prp2_n.subject");
-		sql.append("\n\t\t\t FROM list AS l2_n INNER JOIN propertyAssertion AS prp2_n ON l2_n.element = prp2_n.property");
-		sql.append("\n\t\t\t WHERE (prp2.object = prp2_n.subject AND l2.name = l2_n.name) OR (prp2.subject = prp2_n.object AND l2.name = l2_n.name)");
-		sql.append("\n\t\t )");
-		sql.append("\n\t\t GROUP BY l2.name");
-		sql.append("\n\t\t HAVING COUNT(l2.name) = anzl2.anzahl");
-		sql.append("\n\t\t ) AS endel ON endel.name = endeE.name AND endel.last = endeE.ordnung");
+		sql.append("\n FROM (");
+		sql.append("\n\t SELECT lname, anz FROM (");
+		addView(sql);
+		sql.append("\n\t )");		
+		sql.append("\n\t 		GROUP BY lname");		
+		sql.append("\n\t 		HAVING COUNT(lname) = anz");		
+		sql.append("\n\t 	) AS thel");
+		sql.append("\n\t 	INNER JOIN (");
+		sql.append("\n\t 		SELECT lname, start");
+		sql.append("\n\t 		FROM (");
+		addView(sql);
+		sql.append("\n\t 			)");
+		sql.append("\n\t 		WHERE vorgaenger IS NULL");
+		sql.append("\n\t 	) AS start");
+		sql.append("\n\t 		ON start.lname = thel.lname");
+		sql.append("\n\t 	INNER JOIN (");
+		sql.append("\n\t 		SELECT lname, ende");
+		sql.append("\n\t 		FROM (");
+		addView(sql);
+		sql.append("\n\t 			)");
+		sql.append("\n\t 		WHERE nachfolger IS NULL");
+		sql.append("\n\t 	) AS ende");
+		sql.append("\n\t 		ON ende.lname = thel.lname");
+		sql.append("\n\t 	INNER JOIN (");
+		sql.append("\n\t 		SELECT lname, opaid");
+		sql.append("\n\t 		FROM (");
+		addView(sql);
+		sql.append("\n\t 			)");
+		sql.append("\n\t 	) AS ref");
+		sql.append("\n\t 		ON ref.lname = thel.lname");
+		sql.append("\n\t 	INNER JOIN propertyChain AS pc");
+		sql.append("\n\t 		ON pc.list = thel.lname");
 	
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.subject");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t bottom.subject = prpAnfang.subject AND bottom.property = pc.property AND bottom.object = prpEnde.object");
+			sql.append("\n\t\t WHERE bottom.subject = start.start AND bottom.property = pc.property AND bottom.object = ende.ende");
 			sql.append("\n\t )");
 		}
-		
-		sql.append("\n\t GROUP BY prpAnfang.subject, pc.property, prpEnde.object");
-		
+
 		return sql.toString();
 	}
+
+	private void addView(StringBuilder sql) {
+		sql.append("\n\t SELECT vopa.subject as vorgaenger, opa.subject AS start, opa.object AS ende, nopa.object as nachfolger, l.name AS lname, anzl.anz, opa.id AS opaid");
+		sql.append("\n\t 	FROM list AS l");
+		sql.append("\n\t 	INNER JOIN objectPropertyAssertion AS opa");
+		sql.append("\n\t 		ON opa.property = l.element");
+		sql.append("\n\t 	INNER JOIN (");
+		sql.append("\n\t 		SELECT name, COUNT(name) AS anz");
+		sql.append("\n\t 		FROM list");
+		sql.append("\n\t 	) AS anzl ON anzl.name = l.name");
+		sql.append("\n\t 	LEFT OUTER JOIN objectPropertyAssertion AS vopa");
+		sql.append("\n\t 		ON vopa.object = opa.subject");
+		sql.append("\n\t 	LEFT OUTER JOIN objectPropertyAssertion AS nopa");
+		sql.append("\n\t 		ON nopa.subject = opa.object");
+		sql.append("\n\t 		WHERE EXISTS (");
+		sql.append("\n\t 		 SELECT 1");
+		sql.append("\n\t 		 FROM list AS sl");
+		sql.append("\n\t 		 	INNER JOIN objectPropertyAssertion AS sopa ON sl.element = sopa.property");
+		sql.append("\n\t 		 WHERE l.name = sl.name AND (opa.object = sopa.subject OR opa.subject = sopa.object)");
+		sql.append("\n\t 	)");
+	}
+
 
 	@Override
 	public String toString() {

@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -10,7 +11,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
+import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class ObjectPropertyAssertionRelation extends Relation {
 	static Logger logger = Logger.getLogger(ObjectPropertyAssertionRelation.class);
@@ -70,7 +74,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" sourceTable2 VARCHAR(100)," +
 					" sourceId3 UUID," +
 					" sourceTable3 VARCHAR(100)," +
-					" PRIMARY KEY (subject, property, object))");
+					" PRIMARY KEY (id, subject, property, object))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,8 +82,43 @@ public class ObjectPropertyAssertionRelation extends Relation {
 
 	@Override
 	public void merge(DeltaRelation delta) {
-		// TODO Auto-generated method stub
-		
+		try {
+			Statement stmt = conn.createStatement();
+			long rows;
+			
+			//create compressed/compacted delta
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT subject, property, object FROM " + getTableName() + " AS bottom WHERE bottom.subject = t1.subject AND bottom.property = t1.property AND bottom.object = t1.object)");
+			
+			//put delta in main table
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, subject, property, object) " +
+					" SELECT MIN(id), subject, property, object " +
+					" FROM " + delta.getDeltaName() +
+					" GROUP BY subject, property, object");
+
+			//if here rows are added to the main table then, genuine facts have been added
+			if (rows > 0) {
+				
+				//save history
+				if (settings.getDeletionType() == DeletionType.CASCADING) {
+					String sql = null;
+					
+					for (int i=1; i<=3; ++i) {
+						//source
+						sql = "SELECT id, '" + RelationName.objectPropertyAssertion + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName() +  " WHERE sourceId" + i + " IS NOT NULL";
+						relationManager.addHistory(sql);
+					}
+				}
+				
+				//fire reason
+				logger.debug("Relation (" + toString()  + ") has got new data");
+				Reason r = new AdditionReason(this, delta);
+				reasonProcessor.add(r);
+			}
+			
+			isDirty = false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
