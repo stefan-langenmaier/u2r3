@@ -28,6 +28,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
@@ -208,10 +209,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public boolean isSubClassOf(OWLClassExpression arg0, OWLClassExpression arg1)
+	public boolean isSubClassOf(OWLClassExpression sub, OWLClassExpression sup)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		if (!(sup.isAnonymous() || sub.isAnonymous())) {
+			return relationManager.getRelation(RelationName.subClass).exists(sub.asOWLClass().getIRI().toString(), sup.asOWLClass().getIRI().toString());
+		}
+		throw new U2R3NotImplementedException();
+
 	}
 
 	@Override

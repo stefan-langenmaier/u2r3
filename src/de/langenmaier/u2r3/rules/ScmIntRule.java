@@ -30,11 +30,11 @@ public class ScmIntRule extends ApplicationRule {
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT iso.class, l.element,");
+			sql.append("\n\t SELECT iso.class AS sub, l.element AS super,");
 			sql.append(" MIN(iso.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT iso.class, l.element");
+			sql.append("\n\t SELECT DISTINCT iso.class AS sub, l.element AS super ");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS iso");

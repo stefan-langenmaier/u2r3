@@ -97,11 +97,11 @@ public class SubClassRelation extends Relation {
 					
 					for (int i=1; i<=5; ++i) {
 						//remove rows without history
-						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
-						rows = stmt.executeUpdate(sql);				
+						//sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
+						//rows = stmt.executeUpdate(sql);				
 						
 						//source
-						sql = "SELECT id, '" + RelationName.sameAsEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						sql = "SELECT id, '" + RelationName.sameAsEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NOT NULL";
 						relationManager.addHistory(sql);
 					}
 				}
@@ -141,6 +141,9 @@ public class SubClassRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 2) {
+			return "SELECT sub, super FROM " + getTableName() + " WHERE sub = '" + args[0] + "' AND super = '" + args[1] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

@@ -74,9 +74,21 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLSubClassOfAxiom arg0) {
-		// TODO Auto-generated method stub
-
+	public void visit(OWLSubClassOfAxiom axiom) {
+		try {
+			used = false;
+			
+			if (!(axiom.getSubClass().isAnonymous() || axiom.getSuperClass().isAnonymous())) {
+				if (!reasoner.isSubClassOf(axiom.getSubClass(), axiom.getSuperClass())) {
+					correct = false;
+				}
+			} else {
+				correct = true;
+			}
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
