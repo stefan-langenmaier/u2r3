@@ -30,26 +30,26 @@ public class ScmIntRule extends ApplicationRule {
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT is.class, l.element,");
-			sql.append(" MIN(is.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
+			sql.append("\n\t SELECT iso.class, l.element,");
+			sql.append(" MIN(iso.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT is.class, l.element");
+			sql.append("\n\t SELECT DISTINCT iso.class, l.element");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS is");
-		sql.append("\n\t\t INNER JOIN list AS l ON is.list = l.name");
+		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS iso");
+		sql.append("\n\t\t INNER JOIN list AS l ON iso.list = l.name");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.sub, bottom.super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = is.class AND bottom.super = l.element");
+			sql.append("\n\t\t WHERE bottom.sub = iso.class AND bottom.super = l.element");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY is.class, l.element");
+			sql.append("\n\t GROUP BY iso.class, l.element");
 		}
 
 		return sql.toString();

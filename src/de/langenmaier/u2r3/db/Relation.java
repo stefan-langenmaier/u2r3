@@ -240,6 +240,8 @@ public abstract class Relation extends U2R3Component {
 	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
 		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 			relationManager.getRelation(RelationName.complementOf).add(ce);
+		} if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
+			relationManager.getRelation(RelationName.intersectionOf).add(ce);
 		} else {
 			throw new U2R3NotImplementedException();
 		}

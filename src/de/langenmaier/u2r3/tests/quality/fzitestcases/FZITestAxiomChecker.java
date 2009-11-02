@@ -122,15 +122,24 @@ public class FZITestAxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLNegativeDataPropertyAssertionAxiom arg0) {
-		// TODO Auto-generated method stub
+	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
 
 	}
 
 	@Override
-	public void visit(OWLDifferentIndividualsAxiom arg0) {
-		// TODO Auto-generated method stub
-
+	public void visit(OWLDifferentIndividualsAxiom axiom) {
+		/*try {
+			used = false;
+			
+			if (!(axiom.getSubject().isAnonymous() || axiom.getObject().isAnonymous())) {
+				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject().asNamedIndividual())) {
+					correct = false;
+				}
+			}
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}*/
 	}
 
 	@Override

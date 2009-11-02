@@ -29,36 +29,28 @@ public class ClsInt1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (class, type, classSourceId, classSourceTable, typeSourceId, typeSourceTable)");
-			sql.append("\n\t SELECT clsA.class AS class, int.class AS type, MIN(clsA.id) AS classSourceId, '" + RelationName.classAssertionEnt + "' AS classSourceTable, MIN(int.id) AS typeSourceId, '" + RelationName.intersectionOf + "' AS typeSourceTable");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT clsA.entity AS entity, int.class AS class,");
+			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1,");
+			sql.append(" MIN(int.id) AS sourceId2, '" + RelationName.intersectionOf + "' AS sourceTable2");
 		} else {
-			sql.append(" (class, type)");
-			sql.append("\n\t SELECT DISTINCT clsA.class AS subject, int.class AS type");
+			sql.append(" (entity, class)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity AS entity, int.class AS class");
 		}
 		
-		sql.append("\n\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS  anzl");
+		sql.append("\n\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS anzl");
 		sql.append("\n\t\t INNER JOIN list AS l ON anzl.name = l.name");
-		if (delta.getDelta() == DeltaRelation.NO_DELTA || delta.getRelation() == relationManager.getRelation(RelationName.list)) {	
-			sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
-			sql.append("\n\t\t INNER JOIN intersectionOf AS int ON int.list = l.name");
-		} else {
-			if (delta.getRelation() == relationManager.getRelation(RelationName.intersectionOf)) {
-				sql.append("\n\t\t INNER JOIN classAssertion AS clsA ON l.element = clsA.type");
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS int ON int.list = l.name");
-			} else if (delta.getRelation() == relationManager.getRelation(RelationName.classAssertionEnt)) {
-				sql.append("\n\t\t INNER JOIN " + delta.getDeltaName() + " AS clsA ON l.element = clsA.type");
-				sql.append("\n\t\t INNER JOIN intersectionOf AS int ON int.list = l.name");
-			}
-		}
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA ON l.element = clsA.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("intersectionOf") + " AS int ON int.list = l.name");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.class");
+			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.class = clsA.class AND bottom.type = int.class");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = int.class");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY l.name, clsA.class, type");
+		sql.append("\n\t GROUP BY l.name, clsA.entity, class");
 		sql.append("\n\t HAVING COUNT(l.name) = anzl.anzahl");
 		return sql.toString();
 	}

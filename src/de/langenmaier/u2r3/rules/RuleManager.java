@@ -68,7 +68,7 @@ public class RuleManager {
 		rules.put(RuleName.scm_cls_equivalentClass, new ScmClsEquivalentClassRule(reasoner));
 		rules.put(RuleName.prp_irp, new PrpIrpRule(reasoner));
 		rules.put(RuleName.dt_type1, new DtType1Rule(reasoner));
-		//rules.put(RuleName.cls_int_1, new ClsInt1Rule(reasoner));
+		rules.put(RuleName.cls_int_1, new ClsInt1Rule(reasoner));
 		rules.put(RuleName.prp_dom_ent, new PrpDomEntRule(reasoner));
 		rules.put(RuleName.prp_dom_lit, new PrpDomLitRule(reasoner));
 		rules.put(RuleName.prp_rng_ent, new PrpRngEntRule(reasoner));
