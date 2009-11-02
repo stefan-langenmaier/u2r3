@@ -3,11 +3,16 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectUnionOf;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class UnionOfRelation extends Relation {
@@ -33,9 +38,33 @@ public class UnionOfRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
+	public void add(OWLObject ce) {
+		OWLObjectUnionOf ouo = (OWLObjectUnionOf) ce;
+		try {
+			NodeID nid = NodeID.getNodeID();
+			int ordnung = 0;
+			addStatement.setString(1, nidMapper.get(ce).toString());
+			addStatement.setString(2, nid.toString());
+			addStatement.execute();
+			reasonProcessor.add(new AdditionReason(this));
+			
+			for (OWLClassExpression nce : ouo.getOperands()) {
+				addListStatement.setString(1, nid.toString());
+				if (nce.isAnonymous()) {
+					addListStatement.setString(2, nidMapper.get(nce).toString());
+				} else {
+					addListStatement.setString(2, nce.asOWLClass().getIRI().toString());
+				}
+				addListStatement.setLong(3, ++ordnung);
+				
+				addListStatement.execute();
+				if (nce.isAnonymous()) {
+					handleAnonymousClassExpression(nce);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -70,6 +99,11 @@ public class UnionOfRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public boolean addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 	}
 

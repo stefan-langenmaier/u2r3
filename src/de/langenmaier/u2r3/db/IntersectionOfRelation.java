@@ -1,6 +1,5 @@
 package de.langenmaier.u2r3.db;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -19,7 +18,7 @@ import de.langenmaier.u2r3.util.Pair;
 
 public class IntersectionOfRelation extends Relation {
 	static Logger logger = Logger.getLogger(IntersectionOfRelation.class);
-	PreparedStatement addListStatement;
+	
 	
 	protected IntersectionOfRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
@@ -31,8 +30,6 @@ public class IntersectionOfRelation extends Relation {
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");
-			
-			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

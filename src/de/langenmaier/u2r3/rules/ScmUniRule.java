@@ -29,7 +29,7 @@ public class ScmUniRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, sourceId1, sourceTable1");
+			sql.append(" (sub, super, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT l.element, uni.class,");
 			sql.append(" MIN(uni.id) AS sourceId1, '" + RelationName.unionOf + "' AS sourceTable1");
 		} else {

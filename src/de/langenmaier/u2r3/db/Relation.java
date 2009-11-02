@@ -39,6 +39,7 @@ public abstract class Relation extends U2R3Component {
 	protected PreparedStatement dropMainStatement;
 	protected Statement createDeltaStatement;
 	protected Statement dropDeltaStatement;
+	protected PreparedStatement addListStatement;
 
 	
 	private int nextDelta = 0;
@@ -60,7 +61,9 @@ public abstract class Relation extends U2R3Component {
 		try {
 			createDeltaStatement = conn.createStatement();
 			dropDeltaStatement = conn.createStatement();
-			
+
+			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -240,8 +243,10 @@ public abstract class Relation extends U2R3Component {
 	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
 		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 			relationManager.getRelation(RelationName.complementOf).add(ce);
-		} if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
 			relationManager.getRelation(RelationName.intersectionOf).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
+			relationManager.getRelation(RelationName.unionOf).add(ce);
 		} else {
 			throw new U2R3NotImplementedException();
 		}
