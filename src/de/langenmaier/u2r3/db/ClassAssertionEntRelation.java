@@ -60,7 +60,7 @@ public class ClassAssertionEntRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 UUID," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (entity, class))");
+					" PRIMARY KEY (id, entity, class))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

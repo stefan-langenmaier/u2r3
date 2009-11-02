@@ -52,6 +52,7 @@ public class History extends U2R3Component {
 		logger.trace("Adding history data from (" + sql + ")");
 		
 		try {
+			//TODO MERGE INTO sollte eigentlich INSERT INTO sein
 			stmt.execute("MERGE INTO history (id, table, sourceId, sourceTable) " + sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
