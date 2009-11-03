@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
+import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -71,24 +73,11 @@ public class DisjointWithRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
-					" leftSourceId UUID," +
-					" leftSourceTable VARCHAR(100)," +
-					" rightSourceId UUID," +
-					" rightSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (left, right))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 	
 	public void merge(DeltaRelation delta) {
-		
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

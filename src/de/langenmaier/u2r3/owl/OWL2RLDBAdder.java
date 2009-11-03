@@ -92,8 +92,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLEquivalentObjectPropertiesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+		logger.debug("  adding EquivalentObjectProperties:" + axiom.toString());
+		relationManager.getRelation(RelationName.equivalentProperty).add(axiom);
+		logger.debug("  added EquivalentObjectProperties");
 	}
 
 	@Override
@@ -114,8 +116,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDisjointObjectPropertiesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
+		logger.debug("  adding EquivalentObjectProperties:" + axiom.toString());
+		relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		logger.debug("  added EquivalentObjectProperties");
 	}
 
 	@Override
