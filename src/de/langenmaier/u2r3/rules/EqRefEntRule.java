@@ -27,11 +27,12 @@ public class EqRefEntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT entity AS left, class AS right, MIN(id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, MIN(id) AS sourceId2, '" + RelationName.classAssertionEnt + "' AS sourceTable2");
+			sql.append(" (left, right, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT entity AS left, entity AS right,");
+			sql.append(" MIN(id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
 			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT entity AS left, class AS right");
+			sql.append("\n\t SELECT DISTINCT entity AS left, entity AS right");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
@@ -40,10 +41,10 @@ public class EqRefEntRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = top.class AND bottom.right = top.class");
+			sql.append("\n\t\t WHERE bottom.left = top.entity AND bottom.right = top.entity");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY left, right");
+		sql.append("\n\t GROUP BY entity");
 		return sql.toString();
 	}
 
