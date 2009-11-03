@@ -5,9 +5,12 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -49,6 +52,20 @@ public class ClassAssertionEntRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI().toString());
 			return true;
+		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
+			OWLSymmetricObjectPropertyAxiom naxiom = (OWLSymmetricObjectPropertyAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+			addStatement.setString(2, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI().toString());
+			return true;
+		}  else if (axiom instanceof OWLDeclarationAxiom) {
+			OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
+			if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {
+				addStatement.setString(1, naxiom.getEntity().getIRI().toString());
+				addStatement.setString(2, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString());
+				return true;
+			} else {
+				throw new U2R3NotImplementedException();
+			}
 		} else {
 			throw new U2R3NotImplementedException();
 		}

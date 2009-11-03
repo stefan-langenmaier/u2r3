@@ -97,8 +97,8 @@ public class ScmAvf2Rule extends ApplicationRule {
 		
 		if (run == 0) {
 			sql.append("\n\t FROM " + delta.getDeltaName("allValuesFrom") + " AS avf1 ");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op1 ON op1.class = svf1.part");
-			sql.append("\n\t\t INNER JOIN allValuesFrom AS svf2 ON avf1.total = avf2.total");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op1 ON op1.class = avf1.part");
+			sql.append("\n\t\t INNER JOIN allValuesFrom AS avf2 ON avf1.total = avf2.total");
 			sql.append("\n\t\t INNER JOIN onProperty AS op2 ON op2.class = avf2.part");
 		} else if (run == 1) {
 			sql.append("\n\t FROM allValuesFrom AS avf1 ");

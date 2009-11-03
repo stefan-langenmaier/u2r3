@@ -19,8 +19,8 @@ public class OnPropertyRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" property VARCHAR(100)," +
+					" class TEXT," +
+					" property TEXT," +
 					" PRIMARY KEY (class, property))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -40,20 +40,21 @@ public class OnPropertyRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
+		/*try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" property VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" propertySourceId UUID," +
-					" propertySourceTable VARCHAR(100)," +
+					" class TEXT," +
+					" property TEXT," +
+					" sourceId1 UUID," +
+					" sourceTable1 VARCHAR(100)," +
+					" sourceId2 UUID," +
+					" sourceTable2 VARCHAR(100)," +
 					" PRIMARY KEY (class, property))");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}*/
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

@@ -19,13 +19,13 @@ public class HasValueLitRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" object VARCHAR(100)," +
-					" PRIMARY KEY (class, object))");
+					" class TEXT," +
+					" value TEXT," +
+					" PRIMARY KEY (class, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, object) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, value) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
