@@ -5,8 +5,10 @@ import java.sql.Statement;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -37,10 +39,19 @@ public class ClassAssertionEntRelation extends Relation {
 	
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLClassAssertionAxiom) {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getIRI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
 			return true;
+		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
+			OWLAsymmetricObjectPropertyAxiom naxiom = (OWLAsymmetricObjectPropertyAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+			addStatement.setString(2, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI().toString());
+			return true;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override

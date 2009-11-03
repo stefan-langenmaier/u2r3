@@ -44,10 +44,10 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-chain-def";
+		name = "rdfbased-sem-char-asymmetric-inst";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
-		runTestCase(name, folder, CheckType.entailment_check);
+		runTestCase(name, folder, CheckType.consistency_check);
 		
 	}
 	

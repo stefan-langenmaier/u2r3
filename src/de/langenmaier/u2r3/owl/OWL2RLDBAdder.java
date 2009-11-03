@@ -226,15 +226,14 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLSubClassOfAxiom axiom) {
 		logger.debug("  adding SubClass:" + axiom.toString());
 		relationManager.getRelation(RelationName.subClass).add(axiom);
-		//SubClassRelation.getRelation().add(axiom);
 		logger.debug("  added SubClass");
-		
 	}
 
 	@Override
-	public void visit(OWLAsymmetricObjectPropertyAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-		
+	public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
+		logger.debug("  adding AsymmetricObjectProperty:" + axiom.toString());
+		relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
+		logger.debug("  added AsymmetricObjectProperty");
 	}
 
 	@Override
