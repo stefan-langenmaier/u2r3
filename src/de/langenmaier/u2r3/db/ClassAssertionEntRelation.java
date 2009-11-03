@@ -11,6 +11,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
@@ -63,13 +64,22 @@ public class ClassAssertionEntRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI().toString());
 			return true;
-		}  else if (axiom instanceof OWLDeclarationAxiom) {
+		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
+			OWLInverseFunctionalObjectPropertyAxiom naxiom = (OWLInverseFunctionalObjectPropertyAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+			addStatement.setString(2, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI().toString());
+			return true;
+		} else if (axiom instanceof OWLDeclarationAxiom) {
 			OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
-			if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {
-				addStatement.setString(1, naxiom.getEntity().getIRI().toString());
+			addStatement.setString(1, naxiom.getEntity().getIRI().toString());
+			
+			if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString());
 				return true;
-			} else {
+			} else if (naxiom.getEntity().getEntityType() == EntityType.DATA_PROPERTY) {				
+				addStatement.setString(2, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString());
+				return true;
+			}else {
 				throw new U2R3NotImplementedException();
 			}
 		} else {

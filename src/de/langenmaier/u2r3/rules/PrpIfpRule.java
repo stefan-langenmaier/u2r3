@@ -117,7 +117,7 @@ public class PrpIfpRule extends ApplicationRule {
 			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.left");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = prp1.object AND bottom.right = prp2.object");
+			sql.append("\n\t\t WHERE bottom.left = prp1.subject AND bottom.right = prp2.subject");
 			sql.append("\n\t )");
 		}
 		
