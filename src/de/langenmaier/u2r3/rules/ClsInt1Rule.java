@@ -25,9 +25,7 @@ public class ClsInt1Rule extends ApplicationRule {
 	protected String buildQuery(DeltaRelation delta, DeltaRelation newDelta,
 			boolean again, int run) {
 		StringBuilder sql = new StringBuilder(400);
-		
-		//TODO optimieren für anderen deletion type
-		
+	
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {

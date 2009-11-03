@@ -100,12 +100,22 @@ public class ObjectPropertyAssertionRelation extends Relation {
 				
 				//save history
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
-					String sql = null;
+					StringBuilder sql;
 					
 					for (int i=1; i<=3; ++i) {
 						//source
-						sql = "SELECT id, '" + RelationName.objectPropertyAssertion + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName() +  " WHERE sourceId" + i + " IS NOT NULL";
-						relationManager.addHistory(sql);
+						sql = new StringBuilder();
+						sql.append("SELECT b.theid, '" + RelationName.objectPropertyAssertion + "' AS table,");
+						sql.append(" sourceId" + i + ", sourceTable" + i + "");
+						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
+						sql.append("\n\t INNER JOIN (");
+						sql.append("\n\t\t SELECT MIN(id) AS theid, subject, property, object ");
+						sql.append("\n\t\t FROM " + delta.getDeltaName());
+						sql.append("\n\t\t GROUP BY subject, property, object");
+						sql.append("\n\t ) AS b ON b.subject = t.subject AND b.property = t.property AND b.object = t.object");
+						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");
+						
+						relationManager.addHistory(sql.toString());
 					}
 				}
 				

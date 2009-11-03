@@ -88,17 +88,22 @@ public class ClassAssertionEntRelation extends Relation {
 				
 				//save history
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
-					String sql = null;
+					StringBuilder sql;
 					
 					for (int i=1; i<=4; ++i) {
-						//remove rows without history
-						///XXX is nicht gut da am Ende keine Zeilen mehr übrig bleiben
-						//sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
-						//rows = stmt.executeUpdate(sql);				
-						
 						//source
-						sql = "SELECT id, '" + RelationName.classAssertionEnt + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName() +  " WHERE sourceId" + i + " IS NOT NULL";
-						relationManager.addHistory(sql);
+						sql = new StringBuilder();
+						sql.append("SELECT b.theid, '" + RelationName.classAssertionEnt + "' AS table,");
+						sql.append(" sourceId" + i + ", sourceTable" + i + "");
+						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
+						sql.append("\n\t INNER JOIN (");
+						sql.append("\n\t\t SELECT MIN(id) AS theid, entity, class ");
+						sql.append("\n\t\t FROM " + delta.getDeltaName());
+						sql.append("\n\t\t GROUP BY entity, class");
+						sql.append("\n\t ) AS b ON b.entity = t.entity AND b.class = t.class");
+						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");
+						
+						relationManager.addHistory(sql.toString());
 					}
 				}
 				
