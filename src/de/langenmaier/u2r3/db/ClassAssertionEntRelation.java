@@ -14,6 +14,7 @@ import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -70,10 +71,15 @@ public class ClassAssertionEntRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI().toString());
 			return true;
-		}else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
+		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
 			OWLIrreflexiveObjectPropertyAxiom naxiom = (OWLIrreflexiveObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString());
+			return true;
+		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
+			OWLTransitiveObjectPropertyAxiom naxiom = (OWLTransitiveObjectPropertyAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+			addStatement.setString(2, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI().toString());
 			return true;
 		} else if (axiom instanceof OWLDeclarationAxiom) {
 			OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
