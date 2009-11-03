@@ -71,8 +71,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDisjointClassesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDisjointClassesAxiom axiom) {
+		logger.debug("  adding DisjointClasses:" + axiom.toString());
+		relationManager.getRelation(RelationName.disjointWith).add(axiom);
+		logger.debug("  added DisjointClasses");
 	}
 
 	@Override

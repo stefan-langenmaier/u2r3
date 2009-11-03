@@ -5,10 +5,13 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDisjointClassesAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class DisjointWithRelation extends Relation {
@@ -35,7 +38,35 @@ public class DisjointWithRelation extends Relation {
 	}
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLDisjointClassesAxiom) {
+			OWLDisjointClassesAxiom naxiom = (OWLDisjointClassesAxiom) axiom;
+			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
+				for (OWLClassExpression ce2 : naxiom.getClassExpressions()) {
+					if (!ce1.equals(ce2)) {
+						if (ce1.isAnonymous()) {
+							addStatement.setString(1, nidMapper.get(ce1).toString());
+						} else {
+							addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
+						}
+						if (ce2.isAnonymous()) {
+							addStatement.setString(2, nidMapper.get(ce2).toString());
+						} else {
+							addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
+						}
+						
+						addStatement.execute();
+						reasonProcessor.add(new AdditionReason(this));
+					}
+				}
+				if (ce1.isAnonymous()) {
+					handleAnonymousClassExpression(ce1);
+				}
+			}
+
+			return false;
+		} else {
 			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override
