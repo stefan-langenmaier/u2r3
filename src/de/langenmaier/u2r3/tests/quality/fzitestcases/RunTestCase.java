@@ -44,7 +44,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-eqdis-disclass-eqclass";
+		name = "rdfbased-sem-eqdis-disclass-inst";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.consistency_check);
