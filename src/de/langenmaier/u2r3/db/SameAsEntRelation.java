@@ -40,15 +40,36 @@ public class SameAsEntRelation extends Relation {
 	
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-		OWLSameIndividualAxiom naxiom = (OWLSameIndividualAxiom) axiom;
-		for (OWLIndividual ind : naxiom.getIndividuals()) {
-			addStatement.setString(1, ind.asNamedIndividual().getIRI().toString());
-			addStatement.setString(2, ind.asNamedIndividual().getIRI().toString());
-			logger.trace(addStatement.toString());
-			addStatement.executeUpdate();
-			reasonProcessor.add(new AdditionReason(this));
+		if (axiom instanceof OWLSameIndividualAxiom) {
+			OWLSameIndividualAxiom naxiom = (OWLSameIndividualAxiom) axiom;
+			for (OWLIndividual ind1 : naxiom.getIndividuals()) {
+				for (OWLIndividual ind2 : naxiom.getIndividuals()) {
+					if (!ind1.equals(ind2)) {
+						if (ind1.isAnonymous()) {
+							addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
+						} else {
+							addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+						}
+						if (ind2.isAnonymous()) {
+							addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
+						} else {
+							addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+						}
+						
+						addStatement.execute();
+						reasonProcessor.add(new AdditionReason(this));
+					}
+				}
+				if (ind1.isAnonymous()) {
+					handleAnonymousIndividual(ind1);
+				}
+			}
+
+			return false;
+		} else {
+			throw new U2R3NotImplementedException();
 		}
-		return false;
+
 	}
 
 	@Override

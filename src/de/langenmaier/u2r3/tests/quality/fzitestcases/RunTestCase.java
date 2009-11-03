@@ -44,10 +44,10 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-enum-inst-included";
+		name = "rdfbased-sem-eqdis-different-sameas";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
-		runTestCase(name, folder, CheckType.entailment_check);
+		runTestCase(name, folder, CheckType.consistency_check);
 		
 	}
 	

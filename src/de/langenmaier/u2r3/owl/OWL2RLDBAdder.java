@@ -100,8 +100,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDifferentIndividualsAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDifferentIndividualsAxiom axiom) {
+		logger.debug("  adding DifferentIndividuals:" + axiom.toString());
+		relationManager.getRelation(RelationName.differentFromEnt).add(axiom);
+		logger.debug("  added DifferentIndividuals");
 	}
 
 	@Override
