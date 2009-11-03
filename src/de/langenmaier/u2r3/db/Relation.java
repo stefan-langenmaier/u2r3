@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -248,12 +249,18 @@ public abstract class Relation extends U2R3Component {
 			relationManager.getRelation(RelationName.intersectionOf).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_UNION_OF) {
 			relationManager.getRelation(RelationName.unionOf).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
+			relationManager.getRelation(RelationName.oneOf).add(ce);
 		} else {
 			throw new U2R3NotImplementedException();
 		}
 	}
 	
 	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	protected void handleAnonymousIndividual(OWLIndividual ind) {
 		throw new U2R3NotImplementedException();
 	}
 
