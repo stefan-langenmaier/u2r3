@@ -38,7 +38,7 @@ public class ScmEqc2Rule extends ApplicationRule {
 
 				sql = buildQuery(delta, aux, true, 1);
 				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
+				rows += statement.executeUpdate(sql);
 	
 			}
 		} catch (SQLException e) {
@@ -65,7 +65,7 @@ public class ScmEqc2Rule extends ApplicationRule {
 				
 				sql = buildQuery(delta, newDelta, true, 1);
 				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
+				rows += statement.executeUpdate(sql);
 		
 			}
 		} catch (SQLException e) {
