@@ -117,6 +117,9 @@ public class SubPropertyRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 2) {
+			return "SELECT sub, super FROM " + getTableName() + " WHERE sub = '" + args[0] + "' AND super = '" + args[1] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

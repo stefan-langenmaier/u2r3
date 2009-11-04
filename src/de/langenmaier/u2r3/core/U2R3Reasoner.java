@@ -30,6 +30,7 @@ import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
+import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.util.NodeIDMapper;
@@ -497,6 +498,16 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	public NodeIDMapper getNIDMapper() {
 		return nidMapper;
+	}
+
+	public boolean isSubPropertyOf(OWLObjectPropertyExpression sub,
+			OWLObjectPropertyExpression sup) throws U2R3ReasonerException {
+		if (!(sub.isAnonymous() || sup.isAnonymous())) {
+			return relationManager.getRelation(RelationName.subProperty)
+				.exists(sub.asOWLObjectProperty().getIRI().toString(), sup.asOWLObjectProperty().getIRI().toString());
+		}
+		return false;
+		
 	}
 
 }
