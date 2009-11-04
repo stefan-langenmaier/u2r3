@@ -1,7 +1,5 @@
 package de.langenmaier.u2r3.rules;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -22,50 +20,12 @@ public class CaxDwLitRule extends ConsistencyRule {
 	
 	@Override
 	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
-		long rows = 0;
-		String sql = null;
-		try {
-			sql = buildQuery(delta, aux, false, 0);
-			logger.debug("Checking consistency: " + sql);
-			if (statement.executeQuery(sql).next()) {
-				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(this);
-			}
-			
-			sql = buildQuery(delta, aux, false, 1);
-			logger.debug("Checking consistency: " + sql);
-			if (statement.executeQuery(sql).next()) {
-				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(this);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rows;
+		return applyCollectiveTwice(delta, aux);
 	}
 
 	@Override
 	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
-		long rows = 0;
-		String sql = null;
-		try {
-			sql = buildQuery(delta, newDelta, false, 0);
-			logger.debug("Checking consistency: " + sql);
-			if (statement.executeQuery(sql).next()) {
-				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(this);
-			}
-			
-			sql = buildQuery(delta, newDelta, false, 1);
-			logger.debug("Checking consistency: " + sql);
-			if (statement.executeQuery(sql).next()) {
-				logger.warn("Inconsistency found!");
-				reasonProcessor.setInconsistent(this);
-			}	
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		return rows;
+		return applyImmediateTwice(delta, newDelta);
 	}
 
 

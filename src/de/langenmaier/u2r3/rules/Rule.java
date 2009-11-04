@@ -77,6 +77,9 @@ public abstract class Rule extends U2R3Component{
 	
 	protected abstract long applyImmediate(DeltaRelation delta, DeltaRelation newDelta);
 	protected abstract long applyCollective(DeltaRelation delta, DeltaRelation aux);
+	
+	protected abstract long applyImmediateTwice(DeltaRelation delta, DeltaRelation newDelta);
+	protected abstract long applyCollectiveTwice(DeltaRelation delta, DeltaRelation aux);
 
 	protected abstract String buildQuery(DeltaRelation delta, DeltaRelation newDelta, boolean again, int run);
 	

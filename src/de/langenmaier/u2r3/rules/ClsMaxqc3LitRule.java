@@ -1,7 +1,5 @@
 package de.langenmaier.u2r3.rules;
 
-import java.sql.SQLException;
-
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -26,64 +24,14 @@ public class ClsMaxqc3LitRule extends ApplicationRule {
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
 	}
 	
-	/**
-	 * Query muss zweimal laufen
-	 */
 	@Override
 	protected long applyCollective(DeltaRelation delta, DeltaRelation aux) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-
-			} else {
-				sql = buildQuery(delta, aux, true, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-
-				sql = buildQuery(delta, aux, true, 1);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return rows;
+		return applyCollectiveTwice(delta, aux);
 	}
 
-	/**
-	 * Query muss zweimal laufen
-	 */
 	@Override
 	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
-		long rows = 0;
-		String sql = null;
-		try {
-			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
-				//There are no deltas yet		
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (NO_DELTA): " + sql);
-				rows = statement.executeUpdate(sql);
-	
-			} else {
-				sql = buildQuery(delta, newDelta, false, 0);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
-				rows = statement.executeUpdate(sql);
-				
-				sql = buildQuery(delta, newDelta, true, 1);
-				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
-				rows = statement.executeUpdate(sql);
-		
-			}
-		} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		return rows;
+		return applyImmediateTwice(delta, newDelta);
 	}
 	
 

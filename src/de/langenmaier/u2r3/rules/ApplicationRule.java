@@ -39,6 +39,33 @@ public abstract class ApplicationRule extends Rule {
 	}
 	
 	@Override
+	protected long applyCollectiveTwice(DeltaRelation delta, DeltaRelation aux) {
+		long rows = 0;
+		String sql = null;
+		try {
+			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
+				//There are no deltas yet		
+				sql = buildQuery(delta, aux, true, 0);
+				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				rows = statement.executeUpdate(sql);
+
+			} else {
+				sql = buildQuery(delta, aux, true, 0);
+				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				rows = statement.executeUpdate(sql);
+
+				sql = buildQuery(delta, aux, true, 1);
+				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
+				rows += statement.executeUpdate(sql);
+	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rows;
+	}
+	
+	@Override
 	protected long applyImmediate(DeltaRelation delta, DeltaRelation newDelta) {
 		long rows = 0;
 		String sql = null;
@@ -53,6 +80,33 @@ public abstract class ApplicationRule extends Rule {
 				sql = buildQuery(delta, newDelta, false, 0);
 				logger.debug("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
 				rows = statement.executeUpdate(sql);
+		
+			}
+		} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return rows;
+	}
+	
+	@Override
+	protected long applyImmediateTwice(DeltaRelation delta, DeltaRelation newDelta) {
+		long rows = 0;
+		String sql = null;
+		try {
+			if (delta.getDelta() == DeltaRelation.NO_DELTA) {
+				//There are no deltas yet		
+				sql = buildQuery(delta, newDelta, false, 0);
+				logger.trace("Adding delta data (NO_DELTA): " + sql);
+				rows = statement.executeUpdate(sql);
+	
+			} else {
+				sql = buildQuery(delta, newDelta, false, 0);
+				logger.trace("Adding delta data (" + delta.getDelta() + ", 0): " + sql);
+				rows = statement.executeUpdate(sql);
+				
+				sql = buildQuery(delta, newDelta, true, 1);
+				logger.trace("Adding delta data (" + delta.getDelta() + ", 1): " + sql);
+				rows += statement.executeUpdate(sql);
 		
 			}
 		} catch (SQLException e) {
