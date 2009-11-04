@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
+import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -175,7 +175,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public Set<OWLClass> getEquivalentClasses(OWLClassExpression arg0)
+	public Set<OWLClass> getEquivalentClasses(OWLClassExpression ce)
 			throws OWLReasonerException {
 		// TODO Auto-generated method stub
 		return null;
@@ -202,10 +202,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public boolean isEquivalentClass(OWLClassExpression arg0,
-			OWLClassExpression arg1) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isEquivalentClass(OWLClassExpression ce1,
+			OWLClassExpression ce2) throws OWLReasonerException {
+		if (!(ce1.isAnonymous() || ce2.isAnonymous())) {
+			return relationManager.getRelation(RelationName.equivalentClass).exists(ce1.asOWLClass().getIRI().toString(), ce2.asOWLClass().getIRI().toString());
+		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

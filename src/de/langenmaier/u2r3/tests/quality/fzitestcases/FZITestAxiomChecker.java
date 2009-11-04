@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiomVisitor;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyDomainAxiom;
@@ -254,8 +255,23 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLEquivalentClassesAxiom arg0) {
-		// TODO Auto-generated method stub
+		try {
+			used = false;
+			logger.trace("Testing for axiom:" + arg0.toString());
+			for (OWLClassExpression ce1 : arg0.getClassExpressions()) {
+				for (OWLClassExpression ce2 : arg0.getClassExpressions()) {
+					if (!ce1.equals(ce2)) {
+						if (!reasoner.isEquivalentClass(ce1, ce2)) {
+							correct = false;
+						}
+					}
+				}
+			}
 
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

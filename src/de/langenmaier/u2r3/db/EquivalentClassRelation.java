@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -13,6 +14,8 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
+import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class EquivalentClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(EquivalentClassRelation.class);
@@ -86,7 +89,48 @@ public class EquivalentClassRelation extends Relation {
 	}
 	
 	public void merge(DeltaRelation delta) {
-		
+		try {
+			Statement stmt = conn.createStatement();
+			long rows;
+			
+			//create compressed/compacted delta
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT left, right FROM " + getTableName() + " AS bottom WHERE bottom.left = t1.left AND bottom.right = t1.right)");
+
+			//put delta in main table
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) " +
+					" SELECT MIN(id), left, right " +
+					" FROM " + delta.getDeltaName() +
+					" GROUP BY left, right");
+
+			//if here rows are added to the main table then, genuine facts have been added
+			if (rows > 0) {
+				
+				//save history
+				if (settings.getDeletionType() == DeletionType.CASCADING) {
+					StringBuilder sql;
+					
+					for (int i=1; i<=2; ++i) {
+						//source
+						sql = new StringBuilder();
+						sql.append("SELECT id, '" + RelationName.equivalentClass + "' AS table,");
+						sql.append(" sourceId" + i + ", sourceTable" + i + "");
+						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
+						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");
+						
+						relationManager.addHistory(sql.toString());
+					}
+				}
+				
+				//fire reason
+				logger.debug("Relation (" + toString()  + ") has got new data");
+				Reason r = new AdditionReason(this, delta);
+				reasonProcessor.add(r);
+			}
+			
+			isDirty = false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -97,6 +141,9 @@ public class EquivalentClassRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 2) {
+			return "SELECT left, right FROM " + getTableName() + " WHERE left = '" + args[0] + "' AND right = '" + args[1] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 

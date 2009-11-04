@@ -44,7 +44,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-eqdis-eqclass-inst";
+		name = "rdfbased-sem-eqdis-eqclass-rflxv";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);
@@ -55,11 +55,11 @@ public class RunTestCase {
 		try {
 			
 			folder = "file://" + folder + "/";
-			String premise_uri = folder +  name + ".premisegraph.xml";
+			String premise_uri = folder +  name + ".premisegraph.ttl";
 			if (checkType == CheckType.consistency_check) {
-				premise_uri = folder + name + ".graph.xml";
+				premise_uri = folder + name + ".graph.ttl";
 			}
-			String conclusion_uri = folder + name + ".conclusiongraph.xml";
+			String conclusion_uri = folder + name + ".conclusiongraph.ttl";
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
