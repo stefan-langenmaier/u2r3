@@ -44,7 +44,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-eqdis-sameas-rflxv";
+		name = "rdfbased-sem-eqdis-sameas-subst";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);
