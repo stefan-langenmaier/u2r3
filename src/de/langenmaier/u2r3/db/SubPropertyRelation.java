@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
+import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -40,10 +40,25 @@ public class SubPropertyRelation extends Relation {
 	}
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
-			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
+		if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
+			OWLSubObjectPropertyOfAxiom naxiom = (OWLSubObjectPropertyOfAxiom) axiom;
+			if (naxiom.getSubProperty().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
+				handleAnonymousObjectPropertyExpression(naxiom.getSubProperty());
+			} else {
+				addStatement.setString(1, naxiom.getSubProperty().asOWLObjectProperty().getIRI().toString());
+			}
+			if (naxiom.getSuperProperty().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
+				handleAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
+			} else {
+				addStatement.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
+			}
+
 			return true;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override
