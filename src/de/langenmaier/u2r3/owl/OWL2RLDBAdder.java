@@ -229,8 +229,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 
 
 	@Override
-	public void visit(OWLInverseObjectPropertiesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
+		logger.debug("  adding InverseObjectProperties:" + axiom.toString());
+		relationManager.getRelation(RelationName.inverseOf).add(axiom);
+		logger.debug("  added InverseObjectProperties");
 	}
 
 	@Override

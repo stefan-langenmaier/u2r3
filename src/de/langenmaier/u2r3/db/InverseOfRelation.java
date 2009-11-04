@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -31,7 +32,25 @@ public class InverseOfRelation extends Relation {
 	}
 
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLInverseObjectPropertiesAxiom) {
+			OWLInverseObjectPropertiesAxiom naxiom = (OWLInverseObjectPropertiesAxiom) axiom;
+			if (naxiom.getFirstProperty().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getFirstProperty()).toString());
+				handleAnonymousObjectPropertyExpression(naxiom.getFirstProperty());
+			} else {
+				addStatement.setString(1, naxiom.getFirstProperty().asOWLObjectProperty().getIRI().toString());
+			}
+			if (naxiom.getSecondProperty().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getSecondProperty()).toString());
+				handleAnonymousObjectPropertyExpression(naxiom.getSecondProperty());
+			} else {
+				addStatement.setString(2, naxiom.getSecondProperty().asOWLObjectProperty().getIRI().toString());
+			}
+			
+			return true;
+		} else {
 			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override
