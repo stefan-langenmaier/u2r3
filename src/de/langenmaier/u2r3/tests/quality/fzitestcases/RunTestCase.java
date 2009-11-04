@@ -44,7 +44,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-inv-inst";
+		name = "rdfbased-sem-key-def";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);

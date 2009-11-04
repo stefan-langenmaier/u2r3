@@ -100,7 +100,7 @@ public class RuleManager {
 		rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
 		rules.put(RuleName.prp_inv_1, new PrpInv1Rule(reasoner));
 		rules.put(RuleName.prp_inv_2, new PrpInv2Rule(reasoner));
-		//rules.put(RuleName.prp_key, new PrpKeyRule(reasoner));
+		rules.put(RuleName.prp_key, new PrpKeyRule(reasoner));
 		rules.put(RuleName.prp_npa_1, new PrpNpa1Rule(reasoner));
 		rules.put(RuleName.prp_npa_2, new PrpNpa2Rule(reasoner));
 		rules.put(RuleName.cls_thing, new ClsThingRule(reasoner));

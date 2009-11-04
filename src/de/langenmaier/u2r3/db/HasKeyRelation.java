@@ -3,7 +3,11 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import org.semanticweb.owlapi.model.NodeID;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -17,7 +21,11 @@ public class HasKeyRelation extends Relation {
 		try {
 			tableName = "hasKey";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, class VARCHAR(100), list VARCHAR(100), PRIMARY KEY (class, list))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" class TEXT," +
+					" list TEXT," +
+					" PRIMARY KEY (class, list))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -30,26 +38,53 @@ public class HasKeyRelation extends Relation {
 	
 	@Override
 	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
+		if (axiom instanceof OWLHasKeyAxiom) {
+			OWLHasKeyAxiom naxiom = (OWLHasKeyAxiom) axiom;
+			NodeID nid = NodeID.getNodeID();
+			if (naxiom.getClassExpression().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getClassExpression()).toString());
+				handleAnonymousClassExpression(naxiom.getClassExpression());
+			} else {
+				addStatement.setString(1, naxiom.getClassExpression().asOWLClass().getIRI().toString());
+			}
+			addStatement.setString(2, nid.toString());
+			
+			long order = 0;
+			//for object
+			for(OWLObjectPropertyExpression pe : naxiom.getObjectPropertyExpressions()) {
+				addListStatement.setString(1, nid.toString());
+				if (pe.isAnonymous()) {
+					addListStatement.setString(2, nidMapper.get(pe).toString());
+					handleAnonymousObjectPropertyExpression(pe);
+				} else {
+					addListStatement.setString(2, pe.asOWLObjectProperty().getIRI().toString());
+				}
+				addListStatement.setLong(3, ++order);
+				addListStatement.execute();
+			}
+			
+			//for data
+			for(OWLDataPropertyExpression pe : naxiom.getDataPropertyExpressions()) {
+				addListStatement.setString(1, nid.toString());
+				if (pe.isAnonymous()) {
+					addListStatement.setString(2, nidMapper.get(pe).toString());
+					handleAnonymousDataPropertyExpression(pe);
+				} else {
+					addListStatement.setString(2, pe.asOWLDataProperty().getIRI().toString());
+				}
+				addListStatement.setLong(3, ++order);
+				addListStatement.execute();
+			}
+			
+			return true;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" list VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" listSourceId UUID," +
-					" listSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, list))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

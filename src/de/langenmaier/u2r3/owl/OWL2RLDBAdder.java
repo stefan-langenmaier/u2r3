@@ -285,9 +285,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLHasKeyAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-		
+	public void visit(OWLHasKeyAxiom axiom) {
+		logger.debug(" adding HasKey:" + axiom.toString());
+		relationManager.getRelation(RelationName.hasKey).add(axiom);
+		logger.debug(" added HasKey");		
 	}
 
 	@Override

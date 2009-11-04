@@ -33,39 +33,91 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, leftSourceId, leftSourceTable, rightSourceId, rightSourceTable)");
-			sql.append("\n\t SELECT cls1.class AS left, cls2.class AS right, MIN(cls1.id) AS leftSourceId, 'classAssertion' AS  leftSourceId, MIN(cls2.id) AS rightSourceId, 'classAssertion' AS rightSourceTable");
+			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
+			sql.append("\n\t SELECT ca1.entity AS left, ca2.entity AS right, ");
+			sql.append(" hk.id AS sourceId1, 'hasKey' AS sourceTable1, ");
+			sql.append(" ca1.id AS sourceId2, 'classAssertionEnt' AS sourceTable2, ");
+			sql.append(" pa1.id AS sourceId3, pa1.type AS sourceTable1, ");
+			sql.append(" ca2.id AS sourceId4, 'classAssertionEnt' AS sourceTable4, ");
+			sql.append(" pa2.id AS sourceId5, pa2.type AS sourceTable5");
 		} else {
 			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT cls1.class AS left, cls2.class AS right");
+			sql.append("\n\t SELECT DISTINCT ca1.entity AS left, ca2.entity AS right");
 		}
-	
-		sql.append("\n\t FROM hasKey AS hk");
-		sql.append("\n\t\t INNER JOIN list AS l ON hk.list = l.name");
-		sql.append("\n\t\t INNER JOIN (");
-		sql.append("\n\t\t\t SELECT name, COUNT(name) AS anzahl");
-		sql.append("\n\t\t\t FROM list");
-		sql.append("\n\t\t\t GROUP BY name");
-		sql.append("\n\t\t ) AS anzl ON l.name = anzl.name");
-		sql.append("\n\t\t INNER JOIN classAssertion AS cls1 ON hk.class = cls1.type");
-		sql.append("\n\t\t INNER JOIN propertyAssertion prp1 ON cls1.class = prp1.subject AND l.element = prp1.property");
-		sql.append("\n\t\t INNER JOIN classAssertion AS cls2 ON hk.class = cls2.type");
-		sql.append("\n\t\t INNER JOIN propertyAssertion prp2 ON cls2.class = prp2.subject AND l.element = prp2.property");
-		sql.append("\n\t WHERE cls1.class != cls2.class AND prp1.property = prp2.property");
 
+		
+		sql.append("\n FROM hasKey AS hk");
+		sql.append("\n\t INNER JOIN list AS l");
+		sql.append("\n\t\t ON l.name = hk.list");
+		sql.append("\n\t INNER JOIN classAssertionEnt AS ca1");
+		sql.append("\n\t 	ON ca1.class = hk.class");
+		sql.append("\n\t INNER JOIN (");
+		addUnion(sql);
+		sql.append("\n\t ) AS pa1");
+		sql.append("\n\t 	ON pa1.subject = ca1.entity AND pa1.property = l.element");
+		sql.append("\n\t INNER JOIN classAssertionEnt AS ca2");
+		sql.append("\n\t 	ON ca2.class = hk.class");
+		sql.append("\n\t INNER JOIN (");
+		addUnion(sql);
+		sql.append("\n\t ) AS pa2");
+		sql.append("\n\t 	ON pa2.subject = ca2.entity AND pa2.property = l.element AND pa1.object = pa2.object");
+		sql.append("\n\t INNER JOIN (");
+		addValid(sql);
+		sql.append("\n\t ) AS valid1");
+		sql.append("\n\t 	ON valid1.subject = ca1.entity");
+		sql.append("\n\t INNER JOIN (");
+		addValid(sql);
+		sql.append("\n\t ) AS valid2");
+		sql.append("\n\t 	ON valid2.subject = ca2.entity");
+	
 		if (again) {
-			sql.append("\n\t\t AND NOT EXISTS (");
+			sql.append("\n\t\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t\t SELECT bottom.left");
 			sql.append("\n\t\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t\t WHERE bottom.left = cls1.class AND bottom.right = cls2.class");
+			sql.append("\n\t\t\t WHERE bottom.left = ca1.entity AND bottom.right = ca2.entity");
 			sql.append("\n\t\t )");
 		}
-		
-		sql.append("\n\t GROUP BY cls1.class, cls2.class");
-		sql.append("\n\t HAVING COUNT(*) = anzl.anzahl");
-		
+
 		return sql.toString();
 	}
+
+	private void addValid(StringBuilder sql) {
+		sql.append("\n\t 	SELECT pax.subject, l.name, anzl.anz");
+		sql.append("\n\t 	FROM list AS l");
+		sql.append("\n\t 		INNER JOIN (");
+		sql.append("\n\t 			SELECT name, COUNT(name) AS anz");
+		sql.append("\n\t 			FROM list");
+		sql.append("\n\t 		) AS anzl");
+		sql.append("\n\t 			ON anzl.name = l.name");
+		sql.append("\n\t 		INNER JOIN (");
+		sql.append("\n\t 			SELECT id, subject, property, object");
+		sql.append("\n\t 			FROM objectPropertyAssertion");
+		sql.append("\n\t 			UNION");
+		sql.append("\n\t 			SELECT id, subject, property, object");
+		sql.append("\n\t 			FROM dataPropertyAssertion");
+		sql.append("\n\t 		) AS pax");
+		sql.append("\n\t 			ON l.element = pax.property");
+		sql.append("\n\t 		INNER JOIN (");
+		sql.append("\n\t 			SELECT id, subject, property, object");
+		sql.append("\n\t 			FROM objectPropertyAssertion");
+		sql.append("\n\t 			UNION");
+		sql.append("\n\t 			SELECT id, subject, property, object");
+		sql.append("\n\t 			FROM dataPropertyAssertion");
+		sql.append("\n\t 		) AS pay");
+		sql.append("\n\t 			ON l.element = pay.property AND pax.property = pay.property AND pax.object = pay.object");
+		sql.append("\n\t 	GROUP BY pax.subject");
+		sql.append("\n\t 	HAVING COUNT(l.name) = 2*anz");
+	}
+
+
+	private void addUnion(StringBuilder sql) {
+		sql.append("\n\t 	SELECT id, subject, property, object, 'objectPropertyAssertion' AS type");
+		sql.append("\n\t 	FROM objectPropertyAssertion");
+		sql.append("\n\t 	UNION");
+		sql.append("\n\t 	SELECT id, subject, property, object, 'dataPropertyAssertion' AS type");
+		sql.append("\n\t 	FROM dataPropertyAssertion");
+	}
+
 
 	@Override
 	public String toString() {

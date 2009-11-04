@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.ClassExpressionType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
@@ -257,6 +258,10 @@ public abstract class Relation extends U2R3Component {
 	}
 	
 	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	protected void handleAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {
 		throw new U2R3NotImplementedException();
 	}
 	
