@@ -43,6 +43,8 @@ public class ReasonProcessor {
 				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.cls_nothing_1),
 				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+		actions.add(new RuleAction(ruleManager.getRule(RuleName.prp_ap),
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 
 	}
 	

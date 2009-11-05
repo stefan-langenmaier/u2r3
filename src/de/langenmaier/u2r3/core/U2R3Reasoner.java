@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -14,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
@@ -25,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -130,6 +133,17 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	public boolean isDefined(OWLClass arg0) throws OWLReasonerException {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public boolean isDefined(OWLEntity arg0) throws OWLReasonerException {
+		String clazz = arg0.getIRI().toString();
+		String type;
+		if (arg0.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
+		} else {
+			return false;
+		}
+		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
 
 	@Override

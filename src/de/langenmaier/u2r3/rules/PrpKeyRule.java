@@ -82,13 +82,14 @@ public class PrpKeyRule extends ApplicationRule {
 	}
 
 	private void addValid(StringBuilder sql) {
-		sql.append("\n\t 	SELECT pax.subject, l.name, anzl.anz");
-		sql.append("\n\t 	FROM list AS l");
+		sql.append("\n\t 	SELECT pax.subject, sl.name, anzl.anz");
+		sql.append("\n\t 	FROM list AS sl");
 		sql.append("\n\t 		INNER JOIN (");
 		sql.append("\n\t 			SELECT name, COUNT(name) AS anz");
 		sql.append("\n\t 			FROM list");
+		sql.append("\n\t 			GROUP BY name");
 		sql.append("\n\t 		) AS anzl");
-		sql.append("\n\t 			ON anzl.name = l.name");
+		sql.append("\n\t 			ON anzl.name = sl.name");
 		sql.append("\n\t 		INNER JOIN (");
 		sql.append("\n\t 			SELECT id, subject, property, object");
 		sql.append("\n\t 			FROM objectPropertyAssertion");
@@ -96,7 +97,7 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("\n\t 			SELECT id, subject, property, object");
 		sql.append("\n\t 			FROM dataPropertyAssertion");
 		sql.append("\n\t 		) AS pax");
-		sql.append("\n\t 			ON l.element = pax.property");
+		sql.append("\n\t 			ON sl.element = pax.property");
 		sql.append("\n\t 		INNER JOIN (");
 		sql.append("\n\t 			SELECT id, subject, property, object");
 		sql.append("\n\t 			FROM objectPropertyAssertion");
@@ -104,9 +105,9 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("\n\t 			SELECT id, subject, property, object");
 		sql.append("\n\t 			FROM dataPropertyAssertion");
 		sql.append("\n\t 		) AS pay");
-		sql.append("\n\t 			ON l.element = pay.property AND pax.property = pay.property AND pax.object = pay.object");
-		sql.append("\n\t 	GROUP BY pax.subject");
-		sql.append("\n\t 	HAVING COUNT(l.name) = 2*anz");
+		sql.append("\n\t 			ON sl.element = pay.property AND pax.property = pay.property AND pax.object = pay.object");
+		sql.append("\n\t 	GROUP BY pax.subject, sl.name");
+		sql.append("\n\t 	HAVING COUNT(sl.name) = 2*anz");
 	}
 
 
