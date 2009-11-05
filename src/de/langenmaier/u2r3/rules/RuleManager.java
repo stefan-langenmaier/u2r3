@@ -11,7 +11,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
  *
  */
 public class RuleManager {
-	public enum RuleName {eq_trans_ent, eq_ref_ent, eq_sym_ent, cls_nothing_2_lit,
+	public enum RuleName {eq_trans_ent, eq_sym_ent, cls_nothing_2_lit,
 		cls_int_2, cax_sco_lit, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom_ent,
 		prp_rng_ent, prp_dom_lit, prp_rng_lit, prp_spo_1_lit, cls_svf_1_lit,
@@ -25,7 +25,7 @@ public class RuleManager {
 		scm_eqc_1, scm_eqc_2, scm_op_sub, scm_op_eq, scm_dp_sub, scm_dp_eq,
 		scm_spo, scm_eqp_2, scm_dom_1, scm_dom_2, scm_rng_1,
 		scm_rng_2, scm_hv_lit, scm_svf_2, scm_svf_1, scm_avf_1, scm_avf_2,
-		scm_int, scm_uni, eq_ref_lit, eq_sym_lit, eq_trans_lit, eq_rep_s_lit,
+		scm_int, scm_uni, eq_sym_lit, eq_trans_lit, eq_rep_s_lit,
 		eq_rep_p_lit, eq_rep_o_lit, cls_svf_2_ent, cls_svf_2_lit, cls_avf_ent,
 		cls_avf_lit, cls_hv_1_ent, cls_hv_1_lit, cls_hv_2_ent, cls_hv_2_lit,
 		cls_maxc_2_ent, cls_maxc_2_lit, cls_maxqc_3_ent, cls_maxqc_3_lit,
@@ -54,8 +54,6 @@ public class RuleManager {
 	public void initialize() {
 		rules.put(RuleName.eq_trans_ent, new EqTransEntRule(reasoner));
 		rules.put(RuleName.eq_trans_lit, new EqTransLitRule(reasoner));
-		rules.put(RuleName.eq_ref_ent, new EqRefEntRule(reasoner));
-		rules.put(RuleName.eq_ref_lit, new EqRefLitRule(reasoner));
 		rules.put(RuleName.eq_sym_ent, new EqSymEntRule(reasoner));
 		rules.put(RuleName.eq_sym_lit, new EqSymLitRule(reasoner));
 		rules.put(RuleName.cls_nothing_2_ent, new ClsNothing2EntRule(reasoner));
