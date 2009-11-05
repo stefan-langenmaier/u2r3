@@ -7,10 +7,10 @@ import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ScmEqp1Rule extends ApplicationRule {
-	static Logger logger = Logger.getLogger(ScmEqp1Rule.class);
+public class ScmEqp1Sub1Rule extends ApplicationRule {
+	static Logger logger = Logger.getLogger(ScmEqp1Sub1Rule.class);
 	
-	ScmEqp1Rule(U2R3Reasoner reasoner) {
+	ScmEqp1Sub1Rule(U2R3Reasoner reasoner) {
 		super(reasoner);
 		targetRelation = RelationName.subProperty;
 		
