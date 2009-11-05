@@ -524,4 +524,14 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		
 	}
 
+	public boolean hasObjectPropertyDomain(
+			OWLObjectProperty prop, OWLClass domain) throws U2R3ReasonerException {
+		if (!(prop.isAnonymous() || domain.isAnonymous())) {
+			return relationManager.getRelation(RelationName.propertyDomain)
+				.exists(prop.getIRI().toString(), domain.getIRI().toString());
+		}
+		return false;
+	}
+
+
 }

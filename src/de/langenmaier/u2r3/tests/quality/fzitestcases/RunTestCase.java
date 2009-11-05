@@ -44,7 +44,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-rdfs-xmlliteral-axiom-type";
+		name = "rdfbased-sem-rdfsext-domain-subprop";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);

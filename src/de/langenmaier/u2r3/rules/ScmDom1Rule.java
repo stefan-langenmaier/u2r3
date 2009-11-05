@@ -27,8 +27,10 @@ public class ScmDom1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (property, domain, propertySourceId, propertySourceTable, domainSourceId, domainSourceTable)");
-			sql.append("\n\t SELECT dom.property, sc.super, MIN(dom.id) AS propertySourceId, '" + RelationName.propertyDomain + "' AS propertySourceTable, MIN(sc.id) AS domainSourceId, '" + RelationName.subClass + "' AS domainSourceTable");
+			sql.append(" (property, domain, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT dom.property, sc.super,");
+			sql.append(" MIN(dom.id) AS sourceId1, '" + RelationName.propertyDomain + "' AS sourceTable,");
+			sql.append(" MIN(sc.id) AS sourceId2, '" + RelationName.subClass + "' AS sourceTable");
 		} else {
 			sql.append(" (property, domain)");
 			sql.append("\n\t SELECT DISTINCT dom.property, sc.super ");
