@@ -61,8 +61,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		ruleManager.initialize();
 		reasonProcessor.initialize();
 		
-		
-		
 	}
 
 	public U2R3Reasoner(OWLOntologyManager manager,
@@ -531,6 +529,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 				.exists(prop.getIRI().toString(), domain.getIRI().toString());
 		}
 		return false;
+	}
+	
+	public boolean hasObjectPropertyRange(
+			OWLObjectProperty prop, OWLClass range) throws U2R3ReasonerException {
+		return relationManager.getRelation(RelationName.propertyRange)
+			.exists(prop.getIRI().toString(), range.getIRI().toString());
 	}
 
 

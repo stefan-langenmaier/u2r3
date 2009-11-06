@@ -104,31 +104,31 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLNegativeObjectPropertyAssertionAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLAsymmetricObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLReflexiveObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLDisjointClassesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLDataPropertyDomainAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
@@ -150,13 +150,13 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLEquivalentObjectPropertiesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
-
+		used = false;
 	}
 
 	@Override
@@ -177,20 +177,30 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLDisjointDataPropertiesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLDisjointObjectPropertiesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyRangeAxiom arg0) {
-		// TODO Auto-generated method stub
-
+	public void visit(OWLObjectPropertyRangeAxiom axiom) {
+		try {
+			used = false;
+			
+			if (!(axiom.getProperty().isAnonymous() || axiom.getRange().isAnonymous())) {
+				if(!reasoner.hasObjectPropertyRange(axiom.getProperty().asOWLObjectProperty(), axiom.getRange().asOWLClass())) {
+					correct = false;
+				}
+			}
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -213,7 +223,7 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLFunctionalObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
@@ -237,31 +247,31 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLDisjointUnionAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLSymmetricObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLDataPropertyRangeAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLFunctionalDataPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLEquivalentDataPropertiesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
@@ -330,25 +340,25 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLTransitiveObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLIrreflexiveObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLSubDataPropertyOfAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLInverseFunctionalObjectPropertyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
@@ -372,55 +382,55 @@ public class FZITestAxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLSubPropertyChainOfAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLInverseObjectPropertiesAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLHasKeyAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLDatatypeDefinitionAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(SWRLRule arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLAnnotationAssertionAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLSubAnnotationPropertyOfAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyDomainAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyRangeAxiom arg0) {
-		// TODO Auto-generated method stub
+		used = false;
 
 	}
 

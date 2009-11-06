@@ -27,8 +27,10 @@ public class ScmRng1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (property, range, propertySourceId, propertySourceTable, rangeSourceId, rangeSourceTable)");
-			sql.append("\n\t SELECT rng.property, sc.super, MIN(rng.id) AS propertySourceId, '" + RelationName.propertyRange + "' AS propertySourceTable, MIN(sc.id) AS domainSourceId, '" + RelationName.subClass + "' AS domainSourceTable");
+			sql.append(" (property, range, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT rng.property, sc.super,");
+			sql.append(" MIN(rng.id) AS sourceId1, '" + RelationName.propertyRange + "' AS sourceTable1,");
+			sql.append(" MIN(sc.id) AS sourceId2, '" + RelationName.subClass + "' AS sourceTable2");
 		} else {
 			sql.append(" (property, range)");
 			sql.append("\n\t SELECT DISTINCT rng.property, sc.super ");
