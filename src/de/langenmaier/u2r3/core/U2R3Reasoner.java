@@ -138,6 +138,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		String type;
 		if (arg0.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
 			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
+		} else if (arg0.getEntityType() == EntityType.OBJECT_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
+		} else if (arg0.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
+			type = OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString();
 		} else {
 			return false;
 		}

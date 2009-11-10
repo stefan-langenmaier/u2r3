@@ -94,6 +94,9 @@ public class ClassAssertionEntRelation extends Relation {
 			} else if (naxiom.getEntity().getEntityType() == EntityType.CLASS) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_CLASS.getIRI().toString());
 				return true;
+			} else if (naxiom.getEntity().getEntityType() == EntityType.NAMED_INDIVIDUAL) {				
+				addStatement.setString(2, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString());
+				return true;
 			} else {
 				throw new U2R3NotImplementedException();
 			}
