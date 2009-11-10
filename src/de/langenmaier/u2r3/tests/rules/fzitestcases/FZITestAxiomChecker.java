@@ -1,4 +1,4 @@
-package de.langenmaier.u2r3.tests.quality.fzitestcases;
+package de.langenmaier.u2r3.tests.rules.fzitestcases;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.inference.OWLReasonerException;

@@ -1,4 +1,4 @@
-package de.langenmaier.u2r3.tests.quality.fzitestcases;
+package de.langenmaier.u2r3.tests.rules.fzitestcases;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
+import de.langenmaier.u2r3.tests.rules.CheckType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class RunTestCase {

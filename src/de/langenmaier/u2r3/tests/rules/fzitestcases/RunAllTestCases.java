@@ -1,4 +1,4 @@
-package de.langenmaier.u2r3.tests.quality.fzitestcases;
+package de.langenmaier.u2r3.tests.rules.fzitestcases;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -10,6 +10,8 @@ import java.util.Properties;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+
+import de.langenmaier.u2r3.tests.rules.CheckType;
 
 public class RunAllTestCases {
 	
