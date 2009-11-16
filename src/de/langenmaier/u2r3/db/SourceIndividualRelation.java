@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -37,6 +38,15 @@ public class SourceIndividualRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
 			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
+			addStatement.setString(1, nidMapper.get(naxiom).toString());
+			if (naxiom.getSubject().isAnonymous()) {
+				addStatement.setString(2, naxiom.getSubject().asAnonymousIndividual().getID().toString());
+			} else {
+				addStatement.setString(2, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+			}
+			return AdditionMode.ADD;
+		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
+			OWLNegativeDataPropertyAssertionAxiom naxiom = (OWLNegativeDataPropertyAssertionAxiom) axiom;
 			addStatement.setString(1, nidMapper.get(naxiom).toString());
 			if (naxiom.getSubject().isAnonymous()) {
 				addStatement.setString(2, naxiom.getSubject().asAnonymousIndividual().getID().toString());

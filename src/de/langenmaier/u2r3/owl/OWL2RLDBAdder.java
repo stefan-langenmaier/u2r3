@@ -103,8 +103,12 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLNegativeDataPropertyAssertionAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
+		logger.debug("  adding NegativeDataProperty:" + axiom.toString());
+		relationManager.getRelation(RelationName.sourceIndividual).add(axiom);
+		relationManager.getRelation(RelationName.assertionProperty).add(axiom);
+		relationManager.getRelation(RelationName.targetValue).add(axiom);
+		logger.debug("  added NegativeDataProperty");
 	}
 
 	@Override

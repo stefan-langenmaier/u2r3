@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -43,6 +44,16 @@ public class AssertionPropertyRelation extends Relation {
 				handleAnonymousObjectPropertyExpression(naxiom.getProperty());
 			} else {
 				addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+			}
+			return AdditionMode.ADD;
+		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
+			OWLNegativeDataPropertyAssertionAxiom naxiom = (OWLNegativeDataPropertyAssertionAxiom) axiom;
+			addStatement.setString(1, nidMapper.get(naxiom).toString());
+			if (naxiom.getProperty().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getProperty()).toString());
+				handleAnonymousDataPropertyExpression(naxiom.getProperty());
+			} else {
+				addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
 			}
 			return AdditionMode.ADD;
 		} else {

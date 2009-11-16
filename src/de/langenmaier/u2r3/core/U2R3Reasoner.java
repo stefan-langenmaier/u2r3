@@ -27,6 +27,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
+import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.db.RelationManager;
@@ -91,7 +92,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 				OWL2RLProfile profile = new OWL2RLProfile();
 				OWLProfileReport report = profile.checkOntology(ont);
 				
-				if (!report.isInProfile()) { throw new U2R3NotInProfileException("OWL file is not in RL Profile!"); }
+				if (!report.isInProfile()) {
+					for (OWLProfileViolation violation : report.getViolations()) {
+						System.out.println(violation);
+					}
+					
+					throw new U2R3NotInProfileException("OWL file is not in RL Profile!");
+				}
 			}
 
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
