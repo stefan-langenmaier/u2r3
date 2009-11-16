@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -79,6 +80,21 @@ public class OnPropertyRelation extends Relation {
 				
 				addStatement.execute();
 				reasonProcessor.add(new AdditionReason(this));
+			} else if (ce instanceof OWLObjectAllValuesFrom) {
+				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				
+				if (avf.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(avf.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(avf.getProperty());
+				} else {
+					addStatement.setString(2, avf.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+			} else {
+				throw new U2R3NotImplementedException();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

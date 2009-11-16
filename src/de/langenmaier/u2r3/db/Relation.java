@@ -254,8 +254,11 @@ public abstract class Relation extends U2R3Component {
 			relationManager.getRelation(RelationName.unionOf).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ONE_OF) {
 			relationManager.getRelation(RelationName.oneOf).add(ce);
-		}  else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
 			relationManager.getRelation(RelationName.someValuesFrom).add(ce);
+			relationManager.getRelation(RelationName.onProperty).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
+			relationManager.getRelation(RelationName.allValuesFrom).add(ce);
 			relationManager.getRelation(RelationName.onProperty).add(ce);
 		} else {
 			throw new U2R3NotImplementedException();

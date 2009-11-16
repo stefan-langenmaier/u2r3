@@ -83,7 +83,6 @@ public class SomeValuesFromRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }
