@@ -6,14 +6,14 @@
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY premise "http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#" >
+    <!ENTITY premise "http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#" >
 ]>
 
 
-<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#"
-     xml:base="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl"
+<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#"
+     xml:base="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:premise="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#"
+     xmlns:premise="http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -34,7 +34,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#c -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#c -->
 
     <owl:Class rdf:about="#c">
         <owl:equivalentClass>
@@ -50,19 +50,19 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#c1 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#c1 -->
 
     <owl:Class rdf:about="#c1"/>
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#c2 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#c2 -->
 
     <owl:Class rdf:about="#c2"/>
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#c3 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#c3 -->
 
     <owl:Class rdf:about="#c3"/>
     
@@ -79,7 +79,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.premise.owl#y -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-int1/1.owl#y -->
 
     <owl:NamedIndividual rdf:about="#y">
         <rdf:type rdf:resource="#c1"/>
