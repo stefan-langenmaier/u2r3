@@ -33,7 +33,7 @@ public class PropertyDisjointWithRelation extends Relation {
 		}
 	}
 
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
 			OWLDisjointObjectPropertiesAxiom naxiom = (OWLDisjointObjectPropertiesAxiom) axiom;
 			for (OWLObjectPropertyExpression pe1 : naxiom.getProperties()) {
@@ -59,7 +59,7 @@ public class PropertyDisjointWithRelation extends Relation {
 				}
 			}
 
-			return false;
+			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

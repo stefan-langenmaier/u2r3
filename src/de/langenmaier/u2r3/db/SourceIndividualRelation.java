@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -19,8 +20,8 @@ public class SourceIndividualRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name VARCHAR(100)," +
-					" subject VARCHAR(100)," +
+					" name TEXT," +
+					" subject TEXT," +
 					" PRIMARY KEY (name, subject))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -33,27 +34,24 @@ public class SourceIndividualRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
+			addStatement.setString(1, nidMapper.get(naxiom).toString());
+			if (naxiom.getSubject().isAnonymous()) {
+				addStatement.setString(2, naxiom.getSubject().asAnonymousIndividual().getID().toString());
+			} else {
+				addStatement.setString(2, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+			}
+			return AdditionMode.ADD;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name VARCHAR(100)," +
-					" subject VARCHAR(100)," +
-					" nameSourceId UUID," +
-					" nameSourceTable VARCHAR(100)," +
-					" subjectSourceId UUID," +
-					" subjectSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (name, subject))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

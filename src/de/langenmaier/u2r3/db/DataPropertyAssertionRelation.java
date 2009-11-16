@@ -37,7 +37,7 @@ public class DataPropertyAssertionRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyAssertionAxiom) {
 			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
@@ -54,7 +54,7 @@ public class DataPropertyAssertionRelation extends Relation {
 			}
 			
 		}
-		return true;
+		return AdditionMode.ADD;
 	}
 
 	@Override

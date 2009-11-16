@@ -24,8 +24,8 @@ public class DisjointWithRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
+					" left TEXT," +
+					" right TEXT," +
 					" PRIMARY KEY (left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -37,7 +37,7 @@ public class DisjointWithRelation extends Relation {
 		}
 	}
 
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDisjointClassesAxiom) {
 			OWLDisjointClassesAxiom naxiom = (OWLDisjointClassesAxiom) axiom;
 			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
@@ -63,7 +63,7 @@ public class DisjointWithRelation extends Relation {
 				}
 			}
 
-			return false;
+			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

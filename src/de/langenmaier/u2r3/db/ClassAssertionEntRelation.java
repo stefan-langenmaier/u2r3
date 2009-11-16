@@ -45,58 +45,58 @@ public class ClassAssertionEntRelation extends Relation {
 
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLClassAssertionAxiom) {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getIRI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
 			OWLAsymmetricObjectPropertyAxiom naxiom = (OWLAsymmetricObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
 			OWLSymmetricObjectPropertyAxiom naxiom = (OWLSymmetricObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
 			OWLFunctionalObjectPropertyAxiom naxiom = (OWLFunctionalObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
 			OWLInverseFunctionalObjectPropertyAxiom naxiom = (OWLInverseFunctionalObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
 			OWLIrreflexiveObjectPropertyAxiom naxiom = (OWLIrreflexiveObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
 			OWLTransitiveObjectPropertyAxiom naxiom = (OWLTransitiveObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI().toString());
-			return true;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLDeclarationAxiom) {
 			OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
 			addStatement.setString(1, naxiom.getEntity().getIRI().toString());
 			
 			if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString());
-				return true;
+				return AdditionMode.ADD;
 			} else if (naxiom.getEntity().getEntityType() == EntityType.DATA_PROPERTY) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString());
-				return true;
+				return AdditionMode.ADD;
 			} else if (naxiom.getEntity().getEntityType() == EntityType.CLASS) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_CLASS.getIRI().toString());
-				return true;
+				return AdditionMode.ADD;
 			} else if (naxiom.getEntity().getEntityType() == EntityType.NAMED_INDIVIDUAL) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString());
-				return true;
+				return AdditionMode.ADD;
 			} else {
 				throw new U2R3NotImplementedException();
 			}
@@ -185,8 +185,7 @@ public class ClassAssertionEntRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new U2R3NotImplementedException();
 	}
 
 

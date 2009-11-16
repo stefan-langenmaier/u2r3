@@ -19,8 +19,8 @@ public class TargetIndividualRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name VARCHAR(100)," +
-					" subject VARCHAR(100)," +
+					" name TEXT," +
+					" subject TEXT," +
 					" PRIMARY KEY (name, subject))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -33,27 +33,14 @@ public class TargetIndividualRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name VARCHAR(100)," +
-					" subject VARCHAR(100)," +
-					" nameSourceId UUID," +
-					" nameSourceTable VARCHAR(100)," +
-					" subjectSourceId UUID," +
-					" subjectSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (name, subject))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

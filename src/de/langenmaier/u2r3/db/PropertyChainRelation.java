@@ -21,7 +21,11 @@ public class PropertyChainRelation extends Relation {
 		try {
 			tableName = "propertyChain";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, property VARCHAR(100), list VARCHAR(100), PRIMARY KEY (property, list))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" property TEXT," +
+					" list TEXT," +
+					" PRIMARY KEY (property, list))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -33,7 +37,7 @@ public class PropertyChainRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		OWLSubPropertyChainOfAxiom pc = (OWLSubPropertyChainOfAxiom) axiom;
 		
 		try {
@@ -66,26 +70,13 @@ public class PropertyChainRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return AdditionMode.NOADD;
 		
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" property VARCHAR(100)," +
-					" list VARCHAR(100)," +
-					" propertySourceId UUID," +
-					" propertySourceTable VARCHAR(100)," +
-					" listSourceId UUID," +
-					" listSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, list))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

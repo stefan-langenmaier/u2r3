@@ -29,27 +29,14 @@ public class MembersRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" list VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" listSourceId UUID," +
-					" listSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, list))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

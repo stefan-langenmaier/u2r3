@@ -36,7 +36,7 @@ public class DifferentFromEntRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDifferentIndividualsAxiom) {
 			OWLDifferentIndividualsAxiom naxiom = (OWLDifferentIndividualsAxiom) axiom;
 			for (OWLIndividual ind1 : naxiom.getIndividuals()) {
@@ -62,7 +62,7 @@ public class DifferentFromEntRelation extends Relation {
 				}
 			}
 
-			return false;
+			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

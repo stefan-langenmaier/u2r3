@@ -31,27 +31,13 @@ public class ListRelation extends Relation {
 	}
 
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name VARCHAR(100)," +
-					" element VARCHAR(100)," +
-					" ordnung INT," +
-					" nameSourceId UUID," +
-					" nameSourceTable VARCHAR(100)," +
-					" elementSourceId UUID," +
-					" elementSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (name, element))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

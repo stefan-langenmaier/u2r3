@@ -31,7 +31,7 @@ public class InverseOfRelation extends Relation {
 		}
 	}
 
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLInverseObjectPropertiesAxiom) {
 			OWLInverseObjectPropertiesAxiom naxiom = (OWLInverseObjectPropertiesAxiom) axiom;
 			if (naxiom.getFirstProperty().isAnonymous()) {
@@ -47,7 +47,7 @@ public class InverseOfRelation extends Relation {
 				addStatement.setString(2, naxiom.getSecondProperty().asOWLObjectProperty().getIRI().toString());
 			}
 			
-			return true;
+			return AdditionMode.ADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

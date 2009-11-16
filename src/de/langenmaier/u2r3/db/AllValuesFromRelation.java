@@ -33,7 +33,7 @@ public class AllValuesFromRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}

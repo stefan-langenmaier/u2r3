@@ -39,7 +39,7 @@ public class SameAsEntRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLSameIndividualAxiom) {
 			OWLSameIndividualAxiom naxiom = (OWLSameIndividualAxiom) axiom;
 			for (OWLIndividual ind1 : naxiom.getIndividuals()) {
@@ -65,7 +65,7 @@ public class SameAsEntRelation extends Relation {
 				}
 			}
 
-			return false;
+			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

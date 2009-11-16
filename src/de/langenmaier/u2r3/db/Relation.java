@@ -36,6 +36,8 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 public abstract class Relation extends U2R3Component {
 	static Logger logger = Logger.getLogger(Relation.class);
 	
+	protected enum AdditionMode {ADD, NOADD};
+	
 	protected Connection conn = null;
 	protected PreparedStatement addStatement;
 	protected PreparedStatement createMainStatement;
@@ -80,11 +82,11 @@ public abstract class Relation extends U2R3Component {
 	 * @return true the statement needs to be executed otherwise not
 	 * @throws SQLException
 	 */
-	public abstract boolean addImpl(OWLAxiom axiom) throws SQLException;
+	public abstract AdditionMode addImpl(OWLAxiom axiom) throws SQLException;
 	
 	public void add(OWLAxiom axiom) {
 		try {
-			if (addImpl(axiom)) {
+			if (addImpl(axiom) == AdditionMode.ADD) {
 				logger.trace(addStatement.toString());
 				addStatement.executeUpdate();
 				reasonProcessor.add(new AdditionReason(this));
@@ -97,7 +99,7 @@ public abstract class Relation extends U2R3Component {
 	
 	
 	public void add(OWLObject o) {
-		;
+		throw new U2R3NotImplementedException();
 	}
 	
 	public abstract Pair<UUID, RelationName> removeImpl(OWLAxiom axiom) throws SQLException;

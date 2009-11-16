@@ -40,7 +40,7 @@ public class PropertyDomainRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyDomainAxiom) {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
@@ -50,7 +50,7 @@ public class PropertyDomainRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 			addStatement.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
 		}
-		return true;
+		return AdditionMode.ADD;
 	}
 
 	@Override

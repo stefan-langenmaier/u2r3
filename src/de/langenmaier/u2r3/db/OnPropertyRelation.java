@@ -33,27 +33,13 @@ public class OnPropertyRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		/*try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class TEXT," +
-					" property TEXT," +
-					" sourceId1 UUID," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (class, property))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}*/
 		throw new U2R3NotImplementedException();
 	}
 

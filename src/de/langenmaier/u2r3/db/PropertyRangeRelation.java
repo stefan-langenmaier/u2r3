@@ -40,7 +40,7 @@ public class PropertyRangeRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyRangeAxiom) {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
@@ -50,7 +50,7 @@ public class PropertyRangeRelation extends Relation {
 			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 			addStatement.setString(2, naxiom.getRange().asOWLClass().getIRI().toString());
 		}
-		return true;
+		return AdditionMode.ADD;
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
@@ -55,7 +55,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getIRI().toString());
 			}
 		}
-		return true;
+		return AdditionMode.ADD;
 	}
 
 	@Override

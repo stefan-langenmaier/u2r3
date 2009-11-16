@@ -39,7 +39,7 @@ public class SubPropertyRelation extends Relation {
 		}
 	}
 
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
 			OWLSubObjectPropertyOfAxiom naxiom = (OWLSubObjectPropertyOfAxiom) axiom;
 			if (naxiom.getSubProperty().isAnonymous()) {
@@ -55,7 +55,7 @@ public class SubPropertyRelation extends Relation {
 				addStatement.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
 			}
 
-			return true;
+			return AdditionMode.ADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

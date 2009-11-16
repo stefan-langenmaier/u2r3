@@ -19,8 +19,8 @@ public class SomeValuesFromRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" part VARCHAR(100)," +
-					" total VARCHAR(100)," +
+					" part TEXT," +
+					" total TEXT," +
 					" PRIMARY KEY (part, total))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -33,27 +33,14 @@ public class SomeValuesFromRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" part VARCHAR(100)," +
-					" total VARCHAR(100)," +
-					" partSourceId UUID," +
-					" partSourceTable VARCHAR(100)," +
-					" totalSourceId UUID," +
-					" totalSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (part, total))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

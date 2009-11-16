@@ -40,7 +40,7 @@ public class EquivalentClassRelation extends Relation {
 		}
 	}
 
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLEquivalentClassesAxiom) {
 			OWLEquivalentClassesAxiom naxiom = (OWLEquivalentClassesAxiom) axiom;
 			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
@@ -64,7 +64,7 @@ public class EquivalentClassRelation extends Relation {
 					handleAnonymousClassExpression(ce1);
 				}
 			}
-			return false;
+			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}

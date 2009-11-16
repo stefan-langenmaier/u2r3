@@ -19,8 +19,8 @@ public class MaxCardinalityRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" value VARCHAR(100)," +
+					" class TEXT," +
+					" value TEXT," +
 					" PRIMARY KEY (class, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
@@ -33,27 +33,14 @@ public class MaxCardinalityRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 
 	}
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" value VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" valueSourceId UUID," +
-					" valueSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, value))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

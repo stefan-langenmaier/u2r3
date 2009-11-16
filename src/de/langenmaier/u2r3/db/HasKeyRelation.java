@@ -37,7 +37,7 @@ public class HasKeyRelation extends Relation {
 	}
 	
 	@Override
-	public boolean addImpl(OWLAxiom axiom) throws SQLException {
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLHasKeyAxiom) {
 			OWLHasKeyAxiom naxiom = (OWLHasKeyAxiom) axiom;
 			NodeID nid = NodeID.getNodeID();
@@ -76,7 +76,7 @@ public class HasKeyRelation extends Relation {
 				addListStatement.execute();
 			}
 			
-			return true;
+			return AdditionMode.ADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}
