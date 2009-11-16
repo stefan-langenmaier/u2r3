@@ -6,14 +6,12 @@
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY premise "http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#" >
 ]>
 
 
-<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#"
-     xml:base="http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl"
+<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#"
+     xml:base="http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:premise="http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -34,7 +32,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#p -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#p -->
 
     <owl:ObjectProperty rdf:about="#p"/>
     
@@ -51,7 +49,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#x -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#x -->
 
     <owl:Class rdf:about="#x">
         <owl:equivalentClass>
@@ -64,7 +62,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#y -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#y -->
 
     <owl:Class rdf:about="#y"/>
     
@@ -81,7 +79,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#u -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#u -->
 
     <owl:NamedIndividual rdf:about="#u">
         <p rdf:resource="#v"/>
@@ -89,7 +87,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.premise.owl#v -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/cls-svf1/1.owl#v -->
 
     <owl:NamedIndividual rdf:about="#v">
         <rdf:type rdf:resource="#y"/>

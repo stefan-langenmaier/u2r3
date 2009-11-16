@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class OnPropertyRelation extends Relation {
@@ -58,6 +61,29 @@ public class OnPropertyRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void add(OWLObject ce) {
+		try {
+			if (ce instanceof OWLObjectSomeValuesFrom) {
+				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ce;
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				
+				if (svf.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(svf.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(svf.getProperty());
+				} else {
+					addStatement.setString(2, svf.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
