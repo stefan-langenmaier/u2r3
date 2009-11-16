@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class HasValueEntRelation extends Relation {
@@ -60,4 +63,25 @@ public class HasValueEntRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
+	@Override
+	public void add(OWLObject ce) {
+		try {
+			if (ce instanceof  OWLObjectHasValue) {
+				OWLObjectHasValue hv = (OWLObjectHasValue) ce;
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				if (hv.getValue().isAnonymous()) {
+					addStatement.setString(2, hv.getValue().asAnonymousIndividual().getID().toString());
+				} else {
+					addStatement.setString(2, hv.getValue().asNamedIndividual().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+			} else {
+				throw new U2R3NotImplementedException();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

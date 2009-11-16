@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectHasValue;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -67,35 +68,41 @@ public class OnPropertyRelation extends Relation {
 	@Override
 	public void add(OWLObject ce) {
 		try {
+			addStatement.setString(1, nidMapper.get(ce).toString());
+			
 			if (ce instanceof OWLObjectSomeValuesFrom) {
 				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ce;
-				addStatement.setString(1, nidMapper.get(ce).toString());
-				
+
 				if (svf.getProperty().isAnonymous()) {
 					addStatement.setString(2, nidMapper.get(svf.getProperty()).toString());
 					handleAnonymousObjectPropertyExpression(svf.getProperty());
 				} else {
 					addStatement.setString(2, svf.getProperty().asOWLObjectProperty().getIRI().toString());
 				}
-				
-				addStatement.execute();
-				reasonProcessor.add(new AdditionReason(this));
 			} else if (ce instanceof OWLObjectAllValuesFrom) {
 				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
-				addStatement.setString(1, nidMapper.get(ce).toString());
-				
+
 				if (avf.getProperty().isAnonymous()) {
 					addStatement.setString(2, nidMapper.get(avf.getProperty()).toString());
 					handleAnonymousObjectPropertyExpression(avf.getProperty());
 				} else {
 					addStatement.setString(2, avf.getProperty().asOWLObjectProperty().getIRI().toString());
 				}
-				
-				addStatement.execute();
-				reasonProcessor.add(new AdditionReason(this));
+			} else if (ce instanceof OWLObjectHasValue) {
+				OWLObjectHasValue hv = (OWLObjectHasValue) ce;
+
+				if (hv.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(hv.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(hv.getProperty());
+				} else {
+					addStatement.setString(2, hv.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
 			} else {
 				throw new U2R3NotImplementedException();
 			}
+			
+			addStatement.execute();
+			reasonProcessor.add(new AdditionReason(this));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

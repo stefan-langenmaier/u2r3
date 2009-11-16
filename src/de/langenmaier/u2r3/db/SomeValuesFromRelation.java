@@ -79,6 +79,8 @@ public class SomeValuesFromRelation extends Relation {
 				
 				addStatement.execute();
 				reasonProcessor.add(new AdditionReason(this));
+			} else {
+				throw new U2R3NotImplementedException();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
