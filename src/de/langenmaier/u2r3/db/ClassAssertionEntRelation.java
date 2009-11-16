@@ -1,18 +1,26 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
@@ -197,6 +205,34 @@ public class ClassAssertionEntRelation extends Relation {
 			return "SELECT entity, class FROM classAssertionEnt WHERE entity = '" + args[0] + "' AND class = '" + args[1] + "'";
 		}
 		throw new U2R3NotImplementedException();
+	}
+
+
+	public Set<Set<OWLClass>> getTypes(OWLNamedIndividual namedIndividual) throws OWLReasonerException {
+		try {
+			StringBuilder sql = new StringBuilder();
+		
+			Statement stmt = conn.createStatement();
+			ResultSet rs;
+			
+			Set<Set<OWLClass>> ret = new HashSet<Set<OWLClass>>();
+			
+			
+			sql.append("SELECT class");
+			sql.append("\nFROM " + getTableName());
+			sql.append("\nWHERE entity = '" + namedIndividual.getIRI().toString() + "'");
+			
+			rs = stmt.executeQuery(sql.toString());
+			
+			while(rs.next()) {
+				String iri = rs.getString("class");
+				ret.add(Collections.singleton(dataFactory.getOWLClass(IRI.create(iri))));
+			}
+			return ret;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

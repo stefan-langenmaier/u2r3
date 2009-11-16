@@ -30,6 +30,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
+import de.langenmaier.u2r3.db.ClassAssertionEntRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
@@ -73,15 +74,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	protected void disposeReasoner() {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	protected void handleOntologyChanges(List<OWLOntologyChange> arg0)
 			throws OWLException {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -113,13 +112,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	protected void ontologiesCleared() throws OWLReasonerException {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public boolean isConsistent(OWLOntology arg0) throws OWLReasonerException {
-		//System.out.println(reasonProcessor.isConsistent());
+		//XXX bezieht sich eigentlich auf alle Ontologien
 		return reasonProcessor.isConsistent();
 	}
 
@@ -136,8 +134,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isDefined(OWLClass arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new U2R3NotImplementedException();
 	}
 	
 	public boolean isDefined(OWLEntity arg0) throws OWLReasonerException {
@@ -160,14 +157,12 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public boolean isDefined(OWLObjectProperty arg0)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public boolean isDefined(OWLDataProperty arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -249,8 +244,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public boolean isSatisfiable(OWLClassExpression arg0)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -290,10 +284,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public Set<Set<OWLClass>> getTypes(OWLNamedIndividual arg0, boolean arg1)
+	public Set<Set<OWLClass>> getTypes(OWLNamedIndividual namedIndividual, boolean arg1)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
+		return ca.getTypes(namedIndividual);
 	}
 
 	@Override
