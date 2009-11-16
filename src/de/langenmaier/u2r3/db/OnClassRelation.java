@@ -4,10 +4,13 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 
 public class OnClassRelation extends Relation {
@@ -58,6 +61,32 @@ public class OnClassRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void add(OWLObject ce) {
+		try {
+			addStatement.setString(1, nidMapper.get(ce).toString());
+			
+			if (ce instanceof OWLObjectMaxCardinality) {
+				OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
+
+				if (mc.getFiller().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(mc.getFiller()).toString());
+					handleAnonymousClassExpression(mc.getFiller());
+				} else {
+					addStatement.setString(2, mc.getFiller().asOWLClass().getIRI().toString());
+				}
+			} else {
+				throw new U2R3NotImplementedException();
+			}
+			
+			addStatement.execute();
+			reasonProcessor.add(new AdditionReason(this));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }
