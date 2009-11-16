@@ -7,6 +7,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectHasValue;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -96,6 +97,15 @@ public class OnPropertyRelation extends Relation {
 					handleAnonymousObjectPropertyExpression(hv.getProperty());
 				} else {
 					addStatement.setString(2, hv.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+			} else if (ce instanceof OWLObjectMaxCardinality) {
+				OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
+
+				if (mc.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(mc.getProperty());
+				} else {
+					addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
 				}
 			} else {
 				throw new U2R3NotImplementedException();

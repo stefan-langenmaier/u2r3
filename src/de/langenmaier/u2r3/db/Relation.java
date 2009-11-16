@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -263,6 +264,15 @@ public abstract class Relation extends U2R3Component {
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_VALUE) {
 			relationManager.getRelation(RelationName.hasValueEnt).add(ce);
 			relationManager.getRelation(RelationName.onProperty).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
+			relationManager.getRelation(RelationName.onProperty).add(ce);
+			OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
+			if (mc.isQualified()) {
+				relationManager.getRelation(RelationName.maxQualifiedCardinality).add(ce);
+				relationManager.getRelation(RelationName.onClass).add(ce);
+			} else {
+				relationManager.getRelation(RelationName.maxCardinality).add(ce);
+			}
 		} else {
 			throw new U2R3NotImplementedException();
 		}
