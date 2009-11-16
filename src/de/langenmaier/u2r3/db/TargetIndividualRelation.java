@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -34,8 +35,18 @@ public class TargetIndividualRelation extends Relation {
 	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
+		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
+			addStatement.setString(1, nidMapper.get(naxiom).toString());
+			if (naxiom.getObject().isAnonymous()) {
+				addStatement.setString(2, naxiom.getObject().asAnonymousIndividual().getID().toString());
+			} else {
+				addStatement.setString(2, naxiom.getObject().asNamedIndividual().getIRI().toString());
+			}
+			return AdditionMode.ADD;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override

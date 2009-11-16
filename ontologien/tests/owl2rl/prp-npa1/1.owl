@@ -36,9 +36,7 @@
 
     <!-- http://quality.tests.u2r3.langenmaier.de/prp-npa1/1.owl#p -->
 
-    <owl:ObjectProperty rdf:about="#p">
-        <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
-    </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="#p"/>
     
 
 
@@ -61,7 +59,9 @@
 
     <!-- http://quality.tests.u2r3.langenmaier.de/prp-npa1/1.owl#i1 -->
 
-    <owl:NamedIndividual rdf:about="#i1"/>
+    <owl:NamedIndividual rdf:about="#i1">
+        <p rdf:resource="#i2"/>
+    </owl:NamedIndividual>
     <rdf:Description>
         <rdf:type rdf:resource="&owl;NegativePropertyAssertion"/>
         <owl:sourceIndividual rdf:resource="#i1"/>

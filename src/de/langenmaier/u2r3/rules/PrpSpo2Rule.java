@@ -92,6 +92,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t 	INNER JOIN (");
 		sql.append("\n\t 		SELECT name, COUNT(name) AS anz");
 		sql.append("\n\t 		FROM list");
+		sql.append("\n\t 		GROUP BY name");
 		sql.append("\n\t 	) AS anzl ON anzl.name = l.name");
 		sql.append("\n\t 	LEFT OUTER JOIN objectPropertyAssertion AS vopa");
 		sql.append("\n\t 		ON vopa.object = opa.subject");
