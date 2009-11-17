@@ -12,8 +12,9 @@ import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
@@ -52,12 +53,12 @@ public class LoadReasoner {
 			reasoner.classify();
 			
 			OWLDataFactory df = reasoner.getDataFactory();
-			OWLObjectProperty op = df.getOWLObjectProperty(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#isEmployedAt"));
-			OWLNamedIndividual ni = df.getOWLNamedIndividual(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#Hans"));
+			OWLDataProperty dp = df.getOWLDataProperty(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#mediumTitle"));
+			OWLNamedIndividual ni = df.getOWLNamedIndividual(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#WiMoSkript"));
 			
-			Set<OWLNamedIndividual> res = reasoner.getRelatedIndividuals(ni, op);
-			for(OWLNamedIndividual ind : res) {
-				System.out.println(ind);
+			Set<OWLLiteral> res = reasoner.getRelatedValues(ni, dp);
+			for(OWLLiteral lit : res) {
+				System.out.println(lit);
 			}
 
 			

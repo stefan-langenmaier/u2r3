@@ -31,6 +31,7 @@ import org.semanticweb.owlapi.profiles.OWLProfileViolation;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.db.ClassAssertionEntRelation;
+import de.langenmaier.u2r3.db.DataPropertyAssertionRelation;
 import de.langenmaier.u2r3.db.ObjectPropertyAssertionRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -301,10 +302,14 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual arg0,
-			OWLDataPropertyExpression arg1) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual ni,
+			OWLDataPropertyExpression dp) throws OWLReasonerException {
+		if (ni.isAnonymous() ||dp.isAnonymous()) {
+			return null;
+		} else {
+			DataPropertyAssertionRelation dpa = (DataPropertyAssertionRelation) relationManager.getRelation(RelationName.dataPropertyAssertion);
+			return dpa.getRelatedValues(ni, dp.asOWLDataProperty());
+		}
 	}
 
 	@Override
