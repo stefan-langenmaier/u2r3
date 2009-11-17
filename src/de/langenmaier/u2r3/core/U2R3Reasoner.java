@@ -133,22 +133,36 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isDefined(OWLClass arg0) throws OWLReasonerException {
-		throw new U2R3NotImplementedException();
+		String clazz = arg0.getIRI().toString();
+		String type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
+		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
 	
-	public boolean isDefined(OWLEntity arg0) throws OWLReasonerException {
-		String clazz = arg0.getIRI().toString();
+	/**
+	 * Determines if the specified entity is defined in the reasoner. If a entity is defined then the 
+ 	 * reasoner "knows" about it, if a entity is not defined then the reasoner doesn't know about it.
+	 * @param entity
+	 * @return  true if the entity is defined in the reasoner, or false if the entity is not defined in
+	 * the reasoner.
+	 * @throws OWLReasonerException
+	 */
+	public boolean isDefined(OWLEntity entity) throws OWLReasonerException {
+		String clazz = entity.getIRI().toString();
 		String type;
-		if (arg0.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
+		if (entity.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
 			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
-		} else if (arg0.getEntityType() == EntityType.OBJECT_PROPERTY) {
+		} else if (entity.getEntityType() == EntityType.OBJECT_PROPERTY) {
 			type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
-		} else if (arg0.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
+		} else if (entity.getEntityType() == EntityType.DATA_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
 			type = OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString();
-		} else if (arg0.getEntityType() == EntityType.CLASS) {
+		} else if (entity.getEntityType() == EntityType.CLASS) {
 			type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.DATATYPE) {
+			type = OWLRDFVocabulary.OWL_DATATYPE.getIRI().toString();
 		} else {
-			return false;
+			throw new U2R3ReasonerException(null);
 		}
 		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
@@ -156,12 +170,16 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public boolean isDefined(OWLObjectProperty arg0)
 			throws OWLReasonerException {
-		throw new U2R3NotImplementedException();
+		String clazz = arg0.getIRI().toString();
+		String type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
+		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
 
 	@Override
 	public boolean isDefined(OWLDataProperty arg0) throws OWLReasonerException {
-		throw new U2R3NotImplementedException();
+		String clazz = arg0.getIRI().toString();
+		String type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
+		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
 
 	@Override
@@ -183,15 +201,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression arg0)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSuperClasses(arg0);
 	}
 
 	@Override
 	public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression arg0)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSubClasses(arg0);
 	}
 
 	@Override
@@ -335,29 +351,25 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	@Override
 	public Set<Set<OWLObjectProperty>> getAncestorProperties(
 			OWLObjectProperty arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSuperProperties(arg0);
 	}
 
 	@Override
 	public Set<Set<OWLDataProperty>> getAncestorProperties(OWLDataProperty arg0)
 			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSuperProperties(arg0);
 	}
 
 	@Override
 	public Set<Set<OWLObjectProperty>> getDescendantProperties(
 			OWLObjectProperty arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSubProperties(arg0);
 	}
 
 	@Override
 	public Set<Set<OWLDataProperty>> getDescendantProperties(
 			OWLDataProperty arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+		return getSubProperties(arg0);
 	}
 
 	@Override
