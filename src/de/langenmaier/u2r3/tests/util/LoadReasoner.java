@@ -52,13 +52,11 @@ public class LoadReasoner {
 			reasoner.classify();
 			
 			OWLDataFactory df = reasoner.getDataFactory();
-			OWLNamedIndividual ni = df.getOWLNamedIndividual(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#WiMoSkript"));
+			OWLClass clazz = df.getOWLClass(IRI.create("http://www.langenmaier.de/u2r3/sample.owl#Book"));
 			
-			Set<Set<OWLClass>> res = reasoner.getTypes(ni, true);
-			for(Set<OWLClass> res1 : res) {
-				for (OWLClass clazz : res1) {
-					System.out.println(clazz);
-				}
+			Set<OWLNamedIndividual> res = reasoner.getIndividuals(clazz, true);
+			for(OWLNamedIndividual ind : res) {
+				System.out.println(ind);
 			}
 
 			

@@ -235,4 +235,32 @@ public class ClassAssertionEntRelation extends Relation {
 		}
 	}
 
+
+	public Set<OWLNamedIndividual> getIndividuals(OWLClass clazz) {
+		try {
+			StringBuilder sql = new StringBuilder();
+		
+			Statement stmt = conn.createStatement();
+			ResultSet rs;
+			
+			Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
+			
+			
+			sql.append("SELECT entity");
+			sql.append("\nFROM " + getTableName());
+			sql.append("\nWHERE class = '" + clazz.getIRI().toString() + "'");
+			
+			rs = stmt.executeQuery(sql.toString());
+			
+			while(rs.next()) {
+				String iri = rs.getString("entity");
+				ret.add(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
+			}
+			return ret;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

@@ -117,7 +117,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	@Override
 	public boolean isConsistent(OWLOntology arg0) throws OWLReasonerException {
-		//XXX bezieht sich eigentlich auf alle Ontologien
 		return reasonProcessor.isConsistent();
 	}
 
@@ -255,10 +254,14 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression arg0,
-			boolean arg1) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clazz,	boolean arg1) throws OWLReasonerException {
+		if (clazz.isAnonymous()) {
+			return null;
+		} else {
+			ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
+			return ca.getIndividuals(clazz.asOWLClass());
+		}
+		
 	}
 
 	@Override
