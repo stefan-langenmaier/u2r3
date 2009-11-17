@@ -28,7 +28,7 @@ public class AllValuesFromRelation extends Relation {
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, total) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("MERGE INTO " + getTableName() + " (part, total) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -41,10 +41,25 @@ public class SubClassRelation extends Relation {
 	}
 
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
+		if (axiom instanceof OWLSubClassOfAxiom) {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-			addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
-			addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
+			if (naxiom.getSubClass().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getSubClass()).toString());
+				handleAnonymousClassExpression(naxiom.getSubClass());
+			} else {
+				addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
+			}
+			if (naxiom.getSuperClass().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getSuperClass()).toString());
+				handleAnonymousClassExpression(naxiom.getSuperClass());
+			} else {
+				addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
+			}
+
 			return AdditionMode.ADD;
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class LoadReasoner {
 	public static void main(String[] args) {
 		try {
 			BasicConfigurator.configure();
-			Logger.getRootLogger().setLevel(Level.ERROR);
+			Logger.getRootLogger().setLevel(Level.INFO);
 			Logger logger = Logger.getLogger(LoadReasoner.class);
 			
 			if (args.length<=0) {
@@ -60,6 +60,7 @@ public class LoadReasoner {
 			for(OWLLiteral lit : res) {
 				System.out.println(lit);
 			}
+			logger.info("FERTIG");
 
 			
 		} catch (OWLOntologyCreationException e) {

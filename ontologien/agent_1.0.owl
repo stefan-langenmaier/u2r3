@@ -1,0 +1,2676 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY agent "http://212.119.9.180/Ontologies/1.0/agent.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://212.119.9.180/Ontologies/1.0/agent.owl#"
+     xml:base="http://212.119.9.180/Ontologies/1.0/agent.owl"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:agent="http://212.119.9.180/Ontologies/1.0/agent.owl#">
+    <owl:Ontology rdf:about="">
+        <rdfs:label xml:lang="en">MobiLife Agent Ontology. Copyright 2006 by DoCoMo Euro-Labs. All rights reserved.</rdfs:label>
+        <owl:versionInfo xml:lang="en">1.0</owl:versionInfo>
+        <rdfs:comment xml:lang="en">Ontology providing agent related concept and property descriptions.</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#activity -->
+
+    <owl:ObjectProperty rdf:about="#activity">
+        <rdfs:comment xml:lang="en">Persons activity.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#affiliation -->
+
+    <owl:ObjectProperty rdf:about="#affiliation">
+        <rdfs:comment xml:lang="en">Institution an agent is enrolled with.</rdfs:comment>
+        <rdfs:range rdf:resource="#Agent"/>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#ancestor -->
+
+    <owl:ObjectProperty rdf:about="#ancestor">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">An ancestor is a parent or (recursively) the parent of an ancestor. So this includes a father or mother, as well as grandparents, great-grandparents, and so on.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#associate -->
+
+    <owl:ObjectProperty rdf:about="#associate">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:comment xml:lang="en">An associate who works with others toward a common goal.</rdfs:comment>
+        <owl:inverseOf rdf:resource="#associate"/>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#aunt -->
+
+    <owl:ObjectProperty rdf:about="#aunt">
+        <rdfs:comment xml:lang="en">Father&#39;s sister, father&#39;s brother&#39;s wife, mother&#39;s sister, mother&#39;s brother&#39;s wife.</rdfs:comment>
+        <rdfs:range rdf:resource="#Woman"/>
+        <owl:inverseOf rdf:resource="#aunt_inv"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#aunt_inv -->
+
+    <owl:ObjectProperty rdf:about="#aunt_inv">
+        <rdfs:domain rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#awarding_institution -->
+
+    <owl:ObjectProperty rdf:about="#awarding_institution">
+        <rdfs:comment xml:lang="en">Institution awarding the degree.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#best_friend -->
+
+    <owl:ObjectProperty rdf:about="#best_friend">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <owl:inverseOf rdf:resource="#best_friend"/>
+        <rdfs:subPropertyOf rdf:resource="#close_friend"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#birth_place -->
+
+    <owl:ObjectProperty rdf:about="#birth_place">
+        <rdfs:comment xml:lang="en">Location a person was born.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#brother -->
+
+    <owl:ObjectProperty rdf:about="#brother">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">A male born of the same mother.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#sibling"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#business_partner -->
+
+    <owl:ObjectProperty rdf:about="#business_partner">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:subPropertyOf rdf:resource="#associate"/>
+        <owl:inverseOf rdf:resource="#business_partner"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#carry -->
+
+    <owl:ObjectProperty rdf:about="#carry">
+        <rdfs:comment xml:lang="en">Object the owner has with oneself.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#child -->
+
+    <owl:ObjectProperty rdf:about="#child">
+        <rdfs:comment xml:lang="en">A human offspring (son or daughter).</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#descendant"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#close_friend -->
+
+    <owl:ObjectProperty rdf:about="#close_friend">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <owl:inverseOf rdf:resource="#close_friend"/>
+        <rdfs:subPropertyOf rdf:resource="#friend"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#colleague -->
+
+    <owl:ObjectProperty rdf:about="#colleague">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">An associate one work with.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#associate"/>
+        <owl:inverseOf rdf:resource="#colleague"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#cousin -->
+
+    <owl:ObjectProperty rdf:about="#cousin">
+        <rdfs:comment xml:lang="en">The children of aunts or uncles.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#daughter -->
+
+    <owl:ObjectProperty rdf:about="#daughter">
+        <rdfs:comment xml:lang="en">A female born of the mother.</rdfs:comment>
+        <rdfs:range rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#child"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#degree -->
+
+    <owl:ObjectProperty rdf:about="#degree">
+        <rdfs:comment xml:lang="en">Award conferred by a college or university.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#descendant -->
+
+    <owl:ObjectProperty rdf:about="#descendant">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">A decendent is a child or (recursively) the child of a decendent.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#employee -->
+
+    <owl:ObjectProperty rdf:about="#employee">
+        <rdfs:comment xml:lang="en">Individual who performs work under the direction and control of an employer and is paid by that employer.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#employer -->
+
+    <owl:ObjectProperty rdf:about="#employer">
+        <rdfs:comment xml:lang="en">Person or company that employs workers.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#affiliation"/>
+        <owl:inverseOf rdf:resource="#employee"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#engaged -->
+
+    <owl:ObjectProperty rdf:about="#engaged">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#father -->
+
+    <owl:ObjectProperty rdf:about="#father">
+        <rdfs:comment xml:lang="en">The male parent.</rdfs:comment>
+        <rdfs:range rdf:resource="#Father"/>
+        <rdfs:subPropertyOf rdf:resource="#parent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#fellow_student -->
+
+    <owl:ObjectProperty rdf:about="#fellow_student">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">An associate one studies with.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#associate"/>
+        <owl:inverseOf rdf:resource="#fellow_student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#fiance -->
+
+    <owl:ObjectProperty rdf:about="#fiance">
+        <rdfs:comment xml:lang="en">This is the title of the groom or husband-to-be between the engagement and the wedding.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:domain rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#engaged"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#fiancee -->
+
+    <owl:ObjectProperty rdf:about="#fiancee">
+        <rdfs:comment xml:lang="en">This is the title of the bride between her engagement to her betrothed and the wedding day.</rdfs:comment>
+        <rdfs:domain rdf:resource="#Man"/>
+        <rdfs:range rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#engaged"/>
+        <owl:inverseOf rdf:resource="#fiance"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#flatmate -->
+
+    <owl:ObjectProperty rdf:about="#flatmate">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">Associate who shares the apartment.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#associate"/>
+        <owl:inverseOf rdf:resource="#flatmate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#foreign_language -->
+
+    <owl:ObjectProperty rdf:about="#foreign_language">
+        <rdfs:comment xml:lang="en">Language a person can communicate in but which is not spoken in the native country of that person.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#former_affiliation -->
+
+    <owl:ObjectProperty rdf:about="#former_affiliation">
+        <rdfs:comment xml:lang="en">Institution an agent was enrolled with.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#friend -->
+
+    <owl:ObjectProperty rdf:about="#friend">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:comment xml:lang="en">A person one know well and regard with affection and trust.</rdfs:comment>
+        <owl:inverseOf rdf:resource="#friend"/>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#grandchild -->
+
+    <owl:ObjectProperty rdf:about="#grandchild">
+        <rdfs:subPropertyOf rdf:resource="#descendant"/>
+        <owl:inverseOf rdf:resource="#grandparent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#granddaughter -->
+
+    <owl:ObjectProperty rdf:about="#granddaughter">
+        <rdfs:comment xml:lang="en">A child&#39;s daughter.</rdfs:comment>
+        <rdfs:range rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#grandchild"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#grandfather -->
+
+    <owl:ObjectProperty rdf:about="#grandfather">
+        <rdfs:comment xml:lang="en">A parent&#39;s father.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#grandparent"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Father"/>
+                    <rdf:Description rdf:about="#Grandfather"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#grandmother -->
+
+    <owl:ObjectProperty rdf:about="#grandmother">
+        <rdfs:comment xml:lang="en">A parent&#39;s mother.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#grandparent"/>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Grandmother"/>
+                    <rdf:Description rdf:about="#Mother"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#grandparent -->
+
+    <owl:ObjectProperty rdf:about="#grandparent">
+        <rdfs:comment xml:lang="en">A parent of the father or mother.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#ancestor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#grandson -->
+
+    <owl:ObjectProperty rdf:about="#grandson">
+        <rdfs:comment xml:lang="en">A child&#39;s son.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#grandchild"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#group -->
+
+    <owl:ObjectProperty rdf:about="#group">
+        <rdfs:comment xml:lang="en">Group a person participates in.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#head -->
+
+    <owl:ObjectProperty rdf:about="#head">
+        <rdfs:comment xml:lang="en">Person who is in charge for an organization or group.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#home_city -->
+
+    <owl:ObjectProperty rdf:about="#home_city">
+        <rdfs:comment xml:lang="en">City the home of a person is located at.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#home_country -->
+
+    <owl:ObjectProperty rdf:about="#home_country">
+        <rdfs:comment xml:lang="en">Country the home of a person is located at.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#husband -->
+
+    <owl:ObjectProperty rdf:about="#husband">
+        <rdfs:range rdf:resource="#Husband"/>
+        <rdfs:domain rdf:resource="#Wife"/>
+        <rdfs:subPropertyOf rdf:resource="#spouse"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#job_title -->
+
+    <owl:ObjectProperty rdf:about="#job_title">
+        <rdfs:comment xml:lang="en">Official position held by a person in an organizational hierarchy.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#knows -->
+
+    <owl:ObjectProperty rdf:about="#knows">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">A agent known by this agent (indicating some level of reciprocated interaction between the parties).</rdfs:comment>
+        <owl:inverseOf rdf:resource="#knows"/>
+        <rdfs:subPropertyOf rdf:resource="#relation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#language -->
+
+    <owl:ObjectProperty rdf:about="#language">
+        <rdfs:comment xml:lang="en">Language an agent can communicate in.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#mentor -->
+
+    <owl:ObjectProperty rdf:about="#mentor">
+        <rdfs:comment xml:lang="en">Experienced and trusted advisor.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#met -->
+
+    <owl:ObjectProperty rdf:about="#met">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:comment xml:lang="en">Agent who has met this agent whether in passing or longer.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+        <owl:inverseOf rdf:resource="#met"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#mother -->
+
+    <owl:ObjectProperty rdf:about="#mother">
+        <rdfs:comment xml:lang="en">The female parent.</rdfs:comment>
+        <rdfs:range rdf:resource="#Mother"/>
+        <rdfs:subPropertyOf rdf:resource="#parent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#nationality -->
+
+    <owl:ObjectProperty rdf:about="#nationality">
+        <rdfs:comment xml:lang="en">Legal relationship existing between a person and a state.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#native_city -->
+
+    <owl:ObjectProperty rdf:about="#native_city">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">City a person was born.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#birth_place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#native_country -->
+
+    <owl:ObjectProperty rdf:about="#native_country">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">The country a person was born.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#birth_place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#native_language -->
+
+    <owl:ObjectProperty rdf:about="#native_language">
+        <rdfs:comment xml:lang="en">Persons mother tongue.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#language"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#neighbor -->
+
+    <owl:ObjectProperty rdf:about="#neighbor">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:comment xml:lang="en">Person who lives (or is located) nearby.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+        <owl:inverseOf rdf:resource="#neighbor"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#nephew -->
+
+    <owl:ObjectProperty rdf:about="#nephew">
+        <rdfs:comment xml:lang="en">Sister&#39;s sons, brother&#39;s sons.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#nephew_inv -->
+
+    <owl:ObjectProperty rdf:about="#nephew_inv">
+        <rdfs:domain rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+        <owl:inverseOf rdf:resource="#nephew"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#niece -->
+
+    <owl:ObjectProperty rdf:about="#niece">
+        <rdfs:comment xml:lang="en">Sister&#39;s daughters, brother&#39;s daughters.</rdfs:comment>
+        <rdfs:range rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#owns -->
+
+    <owl:ObjectProperty rdf:about="#owns">
+        <rdfs:comment xml:lang="en">Object belonging to a person.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#parent -->
+
+    <owl:ObjectProperty rdf:about="#parent">
+        <rdfs:comment xml:lang="en">A persons natural or adoptive mother, father, or legal guardian.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#ancestor"/>
+        <owl:inverseOf rdf:resource="#child"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#pulse_rate -->
+
+    <owl:ObjectProperty rdf:about="#pulse_rate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">Persons heart rate.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#registered -->
+
+    <owl:ObjectProperty rdf:about="#registered">
+        <rdfs:subPropertyOf rdf:resource="#affiliation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#relation -->
+
+    <owl:ObjectProperty rdf:about="#relation">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">A agent related to this agent (indicating some level of commonness such as working for the same company).</rdfs:comment>
+        <owl:inverseOf rdf:resource="#relation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#relative -->
+
+    <owl:ObjectProperty rdf:about="#relative">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">Persons identified as relatives of juvenile through blood or marital ties.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+        <owl:inverseOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#respiration_rate -->
+
+    <owl:ObjectProperty rdf:about="#respiration_rate">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdfs:comment xml:lang="en">Rate of breathing.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#sibling -->
+
+    <owl:ObjectProperty rdf:about="#sibling">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+        <owl:inverseOf rdf:resource="#sibling"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#sister -->
+
+    <owl:ObjectProperty rdf:about="#sister">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:comment xml:lang="en">A female born of the same mother.</rdfs:comment>
+        <rdfs:range rdf:resource="#Woman"/>
+        <rdfs:subPropertyOf rdf:resource="#sibling"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#son -->
+
+    <owl:ObjectProperty rdf:about="#son">
+        <rdfs:comment xml:lang="en">A male born of the mother.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#child"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#spouse -->
+
+    <owl:ObjectProperty rdf:about="#spouse">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#supervises -->
+
+    <owl:ObjectProperty rdf:about="#supervises">
+        <rdfs:comment xml:lang="en">Person having the charge and direction of.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#supervisor -->
+
+    <owl:ObjectProperty rdf:about="#supervisor">
+        <rdfs:comment xml:lang="en">Individual, regardless of the job description or title, having authority.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#knows"/>
+        <owl:inverseOf rdf:resource="#supervises"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#uncle -->
+
+    <owl:ObjectProperty rdf:about="#uncle">
+        <rdfs:comment xml:lang="en">Father&#39;s brother, father&#39;s sister&#39;s husband, mother&#39;s brother, mother&#39;s sister&#39;s husband.</rdfs:comment>
+        <rdfs:range rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#uncle_inv -->
+
+    <owl:ObjectProperty rdf:about="#uncle_inv">
+        <rdfs:domain rdf:resource="#Man"/>
+        <rdfs:subPropertyOf rdf:resource="#relative"/>
+        <owl:inverseOf rdf:resource="#uncle"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#wants_to_know -->
+
+    <owl:ObjectProperty rdf:about="#wants_to_know">
+        <rdfs:comment xml:lang="en">Agent one is interested to know.</rdfs:comment>
+        <rdfs:subPropertyOf rdf:resource="#relation"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#wife -->
+
+    <owl:ObjectProperty rdf:about="#wife">
+        <rdfs:domain rdf:resource="#Husband"/>
+        <rdfs:range rdf:resource="#Wife"/>
+        <owl:inverseOf rdf:resource="#husband"/>
+        <rdfs:subPropertyOf rdf:resource="#spouse"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#work_city -->
+
+    <owl:ObjectProperty rdf:about="#work_city">
+        <rdfs:comment xml:lang="en">City the work place of a person is located at.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#work_country -->
+
+    <owl:ObjectProperty rdf:about="#work_country">
+        <rdfs:comment xml:lang="en">Country the work place of a person is located at.</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#age -->
+
+    <owl:DatatypeProperty rdf:about="#age">
+        <rdfs:comment xml:lang="en">Age is calculated as the difference in years between the date of birth and the date of admission interview or discharge. Age is reported in whole years.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#birthday -->
+
+    <owl:DatatypeProperty rdf:about="#birthday">
+        <rdfs:comment xml:lang="en">The day on which a person was born.</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#degree_abbrev -->
+
+    <owl:DatatypeProperty rdf:about="#degree_abbrev">
+        <rdfs:comment xml:lang="en">Abbreviation of a degree.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#department -->
+
+    <owl:DatatypeProperty rdf:about="#department">
+        <rdfs:comment xml:lang="en">Specialized division of a an organization a person is associated with.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#email -->
+
+    <owl:DatatypeProperty rdf:about="#email">
+        <rdfs:comment xml:lang="en">Email account of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#fax -->
+
+    <owl:DatatypeProperty rdf:about="#fax">
+        <rdfs:comment xml:lang="en">FACSimile number of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#home_postal_code -->
+
+    <owl:DatatypeProperty rdf:about="#home_postal_code">
+        <rdfs:comment xml:lang="en">The code for a persons home address used by postal services to simplify the delivery.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#home_street -->
+
+    <owl:DatatypeProperty rdf:about="#home_street">
+        <rdfs:comment xml:lang="en">Street and house number the home of a person is located at.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#homepage -->
+
+    <owl:DatatypeProperty rdf:about="#homepage">
+        <rdfs:comment xml:lang="en">Homepage of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#id -->
+
+    <owl:DatatypeProperty rdf:about="#id">
+        <rdfs:comment xml:lang="en">Identification object.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#image -->
+
+    <owl:DatatypeProperty rdf:about="#image">
+        <rdfs:comment xml:lang="en">Image of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;anyURI"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#imei -->
+
+    <owl:DatatypeProperty rdf:about="#imei">
+        <rdfs:comment xml:lang="en">International Mobile Equipment Identity. A unique number given to every single mobile phone, typically found behind the battery.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#messaging -->
+
+    <owl:DatatypeProperty rdf:about="#messaging">
+        <rdfs:comment xml:lang="en">Instant messaging identity.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#name -->
+
+    <owl:DatatypeProperty rdf:about="#name">
+        <rdfs:comment xml:lang="en">Name of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#pager -->
+
+    <owl:DatatypeProperty rdf:about="#pager">
+        <rdfs:comment xml:lang="en">An agents Pager address.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#phone -->
+
+    <owl:DatatypeProperty rdf:about="#phone">
+        <rdfs:comment xml:lang="en">Phone number of an agent.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#work_postal_code -->
+
+    <owl:DatatypeProperty rdf:about="#work_postal_code">
+        <rdfs:comment xml:lang="en">The code for a persons work address used by postal services to simplify the delivery.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#work_street -->
+
+    <owl:DatatypeProperty rdf:about="#work_street">
+        <rdfs:comment xml:lang="en">Street and house number the work place of a person is located at.</rdfs:comment>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Academic_staff -->
+
+    <owl:Class rdf:about="#Academic_staff">
+        <rdfs:subClassOf rdf:resource="#Job_title"/>
+        <owl:disjointWith rdf:resource="#Administrative_staff"/>
+        <owl:disjointWith rdf:resource="#Management"/>
+        <owl:disjointWith rdf:resource="#Research_staff"/>
+        <owl:disjointWith rdf:resource="#Technical_staff"/>
+        <rdfs:comment xml:lang="en">Staff responsible for all teaching and research activities at a higher education institute.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Acquaintance -->
+
+    <owl:Class rdf:about="#Acquaintance">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#relation"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Activity -->
+
+    <owl:Class rdf:about="#Activity">
+        <rdfs:comment xml:lang="en">Persons activity.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Administrative_staff -->
+
+    <owl:Class rdf:about="#Administrative_staff">
+        <rdfs:subClassOf rdf:resource="#Job_title"/>
+        <owl:disjointWith rdf:resource="#Management"/>
+        <owl:disjointWith rdf:resource="#Research_staff"/>
+        <owl:disjointWith rdf:resource="#Technical_staff"/>
+        <rdfs:comment xml:lang="en">Staff responsible for administration.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Adult -->
+
+    <owl:Class rdf:about="#Adult">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <owl:disjointWith rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Afro_asiatic -->
+
+    <owl:Class rdf:about="#Afro_asiatic">
+        <rdfs:subClassOf rdf:resource="#Language"/>
+        <owl:disjointWith rdf:resource="#Altaic"/>
+        <owl:disjointWith rdf:resource="#Austroasatic"/>
+        <owl:disjointWith rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Sino_tibetan"/>
+        <rdfs:comment xml:lang="en">Languages spoken in northern Africa and going east towards the Horn of Africa.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Agent -->
+
+    <owl:Class rdf:about="#Agent">
+        <rdfs:comment xml:lang="en">A representative who acts on behalf of itself, other persons or organizations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Altaic -->
+
+    <owl:Class rdf:about="#Altaic">
+        <rdfs:subClassOf rdf:resource="#Language"/>
+        <owl:disjointWith rdf:resource="#Austroasatic"/>
+        <owl:disjointWith rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Sino_tibetan"/>
+        <rdfs:comment xml:lang="en">The Altaic language family is named after the Alti Mountains, in Central Asia.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Anglo_frisian -->
+
+    <owl:Class rdf:about="#Anglo_frisian">
+        <rdfs:subClassOf rdf:resource="#Germanic"/>
+        <owl:disjointWith rdf:resource="#Netherlandic_german"/>
+        <owl:disjointWith rdf:resource="#Scandinavian"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Anybody_else -->
+
+    <owl:Class rdf:about="#Anybody_else">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <owl:disjointWith rdf:resource="#Myself"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Aunt -->
+
+    <owl:Class rdf:about="#Aunt">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#aunt_inv"/>
+                        <owl:someValuesFrom rdf:resource="#Person"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Austroasatic -->
+
+    <owl:Class rdf:about="#Austroasatic">
+        <rdfs:subClassOf rdf:resource="#Language"/>
+        <owl:disjointWith rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Sino_tibetan"/>
+        <rdfs:comment xml:lang="en">Scattered group of languages in Asia.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Baltic -->
+
+    <owl:Class rdf:about="#Baltic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Celtic"/>
+        <owl:disjointWith rdf:resource="#Germanic"/>
+        <owl:disjointWith rdf:resource="#Hellenic"/>
+        <owl:disjointWith rdf:resource="#Indic"/>
+        <owl:disjointWith rdf:resource="#Iranian"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Business_enterprises -->
+
+    <owl:Class rdf:about="#Business_enterprises">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Educational_organization"/>
+        <owl:disjointWith rdf:resource="#Governmental_organization"/>
+        <owl:disjointWith rdf:resource="#International_organization"/>
+        <owl:disjointWith rdf:resource="#Judicial_organization"/>
+        <owl:disjointWith rdf:resource="#Political_organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">Commercial, service or industrial enterprises.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Celtic -->
+
+    <owl:Class rdf:about="#Celtic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Germanic"/>
+        <owl:disjointWith rdf:resource="#Hellenic"/>
+        <owl:disjointWith rdf:resource="#Indic"/>
+        <owl:disjointWith rdf:resource="#Iranian"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+        <rdfs:comment xml:lang="en">Languages originated in Central Europe and once dominated Western Europe (around 400BC).</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Child -->
+
+    <owl:Class rdf:about="#Child">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#College -->
+
+    <owl:Class rdf:about="#College">
+        <rdfs:subClassOf rdf:resource="#Higher_education_institution"/>
+        <owl:disjointWith rdf:resource="#University"/>
+        <rdfs:comment xml:lang="en">Postsecondary institution that provides mainly undergraduate education.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Consulting_company -->
+
+    <owl:Class rdf:about="#Consulting_company">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <owl:disjointWith rdf:resource="#Financial_institution"/>
+        <owl:disjointWith rdf:resource="#Insurance_company"/>
+        <owl:disjointWith rdf:resource="#Lodging_accommodations"/>
+        <owl:disjointWith rdf:resource="#Network_provider"/>
+        <owl:disjointWith rdf:resource="#Private_transportation"/>
+        <rdfs:comment xml:lang="en">Organizations and entities that are not part of any governmental structure.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Degree -->
+
+    <owl:Class rdf:about="#Degree">
+        <rdfs:comment xml:lang="en">Award conferred by a college or university signifying that the recipient has satisfactorily completed a course of study.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#East_scandinavian -->
+
+    <owl:Class rdf:about="#East_scandinavian">
+        <rdfs:subClassOf rdf:resource="#Scandinavian"/>
+        <owl:disjointWith rdf:resource="#West_scandinavian"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#East_slavic -->
+
+    <owl:Class rdf:about="#East_slavic">
+        <rdfs:subClassOf rdf:resource="#Slavic"/>
+        <owl:disjointWith rdf:resource="#South_slavic"/>
+        <owl:disjointWith rdf:resource="#West_slavic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Educational_organization -->
+
+    <owl:Class rdf:about="#Educational_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Governmental_organization"/>
+        <owl:disjointWith rdf:resource="#International_organization"/>
+        <owl:disjointWith rdf:resource="#Judicial_organization"/>
+        <owl:disjointWith rdf:resource="#Political_organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">A EducationalOrganization is an institution of learning.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Elderly -->
+
+    <owl:Class rdf:about="#Elderly">
+        <rdfs:subClassOf rdf:resource="#Adult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Elementary_school -->
+
+    <owl:Class rdf:about="#Elementary_school">
+        <rdfs:subClassOf rdf:resource="#School"/>
+        <owl:disjointWith rdf:resource="#High_school"/>
+        <owl:disjointWith rdf:resource="#Middle_school"/>
+        <rdfs:comment xml:lang="en">School classified as elementary by state and local practice and composed of any span of grades 1-6.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Elementary_school_student -->
+
+    <owl:Class rdf:about="#Elementary_school_student">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+        <owl:disjointWith rdf:resource="#High_school_student"/>
+        <owl:disjointWith rdf:resource="#Higher_education_student"/>
+        <owl:disjointWith rdf:resource="#Middle_school_student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Faculty_member -->
+
+    <owl:Class rdf:about="#Faculty_member">
+        <rdfs:subClassOf rdf:resource="#Academic_staff"/>
+        <rdfs:comment xml:lang="en">Staff who teaches at the University and holds an academic rank.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Father -->
+
+    <owl:Class rdf:about="#Father">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#Parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Financial_institution -->
+
+    <owl:Class rdf:about="#Financial_institution">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <owl:disjointWith rdf:resource="#Insurance_company"/>
+        <owl:disjointWith rdf:resource="#Lodging_accommodations"/>
+        <owl:disjointWith rdf:resource="#Network_provider"/>
+        <owl:disjointWith rdf:resource="#Private_transportation"/>
+        <rdfs:comment xml:lang="en">Banks, trust companies, credit unions, and perhaps other investment companies that deal with money, hold money, invest money and lend money.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Fixed_network_provider -->
+
+    <owl:Class rdf:about="#Fixed_network_provider">
+        <rdfs:subClassOf rdf:resource="#Network_provider"/>
+        <rdfs:comment xml:lang="en">Carrier offering access to a fixed communication network.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Germanic -->
+
+    <owl:Class rdf:about="#Germanic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Hellenic"/>
+        <owl:disjointWith rdf:resource="#Indic"/>
+        <owl:disjointWith rdf:resource="#Iranian"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+        <rdfs:comment xml:lang="en">Languages originate from Old Norse and Saxon.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Governmental_organization -->
+
+    <owl:Class rdf:about="#Governmental_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#International_organization"/>
+        <owl:disjointWith rdf:resource="#Judicial_organization"/>
+        <owl:disjointWith rdf:resource="#Political_organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">The class of official Organizations that are concerned with the government of a geopolitical area at some level.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Graduate -->
+
+    <owl:Class rdf:about="#Graduate">
+        <rdfs:subClassOf rdf:resource="#Higher_education_student"/>
+        <owl:disjointWith rdf:resource="#Undergraduate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Graduate_degree -->
+
+    <owl:Class rdf:about="#Graduate_degree">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <owl:disjointWith rdf:resource="#Postgraduate_degree"/>
+        <owl:disjointWith rdf:resource="#Undergraduate_degree"/>
+        <rdfs:comment xml:lang="en">Academic degree conferred by a college or university upon those who complete at least one year of prescribed study beyond the bachelor&#39;s degree.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Grandfather -->
+
+    <owl:Class rdf:about="#Grandfather">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Grandparent"/>
+                    <rdf:Description rdf:about="#Man"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Grandmother -->
+
+    <owl:Class rdf:about="#Grandmother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Grandparent"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Grandparent -->
+
+    <owl:Class rdf:about="#Grandparent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#child"/>
+                                <owl:someValuesFrom rdf:resource="#Parent"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#grandchild"/>
+                                <owl:someValuesFrom rdf:resource="#Person"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Group -->
+
+    <owl:Class rdf:about="#Group">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <owl:disjointWith rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Person"/>
+        <rdfs:comment xml:lang="en">Ad-hoc collections of agents (members) considered as a unit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Handset_manufacturer -->
+
+    <owl:Class rdf:about="#Handset_manufacturer">
+        <rdfs:subClassOf rdf:resource="#Manufacturer"/>
+        <owl:disjointWith rdf:resource="#Hardware_company"/>
+        <owl:disjointWith rdf:resource="#Publishing_company"/>
+        <owl:disjointWith rdf:resource="#Software_company"/>
+        <rdfs:comment xml:lang="en">Manufactor of mobile communication devices.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Hardware_company -->
+
+    <owl:Class rdf:about="#Hardware_company">
+        <rdfs:subClassOf rdf:resource="#Manufacturer"/>
+        <owl:disjointWith rdf:resource="#Publishing_company"/>
+        <owl:disjointWith rdf:resource="#Software_company"/>
+        <rdfs:comment xml:lang="en">Company producing computer hardware.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Hellenic -->
+
+    <owl:Class rdf:about="#Hellenic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Indic"/>
+        <owl:disjointWith rdf:resource="#Iranian"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#High_school -->
+
+    <owl:Class rdf:about="#High_school">
+        <rdfs:subClassOf rdf:resource="#School"/>
+        <owl:disjointWith rdf:resource="#Middle_school"/>
+        <rdfs:comment xml:lang="en">Secondary school offering the final year of high school work (Grade 12) necessary for graduation.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#High_school_student -->
+
+    <owl:Class rdf:about="#High_school_student">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+        <owl:disjointWith rdf:resource="#Higher_education_student"/>
+        <owl:disjointWith rdf:resource="#Middle_school_student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Higher_education_institution -->
+
+    <owl:Class rdf:about="#Higher_education_institution">
+        <rdfs:subClassOf rdf:resource="#Educational_organization"/>
+        <owl:disjointWith rdf:resource="#School"/>
+        <rdfs:comment xml:lang="en">Institution teaching postsecondary education.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Higher_education_student -->
+
+    <owl:Class rdf:about="#Higher_education_student">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+        <owl:disjointWith rdf:resource="#Middle_school_student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Husband -->
+
+    <owl:Class rdf:about="#Husband">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#Married"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Indic -->
+
+    <owl:Class rdf:about="#Indic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Iranian"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+        <rdfs:comment xml:lang="en">Languages that are descended from Ancient Persian, the literary language of the Persian Empire and one of the great classical languages.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Indo_european -->
+
+    <owl:Class rdf:about="#Indo_european">
+        <rdfs:subClassOf rdf:resource="#Language"/>
+        <owl:disjointWith rdf:resource="#Sino_tibetan"/>
+        <rdfs:comment xml:lang="en">Indo-European languages stretch from the Americas through Europe to North India.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Infant -->
+
+    <owl:Class rdf:about="#Infant">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Insurance_company -->
+
+    <owl:Class rdf:about="#Insurance_company">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <owl:disjointWith rdf:resource="#Lodging_accommodations"/>
+        <owl:disjointWith rdf:resource="#Network_provider"/>
+        <owl:disjointWith rdf:resource="#Private_transportation"/>
+        <rdfs:comment xml:lang="en">Organization covering the risks of the issued goods and/or services that are insured.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#International_organization -->
+
+    <owl:Class rdf:about="#International_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Judicial_organization"/>
+        <owl:disjointWith rdf:resource="#Political_organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">Organization with membership from (and representing the interests of) more than one country.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Iranian -->
+
+    <owl:Class rdf:about="#Iranian">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Latin"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+        <rdfs:comment xml:lang="en">Languages that are descended from Ancient Persian, the literary language of the Persian Empire and one of the great classical languages.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Job_title -->
+
+    <owl:Class rdf:about="#Job_title">
+        <rdfs:comment xml:lang="en">Official position held by a person in an organizational hierarchy.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Judicial_organization -->
+
+    <owl:Class rdf:about="#Judicial_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Political_organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">JudicialOrganization is the class of Organizations whose primary purpose is to render judgments according to the statutes or regulations of a government or other organization.  Judicial bodies are not necessarily government organizations, for example, those associated with sporting associations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Junior -->
+
+    <owl:Class rdf:about="#Junior">
+        <rdfs:subClassOf rdf:resource="#Adult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Language -->
+
+    <owl:Class rdf:about="#Language">
+        <rdfs:comment xml:lang="en">Systematic means of communicating by the use of sounds or conventional symbols.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Latin -->
+
+    <owl:Class rdf:about="#Latin">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <owl:disjointWith rdf:resource="#Slavic"/>
+        <rdfs:comment xml:lang="en">Languages derived from Latin.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Lodging_accommodations -->
+
+    <owl:Class rdf:about="#Lodging_accommodations">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <owl:disjointWith rdf:resource="#Network_provider"/>
+        <owl:disjointWith rdf:resource="#Private_transportation"/>
+        <rdfs:comment xml:lang="en">Offering transient lodging accommodations on a daily or weekly rate to the general public.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Man -->
+
+    <owl:Class rdf:about="#Man">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <owl:disjointWith rdf:resource="#Woman"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Management -->
+
+    <owl:Class rdf:about="#Management">
+        <rdfs:subClassOf rdf:resource="#Job_title"/>
+        <owl:disjointWith rdf:resource="#Research_staff"/>
+        <owl:disjointWith rdf:resource="#Technical_staff"/>
+        <rdfs:comment xml:lang="en">Executive staff that is individuals with responsibilities for setting and/or achieving the organization&#39;s objectives</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Manufacturer -->
+
+    <owl:Class rdf:about="#Manufacturer">
+        <rdfs:subClassOf rdf:resource="#Business_enterprises"/>
+        <owl:disjointWith rdf:resource="#Service_sector"/>
+        <owl:disjointWith rdf:resource="#Trade_and_commerce"/>
+        <rdfs:comment xml:lang="en">Business enterprises engaged in manufacturing some product.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Married -->
+
+    <owl:Class rdf:about="#Married">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#spouse"/>
+                        <owl:someValuesFrom rdf:resource="#Person"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Middle_school -->
+
+    <owl:Class rdf:about="#Middle_school">
+        <rdfs:subClassOf rdf:resource="#School"/>
+        <rdfs:comment xml:lang="en">Separately organized and administered intermediate school that includes some combination of elementary Grades 4-6 and secondary Grades 7-9.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Middle_school_student -->
+
+    <owl:Class rdf:about="#Middle_school_student">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Military -->
+
+    <owl:Class rdf:about="#Military">
+        <rdfs:subClassOf rdf:resource="#Governmental_organization"/>
+        <owl:disjointWith rdf:resource="#Ministry"/>
+        <owl:disjointWith rdf:resource="#Police"/>
+        <rdfs:comment xml:lang="en">Any heavily armed Organization that is part of a Government and that is charged with representing the Government in international conflicts.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Ministry -->
+
+    <owl:Class rdf:about="#Ministry">
+        <rdfs:subClassOf rdf:resource="#Governmental_organization"/>
+        <owl:disjointWith rdf:resource="#Police"/>
+        <rdfs:comment xml:lang="en">Department of a government, led by a minister.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Mobile_network_provider -->
+
+    <owl:Class rdf:about="#Mobile_network_provider">
+        <rdfs:subClassOf rdf:resource="#Network_provider"/>
+        <rdfs:comment xml:lang="en">Carrier offering access to a mobile communication network.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Mood -->
+
+    <owl:Class rdf:about="#Mood">
+        <rdfs:comment xml:lang="en">Persons mood.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Mother -->
+
+    <owl:Class rdf:about="#Mother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Parent"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_brother -->
+
+    <owl:Class rdf:about="#My_brother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#My_sibling"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_business_partner -->
+
+    <owl:Class rdf:about="#My_business_partner">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#business_partner"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Person in a business relation with the owner.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_child -->
+
+    <owl:Class rdf:about="#My_child">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#parent"/>
+                                <owl:someValuesFrom rdf:resource="#Myself"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#sibling"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="#parent"/>
+                                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_colleague -->
+
+    <owl:Class rdf:about="#My_colleague">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#colleague"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Associate the owner works with.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_daughter -->
+
+    <owl:Class rdf:about="#My_daughter">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#My_child"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_father -->
+
+    <owl:Class rdf:about="#My_father">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#My_parent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Male parent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_father_in_law -->
+
+    <owl:Class rdf:about="#My_father_in_law">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#My_parent_in_law"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_friend -->
+
+    <owl:Class rdf:about="#My_friend">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#friend"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Friend of the owner.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_grandfather -->
+
+    <owl:Class rdf:about="#My_grandfather">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#My_grandparent"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_grandmother -->
+
+    <owl:Class rdf:about="#My_grandmother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#My_grandparent"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_grandparent -->
+
+    <owl:Class rdf:about="#My_grandparent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#child"/>
+                                <owl:someValuesFrom rdf:resource="#My_parent"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#grandchild"/>
+                                <owl:someValuesFrom rdf:resource="#My_sibling"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#grandchild"/>
+                                <owl:someValuesFrom rdf:resource="#Myself"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_mother -->
+
+    <owl:Class rdf:about="#My_mother">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#My_parent"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Female parent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_mother_in_law -->
+
+    <owl:Class rdf:about="#My_mother_in_law">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#My_parent_in_law"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_parent -->
+
+    <owl:Class rdf:about="#My_parent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#child"/>
+                                <owl:someValuesFrom rdf:resource="#My_sibling"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#child"/>
+                                <owl:someValuesFrom rdf:resource="#Myself"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">A father or mother.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_parent_in_law -->
+
+    <owl:Class rdf:about="#My_parent_in_law">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#child"/>
+                        <owl:someValuesFrom rdf:resource="#My_spouse"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_sibling -->
+
+    <owl:Class rdf:about="#My_sibling">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#parent"/>
+                                <owl:someValuesFrom>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="#child"/>
+                                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                                    </owl:Restriction>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#sibling"/>
+                                <owl:someValuesFrom rdf:resource="#Myself"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_sister -->
+
+    <owl:Class rdf:about="#My_sister">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#My_sibling"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_son -->
+
+    <owl:Class rdf:about="#My_son">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Man"/>
+                    <rdf:Description rdf:about="#My_child"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_spouse -->
+
+    <owl:Class rdf:about="#My_spouse">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#spouse"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#My_supervisor -->
+
+    <owl:Class rdf:about="#My_supervisor">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#supervises"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Person, regardless of the job description or title, having authority on the owner.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Myself -->
+
+    <owl:Class rdf:about="#Myself">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:comment xml:lang="en">Owner of the information set.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Nephew -->
+
+    <owl:Class rdf:about="#Nephew">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#nephew_inv"/>
+                        <owl:someValuesFrom rdf:resource="#Person"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Netherlandic_german -->
+
+    <owl:Class rdf:about="#Netherlandic_german">
+        <rdfs:subClassOf rdf:resource="#Germanic"/>
+        <owl:disjointWith rdf:resource="#Scandinavian"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Network_provider -->
+
+    <owl:Class rdf:about="#Network_provider">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <owl:disjointWith rdf:resource="#Private_transportation"/>
+        <rdfs:comment xml:lang="en">Carrier offering access to a communication network.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Niece -->
+
+    <owl:Class rdf:about="#Niece">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Organization -->
+
+    <owl:Class rdf:about="#Organization">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <owl:disjointWith rdf:resource="#Person"/>
+        <rdfs:comment xml:lang="en">Social institutions such as companies, committees or departments who make up a body for the purpose of administering something.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Parent -->
+
+    <owl:Class rdf:about="#Parent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#child"/>
+                                <owl:someValuesFrom rdf:resource="#Person"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="#grandchild"/>
+                                <owl:someValuesFrom rdf:resource="#Person"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Parliament -->
+
+    <owl:Class rdf:about="#Parliament">
+        <rdfs:subClassOf rdf:resource="#Political_organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Person -->
+
+    <owl:Class rdf:about="#Person">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:comment xml:lang="en">Human agent.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#PhD_student -->
+
+    <owl:Class rdf:about="#PhD_student">
+        <rdfs:subClassOf rdf:resource="#Graduate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Police -->
+
+    <owl:Class rdf:about="#Police">
+        <rdfs:subClassOf rdf:resource="#Governmental_organization"/>
+        <rdfs:comment xml:lang="en">Any GovernmentOrganization  that is charged with domestic enforcement of the laws of the Government.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Political_organization -->
+
+    <owl:Class rdf:about="#Political_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Religious_organizations"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">An Organization that is a subOrganization of a Government, or an Organization that is attempting to bring about some sort of political change.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Political_party -->
+
+    <owl:Class rdf:about="#Political_party">
+        <rdfs:subClassOf rdf:resource="#Political_organization"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Postgraduate_degree -->
+
+    <owl:Class rdf:about="#Postgraduate_degree">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <owl:disjointWith rdf:resource="#Undergraduate_degree"/>
+        <rdfs:comment xml:lang="en">Academic degree of the highest level awarded in recognition of academic research that is of a publishable standard and represents a contribution tohuman knowledge.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Preschooler -->
+
+    <owl:Class rdf:about="#Preschooler">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Primaryschooler -->
+
+    <owl:Class rdf:about="#Primaryschooler">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Private_group -->
+
+    <owl:Class rdf:about="#Private_group">
+        <rdfs:subClassOf rdf:resource="#Group"/>
+        <owl:disjointWith rdf:resource="#Public_group"/>
+        <rdfs:comment xml:lang="en">Group formed for private reasons.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Private_service_sector -->
+
+    <owl:Class rdf:about="#Private_service_sector">
+        <rdfs:subClassOf rdf:resource="#Service_sector"/>
+        <owl:disjointWith rdf:resource="#Public_service_sector"/>
+        <rdfs:comment xml:lang="en">Private service corporations.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Private_transportation -->
+
+    <owl:Class rdf:about="#Private_transportation">
+        <rdfs:subClassOf rdf:resource="#Private_service_sector"/>
+        <rdfs:comment xml:lang="en">Private company providing transportation services.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Public_group -->
+
+    <owl:Class rdf:about="#Public_group">
+        <rdfs:subClassOf rdf:resource="#Group"/>
+        <rdfs:comment xml:lang="en">Group formed for public reasons.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Public_service_sector -->
+
+    <owl:Class rdf:about="#Public_service_sector">
+        <rdfs:subClassOf rdf:resource="#Service_sector"/>
+        <rdfs:comment xml:lang="en">Any particular type of productivity, manufacturing, enterprise, etc.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Publishing_company -->
+
+    <owl:Class rdf:about="#Publishing_company">
+        <rdfs:subClassOf rdf:resource="#Manufacturer"/>
+        <owl:disjointWith rdf:resource="#Software_company"/>
+        <rdfs:comment xml:lang="en">Firm in the publishing business.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Relative -->
+
+    <owl:Class rdf:about="#Relative">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Anybody_else"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#relative"/>
+                        <owl:someValuesFrom rdf:resource="#Myself"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Religious_organizations -->
+
+    <owl:Class rdf:about="#Religious_organizations">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">An Organization whose members  share a set of religious beliefs.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Research_association -->
+
+    <owl:Class rdf:about="#Research_association">
+        <rdfs:subClassOf rdf:resource="#Research_organization"/>
+        <owl:disjointWith rdf:resource="#Research_laboratory"/>
+        <rdfs:comment xml:lang="en">Group of researchers with common interest.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Research_laboratory -->
+
+    <owl:Class rdf:about="#Research_laboratory">
+        <rdfs:subClassOf rdf:resource="#Research_organization"/>
+        <rdfs:comment xml:lang="en">Workplace for the conduct of scientific research.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Research_organization -->
+
+    <owl:Class rdf:about="#Research_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <owl:disjointWith rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">Organization whose primary purpose is to conduct systematic, rigorous study and investigation into a particular field or fields.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Research_staff -->
+
+    <owl:Class rdf:about="#Research_staff">
+        <rdfs:subClassOf rdf:resource="#Job_title"/>
+        <owl:disjointWith rdf:resource="#Technical_staff"/>
+        <rdfs:comment xml:lang="en">Research workers in a university or library or laboratory.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Scandinavian -->
+
+    <owl:Class rdf:about="#Scandinavian">
+        <rdfs:subClassOf rdf:resource="#Germanic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#School -->
+
+    <owl:Class rdf:about="#School">
+        <rdfs:subClassOf rdf:resource="#Educational_organization"/>
+        <rdfs:comment xml:lang="en">Educational institution split into elementary, middle, or high school.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Senior -->
+
+    <owl:Class rdf:about="#Senior">
+        <rdfs:subClassOf rdf:resource="#Adult"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Service_sector -->
+
+    <owl:Class rdf:about="#Service_sector">
+        <rdfs:subClassOf rdf:resource="#Business_enterprises"/>
+        <owl:disjointWith rdf:resource="#Trade_and_commerce"/>
+        <rdfs:comment xml:lang="en">Any Corporation which provides services to customers for a profit.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Sino_tibetan -->
+
+    <owl:Class rdf:about="#Sino_tibetan">
+        <rdfs:subClassOf rdf:resource="#Language"/>
+        <rdfs:comment xml:lang="en">One of the largest language families in  the world, with more first-language speakers than even  Indo-European.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Slavic -->
+
+    <owl:Class rdf:about="#Slavic">
+        <rdfs:subClassOf rdf:resource="#Indo_european"/>
+        <rdfs:comment xml:lang="en">Languages are confined to Eastern Europe.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Software_company -->
+
+    <owl:Class rdf:about="#Software_company">
+        <rdfs:subClassOf rdf:resource="#Manufacturer"/>
+        <rdfs:comment xml:lang="en">Company producing software.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#South_slavic -->
+
+    <owl:Class rdf:about="#South_slavic">
+        <rdfs:subClassOf rdf:resource="#Slavic"/>
+        <owl:disjointWith rdf:resource="#West_slavic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Sports_club -->
+
+    <owl:Class rdf:about="#Sports_club">
+        <rdfs:subClassOf rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">Association, which provides facilities to do some recreational or health activity.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Sports_federation -->
+
+    <owl:Class rdf:about="#Sports_federation">
+        <rdfs:subClassOf rdf:resource="#Sports_organization"/>
+        <rdfs:comment xml:lang="en">Group of sports organizations that agree to cooperate in the area of inter-organizational authentication and authorization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Sports_organization -->
+
+    <owl:Class rdf:about="#Sports_organization">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:comment xml:lang="en">association, which provides some recreational or health activity</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Student -->
+
+    <owl:Class rdf:about="#Student">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#fellow_student"/>
+                        <owl:someValuesFrom rdf:resource="#Person"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:comment xml:lang="en">Person enrolled in an educational organization.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Technical_staff -->
+
+    <owl:Class rdf:about="#Technical_staff">
+        <rdfs:subClassOf rdf:resource="#Job_title"/>
+        <rdfs:comment xml:lang="en">Persons whose assignments require specialized knowledge or skills.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Teenager -->
+
+    <owl:Class rdf:about="#Teenager">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Toddler -->
+
+    <owl:Class rdf:about="#Toddler">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Trade_and_commerce -->
+
+    <owl:Class rdf:about="#Trade_and_commerce">
+        <rdfs:subClassOf rdf:resource="#Business_enterprises"/>
+        <rdfs:comment xml:lang="en">Any Corporation which sells or trades goods.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Tween -->
+
+    <owl:Class rdf:about="#Tween">
+        <rdfs:subClassOf rdf:resource="#Child"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Uncle -->
+
+    <owl:Class rdf:about="#Uncle">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Person"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="#uncle_inv"/>
+                        <owl:someValuesFrom rdf:resource="#Person"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Undergraduate -->
+
+    <owl:Class rdf:about="#Undergraduate">
+        <rdfs:subClassOf rdf:resource="#Higher_education_student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Undergraduate_degree -->
+
+    <owl:Class rdf:about="#Undergraduate_degree">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <rdfs:comment xml:lang="en">Academic degree conferred by a college or university upon those who complete the undergraduate curriculum.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#University -->
+
+    <owl:Class rdf:about="#University">
+        <rdfs:subClassOf rdf:resource="#Higher_education_institution"/>
+        <rdfs:comment xml:lang="en">A university is an institution of higher education and of research, which grants academic degrees and offers both undergraduate and graduate degree programs.</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#West_scandinavian -->
+
+    <owl:Class rdf:about="#West_scandinavian">
+        <rdfs:subClassOf rdf:resource="#Scandinavian"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#West_slavic -->
+
+    <owl:Class rdf:about="#West_slavic">
+        <rdfs:subClassOf rdf:resource="#Slavic"/>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Wife -->
+
+    <owl:Class rdf:about="#Wife">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="#Married"/>
+                    <rdf:Description rdf:about="#Woman"/>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://212.119.9.180/Ontologies/1.0/agent.owl#Woman -->
+
+    <owl:Class rdf:about="#Woman">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.0.0.1291) http://owlapi.sourceforge.net -->
+

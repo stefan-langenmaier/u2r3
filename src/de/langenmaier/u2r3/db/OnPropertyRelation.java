@@ -31,7 +31,7 @@ public class OnPropertyRelation extends Relation {
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, property) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("MERGE INTO " + getTableName() + " (class, property) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
