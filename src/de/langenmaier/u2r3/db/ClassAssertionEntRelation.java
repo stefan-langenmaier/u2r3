@@ -236,7 +236,7 @@ public class ClassAssertionEntRelation extends Relation {
 	}
 
 
-	public Set<OWLNamedIndividual> getIndividuals(OWLClass clazz) {
+	public Set<OWLNamedIndividual> getIndividuals(OWLClass clazz) throws OWLReasonerException {
 		try {
 			StringBuilder sql = new StringBuilder();
 		

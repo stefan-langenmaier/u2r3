@@ -1,11 +1,18 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -144,6 +151,34 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "'";
 		}
 		throw new U2R3NotImplementedException();
+	}
+
+	public Set<OWLNamedIndividual> RelatedIndividuals(OWLNamedIndividual ni,
+			OWLObjectProperty op) throws OWLReasonerException {
+		try {
+			StringBuilder sql = new StringBuilder();
+		
+			Statement stmt = conn.createStatement();
+			ResultSet rs;
+			
+			Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
+			
+			
+			sql.append("SELECT object");
+			sql.append("\nFROM " + getTableName());
+			sql.append("\nWHERE subject = '" + ni.getIRI().toString() + "' AND property = '" + op.getIRI().toString() + "'");
+			
+			rs = stmt.executeQuery(sql.toString());
+			
+			while(rs.next()) {
+				String iri = rs.getString("object");
+				ret.add(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
+			}
+			return ret;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
