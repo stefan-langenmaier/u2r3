@@ -17,6 +17,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDeclarationAxiom;
+import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -73,6 +74,11 @@ public class ClassAssertionEntRelation extends Relation {
 			OWLFunctionalObjectPropertyAxiom naxiom = (OWLFunctionalObjectPropertyAxiom) axiom;
 			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
 			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI().toString());
+			return AdditionMode.ADD;
+		} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
+			OWLFunctionalDataPropertyAxiom naxiom = (OWLFunctionalDataPropertyAxiom) axiom;
+			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY.getIRI().toString());
 			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
 			OWLInverseFunctionalObjectPropertyAxiom naxiom = (OWLInverseFunctionalObjectPropertyAxiom) axiom;

@@ -164,7 +164,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		} else if (entity.getEntityType() == EntityType.DATATYPE) {
 			type = OWLRDFVocabulary.OWL_DATATYPE.getIRI().toString();
 		} else {
-			throw new U2R3ReasonerException(null);
+			throw new U2R3NotImplementedException();
 		}
 		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}

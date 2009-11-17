@@ -7,6 +7,14 @@ public class U2R3ReasonerException extends OWLReasonerException {
 	public U2R3ReasonerException(Throwable cause) {
 		super(cause);
 	}
+	
+	public U2R3ReasonerException(String msg) {
+		super(msg);
+	}
+	
+	public U2R3ReasonerException(String msg, Throwable cause) {
+		super(msg, cause);
+	}
 
 	/**
 	 * 

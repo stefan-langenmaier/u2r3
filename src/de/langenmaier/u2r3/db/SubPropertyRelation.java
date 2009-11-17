@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLSubDataPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -53,6 +54,22 @@ public class SubPropertyRelation extends Relation {
 				handleAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
 			} else {
 				addStatement.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
+			}
+
+			return AdditionMode.ADD;
+		} else if (axiom instanceof OWLSubDataPropertyOfAxiom) {
+			OWLSubDataPropertyOfAxiom naxiom = (OWLSubDataPropertyOfAxiom) axiom;
+			if (naxiom.getSubProperty().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
+				handleAnonymousDataPropertyExpression(naxiom.getSubProperty());
+			} else {
+				addStatement.setString(1, naxiom.getSubProperty().asOWLDataProperty().getIRI().toString());
+			}
+			if (naxiom.getSuperProperty().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
+				handleAnonymousDataPropertyExpression(naxiom.getSuperProperty());
+			} else {
+				addStatement.setString(2, naxiom.getSuperProperty().asOWLDataProperty().getIRI().toString());
 			}
 
 			return AdditionMode.ADD;

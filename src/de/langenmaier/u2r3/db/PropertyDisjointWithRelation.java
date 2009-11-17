@@ -5,6 +5,9 @@ import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDisjointDataPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
@@ -56,6 +59,32 @@ public class PropertyDisjointWithRelation extends Relation {
 				}
 				if (pe1.isAnonymous()) {
 					handleAnonymousObjectPropertyExpression(pe1);
+				}
+			}
+
+			return AdditionMode.NOADD;
+		} else if (axiom instanceof OWLDisjointDataPropertiesAxiom) {
+			OWLDisjointDataPropertiesAxiom naxiom = (OWLDisjointDataPropertiesAxiom) axiom;
+			for (OWLDataPropertyExpression pe1 : naxiom.getProperties()) {
+				for (OWLDataPropertyExpression pe2 : naxiom.getProperties()) {
+					if (!pe1.equals(pe2)) {
+						if (pe1.isAnonymous()) {
+							addStatement.setString(1, nidMapper.get(pe1).toString());
+						} else {
+							addStatement.setString(1, pe1.asOWLDataProperty().getIRI().toString());
+						}
+						if (pe2.isAnonymous()) {
+							addStatement.setString(2, nidMapper.get(pe2).toString());
+						} else {
+							addStatement.setString(2, pe2.asOWLDataProperty().getIRI().toString());
+						}
+						
+						addStatement.execute();
+						reasonProcessor.add(new AdditionReason(this));
+					}
+				}
+				if (pe1.isAnonymous()) {
+					handleAnonymousDataPropertyExpression(pe1);
 				}
 			}
 

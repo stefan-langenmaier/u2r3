@@ -70,6 +70,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(OWLReflexiveObjectPropertyAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
@@ -119,15 +122,17 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDisjointDataPropertiesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLDisjointDataPropertiesAxiom axiom) {
+		logger.debug("  adding DisjointDataProperties:" + axiom.toString());
+		relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		logger.debug("  added DisjointDataProperties");
 	}
 
 	@Override
 	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
-		logger.debug("  adding EquivalentObjectProperties:" + axiom.toString());
+		logger.debug("  adding DisjointObjectProperties:" + axiom.toString());
 		relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
-		logger.debug("  added EquivalentObjectProperties");
+		logger.debug("  added DisjointObjectProperties");
 	}
 
 	@Override
@@ -152,6 +157,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(OWLDisjointUnionAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
@@ -179,13 +187,17 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLFunctionalDataPropertyAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLFunctionalDataPropertyAxiom axiom) {
+		logger.debug("  adding FunctionalDataProperty:" + axiom.toString());
+		relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
+		logger.debug("  added FunctionalDataProperty");
 	}
 
 	@Override
-	public void visit(OWLEquivalentDataPropertiesAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
+		logger.debug("  adding EquivalentDataProperties:" + axiom.toString());
+		relationManager.getRelation(RelationName.equivalentProperty).add(axiom);
+		logger.debug("  added EquivalentDataProperties");
 	}
 
 	@Override
@@ -244,6 +256,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(SWRLRule arg0) {
 		throw new U2R3NotInProfileException(arg0);
 	}
@@ -271,10 +286,9 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 
 	@Override
 	public void visit(OWLSubDataPropertyOfAxiom axiom) {
-//		logger.debug("  adding DataSubProperty:" + axiom.toString());
-//		XXXSubDataPropertyRelation.getRelation().add(axiom);
-//		logger.debug("  added DataSubProperty");
-		throw new U2R3NotInProfileException(axiom);
+		logger.debug("  adding SubDataPropertyOf:" + axiom.toString());
+		relationManager.getRelation(RelationName.subProperty).add(axiom);
+		logger.debug("  added SubDataPropertyOf");
 		
 	}
 
@@ -304,29 +318,33 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 		throw new U2R3NotInProfileException(arg0);
 		
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * Annotationen werden ignoriert
+	 */
 
 	@Override
 	public void visit(OWLAnnotationAssertionAxiom axiom) {
-		//System.out.println(axiom.toString());
-		throw new U2R3NotInProfileException(axiom);
+		//throw new U2R3NotInProfileException(axiom);
 		
 	}
 
 	@Override
 	public void visit(OWLSubAnnotationPropertyOfAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+		//throw new U2R3NotInProfileException(arg0);
 		
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyDomainAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+		//throw new U2R3NotInProfileException(arg0);
 		
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyRangeAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+		//throw new U2R3NotInProfileException(arg0);
 		
 	}
 
