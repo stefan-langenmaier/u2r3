@@ -138,8 +138,7 @@ public class ClassAssertionLitRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new U2R3NotImplementedException();
 	}
 
 

@@ -62,10 +62,6 @@ public class SameAsLitRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 UUID," +
 					" sourceTable6 VARCHAR(100)," +
-					" sourceId7 UUID," +
-					" sourceTable7 VARCHAR(100)," +
-					" sourceId8 UUID," +
-					" sourceTable8 VARCHAR(100)," +
 					" PRIMARY KEY (left, right))");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,7 +91,7 @@ public class SameAsLitRelation extends Relation {
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					String sql = null;
 					
-					for (int i=1; i<=8; ++i) {
+					for (int i=1; i<=6; ++i) {
 						//remove rows without history
 						sql = "DELETE FROM " + delta.getDeltaName() + " WHERE sourceId" + i + " IS NULL";
 						rows = stmt.executeUpdate(sql);				
