@@ -23,12 +23,13 @@ public class HasValueEntRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" class TEXT," +
+					" property TEXT, " +
 					" value TEXT," +
-					" PRIMARY KEY (class, value))");
+					" PRIMARY KEY (class, property, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, value) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, property, value) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,10 +70,18 @@ public class HasValueEntRelation extends Relation {
 			if (ce instanceof  OWLObjectHasValue) {
 				OWLObjectHasValue hv = (OWLObjectHasValue) ce;
 				addStatement.setString(1, nidMapper.get(ce).toString());
-				if (hv.getValue().isAnonymous()) {
-					addStatement.setString(2, hv.getValue().asAnonymousIndividual().getID().toString());
+				
+				if (hv.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(hv.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(hv.getProperty());
 				} else {
-					addStatement.setString(2, hv.getValue().asNamedIndividual().getIRI().toString());
+					addStatement.setString(2, hv.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
+				if (hv.getValue().isAnonymous()) {
+					addStatement.setString(3, hv.getValue().asAnonymousIndividual().getID().toString());
+				} else {
+					addStatement.setString(3, hv.getValue().asNamedIndividual().getIRI().toString());
 				}
 				
 				addStatement.execute();

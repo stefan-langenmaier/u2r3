@@ -18,8 +18,6 @@ public class ClsMaxqc1LitRule extends ConsistencyRule {
 		relationManager.getRelation(RelationName.classAssertionLit).addAdditionRule(this);
 		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.maxQualifiedCardinality).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onClass).addAdditionRule(this);
 		
 		//add deletion rule
 	}
@@ -31,11 +29,9 @@ public class ClsMaxqc1LitRule extends ConsistencyRule {
 		
 		sql.append("SELECT 1 AS res");
 		sql.append("\n FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON op.class = mqc.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("onClass") + " AS oc ON oc.name = mqc.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = op.class");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON ca1.entity = prp.subject AND op.property = prp.property");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca2 ON ca2.literal = prp.object AND ca2.class = oc.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = mqc.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON ca1.entity = prp.subject AND mqc.property = prp.property");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca2 ON ca2.literal = prp.object AND ca2.class = mqc.total");
 		sql.append("\n WHERE mqc.value = '0'");	
 
 		return sql.toString();

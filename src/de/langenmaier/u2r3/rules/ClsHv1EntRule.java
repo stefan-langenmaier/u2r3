@@ -15,7 +15,6 @@ public class ClsHv1EntRule extends ApplicationRule {
 		targetRelation = RelationName.objectPropertyAssertion;
 		
 		relationManager.getRelation(RelationName.hasValueEnt).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.classAssertionEnt).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -30,30 +29,28 @@ public class ClsHv1EntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
-			sql.append("\n\t SELECT ca.class AS subject, op.property AS property, hv.value as object, ");
+			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT ca.class AS subject, hv.property AS property, hv.value as object, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
-			sql.append(" MIN(op.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2, ");
-			sql.append(" MIN(hv.id) AS sourceId3, '" + RelationName.hasValueEnt +"' AS sourceTable3");
+			sql.append(" MIN(hv.id) AS sourceId2, '" + RelationName.hasValueEnt +"' AS sourceTable2");
 		} else {
 			sql.append(" (subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT ca.class AS subject, op.property AS property, hv.value as object");
+			sql.append("\n\t SELECT DISTINCT ca.class AS subject, hv.property AS property, hv.value as object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueEnt") + " AS hv");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON hv.class = op.class");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = hv.class");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.subject");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = ca.entity AND bottom.property = op.property AND bottom.object = hv.value");
+			sql.append("\n\t\t WHERE bottom.subject = ca.entity AND bottom.property = hv.property AND bottom.object = hv.value");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ca.entity, op.property, hv.value");
+			sql.append("\n\t GROUP BY ca.entity, hv.property, hv.value");
 		}
 
 		return sql.toString();

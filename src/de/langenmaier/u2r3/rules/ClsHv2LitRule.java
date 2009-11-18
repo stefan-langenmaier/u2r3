@@ -15,7 +15,6 @@ public class ClsHv2LitRule extends ApplicationRule {
 		targetRelation = RelationName.classAssertionEnt;
 		
 		relationManager.getRelation(RelationName.hasValueLit).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -30,19 +29,17 @@ public class ClsHv2LitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT prp.subject AS entity, hv.class AS class, ");
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1, ");
-			sql.append(" MIN(op.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2, ");
-			sql.append(" MIN(prp.id) AS sourceId3, '" + RelationName.dataPropertyAssertion + "' AS sourceTable3 ");
+			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2 ");
 		} else {
 			sql.append(" (entity, class)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, hv.class AS class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueLit") + " AS hv");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON hv.class = op.class");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = op.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = hv.property");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

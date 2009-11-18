@@ -18,11 +18,12 @@ public class RelationManager {
 		propertyRange, objectPropertyAssertion, sameAsEnt, list, intersectionOf,
 		equivalentClass, differentFromEnt, subProperty,
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
-		hasKey,  unionOf, complementOf, someValuesFrom, onProperty,
+		hasKey,  unionOf, complementOf, someValuesFrom, 
 		allValuesFrom, hasValueEnt, maxCardinality, maxQualifiedCardinality,
 		//members, distinctMembers,
 		//sourceIndividual, targetIndividual, assertionProperty, targetValue,
-		onClass, oneOf, disjointWith, differentFromLit,
+		//onClass, onProperty,
+		oneOf, disjointWith, differentFromLit,
 		negativeObjectPropertyAssertion, negativeDataPropertyAssertion};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
@@ -73,13 +74,13 @@ public class RelationManager {
 		relations.put(RelationName.unionOf, new UnionOfRelation(reasoner));
 		relations.put(RelationName.complementOf, new ComplementOfRelation(reasoner));
 		relations.put(RelationName.someValuesFrom, new SomeValuesFromRelation(reasoner));
-		relations.put(RelationName.onProperty, new OnPropertyRelation(reasoner));
+		//relations.put(RelationName.onProperty, new OnPropertyRelation(reasoner));
 		relations.put(RelationName.allValuesFrom, new AllValuesFromRelation(reasoner));
 		relations.put(RelationName.hasValueEnt, new HasValueEntRelation(reasoner));
 		relations.put(RelationName.hasValueLit, new HasValueLitRelation(reasoner));
 		relations.put(RelationName.maxCardinality, new MaxCardinalityRelation(reasoner));
 		relations.put(RelationName.maxQualifiedCardinality, new MaxQualifiedCardinalityRelation(reasoner));
-		relations.put(RelationName.onClass, new OnClassRelation(reasoner));
+		//relations.put(RelationName.onClass, new OnClassRelation(reasoner));
 		relations.put(RelationName.oneOf, new OneOfRelation(reasoner));
 		relations.put(RelationName.disjointWith, new DisjointWithRelation(reasoner));
 		

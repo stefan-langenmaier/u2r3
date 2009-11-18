@@ -23,12 +23,13 @@ public class MaxCardinalityRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" class TEXT," +
+					" property TEXT, " +
 					" value TEXT," +
-					" PRIMARY KEY (class, value))");
+					" PRIMARY KEY (class, property, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, value) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, property, value) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -68,9 +69,18 @@ public class MaxCardinalityRelation extends Relation {
 		try {
 			addStatement.setString(1, nidMapper.get(ce).toString());
 			
+			
 			if (ce instanceof OWLObjectMaxCardinality) {
 				OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
-				addStatement.setString(2, Integer.toString(mc.getCardinality()));
+				
+				if (mc.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(mc.getProperty());
+				} else {
+					addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
+				addStatement.setString(3, Integer.toString(mc.getCardinality()));
 			} else {
 				throw new U2R3NotImplementedException();
 			}

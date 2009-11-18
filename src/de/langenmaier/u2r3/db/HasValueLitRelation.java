@@ -20,14 +20,15 @@ public class HasValueLitRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" class TEXT," +
+					" property TEXT, " +
 					" value TEXT," +
 					" language TEXT," +
 					" type TEXT," +
-					" PRIMARY KEY (class, value))");
+					" PRIMARY KEY (class, property, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, value, language, type) VALUES (?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, property, value, language, type) VALUES (?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

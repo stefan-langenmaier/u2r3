@@ -15,7 +15,6 @@ public class ScmHvLitRule extends ApplicationRule {
 		targetRelation = RelationName.subClass;
 		
 		relationManager.getRelation(RelationName.subProperty).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.hasValueLit).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -38,41 +37,35 @@ public class ScmHvLitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
-			sql.append("\n\t SELECT op1.class, op2.class, ");
+			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT hv1.class, hv2.class, ");
 			sql.append(" MIN(hv1.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1, ");
-			sql.append(" MIN(op1.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2, ");
-			sql.append(" MIN(hv2.id) AS sourceId3, '" + RelationName.hasValueLit + "' AS sourceTable3, ");
-			sql.append(" MIN(op2.id) AS sourceId4, '" + RelationName.onProperty + "' AS sourceTable4, ");
-			sql.append(" MIN(sp.id) AS sourceId5, '" + RelationName.subProperty + "' AS sourceTable5");
+			sql.append(" MIN(hv2.id) AS sourceId2, '" + RelationName.hasValueLit + "' AS sourceTable2, ");
+			sql.append(" MIN(sp.id) AS sourceId3, '" + RelationName.subProperty + "' AS sourceTable3");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT op1.class, op2.class ");
+			sql.append("\n\t SELECT DISTINCT hv1.class, hv2.class ");
 		}
 		
 		if (run == 0) {
 			sql.append("\n\t FROM " + delta.getDeltaName("hasValueLit") + " AS hv1 ");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op1 ON op1.class = hv1.class");
 			sql.append("\n\t\t INNER JOIN hasValueLit AS hv2 ON hv1.value = hv2.value");
-			sql.append("\n\t\t INNER JOIN onProperty AS op2 ON op2.class = hv2.class");
 		} else if (run == 1) {
 			sql.append("\n\t FROM hasValueLit AS hv1 ");
-			sql.append("\n\t\t INNER JOIN onProperty AS op1 ON op1.class = hv1.class");
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("hasValueLit") + " AS hv2 ON hv1.value = hv2.value");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op2 ON op2.class = hv2.class");
 		}
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subProperty") + " AS sp ON sp.sub = op1.property AND sp.super = op2.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subProperty") + " AS sp ON sp.sub = hv1.property AND sp.super = hv2.property");
 
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = op1.class AND bottom.super = op2.class) ");
+			sql.append("\n\t\t WHERE bottom.sub = hv1.class AND bottom.super = hv2.class) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY op1.class, op2.class");
+			sql.append("\n\t GROUP BY hv1.class, hv2.class");
 		}
 
 		return sql.toString();
