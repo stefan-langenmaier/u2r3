@@ -15,11 +15,13 @@ public class RuleManager {
 		cls_int_2, cax_sco_lit, scm_cls_subClass, scm_cls_thing, scm_cls_nothing,
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom_ent,
 		prp_rng_ent, prp_dom_lit, prp_rng_lit, prp_spo_1_lit, cls_svf_1_lit,
-		eq_rep_s_ent, eq_rep_p_ent, eq_rep_o_ent, eq_diff_1_lit, eq_diff_2, eq_diff_3,
+		eq_rep_s_ent, eq_rep_p_ent, eq_rep_o_ent, eq_diff_1_lit,
+		//eq_diff_2, eq_diff_3, prp_adp_lit, prp_adp_entcax_adc
+		//cax_adc wurde gar nicht implementiert, 
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1_ent, prp_spo_2,
 		prp_eqp_1, prp_eqp_2, prp_pdw_lit, prp_inv_1, prp_inv_2,
 		prp_key, prp_npa_1, prp_npa_2, cls_thing, cls_nothing_1, cls_uni,
-		cls_com_lit, cls_svf_1_ent, prp_adp_lit,
+		cls_com_lit, cls_svf_1_ent, 
 		cls_maxc_1_lit, cls_maxqc_1_lit, cls_maxqc_2_lit,
 		cls_oo, cax_eqc_1, cax_eqc_2_lit, cax_dw_lit, scm_sco,
 		scm_eqc_1, scm_eqc_2, scm_op_sub, scm_op_eq, scm_dp_sub, scm_dp_eq,
@@ -31,7 +33,7 @@ public class RuleManager {
 		cls_maxc_2_ent, cls_maxc_2_lit, cls_maxqc_3_ent, cls_maxqc_3_lit,
 		cls_maxqc_4_ent, cls_maxqc_4_lit, cax_eqc_2_ent, cax_sco_ent,
 		cls_nothing_2_ent, cls_com_ent, cls_maxc_1_ent, cls_maxqc_1_ent,
-		cls_maxqc_2_ent, cax_dw_ent, scm_hv_ent, eq_diff_1_ent, prp_adp_ent,
+		cls_maxqc_2_ent, cax_dw_ent, scm_hv_ent, eq_diff_1_ent, 
 		prp_pdw_ent, eq_ref_s_ent, eq_ref_s_lit, eq_ref_p_ent, eq_ref_p_lit,
 		eq_ref_o_ent, eq_ref_o_lit, scm_eqp_1_sub_1, scm_eqp_1_sub_2, prp_ap};
 
@@ -80,8 +82,8 @@ public class RuleManager {
 		rules.put(RuleName.eq_rep_o_lit, new EqRepOLitRule(reasoner));
 		rules.put(RuleName.eq_diff_1_ent, new EqDiff1EntRule(reasoner));
 		rules.put(RuleName.eq_diff_1_lit, new EqDiff1LitRule(reasoner));
-		rules.put(RuleName.eq_diff_2, new EqDiff2Rule(reasoner));
-		rules.put(RuleName.eq_diff_3, new EqDiff3Rule(reasoner));
+		//rules.put(RuleName.eq_diff_2, new EqDiff2Rule(reasoner));
+		//rules.put(RuleName.eq_diff_3, new EqDiff3Rule(reasoner));
 		rules.put(RuleName.prp_fp, new PrpFpRule(reasoner));
 		rules.put(RuleName.prp_ifp, new PrpIfpRule(reasoner));
 		rules.put(RuleName.prp_symp, new PrpSympRule(reasoner));
@@ -94,8 +96,8 @@ public class RuleManager {
 		rules.put(RuleName.prp_eqp_2, new PrpEqp2Rule(reasoner));
 		rules.put(RuleName.prp_pdw_ent, new PrpPdwEntRule(reasoner));
 		rules.put(RuleName.prp_pdw_lit, new PrpPdwLitRule(reasoner));
-		rules.put(RuleName.prp_adp_ent, new PrpAdpEntRule(reasoner));
-		rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
+		//rules.put(RuleName.prp_adp_ent, new PrpAdpEntRule(reasoner));
+		//rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
 		rules.put(RuleName.prp_inv_1, new PrpInv1Rule(reasoner));
 		rules.put(RuleName.prp_inv_2, new PrpInv2Rule(reasoner));
 		rules.put(RuleName.prp_key, new PrpKeyRule(reasoner));

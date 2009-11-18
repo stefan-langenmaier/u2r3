@@ -16,11 +16,12 @@ public class RelationManager {
 	public enum RelationName {classAssertionEnt, classAssertionLit, subClass,
 		propertyDomain, sameAsLit, dataPropertyAssertion, hasValueLit,
 		propertyRange, objectPropertyAssertion, sameAsEnt, list, intersectionOf,
-		equivalentClass, differentFromEnt, members, distinctMembers, subProperty,
+		equivalentClass, differentFromEnt, subProperty,
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey, sourceIndividual, targetIndividual, assertionProperty,
 		targetValue, unionOf, complementOf, someValuesFrom, onProperty,
 		allValuesFrom, hasValueEnt, maxCardinality, maxQualifiedCardinality,
+		//members, distinctMembers,
 		onClass, oneOf, disjointWith, differentFromLit};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
@@ -54,8 +55,8 @@ public class RelationManager {
 		relations.put(RelationName.propertyRange, new PropertyRangeRelation(reasoner));
 		relations.put(RelationName.differentFromEnt, new DifferentFromEntRelation(reasoner));
 		relations.put(RelationName.differentFromLit, new DifferentFromLitRelation(reasoner));
-		relations.put(RelationName.members, new MembersRelation(reasoner));
-		relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
+		//relations.put(RelationName.members, new MembersRelation(reasoner));
+		//relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
 		relations.put(RelationName.subProperty, new SubPropertyRelation(reasoner));
 		relations.put(RelationName.propertyChain, new PropertyChainRelation(reasoner));
 		relations.put(RelationName.equivalentProperty, new EquivalentPropertyRelation(reasoner));
