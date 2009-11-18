@@ -15,7 +15,6 @@ public class ScmSvf1Rule extends ApplicationRule {
 		targetRelation = RelationName.subClass;
 		
 		relationManager.getRelation(RelationName.subClass).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.someValuesFrom).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -38,28 +37,22 @@ public class ScmSvf1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
-			sql.append("\n\t SELECT op1.class, op2.class,");
+			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT svf1.part, svf2.part,");
 			sql.append(" MIN(svf1.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1,");
-			sql.append(" MIN(op1.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2,");
-			sql.append(" MIN(svf2.id) AS sourceId3, '" + RelationName.someValuesFrom + "' AS sourceTable3,");
-			sql.append(" MIN(op2.id) AS sourceId4, '" + RelationName.onProperty + "' AS sourceTable4,");
-			sql.append(" MIN(sc.id) AS sourceId5, '" + RelationName.subClass + "' AS sourceTable5");
+			sql.append(" MIN(svf2.id) AS sourceId2, '" + RelationName.someValuesFrom + "' AS sourceTable2,");
+			sql.append(" MIN(sc.id) AS sourceId3, '" + RelationName.subClass + "' AS sourceTable3");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT op1.class, op2.class ");
+			sql.append("\n\t SELECT DISTINCT svf1.part, svf2.part ");
 		}
 		
 		if (run == 0) {
 			sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf1 ");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op1 ON op1.class = svf1.part");
-			sql.append("\n\t\t INNER JOIN someValuesFrom AS svf2 ON op2.class = svf2.part");
-			sql.append("\n\t\t INNER JOIN onProperty AS op2 ON op1.property = op2.property");
+			sql.append("\n\t\t INNER JOIN someValuesFrom AS svf2 ON svf1.property = svf2.property");
 		} else if (run == 1) {
 			sql.append("\n\t FROM someValuesFrom AS svf1 ");
-			sql.append("\n\t\t INNER JOIN onProperty AS op1 ON op1.class = svf1.part");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("someValuesFrom") + " AS svf2 ON op2.class = svf2.part");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op2 ON op1.property = op2.property");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("someValuesFrom") + " AS svf2 ON  svf1.property = svf2.property");
 		}
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subClass") + " AS sc ON sc.sub = svf1.total AND sc.super = svf2.total");
 		
@@ -67,11 +60,11 @@ public class ScmSvf1Rule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = op1.class AND bottom.super = op2.class) ");
+			sql.append("\n\t\t WHERE bottom.sub = svf1.part AND bottom.super = svf2.part) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY op1.class, op2.class");
+			sql.append("\n\t GROUP BY svf1.part, svf2.part");
 		}
 
 		return sql.toString();

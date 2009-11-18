@@ -23,12 +23,13 @@ public class SomeValuesFromRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" part TEXT," +
+					" property TEXT," +
 					" total TEXT," +
 					" PRIMARY KEY (part, total))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, total) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, property, total) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,11 +71,18 @@ public class SomeValuesFromRelation extends Relation {
 				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ce;
 				addStatement.setString(1, nidMapper.get(ce).toString());
 				
+				if (svf.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(svf.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(svf.getProperty());
+				} else {
+					addStatement.setString(2, svf.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
 				if (svf.getFiller().isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(svf.getFiller()).toString());
+					addStatement.setString(3, nidMapper.get(svf.getFiller()).toString());
 					handleAnonymousClassExpression(svf.getFiller());
 				} else {
-					addStatement.setString(2, svf.getFiller().asOWLClass().getIRI().toString());
+					addStatement.setString(3, svf.getFiller().asOWLClass().getIRI().toString());
 				}
 				
 				addStatement.execute();

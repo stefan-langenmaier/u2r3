@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.rules;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
@@ -16,7 +15,6 @@ public class ClsSvf2LitRule extends ApplicationRule {
 		targetRelation = RelationName.classAssertionEnt;
 		
 		relationManager.getRelation(RelationName.someValuesFrom).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,19 +29,17 @@ public class ClsSvf2LitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT prp.subject AS entity, svf.part AS class, ");
 			sql.append(" MIN(svf.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1, ");
-			sql.append(" MIN(op.id) AS sourceId1, '" + RelationName.onProperty + "' AS sourceTable1, ");
-			sql.append(" MIN(prp.id) AS sourceId3, '" + RelationName.dataPropertyAssertion + "' AS sourceTable3 ");
+			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2 ");
 		} else {
 			sql.append(" (entity, class)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, svf.part AS class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON svf.part = op.class AND svf.total = '" + OWLRDFVocabulary.OWL_THING + "'");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = op.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = svf.property");
 
 		
 		if (again) {

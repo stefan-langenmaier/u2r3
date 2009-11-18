@@ -15,7 +15,6 @@ public class ClsSvf1LitRule extends ApplicationRule {
 		targetRelation = RelationName.classAssertionEnt;
 		
 		relationManager.getRelation(RelationName.someValuesFrom).addAdditionRule(this);
-		relationManager.getRelation(RelationName.onProperty).addAdditionRule(this);
 		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.classAssertionLit).addAdditionRule(this);
 		
@@ -31,20 +30,18 @@ public class ClsSvf1LitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4)");
+			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
 			sql.append("\n\t SELECT prp.subject AS entity, svf.part AS class, ");
 			sql.append(" MIN(svf.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1, ");
-			sql.append(" MIN(op.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2, ");
-			sql.append(" MIN(prp.id) AS sourceId3, '" + RelationName.dataPropertyAssertion + "' AS sourceTable3, ");
-			sql.append(" MIN(ca.id) AS sourceId4, '" + RelationName.classAssertionLit + "' AS sourceTable4 ");
+			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2, ");
+			sql.append(" MIN(ca.id) AS sourceId3, '" + RelationName.classAssertionLit + "' AS sourceTable3 ");
 		} else {
 			sql.append(" (entity, class)");
 			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, svf.part AS class");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("onProperty") + " AS op ON svf.part = op.class");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = op.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = svf.property");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca ON ca.literal = object AND ca.class = svf.total");
 		
 		if (again) {

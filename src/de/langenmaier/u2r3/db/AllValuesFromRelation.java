@@ -23,12 +23,13 @@ public class AllValuesFromRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" part TEXT," +
-					" total TEXT," +
+					" property TEXT, " +
+					" total TEXT, " +
 					" PRIMARY KEY (part, total))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("MERGE INTO " + getTableName() + " (part, total) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, property, total) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -70,11 +71,18 @@ public class AllValuesFromRelation extends Relation {
 				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
 				addStatement.setString(1, nidMapper.get(ce).toString());
 				
+				if (avf.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(avf.getProperty()).toString());
+					handleAnonymousObjectPropertyExpression(avf.getProperty());
+				} else {
+					addStatement.setString(2, avf.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
 				if (avf.getFiller().isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(avf.getFiller()).toString());
+					addStatement.setString(3, nidMapper.get(avf.getFiller()).toString());
 					handleAnonymousClassExpression(avf.getFiller());
 				} else {
-					addStatement.setString(2, avf.getFiller().asOWLClass().getIRI().toString());
+					addStatement.setString(3, avf.getFiller().asOWLClass().getIRI().toString());
 				}
 				
 				addStatement.execute();
