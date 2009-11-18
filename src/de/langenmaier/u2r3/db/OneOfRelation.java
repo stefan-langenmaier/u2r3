@@ -31,6 +31,7 @@ public class OneOfRelation extends Relation {
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");
+			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
