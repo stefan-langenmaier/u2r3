@@ -67,9 +67,6 @@ public abstract class Relation extends U2R3Component {
 		try {
 			createDeltaStatement = conn.createStatement();
 			dropDeltaStatement = conn.createStatement();
-
-			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
