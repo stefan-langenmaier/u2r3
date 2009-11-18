@@ -41,7 +41,6 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
-import org.semanticweb.owlapi.model.OWLTypedLiteral;
 import org.semanticweb.owlapi.model.SWRLRule;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -63,9 +62,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
 		logger.debug("  adding NegativeObjectProperty:" + axiom.toString());
-		relationManager.getRelation(RelationName.sourceIndividual).add(axiom);
-		relationManager.getRelation(RelationName.assertionProperty).add(axiom);
-		relationManager.getRelation(RelationName.targetIndividual).add(axiom);
+		relationManager.getRelation(RelationName.negativeObjectPropertyAssertion).add(axiom);
 		logger.debug("  added NegativeObjectProperty");
 	}
 
@@ -108,9 +105,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
 		logger.debug("  adding NegativeDataProperty:" + axiom.toString());
-		relationManager.getRelation(RelationName.sourceIndividual).add(axiom);
-		relationManager.getRelation(RelationName.assertionProperty).add(axiom);
-		relationManager.getRelation(RelationName.targetValue).add(axiom);
+		relationManager.getRelation(RelationName.negativeDataPropertyAssertion).add(axiom);
 		logger.debug("  added NegativeDataProperty");
 	}
 
@@ -217,10 +212,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	public void visit(OWLDataPropertyAssertionAxiom axiom) {
 		logger.debug("  adding DataPropertyAssertionAxiom:" + axiom.toString());
 		relationManager.getRelation(RelationName.dataPropertyAssertion).add(axiom);
-		if (axiom.getObject().isTyped()) {
-			OWLTypedLiteral tl = df.getOWLTypedLiteral(axiom.getObject().getLiteral(), axiom.getObject().asOWLStringLiteral().getDatatype());
-			relationManager.getRelation(RelationName.classAssertionLit).add(tl);
-		}
 		logger.debug("  added DataPropertyAssertionAxiom");
 	}
 

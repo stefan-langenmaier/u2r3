@@ -18,11 +18,12 @@ public class RelationManager {
 		propertyRange, objectPropertyAssertion, sameAsEnt, list, intersectionOf,
 		equivalentClass, differentFromEnt, subProperty,
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
-		hasKey, sourceIndividual, targetIndividual, assertionProperty,
-		targetValue, unionOf, complementOf, someValuesFrom, onProperty,
+		hasKey,  unionOf, complementOf, someValuesFrom, onProperty,
 		allValuesFrom, hasValueEnt, maxCardinality, maxQualifiedCardinality,
 		//members, distinctMembers,
-		onClass, oneOf, disjointWith, differentFromLit};
+		//sourceIndividual, targetIndividual, assertionProperty, targetValue,
+		onClass, oneOf, disjointWith, differentFromLit,
+		negativeObjectPropertyAssertion, negativeDataPropertyAssertion};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -63,10 +64,12 @@ public class RelationManager {
 		relations.put(RelationName.propertyDisjointWith, new PropertyDisjointWithRelation(reasoner));
 		relations.put(RelationName.inverseOf, new InverseOfRelation(reasoner));
 		relations.put(RelationName.hasKey, new HasKeyRelation(reasoner));
-		relations.put(RelationName.sourceIndividual, new SourceIndividualRelation(reasoner));
-		relations.put(RelationName.targetIndividual, new TargetIndividualRelation(reasoner));
-		relations.put(RelationName.targetValue, new TargetValueRelation(reasoner));
-		relations.put(RelationName.assertionProperty, new AssertionPropertyRelation(reasoner));
+		//relations.put(RelationName.sourceIndividual, new SourceIndividualRelation(reasoner));
+		//relations.put(RelationName.targetIndividual, new TargetIndividualRelation(reasoner));
+		//relations.put(RelationName.targetValue, new TargetValueRelation(reasoner));
+		//relations.put(RelationName.assertionProperty, new AssertionPropertyRelation(reasoner));
+		relations.put(RelationName.negativeDataPropertyAssertion, new NegativeDataPropertyAssertionRelation(reasoner));
+		relations.put(RelationName.negativeObjectPropertyAssertion, new NegativeObjectPropertyAssertionRelation(reasoner));
 		relations.put(RelationName.unionOf, new UnionOfRelation(reasoner));
 		relations.put(RelationName.complementOf, new ComplementOfRelation(reasoner));
 		relations.put(RelationName.someValuesFrom, new SomeValuesFromRelation(reasoner));

@@ -3,6 +3,7 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -34,11 +35,12 @@ public class DataPropertyAssertionRelation extends Relation {
 					" property TEXT," +
 					" object TEXT," +
 					" language TEXT NULL,"+
+					" type TEXT NULL,"+
 					" PRIMARY KEY (subject, property, object))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object, language) VALUES (?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object, language, type) VALUES (?, ?, ?, ?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -57,8 +59,10 @@ public class DataPropertyAssertionRelation extends Relation {
 			addStatement.setString(3, naxiom.getObject().getLiteral());
 			if (!naxiom.getObject().isTyped()) {
 				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
+				addStatement.setNull(5, Types.LONGVARCHAR);
 			} else {
-				addStatement.setString(4, "");
+				addStatement.setNull(4, Types.LONGVARCHAR);
+				addStatement.setString(5, naxiom.getObject().asOWLStringLiteral().getDatatype().getIRI().toString());
 			}
 			
 		}
@@ -90,15 +94,14 @@ public class DataPropertyAssertionRelation extends Relation {
 
 	@Override
 	public void merge(DeltaRelation delta) {
-		// TODO Auto-generated method stub
-		
+		//FIXME  hier kommen Daten an die behandelt werden sollten
+		//throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -122,7 +125,7 @@ public class DataPropertyAssertionRelation extends Relation {
 			Set<OWLLiteral> ret = new HashSet<OWLLiteral>();
 			
 			
-			sql.append("SELECT object");
+			sql.append("SELECT object, language, type");
 			sql.append("\nFROM " + getTableName());
 			sql.append("\nWHERE subject = '" + ni.getIRI().toString() + "' AND property = '" + dp.getIRI().toString() + "'");
 			
@@ -130,8 +133,14 @@ public class DataPropertyAssertionRelation extends Relation {
 			
 			while(rs.next()) {
 				String lit = rs.getString("object");
-				///TODO unterscheiden ob typed oder string
-				ret.add(dataFactory.getOWLStringLiteral(lit));
+				String type = rs.getString("type");
+				//TODO Sprache oder Typ erzeugen
+				if (type == null) {
+					ret.add(dataFactory.getOWLStringLiteral(lit));
+				} else {
+					ret.add(dataFactory.getOWLTypedLiteral(lit));
+				}
+				
 			}
 			return ret;
 		} catch (SQLException e) {

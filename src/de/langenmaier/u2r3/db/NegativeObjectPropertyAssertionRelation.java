@@ -3,8 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -12,23 +12,24 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.Pair;
 
-public class AssertionPropertyRelation extends Relation {
+public class NegativeObjectPropertyAssertionRelation extends Relation {
+	static Logger logger = Logger.getLogger(NegativeObjectPropertyAssertionRelation.class);
 	
-	protected AssertionPropertyRelation(U2R3Reasoner reasoner) {
+	protected NegativeObjectPropertyAssertionRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		try {
-			tableName = "assertionProperty";
+			tableName = "negativeObjectPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" name TEXT," +
+					" subject TEXT," +
 					" property TEXT," +
-					" PRIMARY KEY (name, property))");
+					" object TEXT," +
+					" PRIMARY KEY (subject, property, object))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, property) VALUES (?, ?)");
-
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object) VALUES (?, ?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -38,27 +39,19 @@ public class AssertionPropertyRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
 			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
-			addStatement.setString(1, nidMapper.get(naxiom).toString());
-			if (naxiom.getProperty().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getProperty()).toString());
-				handleAnonymousObjectPropertyExpression(naxiom.getProperty());
+			if (naxiom.getSubject().isAnonymous()) {
+				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
 			}
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
-			OWLNegativeDataPropertyAssertionAxiom naxiom = (OWLNegativeDataPropertyAssertionAxiom) axiom;
-			addStatement.setString(1, nidMapper.get(naxiom).toString());
-			if (naxiom.getProperty().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getProperty()).toString());
-				handleAnonymousDataPropertyExpression(naxiom.getProperty());
+			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+			if (naxiom.getObject().isAnonymous()) {
+				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getIRI().toString());
 			}
-			return AdditionMode.ADD;
-		} else {
-			throw new U2R3NotImplementedException();
 		}
+		return AdditionMode.ADD;
 	}
 
 	@Override
@@ -74,8 +67,8 @@ public class AssertionPropertyRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		
-		throw new U2R3NotImplementedException();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

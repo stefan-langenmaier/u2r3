@@ -14,9 +14,7 @@ public class PrpNpa2Rule extends ConsistencyRule {
 		super(reasoner);
 		targetRelation = null;
 		
-		relationManager.getRelation(RelationName.sourceIndividual).addAdditionRule(this);
-		relationManager.getRelation(RelationName.targetValue).addAdditionRule(this);
-		relationManager.getRelation(RelationName.assertionProperty).addAdditionRule(this);
+		relationManager.getRelation(RelationName.negativeDataPropertyAssertion).addAdditionRule(this);
 		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
 	}
 
@@ -26,11 +24,9 @@ public class PrpNpa2Rule extends ConsistencyRule {
 		StringBuilder sql = new StringBuilder(400);
 		
 		sql.append("SELECT 1 AS RES");
-		sql.append("\n FROM " + delta.getDeltaName("sourceIndividual") +" AS si");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("assertionProperty") +" AS ap ON si.name = ap.name");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("targetValue") +" AS tv ON si.name = tv.name");
+		sql.append("\n FROM " + delta.getDeltaName("negativeDataPropertyAssertion") +" AS ndpa");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") +" AS prp ON");
-		sql.append("\n\t\t prp.subject = si.subject AND prp.property = ap.property AND prp.object = tv.value");
+		sql.append("\n\t\t prp.subject = ndpa.subject AND prp.property = ndpa.property AND prp.object = ndpa.object");
 
 		return sql.toString();
 	}
