@@ -28,11 +28,11 @@ public class EqRepOLitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT ass.subject, ass.property, sa.right, MIN(ass.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1, MIN(sa.id) AS sourceId2, '" + RelationName.sameAsEnt + "' AS sourceTable2");
+			sql.append(" (subject, property, object, language, type, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT ass.subject, ass.property, sa.right, ass.language, ass.type, MIN(ass.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1, MIN(sa.id) AS sourceId2, '" + RelationName.sameAsEnt + "' AS sourceTable2");
 		} else {
-			sql.append("(subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT ass.subject, ass.property, sa.right");
+			sql.append("(subject, property, object, language, type)");
+			sql.append("\n\t SELECT DISTINCT ass.subject, ass.property, sa.right, ass.language, ass.type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("sameAsEnt") + " AS  sa");

@@ -30,14 +30,14 @@ public class ClsHv1LitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
-			sql.append("\n\t SELECT ca.class AS subject, op.property AS property, hv.value as object, ");
+			sql.append(" (subject, property, object, language, type, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT ca.class AS subject, op.property AS property, hv.value as object, hv.language, hv.type, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(op.id) AS sourceId2, '" + RelationName.onProperty + "' AS sourceTable2, ");
 			sql.append(" MIN(hv.id) AS sourceId3, '" + RelationName.hasValueLit +"' AS sourceTable3");
 		} else {
-			sql.append(" (subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT ca.class AS subject, op.property AS property, hv.value as object");
+			sql.append(" (subject, property, object language, type)");
+			sql.append("\n\t SELECT DISTINCT ca.class AS subject, op.property AS property, hv.value as object, hv.language, hv.type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueLit") + " AS hv");

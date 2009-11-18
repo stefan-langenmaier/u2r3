@@ -31,13 +31,13 @@ public class PrpSpo1LitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT prp.subject AS subject, subP.super AS property, prp.object AS object, ");
+			sql.append(" (subject, property, object, language, type, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT prp.subject AS subject, subP.super AS property, prp.object AS object, prp.language, prp.type, ");
 			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.subProperty + "' AS sourceTable1, ");
 			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2");
 		} else {
-			sql.append("(subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, subP.super AS property, prp.object AS object");
+			sql.append("(subject, property, object, language, type)");
+			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, subP.super AS property, prp.object AS object, prp.language, prp.type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("subProperty") + " AS subP");
