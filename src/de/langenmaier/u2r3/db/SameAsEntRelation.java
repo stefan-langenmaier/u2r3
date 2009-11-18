@@ -76,7 +76,7 @@ public class SameAsEntRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
-			// bis zu 8 Quellen
+			// bis zu 6 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left VARCHAR(100)," +
@@ -93,10 +93,6 @@ public class SameAsEntRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 UUID," +
 					" sourceTable6 VARCHAR(100)," +
-					" sourceId7 UUID," +
-					" sourceTable7 VARCHAR(100)," +
-					" sourceId8 UUID," +
-					" sourceTable8 VARCHAR(100)," +
 					" PRIMARY KEY (id, left, right))");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -126,7 +122,7 @@ public class SameAsEntRelation extends Relation {
 				if (settings.getDeletionType() == DeletionType.CASCADING) {
 					StringBuilder sql;
 					
-					for (int i=1; i<=8; ++i) {
+					for (int i=1; i<=6; ++i) {
 						//source
 						sql = new StringBuilder();
 						sql.append("SELECT b.theid, '" + RelationName.sameAsEnt + "' AS table,");
