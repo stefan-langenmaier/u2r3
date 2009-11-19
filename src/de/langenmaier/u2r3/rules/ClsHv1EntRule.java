@@ -30,12 +30,12 @@ public class ClsHv1EntRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT ca.class AS subject, hv.property AS property, hv.value as object, ");
+			sql.append("\n\t SELECT ca.entity AS subject, hv.property AS property, hv.value as object, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(hv.id) AS sourceId2, '" + RelationName.hasValueEnt +"' AS sourceTable2");
 		} else {
 			sql.append(" (subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT ca.class AS subject, hv.property AS property, hv.value as object");
+			sql.append("\n\t SELECT DISTINCT ca.entity AS subject, hv.property AS property, hv.value as object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueEnt") + " AS hv");

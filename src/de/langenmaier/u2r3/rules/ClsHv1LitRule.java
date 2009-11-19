@@ -30,12 +30,12 @@ public class ClsHv1LitRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, language, type, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT ca.class AS subject, hv.property AS property, hv.value as object, hv.language, hv.type, ");
+			sql.append("\n\t SELECT ca.entity AS subject, hv.property AS property, hv.value as object, hv.language, hv.type, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(hv.id) AS sourceId2, '" + RelationName.hasValueLit +"' AS sourceTable2");
 		} else {
 			sql.append(" (subject, property, object, language, type)");
-			sql.append("\n\t SELECT DISTINCT ca.class AS subject, hv.property AS property, hv.value as object, hv.language, hv.type");
+			sql.append("\n\t SELECT DISTINCT ca.entity AS subject, hv.property AS property, hv.value as object, hv.language, hv.type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueLit") + " AS hv");
