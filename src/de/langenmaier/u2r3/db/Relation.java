@@ -254,19 +254,14 @@ public abstract class Relation extends U2R3Component {
 			relationManager.getRelation(RelationName.oneOf).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
 			relationManager.getRelation(RelationName.someValuesFrom).add(ce);
-			//relationManager.getRelation(RelationName.onProperty).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
 			relationManager.getRelation(RelationName.allValuesFrom).add(ce);
-			//relationManager.getRelation(RelationName.onProperty).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_VALUE) {
 			relationManager.getRelation(RelationName.hasValueEnt).add(ce);
-			//relationManager.getRelation(RelationName.onProperty).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
-			//relationManager.getRelation(RelationName.onProperty).add(ce);
 			OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
 			if (mc.isQualified()) {
 				relationManager.getRelation(RelationName.maxQualifiedCardinality).add(ce);
-				//relationManager.getRelation(RelationName.onClass).add(ce);
 			} else {
 				relationManager.getRelation(RelationName.maxCardinality).add(ce);
 			}

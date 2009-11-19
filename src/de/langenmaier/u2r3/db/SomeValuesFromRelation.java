@@ -73,20 +73,26 @@ public class SomeValuesFromRelation extends Relation {
 				
 				if (svf.getProperty().isAnonymous()) {
 					addStatement.setString(2, nidMapper.get(svf.getProperty()).toString());
-					handleAnonymousObjectPropertyExpression(svf.getProperty());
 				} else {
 					addStatement.setString(2, svf.getProperty().asOWLObjectProperty().getIRI().toString());
 				}
 				
 				if (svf.getFiller().isAnonymous()) {
 					addStatement.setString(3, nidMapper.get(svf.getFiller()).toString());
-					handleAnonymousClassExpression(svf.getFiller());
 				} else {
 					addStatement.setString(3, svf.getFiller().asOWLClass().getIRI().toString());
 				}
 				
 				addStatement.execute();
 				reasonProcessor.add(new AdditionReason(this));
+				
+				if (svf.getProperty().isAnonymous()) {
+					handleAnonymousObjectPropertyExpression(svf.getProperty());
+				}
+				if (svf.getFiller().isAnonymous()) {
+					addStatement.setString(3, nidMapper.get(svf.getFiller()).toString());
+				}
+				
 			} else {
 				throw new U2R3NotImplementedException();
 			}

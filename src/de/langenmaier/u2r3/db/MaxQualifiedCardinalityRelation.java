@@ -75,7 +75,6 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 				
 				if (mc.getProperty().isAnonymous()) {
 					addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
-					handleAnonymousObjectPropertyExpression(mc.getProperty());
 				} else {
 					addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
 				}
@@ -88,11 +87,15 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 				}
 				
 				addStatement.setString(4, Integer.toString(mc.getCardinality()));
+				addStatement.execute();
+				
+				if (mc.getProperty().isAnonymous()) {
+					handleAnonymousObjectPropertyExpression(mc.getProperty());
+				}
 			} else {
 				throw new U2R3NotImplementedException();
 			}
-			
-			addStatement.execute();
+
 			reasonProcessor.add(new AdditionReason(this));
 		} catch (SQLException e) {
 			e.printStackTrace();

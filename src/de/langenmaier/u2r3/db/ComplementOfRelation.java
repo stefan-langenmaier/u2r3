@@ -42,20 +42,7 @@ public class ComplementOfRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
-					" leftSourceId UUID," +
-					" leftSourceTable VARCHAR(100)," +
-					" rightSourceId UUID," +
-					" rightSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (left, right))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -77,21 +64,26 @@ public class ComplementOfRelation extends Relation {
 	
 	@Override
 	public void add(OWLObject ce) {
-		OWLObjectComplementOf oco = (OWLObjectComplementOf) ce;
-		try {
-			addStatement.setString(1, nidMapper.get(ce).toString());
-			if (oco.getOperand().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(oco.getOperand()).toString());
-			} else {
-				addStatement.setString(2, oco.getOperand().asOWLClass().getIRI().toString());
+		if (ce instanceof OWLObjectComplementOf) {
+			OWLObjectComplementOf oco = (OWLObjectComplementOf) ce;
+			try {
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				if (oco.getOperand().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(oco.getOperand()).toString());
+				} else {
+					addStatement.setString(2, oco.getOperand().asOWLClass().getIRI().toString());
+				}
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
+				if (oco.getOperand().isAnonymous()) {
+					handleAnonymousClassExpression(oco.getOperand());
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
-			if (oco.getOperand().isAnonymous()) {
-				handleAnonymousClassExpression(oco.getOperand());
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} else {
+			throw new U2R3NotImplementedException();
 		}
 	}
 

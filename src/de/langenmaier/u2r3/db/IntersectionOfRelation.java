@@ -25,7 +25,11 @@ public class IntersectionOfRelation extends Relation {
 		try {
 			tableName = "intersectionOf";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, class VARCHAR(100), list VARCHAR(100), PRIMARY KEY (class, list))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" class TEXT," +
+					" list TEXT," +
+					" PRIMARY KEY (class, list))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -51,7 +55,7 @@ public class IntersectionOfRelation extends Relation {
 			addStatement.setString(1, nidMapper.get(ce).toString());
 			addStatement.setString(2, nid.toString());
 			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
+			
 			for (OWLClassExpression nce : oio.getOperands()) {
 				addListStatement.setString(1, nid.toString());
 				if (nce.isAnonymous()) {
@@ -62,10 +66,14 @@ public class IntersectionOfRelation extends Relation {
 				addListStatement.setLong(3, ++ordnung);
 				
 				addListStatement.execute();
+				
 				if (nce.isAnonymous()) {
 					handleAnonymousClassExpression(nce);
 				}
 			}
+			
+			reasonProcessor.add(new AdditionReason(this));
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -73,20 +81,7 @@ public class IntersectionOfRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" class VARCHAR(100)," +
-					" list VARCHAR(100)," +
-					" classSourceId UUID," +
-					" classSourceTable VARCHAR(100)," +
-					" listSourceId UUID," +
-					" listSourceTable VARCHAR(100)," +
-					" PRIMARY KEY (class, list))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -98,8 +93,7 @@ public class IntersectionOfRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
