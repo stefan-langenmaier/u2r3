@@ -25,7 +25,7 @@ public class SomeValuesFromRelation extends Relation {
 					" part TEXT," +
 					" property TEXT," +
 					" total TEXT," +
-					" PRIMARY KEY (part, total))");
+					" PRIMARY KEY (part, property, total))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

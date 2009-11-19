@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs ="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:xsd ="http://www.w3.org/2000/10/XMLSchema#"
+  xml:base = "http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-dlp.owl#"
+  xmlns      ="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-dlp.owl#"
+>
+
+<owl:Ontology rdf:about="">
+ <owl:versionInfo>19.11.2009, version 0.1</owl:versionInfo>
+ <rdfs:comment>OWL 2 RL (DLP) test ontology, Thorsten Liebig</rdfs:comment>
+</owl:Ontology>
+
+<owl:Class rdf:ID="PrimClass1"/>
+<owl:Class rdf:ID="PrimClass2"/>
+
+<owl:Class rdf:ID="PrimSubClass">
+  <rdfs:subClassOf rdf:resource="#PrimClass1"/>
+</owl:Class>
+
+<owl:Class rdf:ID="PrimSubClass2">
+  <rdfs:subClassOf rdf:resource="#PrimClass1"/>
+  <rdfs:subClassOf rdf:resource="#PrimClass2"/>
+</owl:Class>
+
+<owl:ObjectProperty rdf:ID="PrimProperty"/>
+
+<owl:ObjectProperty rdf:ID="DomainRangeProperty">
+  <rdfs:domain rdf:resource="#PrimClass1"/>
+  <rdfs:range rdf:resource="#PrimClass2"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:ID="PrimSubProperty">
+  <rdfs:subPropertyOf rdf:resource="#PrimProperty" />
+</owl:ObjectProperty>
+
+<PrimClass1 rdf:ID="Inst1"/>
+
+<PrimClass2 rdf:ID="Inst2">
+  <PrimSubProperty>
+    <PrimClass1 rdf:ID="Inst3"/>
+  </PrimSubProperty>
+</PrimClass2>
+
+<PrimClass1 rdf:ID="Inst4"/>
+<rdf:Description rdf:about="#Inst4">
+  <rdf:type rdf:resource="#PrimClass2"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="#Inst2">
+  <PrimProperty rdf:resource="#Inst4"/>
+</rdf:Description>
+
+<PrimClass2 rdf:ID="Inst5">
+  <PrimProperty rdf:resource="#Inst4"/>
+</PrimClass2>
+
+<owl:Class rdf:ID="EquivClass1">
+  <owl:equivalentClass rdf:resource="#PrimClass1"/>
+</owl:Class>
+
+<owl:ObjectProperty rdf:ID="EquivProp1">
+  <owl:equivalentProperty rdf:resource="#PrimProperty"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:ID="InvPrimProperty">
+  <owl:inverseOf rdf:resource="#PrimProperty"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:ID="husband"/>
+<owl:FunctionalProperty rdf:about="#husband" />
+
+<owl:ObjectProperty rdf:ID="biologicalMotherOf"/>
+<owl:InverseFunctionalProperty rdf:ID="biologicalMotherOf"/>
+
+<owl:ObjectProperty rdf:ID="TransProperty"/>
+<owl:TransitiveProperty rdf:ID="TransProperty"/>
+
+<owl:ObjectProperty rdf:ID="friendOf"/>
+<owl:SymmetricProperty rdf:ID="friendOf"/>
+
+<!-- conjunction lhs -->
+<owl:Class rdf:ID="IntersLHS"/>
+<owl:Class>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C7" />
+    <owl:Class rdf:about="#C8" />
+  </owl:intersectionOf>
+  <rdfs:subClassOf rdf:resource="#IntersLHS"/>
+</owl:Class>
+
+<!-- conjunction rhs -->
+<owl:Class rdf:ID="IntersRHS">
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#C1"/>
+        <owl:Class rdf:about="#C2"/>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- disjunction lhs -->
+<owl:Class rdf:ID="UnionLHS"/>
+<owl:Class>
+  <owl:unionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C1" />
+    <owl:Class rdf:about="#C2" />
+  </owl:unionOf>
+  <rdfs:subClassOf rdf:resource="#UnionLHS"/>
+</owl:Class>
+
+<!-- universal restriction rhs -->
+<owl:Class rdf:ID="UnivRestrRHS"> 
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="#PrimProperty"/>
+      <owl:allValuesFrom rdf:resource="#PrimClass2"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:ID="UnivLocalRestrRHS"> 
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty>
+        <owl:ObjectProperty rdf:ID="PrimProperty2"/>
+      </owl:onProperty>
+      <owl:allValuesFrom rdf:resource="#PrimClass2"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- existential restriction lhs -->
+<owl:Class rdf:ID="ExisRestrLHS"/>
+<owl:Restriction>
+  <owl:onProperty rdf:resource="#PrimProperty" />
+  <owl:someValuesFrom rdf:resource="#PrimClass1" />
+  <rdfs:subClassOf rdf:resource="#ExisRestrLHS"/>
+</owl:Restriction>
+
+<!-- more than two conjuncts -->
+<owl:Class rdf:ID="TrippleConjunctsRHS">
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#C1"/>
+        <owl:Class rdf:about="#C2"/>
+	<owl:Class rdf:about="#C3"/>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- disjunction lhs and conjunction rhs -->
+<owl:Class>
+  <owl:unionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C1" />
+    <owl:Class rdf:about="#C2" />
+  </owl:unionOf>
+  <rdfs:subClassOf>
+   <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#D1"/>
+        <owl:Class rdf:about="#D2"/>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<!-- intersecting equivalence class descriptions rhs -->
+<owl:Class rdf:ID="IntersEquiv1">
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C1" />
+    <owl:Class rdf:about="#Cy" />
+  </owl:intersectionOf>
+</owl:Class>
+
+<!-- intersecting equivalence class descriptions lhs -->
+<owl:Class rdf:ID="IntersEquivLHS"/>
+<owl:Class>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C5" />
+    <owl:Class rdf:about="#C6" />
+  </owl:intersectionOf>
+  <owl:equivalentClass rdf:resource="#IntersEquivLHS"/>
+</owl:Class>
+
+<!-- intersecting equivalence class descriptions rhs & lhs -->
+<owl:Class>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#C3" />
+    <owl:Class rdf:about="#C4" />
+  </owl:intersectionOf>
+  <owl:equivalentClass>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#D1" />
+        <owl:Class rdf:about="#D2" />
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:equivalentClass>
+</owl:Class>
+
+<!-- complex examples -->
+<owl:ObjectProperty rdf:ID="r"/>
+<owl:ObjectProperty rdf:ID="p"/>
+<owl:Class rdf:ID="C"/>
+<owl:Class rdf:ID="D"/>
+
+<owl:Class>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#A"/>
+    <owl:Restriction> 
+      <owl:onProperty rdf:resource="#r"/>
+      <owl:someValuesFrom rdf:resource="#C"/>
+    </owl:Restriction>
+  </owl:intersectionOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#B"/>
+	<owl:Restriction> 
+          <owl:onProperty rdf:resource="#p"/>
+	  <owl:allValuesFrom rdf:resource="#D"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Restriction>
+  <owl:onProperty rdf:resource="#PrimProperty" />
+  <owl:someValuesFrom>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#C4"/>
+	<owl:Restriction> 
+          <owl:onProperty rdf:resource="#p"/>
+	  <owl:someValuesFrom rdf:resource="#PrimClass2"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </owl:someValuesFrom>
+  <rdfs:subClassOf rdf:resource="#ExisRestrLHS"/>
+</owl:Restriction>
+
+</rdf:RDF>
