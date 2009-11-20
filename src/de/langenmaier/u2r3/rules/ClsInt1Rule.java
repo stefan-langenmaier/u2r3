@@ -49,7 +49,8 @@ public class ClsInt1Rule extends ApplicationRule {
 		
 		sql.append("\n\t\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS anzl");
 		sql.append("\n\t\t\t INNER JOIN list AS l ON anzl.name = l.name");
-		sql.append("\n\t\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA ON l.element = clsA.class");
+		//hier darf nicht mit deltas gearbeitet werden, da nur eine der verwendeten zeilen ein delta sein darf
+		sql.append("\n\t\t\t INNER JOIN classAssertionEnt AS clsA ON l.element = clsA.class");
 		sql.append("\n\t\t\t INNER JOIN " + delta.getDeltaName("intersectionOf") + " AS int ON int.list = l.name");
 		
 		if (again) {
@@ -59,7 +60,7 @@ public class ClsInt1Rule extends ApplicationRule {
 			sql.append("\n\t\t\t WHERE bottom.entity = clsA.entity AND bottom.class = int.class");
 			sql.append("\n\t\t )");
 		}
-		sql.append("\n\t\t GROUP BY l.name, clsA.entity, class");
+		sql.append("\n\t\t GROUP BY l.name, clsA.entity, int.class");
 		sql.append("\n\t\t HAVING COUNT(l.name) = anzl.anzahl");
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
