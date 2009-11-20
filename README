@@ -1,0 +1,38 @@
+README
+
+This is the readme for the University Ulm Relation Reasoner for OWL2 RL.
+
+Necessary libs
+ * H2 Database v1.1.116 or higher
+ * OWLAPI v3 (r1323 or higher)
+both are contained in the standard repository.
+
+
+How to get the current repository
+
+$ svn co https://81.89.103.197/svn/repos/u2r3/trunk
+use
+$ svn up trunk/
+on a checked out project to update it.
+
+How to build 
+with Eclipse
+Open the project file an eclipse takes care of the rest.
+
+with ant
+TODO
+
+
+Before the start
+Before u2r3 can be used the H2 database has to be started. If you use the DB from the repository than it's also possible to use the accompanying script h2.sh to start the database.
+
+How to run
+Normally u2r3 cannot run on its on because it is just small part of another library the OWLAPI.
+But the standard distribution of u2r3 contains some test tools for ontologies.
+These contain a tool too load an ontology and a tool to check a test case
+
+Load an ontology
+java de.langenmaier.u2r3.tests.LoadOntology <absolute file>
+
+Load a test case
+java de.langenmaier.u2r3.tests.rules.TestCase <folder> [<testcase> [<number>]]
