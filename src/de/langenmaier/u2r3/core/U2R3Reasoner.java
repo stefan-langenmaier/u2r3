@@ -569,5 +569,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			.exists(prop.getIRI().toString(), range.getIRI().toString());
 	}
 
+	public boolean isEquivalentProperties(OWLObjectPropertyExpression pe1,
+			OWLObjectPropertyExpression pe2) throws U2R3ReasonerException {
+		if (!(pe1.isAnonymous() || pe2.isAnonymous())) {
+			return relationManager.getRelation(RelationName.equivalentProperty).exists(pe1.asOWLObjectProperty().getIRI().toString(), pe2.asOWLObjectProperty().getIRI().toString());
+		}
+		throw new U2R3NotImplementedException();
+	}
+
 
 }

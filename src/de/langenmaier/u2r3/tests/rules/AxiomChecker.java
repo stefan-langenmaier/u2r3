@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -149,9 +150,24 @@ public class AxiomChecker extends U2R3Component implements
 	}
 
 	@Override
-	public void visit(OWLEquivalentObjectPropertiesAxiom arg0) {
-		used = false;
+	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
+		try {
+			used = false;
+			logger.trace("Testing for axiom:" + axiom.toString());
+			for (OWLObjectPropertyExpression pe1 : axiom.getProperties()) {
+				for (OWLObjectPropertyExpression pe2 : axiom.getProperties()) {
+					if (!pe1.equals(pe2)) {
+						if (!reasoner.isEquivalentProperties(pe1, pe2)) {
+							correct = false;
+						}
+					}
+				}
+			}
 
+			used = true;
+		} catch (OWLReasonerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

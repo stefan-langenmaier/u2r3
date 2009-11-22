@@ -18,6 +18,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
+import de.langenmaier.u2r3.tests.rules.AxiomChecker;
 import de.langenmaier.u2r3.tests.rules.CheckType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
@@ -45,7 +46,7 @@ public class RunTestCase {
 		
 		logger.info("Started Testcases");
 		
-		name = "rdfbased-sem-simple-subgraph-self";
+		name = "rdfbased-sem-eqdis-eqprop-sym";
 		//name = "rdfbased-sem-rdfs-domain-cond";
 		folder = folder + "/" + name;
 		runTestCase(name, folder, CheckType.entailment_check);
@@ -81,7 +82,7 @@ public class RunTestCase {
 				conclusion = manager.loadOntologyFromPhysicalURI(URI.create(conclusion_uri));
 				logger.debug("Loaded " + conclusion.getOntologyID());
 				
-				FZITestAxiomChecker axiomChecker = new FZITestAxiomChecker(reasoner);
+				AxiomChecker axiomChecker = new AxiomChecker(reasoner);
 				for(OWLAxiom ax : conclusion.getAxioms()) {
 					ax.accept(axiomChecker);
 				}

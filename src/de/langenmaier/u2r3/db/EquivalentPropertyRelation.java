@@ -167,6 +167,9 @@ public class EquivalentPropertyRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		if (args.length == 2) {
+			return "SELECT left, right FROM " + getTableName() + " WHERE left = '" + args[0] + "' AND right = '" + args[1] + "'";
+		}
 		throw new U2R3NotImplementedException();
 	}
 
