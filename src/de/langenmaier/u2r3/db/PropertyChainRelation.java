@@ -30,7 +30,7 @@ public class PropertyChainRelation extends Relation {
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, list) VALUES (?, ?)");
-			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
+			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +43,6 @@ public class PropertyChainRelation extends Relation {
 		
 		try {
 			NodeID nid = NodeID.getNodeID();
-			int ordnung = 0;
 			if (pc.getSuperProperty().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(pc.getSuperProperty()).toString());
 			} else {
@@ -61,7 +60,6 @@ public class PropertyChainRelation extends Relation {
 				} else {
 					addListStatement.setString(2, npe.asOWLObjectProperty().getIRI().toString());
 				}
-				addListStatement.setLong(3, ++ordnung);
 				addListStatement.execute();
 				
 				if (npe.isAnonymous()) {

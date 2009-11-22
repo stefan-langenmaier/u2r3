@@ -19,7 +19,11 @@ public class ListRelation extends Relation {
 		try {
 			tableName = "list";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, name VARCHAR(100), element VARCHAR(100), ordnung INT, PRIMARY KEY (name, element))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" name TEXT," +
+					" element TEXT," +
+					" PRIMARY KEY (name, element))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -49,8 +53,7 @@ public class ListRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

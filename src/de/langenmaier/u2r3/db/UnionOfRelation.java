@@ -31,7 +31,7 @@ public class UnionOfRelation extends Relation {
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");
-			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
+			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +43,6 @@ public class UnionOfRelation extends Relation {
 		OWLObjectUnionOf ouo = (OWLObjectUnionOf) ce;
 		try {
 			NodeID nid = NodeID.getNodeID();
-			int ordnung = 0;
 			addStatement.setString(1, nidMapper.get(ce).toString());
 			addStatement.setString(2, nid.toString());
 			addStatement.execute();
@@ -56,7 +55,6 @@ public class UnionOfRelation extends Relation {
 				} else {
 					addListStatement.setString(2, nce.asOWLClass().getIRI().toString());
 				}
-				addListStatement.setLong(3, ++ordnung);
 				
 				addListStatement.execute();
 				if (nce.isAnonymous()) {

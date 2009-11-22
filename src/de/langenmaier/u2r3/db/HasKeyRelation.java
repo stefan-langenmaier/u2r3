@@ -30,7 +30,7 @@ public class HasKeyRelation extends Relation {
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");
-			addListStatement = conn.prepareStatement("INSERT INTO list (name, element, ordnung) VALUES (?, ?, ?)");
+			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -50,7 +50,6 @@ public class HasKeyRelation extends Relation {
 			}
 			addStatement.setString(2, nid.toString());
 			
-			long order = 0;
 			//for object
 			for(OWLObjectPropertyExpression pe : naxiom.getObjectPropertyExpressions()) {
 				addListStatement.setString(1, nid.toString());
@@ -60,7 +59,6 @@ public class HasKeyRelation extends Relation {
 				} else {
 					addListStatement.setString(2, pe.asOWLObjectProperty().getIRI().toString());
 				}
-				addListStatement.setLong(3, ++order);
 				addListStatement.execute();
 			}
 			
@@ -73,7 +71,6 @@ public class HasKeyRelation extends Relation {
 				} else {
 					addListStatement.setString(2, pe.asOWLDataProperty().getIRI().toString());
 				}
-				addListStatement.setLong(3, ++order);
 				addListStatement.execute();
 			}
 			
