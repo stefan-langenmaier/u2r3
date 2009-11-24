@@ -62,6 +62,14 @@ public class Settings {
 					setEvaluationStrategy(EvaluationStrategy.RARELAST);
 				}
 			}
+			
+			if (prop.containsKey("u2r3.databaseMode")) {
+				if (prop.get("u2r3.databaseMode").equals("EMBEDDED")) {
+					setDatabaseMode(DatabaseMode.EMBEDDED);
+				} else if (prop.get("u2r3.databaseMode").equals("STANDALONE")) {
+					setDatabaseMode(DatabaseMode.STANDALONE);
+				}
+			}
 		} catch (FileNotFoundException e) {
 
 			logger.warn("No configuration file found! Using default values.");
@@ -76,6 +84,13 @@ public class Settings {
 	 * If startClean is set to true a run of U2R3 will delete all old data and start from scratch.
 	 */
 	private boolean startClean = true;
+	
+	/**
+	 * Database Mode describes how the database is started..
+	 *
+	 */
+	public enum DatabaseMode { STANDALONE, EMBEDDED };
+	private DatabaseMode databaseMode = DatabaseMode.EMBEDDED;
 	
 	/**
 	 * DeltaIteration describes what kinds of delta-Iterations are available.
@@ -173,5 +188,13 @@ public class Settings {
 	
 	public boolean checkProfile() {
 		return checkProfile;
+	}
+
+	public void setDatabaseMode(DatabaseMode databaseMode) {
+		this.databaseMode = databaseMode;
+	}
+
+	public DatabaseMode getDatabaseMode() {
+		return databaseMode;
 	}
 }

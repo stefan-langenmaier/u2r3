@@ -35,7 +35,12 @@ public class History extends U2R3Component {
 				dropStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS");
 				dropStatement.execute();
 			
-				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID NOT NULL, table VARCHAR(100), sourceId UUID, sourceTable VARCHAR(100), PRIMARY KEY (id, sourceId))");
+				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+						" id UUID NOT NULL," +
+						" table VARCHAR(100)," +
+						" sourceId UUID," +
+						" sourceTable VARCHAR(100)," +
+						" PRIMARY KEY (id, sourceId))");
 				createStatement.execute();
 			}
 			stmt = conn.createStatement();
