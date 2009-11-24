@@ -1,11 +1,77 @@
 package de.langenmaier.u2r3.util;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
 /**
  * Settings manages the state/mode in which U2R3 is running.
  * @author stefan
  *
  */
 public class Settings {
+	static Logger logger = Logger.getLogger(Settings.class);
+	
+	/**
+	 * Loads the default configuration from the file u2r3.properties
+	 */
+	public Settings() {
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream("u2r3.properties"));
+			
+			if (prop.containsKey("u2r3.consistencyLevel")) {
+				if (prop.get("u2r3.consistencyLevel").equals("NONE")) {
+					setConsistencyLevel(ConsistencyLevel.NONE);
+				} else if (prop.get("u2r3.consistencyLevel").equals("DEFAULT")) {
+					setConsistencyLevel(ConsistencyLevel.DEFAULT);
+				}
+			}
+			
+			if (prop.containsKey("u2r3.deltaIteration")) {
+				if (prop.get("u2r3.deltaIteration").equals("COLLECTIVE")) {
+					setDeltaIteration(DeltaIteration.COLLECTIVE);
+				} else if (prop.get("u2r3.deltaIteration").equals("IMMEDIATE")) {
+					setDeltaIteration(DeltaIteration.IMMEDIATE);
+				}
+			}
+			
+			if (prop.containsKey("u2r3.inconsistencyReaction")) {
+				if (prop.get("u2r3.inconsistencyReaction").equals("WARN")) {
+					setInconsistencyReaction(InconsistencyReaction.WARN);
+				} else if (prop.get("u2r3.inconsistencyReaction").equals("FAIL")) {
+					setInconsistencyReaction(InconsistencyReaction.WARN);
+				}
+			}
+			
+			if (prop.containsKey("u2r3.deletionType")) {
+				if (prop.get("u2r3.deletionType").equals("CASCADING")) {
+					setDeletionType(DeletionType.CASCADING);
+				} else if (prop.get("u2r3.deletionType").equals("CLEAN")) {
+					setDeletionType(DeletionType.CLEAN);
+				}
+			}
+			
+			if (prop.containsKey("u2r3.evaluationStrategy")) {
+				if (prop.get("u2r3.evaluationStrategy").equals("COMMONLAST")) {
+					setEvaluationStrategy(EvaluationStrategy.COMMONLAST);
+				} else if (prop.get("u2r3.evaluationStrategy").equals("RARELAST")) {
+					setEvaluationStrategy(EvaluationStrategy.RARELAST);
+				}
+			}
+		} catch (FileNotFoundException e) {
+
+			logger.warn("No configuration file found! Using default values.");
+		} catch (IOException e) {
+			logger.error("IO Error");
+			e.printStackTrace();
+		}
+	}
+	
+	
 	/**
 	 * If startClean is set to true a run of U2R3 will delete all old data and start from scratch.
 	 */
