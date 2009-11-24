@@ -275,11 +275,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	/**
-	 * Not allowed in the OWL2 RL Profile
-	 */
-	public void visit(OWLSubDataPropertyOfAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
+	public void visit(OWLSubDataPropertyOfAxiom axiom) {
+		logger.debug(" adding SubDataPropertyOf:" + axiom.toString());
+		relationManager.getRelation(RelationName.subProperty).add(axiom);
+		logger.debug(" added SubDataPropertyOf");
 	}
 
 	@Override
