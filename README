@@ -20,7 +20,9 @@ with Eclipse
 Open the project file an eclipse takes care of the rest.
 
 with ant
-TODO
+$ ant #in the root directory of the project
+The default target creates the folders build, dist, javadoc.
+In dist will be a jar file of the current project. In the javadoc folder will be the generated Java documentation of the code.
 
 
 Before the start

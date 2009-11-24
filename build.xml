@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     24.11.2009 12:21:04                                                        
+
+     u2r3    
+     The University Ulm Relation Reasoner for OWL2 RL
+                   
+     sl17                                                                
+     ====================================================================== -->
+<project name="u2r3" default="default">
+    <description>
+            The University Ulm Relation Reasoner for OWL2 RL
+    </description>
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="dist"  location="dist"/>
+	<property name="doc"  location="javadoc"/>
+	
+	
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp/>
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+		<mkdir dir="${doc}"/>
+	</target>
+
+	<target name="compile" depends="init" description="compile the source " >
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}" excludes="de/langenmaier/u2r3/tests/quality/**">
+			<classpath>
+				<pathelement path="${classpath}"/> 
+				<pathelement location="import/h2-1.1.116.jar"/>
+				<pathelement location="import/owlapi-bin.jar"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="dist" depends="compile" description="generate the distribution" >
+		<mkdir dir="${dist}"/>
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/u2r3-${DSTAMP}.jar" basedir="${build}"/>
+	</target>
+
+	<target name="clean" description="clean up" >
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+		<delete dir="${doc}"/>
+	</target>
+	
+	<target name="doc" depends="init" description="generate the javadoc" >
+		<mkdir dir="${doc}"/>
+		<javadoc
+		           destdir="${doc}"
+		           author="true"
+		           version="true"
+		           use="true"
+		           windowtitle="U2R3 API">
+
+		    <packageset dir="src" defaultexcludes="yes">
+		      <include name="de/langenmaier/u2r3/**"/>
+		      <exclude name="de/langenmaier/u2r3/tests/quality/**"/>
+		    </packageset>
+
+			<!--
+		    <doctitle><![CDATA[<h1>Test</h1>]]></doctitle>
+		    <bottom><![CDATA[<i>Copyright &#169; 2000 Dummy Corp. All Rights Reserved.</i>]]></bottom>
+		    <tag name="todo" scope="all" description="To do:"/>
+		    <group title="Group 1 Packages" packages="com.dummy.test.a*"/>
+		    <group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>
+		    <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="C:\tmp"/>
+		    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
+		    -->
+		  </javadoc>
+	</target>
+
+
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="dist,doc" description="The University Ulm Relation Reasoner for OWL2 RL">
+
+    </target>
+
+   
+</project>
