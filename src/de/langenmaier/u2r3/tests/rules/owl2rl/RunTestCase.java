@@ -7,9 +7,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
@@ -34,8 +33,8 @@ public class RunTestCase {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		BasicConfigurator.configure();
-		Logger.getRootLogger().setLevel(Level.INFO);
+		PropertyConfigurator.configure("log4j.properties");
+
 		
 		if (args.length<=0) {
 			System.err.println("USAGE: java " + RunTestCase.class.getName() + " <folder> [<name> [<number>]]");
