@@ -63,9 +63,6 @@ public class OneOfRelation extends Relation {
 				}
 				
 				addListStatement.execute();
-				if (ind.isAnonymous()) {
-					handleAnonymousIndividual(ind);
-				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -25,11 +25,15 @@ public class SameAsLitRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right))");
+					" left_language TEXT," +
+					" left_type TEXT," +
+					" right_language TEXT," +
+					" right_type TEXT," +
+					" PRIMARY KEY (id, left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

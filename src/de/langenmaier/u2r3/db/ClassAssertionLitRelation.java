@@ -50,7 +50,7 @@ public class ClassAssertionLitRelation extends Relation {
 	public void add(OWLObject o) {
 		OWLTypedLiteral tl = (OWLTypedLiteral) o;
 		try {
-			addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype());
+			addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
 			addStatement.setString(2, tl.getDatatype().getIRI().toString());
 			addStatement.executeUpdate();		
 		} catch (SQLException e) {

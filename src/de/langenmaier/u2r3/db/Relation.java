@@ -271,14 +271,20 @@ public abstract class Relation extends U2R3Component {
 	}
 	
 	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
+		//Dürfen laut Grammatik nur für InverseObjectProperty aufgerufen werden
+		//ObjectPropertyExpression := ObjectProperty | InverseObjectProperty
 		throw new U2R3NotImplementedException();
 	}
 	
 	protected void handleAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {
+		//Dürfen laut Grammatik auch niemals aufgerufen werden
+		//DataPropertyExpression := DataProperty
 		throw new U2R3NotImplementedException();
 	}
 	
 	protected void handleAnonymousIndividual(OWLIndividual ind) {
+		//Dürfen laut Grammatik auch niemals aufgerufen werden
+		//AnonymousIndividual := nodeID
 		throw new U2R3NotImplementedException();
 	}
 

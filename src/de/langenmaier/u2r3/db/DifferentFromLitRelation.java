@@ -21,11 +21,15 @@ public class DifferentFromLitRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right))");
+					" left_language TEXT," +
+					" left_type TEXT," +
+					" right_language TEXT," +
+					" right_type TEXT," +
+					" PRIMARY KEY (id, left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -40,20 +44,7 @@ public class DifferentFromLitRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left TEXT," +
-					" right TEXT," +
-					" sourceId1 UUID," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (left, right))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

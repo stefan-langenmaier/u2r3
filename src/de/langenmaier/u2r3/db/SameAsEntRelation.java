@@ -60,9 +60,6 @@ public class SameAsEntRelation extends Relation {
 						reasonProcessor.add(new AdditionReason(this));
 					}
 				}
-				if (ind1.isAnonymous()) {
-					handleAnonymousIndividual(ind1);
-				}
 			}
 
 			return AdditionMode.NOADD;
