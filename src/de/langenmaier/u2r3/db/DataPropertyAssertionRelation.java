@@ -20,6 +20,7 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
+import de.langenmaier.u2r3.util.DatatypeCheck;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -59,11 +60,13 @@ public class DataPropertyAssertionRelation extends Relation {
 				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
-			addStatement.setString(3, naxiom.getObject().getLiteral());
+			
 			if (!naxiom.getObject().isTyped()) {
+				addStatement.setString(3, naxiom.getObject().getLiteral());
 				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
 				addStatement.setNull(5, Types.LONGVARCHAR);
 			} else {
+				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLStringLiteral().getDatatype()));
 				addStatement.setNull(4, Types.LONGVARCHAR);
 				addStatement.setString(5, naxiom.getObject().asOWLStringLiteral().getDatatype().getIRI().toString());
 			}

@@ -13,6 +13,7 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
+import de.langenmaier.u2r3.util.DatatypeCheck;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -49,7 +50,7 @@ public class ClassAssertionLitRelation extends Relation {
 	public void add(OWLObject o) {
 		OWLTypedLiteral tl = (OWLTypedLiteral) o;
 		try {
-			addStatement.setString(1, tl.getLiteral());
+			addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype());
 			addStatement.setString(2, tl.getDatatype().getIRI().toString());
 			addStatement.executeUpdate();		
 		} catch (SQLException e) {
