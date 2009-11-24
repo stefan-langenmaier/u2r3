@@ -43,14 +43,41 @@ public class PropertyRangeRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyRangeAxiom) {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+			
+			if (naxiom.getProperty().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getProperty()).toString());
+			} else {
+				addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+			}
 			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getIRI().toString());
 		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
 			OWLObjectPropertyRangeAxiom naxiom = (OWLObjectPropertyRangeAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
-			addStatement.setString(2, naxiom.getRange().asOWLClass().getIRI().toString());
+			if (naxiom.getProperty().isAnonymous()) {
+				addStatement.setString(1, nidMapper.get(naxiom.getProperty()).toString());
+			} else {
+				addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+			}
+			
+			if (naxiom.getRange().isAnonymous()) {
+				addStatement.setString(2, nidMapper.get(naxiom.getRange()).toString());
+			} else {
+				addStatement.setString(2, naxiom.getRange().asOWLClass().getIRI().toString());
+			}
+			
+			addStatement.execute();
+			reasonProcessor.add(new AdditionReason(this));
+			
+			if (naxiom.getProperty().isAnonymous()) {
+				handleAnonymousObjectPropertyExpression(naxiom.getProperty());
+			}
+			if (naxiom.getRange().isAnonymous()) {
+				handleAnonymousClassExpression(naxiom.getRange());
+			}
+			
+		} else {
+			throw new U2R3NotImplementedException();
 		}
-		return AdditionMode.ADD;
+		return AdditionMode.NOADD;
 	}
 
 	@Override

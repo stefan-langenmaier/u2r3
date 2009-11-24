@@ -48,7 +48,7 @@ public class LoadReasoner {
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
-			
+			reasoner.getSettings().checkProfile(false);
 			reasoner.loadOntologies(Collections.singleton(ont));
 			reasoner.classify();
 			

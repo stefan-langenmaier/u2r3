@@ -25,7 +25,7 @@ public class SomeValuesFromRelation extends Relation {
 					" part TEXT," +
 					" property TEXT," +
 					" total TEXT," +
-					" PRIMARY KEY (part, property, total))");
+					" PRIMARY KEY (id, part, property, total))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -82,7 +82,7 @@ public class SomeValuesFromRelation extends Relation {
 				} else {
 					addStatement.setString(3, svf.getFiller().asOWLClass().getIRI().toString());
 				}
-				
+				//System.out.println(addStatement);
 				addStatement.execute();
 				reasonProcessor.add(new AdditionReason(this));
 				
@@ -90,7 +90,7 @@ public class SomeValuesFromRelation extends Relation {
 					handleAnonymousObjectPropertyExpression(svf.getProperty());
 				}
 				if (svf.getFiller().isAnonymous()) {
-					addStatement.setString(3, nidMapper.get(svf.getFiller()).toString());
+					handleAnonymousClassExpression(svf.getFiller());
 				}
 				
 			} else {

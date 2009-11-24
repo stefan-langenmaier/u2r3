@@ -111,7 +111,11 @@ public class ClassAssertionEntRelation extends Relation {
 			} else if (naxiom.getEntity().getEntityType() == EntityType.NAMED_INDIVIDUAL) {				
 				addStatement.setString(2, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString());
 				return AdditionMode.ADD;
+			} else if (naxiom.getEntity().getEntityType() == EntityType.ANNOTATION_PROPERTY) {				
+				addStatement.setString(2, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString());
+				return AdditionMode.ADD;
 			} else {
+				logger.error(naxiom.getEntity().getEntityType().toString());
 				throw new U2R3NotImplementedException();
 			}
 		} else {
