@@ -6,14 +6,14 @@
     <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
     <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
     <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
-    <!ENTITY premise "http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#" >
+    <!ENTITY premise "http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#" >
 ]>
 
 
-<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#"
-     xml:base="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl"
+<rdf:RDF xmlns="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#"
+     xml:base="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:premise="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#"
+     xmlns:premise="http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -34,7 +34,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#p -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#p -->
 
     <owl:ObjectProperty rdf:about="#p">
         <rdfs:subPropertyOf rdf:resource="&owl;topObjectProperty"/>
@@ -59,7 +59,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#c1 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#c1 -->
 
     <owl:Class rdf:about="#c1">
         <owl:equivalentClass>
@@ -72,7 +72,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#c2 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#c2 -->
 
     <owl:Class rdf:about="#c2">
         <owl:equivalentClass>
@@ -85,7 +85,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#y1 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#y1 -->
 
     <owl:Class rdf:about="#y1">
         <rdfs:subClassOf rdf:resource="#y2"/>
@@ -93,7 +93,7 @@
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.premise.owl#y2 -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/scm-avf1/1.owl#y2 -->
 
     <owl:Class rdf:about="#y2"/>
 </rdf:RDF>
