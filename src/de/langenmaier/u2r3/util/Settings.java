@@ -66,6 +66,8 @@ public class Settings {
 			if (prop.containsKey("u2r3.databaseMode")) {
 				if (prop.get("u2r3.databaseMode").equals("EMBEDDED")) {
 					setDatabaseMode(DatabaseMode.EMBEDDED);
+				} else if (prop.get("u2r3.databaseMode").equals("IN_MEMORY")) {
+					setDatabaseMode(DatabaseMode.IN_MEMORY);
 				} else if (prop.get("u2r3.databaseMode").equals("STANDALONE")) {
 					setDatabaseMode(DatabaseMode.STANDALONE);
 				}
@@ -89,7 +91,7 @@ public class Settings {
 	 * Database Mode describes how the database is started..
 	 *
 	 */
-	public enum DatabaseMode { STANDALONE, EMBEDDED };
+	public enum DatabaseMode { STANDALONE, EMBEDDED, IN_MEMORY };
 	private DatabaseMode databaseMode = DatabaseMode.EMBEDDED;
 	
 	/**

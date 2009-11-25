@@ -24,9 +24,11 @@ public class U2R3DBConnection {
 		}
 		try {
 			if (databaseMode == DatabaseMode.EMBEDDED) {
-				theDBConnection = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+				theDBConnection = DriverManager.getConnection("jdbc:h2:~/u2r3", "sa", "");
+			} else if (databaseMode == DatabaseMode.IN_MEMORY) {
+				theDBConnection = DriverManager.getConnection("jdbc:h2:mem:", "sa", "");
 			} else if (databaseMode == DatabaseMode.STANDALONE){
-				theDBConnection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/test", "sa", "");
+				theDBConnection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/u2r3", "sa", "");
 			}
 			
 		} catch (SQLException e) {

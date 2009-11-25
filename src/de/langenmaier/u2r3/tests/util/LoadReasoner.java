@@ -21,6 +21,7 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
+import de.langenmaier.u2r3.util.Settings.DeletionType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class LoadReasoner {
@@ -48,6 +49,7 @@ public class LoadReasoner {
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
+			reasoner.getSettings().setDeletionType(DeletionType.CLEAN);
 			reasoner.getSettings().checkProfile(false);
 			reasoner.loadOntologies(Collections.singleton(ont));
 			reasoner.classify();
