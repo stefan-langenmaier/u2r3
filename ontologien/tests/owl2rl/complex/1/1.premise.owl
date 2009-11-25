@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf  = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs ="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:xsd ="http://www.w3.org/2000/10/XMLSchema#"
+  xml:base = "http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#"
+  xmlns      ="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#"
+>
+
+<owl:Ontology rdf:about="">
+ <owl:versionInfo>19.11.2009, version 0.1</owl:versionInfo>
+ <rdfs:comment>OWL 2 RL (DLP) test ontology, Thorsten Liebig</rdfs:comment>
+</owl:Ontology>
+
+<owl:ObjectProperty rdf:ID="es"/>
+
+<owl:ObjectProperty rdf:ID="s">
+  <owl:equivalentProperty rdf:resource="#es"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:ID="s"/>
+<owl:InverseFunctionalProperty rdf:about="#s"/>
+
+<owl:ObjectProperty rdf:ID="r"/>
+<owl:ObjectProperty rdf:ID="p"/>
+<owl:ObjectProperty rdf:ID="q">
+   <rdfs:subPropertyOf rdf:resource="#p"/>
+</owl:ObjectProperty>
+
+
+<owl:Class rdf:ID="C"/>
+<owl:Class rdf:ID="D"/>
+<owl:Class rdf:ID="B"/>
+<owl:Class rdf:ID="A"/>
+
+<owl:Class rdf:ID="Y"/>
+<owl:Class rdf:ID="Z"/>
+<owl:Class rdf:ID="X"/>
+
+<owl:Class>
+  <owl:intersectionOf rdf:parseType="Collection">
+    <owl:Class rdf:about="#A"/>
+    <owl:Restriction> 
+      <owl:onProperty rdf:resource="#r"/>
+      <owl:someValuesFrom rdf:resource="#C"/>
+    </owl:Restriction>
+  </owl:intersectionOf>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <owl:Class rdf:about="#B"/>
+	<owl:Restriction> 
+          <owl:onProperty rdf:resource="#p"/>
+	  <owl:allValuesFrom rdf:resource="#D"/>
+        </owl:Restriction>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<Y rdf:ID="m"/>
+
+<Z rdf:ID="j">
+ <es rdf:resource="#m"/>
+</Z>
+
+<A rdf:ID="i">
+  <r rdf:resource="#j"/>
+  <q>
+    <X rdf:ID="k"/>
+  </q>
+</A>
+
+<C rdf:ID="n">
+  <s rdf:resource="#m"/>
+</C>
+ 
+ 
+<!--
+ es muss gelten, dass: k:D
+-->
+
+</rdf:RDF>
