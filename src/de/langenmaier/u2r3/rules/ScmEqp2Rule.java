@@ -41,7 +41,7 @@ public class ScmEqp2Rule extends ApplicationRule {
 			sql.append(" MIN(sp1.id) AS sourceId1, '" + RelationName.subProperty + "' AS sourceTable1,");
 			sql.append(" MIN(sp2.id) AS sourceId2, '" + RelationName.subProperty + "' AS sourceTable2");
 		} else {
-			sql.append(" (sub, super)");
+			sql.append(" (left, right)");
 			sql.append("\n\t SELECT DISTINCT sp1.sub, sp2.sub ");
 		}
 		

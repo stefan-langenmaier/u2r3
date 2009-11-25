@@ -37,7 +37,7 @@ public class PrpSympRule extends ApplicationRule {
 			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
 			sql.append(" MIN(clsA.id) AS sourceId2, '" + RelationName.classAssertionEnt + "' AS sourceTable2");
 		} else {
-			sql.append("(subject, type)");
+			sql.append("(subject, property, object)");
 			sql.append("\n\t SELECT DISTINCT prp.object AS subject, prp.property AS property, prp.subject AS object");
 		}
 		

@@ -33,7 +33,7 @@ public class CaxEqc2LitRule extends ApplicationRule {
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionLit + "' AS sourceTable1, ");
 			sql.append(" MIN(ec.id) AS sourceId2, '" + RelationName.equivalentClass + "' AS sourceTable2");
 		} else {
-			sql.append(" (entity, class)");
+			sql.append(" (literal, class)");
 			sql.append("\n\t SELECT DISTINCT clsA.literal, ec.left");
 		}
 		

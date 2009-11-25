@@ -41,7 +41,7 @@ public class ScmEqc2Rule extends ApplicationRule {
 			sql.append(" MIN(sc1.id) AS sourceId1, '" + RelationName.subClass + "' AS sourceTable1,");
 			sql.append(" MIN(sc2.id) AS sourceId2, '" + RelationName.subClass + "' AS sourceTable2");
 		} else {
-			sql.append(" (sub, super)");
+			sql.append(" (left, right)");
 			sql.append("\n\t SELECT DISTINCT sc1.sub, sc2.sub ");
 		}
 		

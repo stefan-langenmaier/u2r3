@@ -37,7 +37,7 @@ public class ClsAvfLitRule extends ApplicationRule {
 			sql.append(" MIN(ca.id) AS sourceId3, '" + RelationName.classAssertionEnt + "' AS sourceTable3 ");
 		} else {
 			sql.append(" (literal, class)");
-			sql.append("\n\t SELECT DISTINCT prp.object AS literal, svf.total AS type");
+			sql.append("\n\t SELECT DISTINCT prp.object AS literal, avf.total AS type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("allValuesFrom") + " AS avf");
