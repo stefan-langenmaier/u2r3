@@ -34,7 +34,11 @@ But the standard distribution of u2r3 contains some test tools for ontologies.
 These contain a tool too load an ontology and a tool to check a test case
 
 Load an ontology
-java de.langenmaier.u2r3.tests.LoadOntology <absolute file>
+./loadreasoner.sh <absolute filepath>
+e.g.
+./loadreasoner.sh file:///home/sl17/workspace/u2r2/ontologien/sample.owl
 
 Load a test case
-java de.langenmaier.u2r3.tests.rules.TestCase <folder> [<testcase> [<number>]]
+./runtestcase <folder> [<testcase> [<number>]]
+e.g.
+ ./runtestcase.sh /home/sl17/workspace/u2r2/ontologien/tests/owl2rl/ cls-avf

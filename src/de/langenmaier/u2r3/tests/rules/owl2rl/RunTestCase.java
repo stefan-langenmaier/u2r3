@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
@@ -33,7 +34,11 @@ public class RunTestCase {
 	 * @throws FileNotFoundException 
 	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		PropertyConfigurator.configure("log4j.properties");
+		if(new File("log4j.properties").exists()) {
+			PropertyConfigurator.configure("log4j.properties");
+		} else {
+			BasicConfigurator.configure();
+		}
 
 		
 		if (args.length<=0) {
