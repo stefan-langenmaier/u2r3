@@ -39,7 +39,7 @@
 	<target name="dist" depends="compile" description="generate the distribution" >
 		<mkdir dir="${dist}"/>
 		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-		<jar jarfile="${dist}/u2r3-${DSTAMP}.jar" basedir="${build}"/>
+		<jar jarfile="${dist}/u2r3.jar" basedir="${build}"/>
 	</target>
 
 	<target name="clean" description="clean up" >
