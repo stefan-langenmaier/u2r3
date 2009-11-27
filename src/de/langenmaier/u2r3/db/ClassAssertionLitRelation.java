@@ -2,12 +2,15 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLStringLiteral;
 import org.semanticweb.owlapi.model.OWLTypedLiteral;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -30,11 +33,12 @@ public class ClassAssertionLitRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" literal TEXT," +
 					" class TEXT," +
-					" PRIMARY KEY (literal, class))");
+					" language TEXT," +
+					" PRIMARY KEY (id, literal, class, language))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, class) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, class, language) VALUES (?, ?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,16 +52,22 @@ public class ClassAssertionLitRelation extends Relation {
 	
 	@Override
 	public void add(OWLObject o) {
-		OWLTypedLiteral tl = (OWLTypedLiteral) o;
 		try {
-			addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
-			addStatement.setString(2, tl.getDatatype().getIRI().toString());
+			if (o instanceof OWLTypedLiteral) {
+				OWLTypedLiteral tl = (OWLTypedLiteral) o;
+				addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
+				addStatement.setString(2, tl.getDatatype().getIRI().toString());
+				addStatement.setNull(3, Types.LONGVARCHAR);
+			} else if (o instanceof OWLStringLiteral) {
+				OWLStringLiteral sl = (OWLStringLiteral) o;
+				addStatement.setString(1, sl.getLiteral());
+				addStatement.setString(2, OWLRDFVocabulary.RDFS_LITERAL.getIRI().toString()); //XXX ist das korrekt
+				addStatement.setString(3, sl.getLang());
+			}
+				
 			addStatement.executeUpdate();		
 		} catch (SQLException e) {
-			//schon eingefügt
-			if (e.getErrorCode() != 23001) {
-				e.printStackTrace();
-			}			
+			e.printStackTrace();			
 		}
 		reasonProcessor.add(new AdditionReason(this));
 	}
@@ -71,6 +81,7 @@ public class ClassAssertionLitRelation extends Relation {
 					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" literal TEXT," +
 					" class TEXT," +
+					" language TEXT," +
 					" sourceId1 UUID," +
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 UUID," +
@@ -79,7 +90,7 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 UUID," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (literal, class))");
+					" PRIMARY KEY (id, literal, class, language))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
