@@ -61,7 +61,7 @@ public class ClassAssertionLitRelation extends Relation {
 			} else if (o instanceof OWLStringLiteral) {
 				OWLStringLiteral sl = (OWLStringLiteral) o;
 				addStatement.setString(1, sl.getLiteral());
-				addStatement.setString(2, OWLRDFVocabulary.RDFS_LITERAL.getIRI().toString()); //XXX ist das korrekt
+				addStatement.setString(2, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString()); //XXX ist das korrekt
 				addStatement.setString(3, sl.getLang());
 			}
 				
