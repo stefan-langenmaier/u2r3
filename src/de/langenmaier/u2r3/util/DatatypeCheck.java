@@ -53,4 +53,18 @@ public class DatatypeCheck {
 		}
 		return true;
 	}
+	
+	public static boolean isSameLiteral(String lt1, String lt2, String dt1, String dt2, String l1, String l2) {
+		if (l1 == null) {
+			l1 = "";
+		}
+		if (l2 == null) {
+			l2 = "";
+		}
+		
+		if (lt1.equals(lt2) && dt1.equals(dt2) && l1.equals(l2)) {
+			return true;
+		}
+		return false;
+	}
 }

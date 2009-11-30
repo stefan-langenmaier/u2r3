@@ -28,6 +28,7 @@ public class RelationManager {
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
+	
 	private U2R3Reasoner reasoner;
 
 	public synchronized Relation getRelation(RelationName name) {
@@ -41,6 +42,7 @@ public class RelationManager {
 
 	public void initialize() {
 		history = new History(reasoner);
+		DBSetup.setup();
 		
 		relations.put(RelationName.list, new ListRelation(reasoner));
 		

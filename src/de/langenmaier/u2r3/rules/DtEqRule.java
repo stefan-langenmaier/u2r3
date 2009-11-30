@@ -35,13 +35,17 @@ public class DtEqRule extends ApplicationRule {
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionLit") + " AS ca1 ");
 		sql.append("\n\t\t CROSS JOIN classAssertionLit AS ca2");
-		sql.append("\n\t WHERE ca1.literal = ca2.literal AND ca1.class = ca2.class AND ca1.language = ca2.language"); //TODO durch bessere Funktion ersetzen
+		//sql.append("\n\t WHERE ca1.literal = ca2.literal AND ca1.class = ca2.class AND ca1.language = ca2.language"); //TODO durch bessere Funktion ersetzen
+		sql.append("\n\t WHERE isSameLiteral(ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language");
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = ca1.literal AND bottom.right = ca2.literal AND bottom.left_type = ca1.class AND bottom.right_type = ca2.class AND bottom.left_language = ca1.language AND bottom.right_language = ca2.language) ");
+			//sql.append("\n\t\t WHERE bottom.left = ca1.literal AND bottom.right = ca2.literal AND bottom.left_type = ca1.class AND bottom.right_type = ca2.class AND bottom.left_language = ca1.language AND bottom.right_language = ca2.language) ");
+			sql.append("\n\t\t WHERE isSameLiteral(bottom.left, ca1.literal, bottom.left_type, ca1.class, bottom.left_language, ca1.language) ");
+			sql.append("\n\t\t\t AND isSameLiteral(bottom.right, ca2.literal, bottom.right_type, ca2.class, bottom.right_language, ca2.language)");
+			sql.append("\n\t) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
