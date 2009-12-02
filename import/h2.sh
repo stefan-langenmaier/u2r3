@@ -1,5 +1,5 @@
 #!/bin/sh
-cp=h2-1.1.116.jar
+cp="h2-1.1.116.jar:../dist/u2r3.jar:../import/owlapi-bin.jar"
 if [ -n "$H2DRIVERS" ] ; then
   cp="$cp:$H2DRIVERS"
 fi
