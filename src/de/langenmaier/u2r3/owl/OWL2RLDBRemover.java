@@ -46,245 +46,245 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.util.U2R3Component;
 
-public class U2R3AxiomRemover extends U2R3Component implements OWLAxiomVisitor {
-	protected U2R3AxiomRemover(U2R3Reasoner reasoner) {
+public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
+	static Logger logger = Logger.getLogger(OWL2RLDBRemover.class);
+
+	public OWL2RLDBRemover(U2R3Reasoner reasoner) {
 		super(reasoner);
 	}
-
-	static Logger logger = Logger.getLogger(U2R3AxiomRemover.class);
 	
 	@Override
-	public void visit(OWLDeclarationAxiom arg0) {
+	public void visit(OWLDeclarationAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void visit(OWLSubClassOfAxiom axiom) {
-		logger.debug("  removing SubClass:" + axiom.toString());
+		logger.debug("  removing SubClassOf:" + axiom.toString());
 		relationManager.getRelation(RelationName.subClass).remove(axiom);
-		//DataPropertyDomainRelation.getRelation().add(axiom);
-		logger.debug("  removed SubClass");
+		logger.debug("  removed SubClassOf");
 	}
 
 	@Override
-	public void visit(OWLNegativeObjectPropertyAssertionAxiom arg0) {
+	public void visit(OWLNegativeObjectPropertyAssertionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLAsymmetricObjectPropertyAxiom arg0) {
+	public void visit(OWLAsymmetricObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLReflexiveObjectPropertyAxiom arg0) {
+	public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDisjointClassesAxiom arg0) {
+	public void visit(OWLDisjointClassesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDataPropertyDomainAxiom arg0) {
+	public void visit(OWLDataPropertyDomainAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyDomainAxiom arg0) {
+	public void visit(OWLObjectPropertyDomainAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLEquivalentObjectPropertiesAxiom arg0) {
+	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLNegativeDataPropertyAssertionAxiom arg0) {
+	public void visit(OWLNegativeDataPropertyAssertionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDifferentIndividualsAxiom arg0) {
+	public void visit(OWLDifferentIndividualsAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDisjointDataPropertiesAxiom arg0) {
+	public void visit(OWLDisjointDataPropertiesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDisjointObjectPropertiesAxiom arg0) {
+	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyRangeAxiom arg0) {
+	public void visit(OWLObjectPropertyRangeAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLObjectPropertyAssertionAxiom arg0) {
+	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLFunctionalObjectPropertyAxiom arg0) {
+	public void visit(OWLFunctionalObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSubObjectPropertyOfAxiom arg0) {
+	public void visit(OWLSubObjectPropertyOfAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDisjointUnionAxiom arg0) {
+	public void visit(OWLDisjointUnionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSymmetricObjectPropertyAxiom arg0) {
+	public void visit(OWLSymmetricObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDataPropertyRangeAxiom arg0) {
+	public void visit(OWLDataPropertyRangeAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLFunctionalDataPropertyAxiom arg0) {
+	public void visit(OWLFunctionalDataPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLEquivalentDataPropertiesAxiom arg0) {
+	public void visit(OWLEquivalentDataPropertiesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLClassAssertionAxiom arg0) {
+	public void visit(OWLClassAssertionAxiom axiom) {
+		logger.debug("  removing ClassAssertion:" + axiom.toString());
+		relationManager.getRelation(RelationName.classAssertionEnt).remove(axiom);
+		logger.debug("  removed ClassAssertion");
+	}
+
+	@Override
+	public void visit(OWLEquivalentClassesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLEquivalentClassesAxiom arg0) {
+	public void visit(OWLDataPropertyAssertionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDataPropertyAssertionAxiom arg0) {
+	public void visit(OWLTransitiveObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLTransitiveObjectPropertyAxiom arg0) {
+	public void visit(OWLIrreflexiveObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLIrreflexiveObjectPropertyAxiom arg0) {
+	public void visit(OWLSubDataPropertyOfAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSubDataPropertyOfAxiom arg0) {
+	public void visit(OWLInverseFunctionalObjectPropertyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLInverseFunctionalObjectPropertyAxiom arg0) {
+	public void visit(OWLSameIndividualAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSameIndividualAxiom arg0) {
+	public void visit(OWLSubPropertyChainOfAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSubPropertyChainOfAxiom arg0) {
+	public void visit(OWLInverseObjectPropertiesAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLInverseObjectPropertiesAxiom arg0) {
+	public void visit(OWLHasKeyAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLHasKeyAxiom arg0) {
+	public void visit(OWLDatatypeDefinitionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLDatatypeDefinitionAxiom arg0) {
+	public void visit(SWRLRule rule) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(SWRLRule arg0) {
+	public void visit(OWLAnnotationAssertionAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLAnnotationAssertionAxiom arg0) {
+	public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLSubAnnotationPropertyOfAxiom arg0) {
+	public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void visit(OWLAnnotationPropertyDomainAxiom arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void visit(OWLAnnotationPropertyRangeAxiom arg0) {
+	public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
 		// TODO Auto-generated method stub
 
 	}

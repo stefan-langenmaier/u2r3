@@ -39,6 +39,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
+import de.langenmaier.u2r3.owl.OWL2RLDBRemover;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.util.NodeIDMapper;
 import de.langenmaier.u2r3.util.Settings;
@@ -80,15 +81,24 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	}
 
 	@Override
-	protected void handleOntologyChanges(List<OWLOntologyChange> arg0)
+	protected void handleOntologyChanges(List<OWLOntologyChange> changes)
 			throws OWLException {
-		throw new U2R3NotImplementedException();
+		OWL2RLDBRemover axiomRemover = new OWL2RLDBRemover(this);
+		System.out.println(changes);
+		for (OWLOntologyChange change : changes) {
+			if (change.isImportChange()) {
+				throw new U2R3NotImplementedException();
+			}
+			
+			change.getAxiom().accept(axiomRemover);
+		}
 	}
 
 	@Override
 	protected void ontologiesChanged() throws OWLReasonerException {
-		//check if current ontologies are conform and add the axioms
+		//add the axioms
 		for(OWLOntology ont : getLoadedOntologies()) {
+			//check if current ontologies are conform
 			if (settings.checkProfile()) {
 				OWL2RLProfile profile = new OWL2RLProfile();
 				OWLProfileReport report = profile.checkOntology(ont);
@@ -104,7 +114,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 			for(OWLAxiom ax : ont.getAxioms()) {
-				//System.out.println(ax);
 				ax.accept(axiomAdder);
 			}
 			

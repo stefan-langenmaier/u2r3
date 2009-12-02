@@ -15,8 +15,11 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
+import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
+import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -25,6 +28,7 @@ import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.U2R3Component;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
@@ -108,7 +112,7 @@ public abstract class Relation extends U2R3Component {
 			
 			Pair<UUID, RelationName> res = removeImpl(axiom);
 
-			if (res.getFirst() != null) {
+			if (res != null && res.getFirst() != null) {
 				relationManager.remove(res.getFirst(), res.getSecond());
 			}
 			
@@ -286,6 +290,87 @@ public abstract class Relation extends U2R3Component {
 		//Dürfen laut Grammatik auch niemals aufgerufen werden
 		//AnonymousIndividual := nodeID
 		throw new U2R3NotImplementedException();
+	}
+	
+	protected void getSubSQL(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+		if (ce.isAnonymous()) {
+			String ntid = TableId.getId();
+			if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
+				OWLObjectIntersectionOf oi = (OWLObjectIntersectionOf) ce;
+				//ntid = TableId.getId();
+				String ltid;
+				
+				sql.append("SELECT class");
+				sql.append("\n FROM intersectionOf AS " + ntid);
+				sql.append("\nWHERE " + ntid + ".class = " + tid +"." + col);
+				for(OWLClassExpression sce : oi.getOperands()) {
+					ltid = TableId.getId();
+					sql.append(" AND ");
+					sql.append(" EXISTS (");
+					sql.append("\nSELECT element");
+					sql.append("\nFROM list AS " + ltid);
+					sql.append("\nWHERE " + ltid +".name = " + ntid + ".list");
+					sql.append(" AND EXISTS (");
+					getSubSQL(sql, sce, ltid, "element");
+					sql.append("))"); 
+				}
+			} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
+				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ce;
+				sql.append("SELECT part");
+				sql.append("\n FROM someValuesFrom AS " + ntid);
+				sql.append("\nWHERE EXISTS (");
+				getSubSQL(sql, svf.getProperty(), ntid, "property");
+				sql.append(") AND EXISTS (");
+				getSubSQL(sql, svf.getFiller(), ntid, "total");
+				sql.append(")");
+			} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
+				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
+				sql.append("SELECT part");
+				sql.append("\n FROM allValuesFrom AS " + ntid);
+				sql.append("\nWHERE EXISTS (");
+				getSubSQL(sql, avf.getProperty(), ntid, "property");
+				sql.append(") AND EXISTS (");
+				getSubSQL(sql, avf.getFiller(), ntid, "total");
+				sql.append(")");
+			} else {
+				sql.append("\nXXXXXXX\nTODO CE:" + ce.getClassExpressionType() + "\n");
+			}
+		} else {
+			sql.append("SELECT '");
+			sql.append(ce.asOWLClass().getIRI().toString());
+			sql.append("'");
+			sql.append("\n WHERE '");
+			sql.append(ce.asOWLClass().getIRI().toString());
+			sql.append("' = ");
+			sql.append(tid + "." + col);
+		}
+	}
+
+
+	private void getSubSQL(StringBuilder sql,
+			OWLObjectPropertyExpression property, String tid, String col) {
+		if (property.isAnonymous()) {
+			sql.append("\nXXXXXXX\nTODO CE:" + property.toString() + "\n");
+		} else {
+			sql.append("SELECT '" + property.asOWLObjectProperty().getIRI().toString() + "'");
+			sql.append("\n WHERE '");
+			sql.append(property.asOWLObjectProperty().getIRI().toString());
+			sql.append("' = ");
+			sql.append(tid + "." + col);
+		}
+		
+	}
+
+	protected void getSubSQL(StringBuilder sql, OWLIndividual individual, String tid, String col) {
+		if (individual.isAnonymous()) {
+			sql.append("SELECT '" + individual.asAnonymousIndividual().getID().toString() + "'");
+		} else {
+			sql.append("SELECT '" + individual.asNamedIndividual().getIRI().toString() + "'");
+			sql.append("\n WHERE '");
+			sql.append(individual.asNamedIndividual().getIRI().toString());
+			sql.append("' = ");
+			sql.append(tid + "." + col);
+		}
 	}
 
 

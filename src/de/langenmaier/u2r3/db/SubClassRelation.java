@@ -15,6 +15,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class SubClassRelation extends Relation {
@@ -137,21 +138,29 @@ public class SubClassRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		
-		//get id
-		Statement stmt = conn.createStatement();
-		ResultSet rs;
-		String sql;
-		OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-		sql = "SELECT id FROM " + getTableName() + " WHERE sub='" + naxiom.getSubClass().asOWLClass().getIRI().toString() + "' AND super='" + naxiom.getSuperClass().asOWLClass().getIRI().toString() + "'";
-		
-		rs = stmt.executeQuery(sql);
-		UUID id = null;
-		if (rs.next()) {
-			id = UUID.fromString(rs.getString("id"));
+		if (axiom instanceof OWLSubClassOfAxiom) {
+			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
+			
+			String tid = TableId.getId();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id");
+			sql.append("\nFROM " + getTableName() + " AS " + tid);
+			sql.append("\nWHERE EXISTS (");
+			getSubSQL(sql, naxiom.getSubClass(), tid, "sub");
+			sql.append(") AND super = (");
+			getSubSQL(sql, naxiom.getSuperClass(), tid, "super");
+			sql.append(")");
+			
+			Statement stmt = conn.createStatement();
+			System.out.println(sql.toString());
+			ResultSet rs = stmt.executeQuery(sql.toString());
+			
+			if (rs.next()) {
+				return new Pair<UUID, RelationName>((UUID) rs.getObject("id"), RelationName.subClass);
+			}
 		}
-		
-		return new Pair<UUID, RelationName>(id, RelationName.subClass);
+		return null;
 	}
 
 	@Override

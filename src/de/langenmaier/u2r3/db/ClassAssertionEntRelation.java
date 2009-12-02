@@ -32,6 +32,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class ClassAssertionEntRelation extends Relation {
@@ -42,7 +43,11 @@ public class ClassAssertionEntRelation extends Relation {
 		try {
 			tableName = "classAssertionEnt";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, entity TEXT, class TEXT, PRIMARY KEY (entity, class))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" entity TEXT," +
+					" class TEXT," +
+					" PRIMARY KEY (entity, class))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
@@ -203,7 +208,27 @@ public class ClassAssertionEntRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		throw new U2R3NotImplementedException();
+		if (axiom instanceof OWLClassAssertionAxiom) {
+			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
+			String tid = TableId.getId();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id");
+			sql.append("\nFROM " + getTableName() + " AS " + tid);
+			sql.append("\nWHERE EXISTS (");
+			getSubSQL(sql, naxiom.getIndividual(), tid, "entity");
+			sql.append(") AND EXISTS (");
+			getSubSQL(sql, naxiom.getClassExpression(), tid, "class");
+			sql.append(")");
+			
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql.toString());
+			
+			if (rs.next()) {
+				return new Pair<UUID, RelationName>((UUID) rs.getObject("id"), RelationName.classAssertionEnt);
+			}
+		}
+		return null;
 	}
 
 
