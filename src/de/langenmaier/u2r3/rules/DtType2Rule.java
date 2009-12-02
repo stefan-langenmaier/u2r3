@@ -24,22 +24,22 @@ public class DtType2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		sql.append(" (sub, super) VALUES ");
 
-		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_BYTE.toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_SHORT.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_SHORT.toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_INT.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_INT.toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_LONG.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_LONG.toString() + "', '" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_POSITIVE_INTEGER.toString() + "', '" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.toString() + "', '" + OWL2Datatype.XSD_INTEGER.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NEGATIVE_INTEGER.toString() + "', '" + OWL2Datatype.XSD_NON_POSITIVE_INTEGER.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NON_POSITIVE_INTEGER.toString() + "', '" + OWL2Datatype.XSD_INTEGER.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_INTEGER.toString() + "', '" + OWL2Datatype.XSD_DECIMAL.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NORMALIZED_STRING.toString() + "', '" + OWL2Datatype.XSD_STRING.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_TOKEN.toString() + "', '" + OWL2Datatype.XSD_NORMALIZED_STRING.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_LANGUAGE.toString() + "', '" + OWL2Datatype.XSD_TOKEN.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NAME.toString() + "', '" + OWL2Datatype.XSD_TOKEN.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NCNAME.toString() + "', '" + OWL2Datatype.XSD_NAME.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_NMTOKEN.toString() + "', '" + OWL2Datatype.XSD_TOKEN.toString() + "'),");
-		sql.append("\n ('" + OWL2Datatype.XSD_DATE_TIME_STAMP.toString() + "', '" + OWL2Datatype.XSD_DATE_TIME.toString() + "')");
+		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_BYTE.getIRI().toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_SHORT.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_SHORT.getIRI().toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_INT.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_INT.getIRI().toString() + "', '" + OWL2Datatype.XSD_UNSIGNED_LONG.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_UNSIGNED_LONG.getIRI().toString() + "', '" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_POSITIVE_INTEGER.getIRI().toString() + "', '" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NON_NEGATIVE_INTEGER.getIRI().toString() + "', '" + OWL2Datatype.XSD_INTEGER.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NEGATIVE_INTEGER.getIRI().toString() + "', '" + OWL2Datatype.XSD_NON_POSITIVE_INTEGER.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NON_POSITIVE_INTEGER.getIRI().toString() + "', '" + OWL2Datatype.XSD_INTEGER.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_INTEGER.getIRI().toString() + "', '" + OWL2Datatype.XSD_DECIMAL.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NORMALIZED_STRING.getIRI().toString() + "', '" + OWL2Datatype.XSD_STRING.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_TOKEN.getIRI().toString() + "', '" + OWL2Datatype.XSD_NORMALIZED_STRING.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_LANGUAGE.getIRI().toString() + "', '" + OWL2Datatype.XSD_TOKEN.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NAME.getIRI().toString() + "', '" + OWL2Datatype.XSD_TOKEN.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NCNAME.getIRI().toString() + "', '" + OWL2Datatype.XSD_NAME.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_NMTOKEN.getIRI().toString() + "', '" + OWL2Datatype.XSD_TOKEN.getIRI().toString() + "'),");
+		sql.append("\n ('" + OWL2Datatype.XSD_DATE_TIME_STAMP.getIRI().toString() + "', '" + OWL2Datatype.XSD_DATE_TIME.getIRI().toString() + "')");
 		
 		return sql.toString();
 	}
