@@ -22,8 +22,8 @@ public class ComplementOfRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
+					" left TEXT," +
+					" right TEXT," +
 					" PRIMARY KEY (left, right))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
