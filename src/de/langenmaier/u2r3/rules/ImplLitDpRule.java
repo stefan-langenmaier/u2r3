@@ -30,7 +30,7 @@ public class ImplLitDpRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (literal, class, language, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT dpa.object, dpa.type, dpa.language");
+			sql.append("\n\t SELECT dpa.object, dpa.type, dpa.language,");
 			sql.append(" MIN(dpa.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(literal, class, language,)");

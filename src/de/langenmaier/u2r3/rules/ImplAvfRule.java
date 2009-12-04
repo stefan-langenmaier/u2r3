@@ -36,7 +36,7 @@ public class ImplAvfRule extends ApplicationRule {
 			sql.append(" MIN(avf.id) AS sourceId1, '" + RelationName.allValuesFrom + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT avf.part, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT avf.part, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("allValuesFrom") + " AS avf");

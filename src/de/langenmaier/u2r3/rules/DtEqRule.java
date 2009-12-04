@@ -36,7 +36,7 @@ public class DtEqRule extends ApplicationRule {
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionLit") + " AS ca1 ");
 		sql.append("\n\t\t CROSS JOIN classAssertionLit AS ca2");
 		//sql.append("\n\t WHERE ca1.literal = ca2.literal AND ca1.class = ca2.class AND ca1.language = ca2.language"); //TODO durch bessere Funktion ersetzen
-		sql.append("\n\t WHERE isSameLiteral(ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language");
+		sql.append("\n\t WHERE isSameLiteral(ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language)");
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");

@@ -36,7 +36,7 @@ public class ImplObjUniRule extends ApplicationRule {
 			sql.append(" MIN(uo.id) AS sourceId1, '" + RelationName.unionOf + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT uo.class, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT uo.class, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("unionOf") + " AS uo");

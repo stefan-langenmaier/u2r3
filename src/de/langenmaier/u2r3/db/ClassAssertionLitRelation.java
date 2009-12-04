@@ -34,7 +34,7 @@ public class ClassAssertionLitRelation extends Relation {
 					" literal TEXT," +
 					" class TEXT," +
 					" language TEXT," +
-					" PRIMARY KEY (id, literal, class, language))");
+					" PRIMARY KEY (id, literal, class))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
@@ -90,7 +90,7 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 UUID," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, literal, class, language))");
+					" PRIMARY KEY (id, literal, class))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

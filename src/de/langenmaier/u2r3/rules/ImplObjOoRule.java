@@ -36,7 +36,7 @@ public class ImplObjOoRule extends ApplicationRule {
 			sql.append(" MIN(oo.id) AS sourceId1, '" + RelationName.oneOf + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT oo.class, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT oo.class, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("oneOf") + " AS oo");

@@ -53,7 +53,7 @@ public class ImplObjComRule extends ApplicationRule {
 			sql.append(" MIN(co.id) AS sourceId1, '" + RelationName.complementOf + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT " + side + ", '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT " + side + ", '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("complementOf") + " AS co");

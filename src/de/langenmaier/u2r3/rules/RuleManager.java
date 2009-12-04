@@ -37,7 +37,10 @@ public class RuleManager {
 		prp_pdw_ent, eq_ref_s_ent, eq_ref_s_lit, eq_ref_p_ent, eq_ref_p_lit,
 		eq_ref_o_ent, eq_ref_o_lit, scm_eqp_1_sub_1, scm_eqp_1_sub_2, prp_ap,
 		dt_type_2, dt_not_type, dt_eq,
-		impl_obj_int};
+		impl_obj_int, impl_obj_uni, impl_obj_com, impl_obj_oo,
+		impl_avf, impl_svf, impl_hv_ent, impl_hv_lit, impl_mc, impl_mqc,
+		impl_opa, impl_nopa, impl_dpa, impl_ndpa,
+		impl_lit_dp, impl_lit_hv, impl_lit_ndp};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -171,6 +174,22 @@ public class RuleManager {
 		rules.put(RuleName.dt_not_type, new DtNotTypeRule(reasoner));
 		rules.put(RuleName.dt_eq, new DtEqRule(reasoner));
 		rules.put(RuleName.impl_obj_int, new ImplObjIntRule(reasoner));
+		rules.put(RuleName.impl_obj_uni, new ImplObjUniRule(reasoner));
+		rules.put(RuleName.impl_obj_com, new ImplObjComRule(reasoner));
+		rules.put(RuleName.impl_obj_oo, new ImplObjOoRule(reasoner));
+		rules.put(RuleName.impl_avf, new ImplAvfRule(reasoner));
+		rules.put(RuleName.impl_svf, new ImplSvfRule(reasoner));
+		rules.put(RuleName.impl_hv_ent, new ImplHvEntRule(reasoner));
+		rules.put(RuleName.impl_hv_lit, new ImplHvLitRule(reasoner));
+		rules.put(RuleName.impl_mc, new ImplMcRule(reasoner));
+		rules.put(RuleName.impl_mqc, new ImplMqcRule(reasoner));
+		rules.put(RuleName.impl_opa, new ImplOpaRule(reasoner));
+		rules.put(RuleName.impl_nopa, new ImplNopaRule(reasoner));
+		rules.put(RuleName.impl_dpa, new ImplDpaRule(reasoner));
+		rules.put(RuleName.impl_ndpa, new ImplNdpaRule(reasoner));
+		rules.put(RuleName.impl_lit_dp, new ImplLitDpRule(reasoner));
+		rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
+		rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
 	};
 	
 }

@@ -39,7 +39,7 @@ public class ImplNopaRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT nopa.property, '" +  clazz + "',");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("negativeObjectProperty") + " AS nopa");
+		sql.append("\n\t FROM " + delta.getDeltaName("negativeObjectPropertyAssertion") + " AS nopa");
 
 
 		if (again) {

@@ -30,7 +30,7 @@ public class ImplLitHvRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (literal, class, language, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT hv.value, hv.type, hv.language");
+			sql.append("\n\t SELECT hv.value, hv.type, hv.language, ");
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1");
 		} else {
 			sql.append("(literal, class, language,)");

@@ -36,7 +36,7 @@ public class ImplMcRule extends ApplicationRule {
 			sql.append(" MIN(mc.id) AS sourceId1, '" + RelationName.maxCardinality + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT mc.class, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT mc.class, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("maxCardinality") + " AS mc");

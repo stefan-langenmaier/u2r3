@@ -30,7 +30,7 @@ public class ImplLitNdpRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (literal, class, language, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT ndpa.object, ndpa.type, ndpa.language");
+			sql.append("\n\t SELECT ndpa.object, ndpa.type, ndpa.language,");
 			sql.append(" MIN(ndpa.id) AS sourceId1, '" + RelationName.negativeDataPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(literal, class, language,)");

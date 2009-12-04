@@ -39,7 +39,7 @@ public class ImplOpaRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT opa.property, '" +  clazz + "',");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("objectProperty") + " AS opa");
+		sql.append("\n\t FROM " + delta.getDeltaName("objectPropertyAssertion") + " AS opa");
 
 
 		if (again) {

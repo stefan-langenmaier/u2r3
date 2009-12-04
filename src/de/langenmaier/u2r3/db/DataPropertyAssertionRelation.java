@@ -15,6 +15,7 @@ import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -64,7 +65,7 @@ public class DataPropertyAssertionRelation extends Relation {
 			if (!naxiom.getObject().isTyped()) {
 				addStatement.setString(3, naxiom.getObject().getLiteral());
 				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
-				addStatement.setNull(5, Types.LONGVARCHAR);
+				addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
 			} else {
 				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLStringLiteral().getDatatype()));
 				addStatement.setNull(4, Types.LONGVARCHAR);

@@ -36,7 +36,7 @@ public class ImplHvEntRule extends ApplicationRule {
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueEnt + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT hv.class, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT hv.class, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueEnt") + " AS hv");

@@ -39,7 +39,7 @@ public class ImplNdpaRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT ndpa.property, '" +  clazz + "',");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("negativeDataProperty") + " AS ndpa");
+		sql.append("\n\t FROM " + delta.getDeltaName("negativeDataPropertyAssertion") + " AS ndpa");
 
 
 		if (again) {
