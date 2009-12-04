@@ -113,7 +113,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			}
 
 			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-			for(OWLAxiom ax : ont.getAxioms()) {
+			for(OWLAxiom ax : ont.getLogicalAxioms()) {
 				ax.accept(axiomAdder);
 			}
 			

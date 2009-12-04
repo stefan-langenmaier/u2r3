@@ -39,7 +39,7 @@ public class ImplMqcRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT mqc.class, '" +  clazz + "'");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mc");
+		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
 
 
 		if (again) {

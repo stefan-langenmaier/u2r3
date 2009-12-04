@@ -83,7 +83,7 @@ public class RunTestCase {
 				logger.debug("Loaded " + conclusion.getOntologyID());
 				
 				AxiomChecker axiomChecker = new AxiomChecker(reasoner);
-				for(OWLAxiom ax : conclusion.getAxioms()) {
+				for(OWLAxiom ax : conclusion.getLogicalAxioms()) {
 					ax.accept(axiomChecker);
 				}
 				

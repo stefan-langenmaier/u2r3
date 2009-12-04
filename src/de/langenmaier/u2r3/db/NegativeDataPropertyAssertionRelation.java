@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -53,7 +54,7 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 			if (!naxiom.getObject().isTyped()) {
 				addStatement.setString(3, naxiom.getObject().getLiteral());
 				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
-				addStatement.setNull(5, Types.LONGVARCHAR);
+				addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
 			} else {
 				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLStringLiteral().getDatatype()));
 				addStatement.setNull(4, Types.LONGVARCHAR);
