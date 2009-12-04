@@ -36,7 +36,7 @@ public class ImplObjIntRule extends ApplicationRule {
 			sql.append(" MIN(io.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT io.class, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT io.class, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS io");

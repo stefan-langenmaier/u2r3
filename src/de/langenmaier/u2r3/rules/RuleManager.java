@@ -36,7 +36,8 @@ public class RuleManager {
 		cls_maxqc_2_ent, cax_dw_ent, scm_hv_ent, eq_diff_1_ent, 
 		prp_pdw_ent, eq_ref_s_ent, eq_ref_s_lit, eq_ref_p_ent, eq_ref_p_lit,
 		eq_ref_o_ent, eq_ref_o_lit, scm_eqp_1_sub_1, scm_eqp_1_sub_2, prp_ap,
-		dt_type_2, dt_not_type, dt_eq};
+		dt_type_2, dt_not_type, dt_eq,
+		impl_obj_int};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -169,6 +170,7 @@ public class RuleManager {
 		rules.put(RuleName.dt_type_2, new DtType2Rule(reasoner));
 		rules.put(RuleName.dt_not_type, new DtNotTypeRule(reasoner));
 		rules.put(RuleName.dt_eq, new DtEqRule(reasoner));
+		rules.put(RuleName.impl_obj_int, new ImplObjIntRule(reasoner));
 	};
 	
 }

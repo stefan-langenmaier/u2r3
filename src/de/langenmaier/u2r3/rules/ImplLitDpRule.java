@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.rules;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
