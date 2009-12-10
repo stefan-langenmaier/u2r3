@@ -1,0 +1,32 @@
+\section{Regelumsetung}
+\input{regelumsetzung}
+
+\section{sonstige Punkte: Herausforderungen und Lösungen}
+
+
+    
+        * Wie werden sie implementiert?
+    * Wie komplex ist ihre Beantwortung?
+          o In welche Bereich ist OWL2 RL einzuordnen? (Beschreibungslogiken Teil 5: Ende Komplexitätsergebnisse, Blatt 4) 
+    * Mussen die abgeleiteten Fakten bei der OWLAPI auch hinzugefügt werden, oder braucht die nur der Reasoner zu kennen?
+          o Ich denke U2R2 hat bisher die abgeleiteten Fakten und Konzepte wieder in die OWLAPI zurück gespeichert. Langsam und extrem hoher Speicherverbrauch. 
+    * Ist SQL besser als Reasoninggrundlage geeignet?
+    * Wie speichert man die Ontologie, um darüber Schlusszufolgern? (DB Schema)
+    * Was wird aus der DA von TW bzgl Speicherung klar?
+    * Was kann man durch ein DBMS gewinnen?
+          o Caching, Views, Rbustheit, Geschwindigkeit, Modularität, geringere Codegröße 
+    * Wie können Faktenänderungen schnell erzeugt werden?
+    * Wieso Forward Chaining mit Direct Materialisation?
+          o Speicher günstig. Zeit für Anfragen teuer. 
+    * Wie ist der Worklflow von U2R3?
+    * Wie werden anonyme Elemente abgebildet?
+    * Kann man durch das Speichern der Ableitungsreihenfolge Manipulationen an der Ontologie beschleunigen?
+    * Wie überprüft man die Konformität
+    * Wie überprüft man die strukturelle Konsistenz (ist ja nicht durch die Regeln direkt möglich).
+          o Was davon muss man im OWL2 RL Fragment überhaupt überprüfen? 
+    * Wann müssen Konsistenzprüfungen durchgeführt werden? (Strukturell und inhaltlich)
+    * Was ist die Konsequenz, wenn Konsistenzprüfungen nicht rechtzeitig durchgeführt werden.
+    * Welches DB-Schema wird verwendet? Stellt man mehrere zur Verfügung?
+          o Tripel-Store mit Views
+          o Mehrere Tabellen wie in MEMA (allerdings Probleme mit manchen semantischen Regeln) 
+    * Wie kann man über Ableitungen Buch führen? 

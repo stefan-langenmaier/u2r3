@@ -31,7 +31,7 @@
 % hier Namen etc. einsetzen
 \newcommand{\fullname}{Stefan Langenmaier}
 \newcommand{\email}{stefan.langenmaier@uni-ulm.de}
-\newcommand{\titel}{U2R3: Universität Ulm Relational Reasoner für OWL2 RL}
+\newcommand{\titel}{Implementierung und Optimierung eines relationalen Schlussfolgerungssystems}
 %\newcommand{\titel}{Titel der Arbeit}
 \newcommand{\jahr}{2009}
 \newcommand{\matnr}{575546}
@@ -138,27 +138,48 @@ pdfborder=0 0 0	% keine Box um die Links!
 
 \tableofcontents
 
-\mainmatter
-\section{Vorwort}
-\chapter{Einleitung}
-\section{Geschichte}
-\subsection{u2r2}
-\subsection{Probleme und Fragen der Geschichte}
-\section{OWL1 und Ontologien}
-\section{OWL2 aktueller Stand}
 
-\chapter{Umsetzung}
-\input{regelumsetzung}
+
+\mainmatter
+
+\include{vorwort}
+
+\chapter{Motivation}
+\include{motivation}
+
+
+\chapter{Grundlagen}
+\include{grundlagen}
+
+
+\chapter{Konzeption}
+\include{konzeption}
+
+
+\chapter{Realisierung}
+\include{realisierung}
+
+
+\chapter{Vergleiche}
+\include{vergleiche}
+
+
+\chapter{Evaluierung}
+\include{evaluierung}
+
 
 \chapter{Ausblick}
+\include{ausblick} 
+
 %\input{beispiele}
 % hier weitere Kapitel einbinden
 
 
 \appendix
 % hier Anhänge einbinden
-\section{Quellcode}
-\section{Regelimplementierung}
+\section*{Quellcode}
+\section*{Regelimplementierung}
+\section*{Java-Dokumentation}
 %\input{sources}
 
 \backmatter
