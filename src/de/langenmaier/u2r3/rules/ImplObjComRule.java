@@ -49,7 +49,7 @@ public class ImplObjComRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT " + side + ", '" +  clazz + "',");
+			sql.append("\n\t SELECT " + side + ", '" +  clazz + "', ");
 			sql.append(" MIN(co.id) AS sourceId1, '" + RelationName.complementOf + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");

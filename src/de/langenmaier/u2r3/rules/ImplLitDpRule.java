@@ -33,7 +33,7 @@ public class ImplLitDpRule extends ApplicationRule {
 			sql.append("\n\t SELECT dpa.object, dpa.type, dpa.language,");
 			sql.append(" MIN(dpa.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1");
 		} else {
-			sql.append("(literal, class, language,)");
+			sql.append("(literal, class, language)");
 			sql.append("\n\t SELECT DISTINCT dpa.object, dpa.type, dpa.language");
 		}
 		

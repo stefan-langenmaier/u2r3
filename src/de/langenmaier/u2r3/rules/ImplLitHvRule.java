@@ -33,7 +33,7 @@ public class ImplLitHvRule extends ApplicationRule {
 			sql.append("\n\t SELECT hv.value, hv.type, hv.language, ");
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1");
 		} else {
-			sql.append("(literal, class, language,)");
+			sql.append("(literal, class, language)");
 			sql.append("\n\t SELECT DISTINCT hv.value, hv.type, hv.language");
 		}
 		

@@ -33,7 +33,7 @@ public class ImplLitNdpRule extends ApplicationRule {
 			sql.append("\n\t SELECT ndpa.object, ndpa.type, ndpa.language,");
 			sql.append(" MIN(ndpa.id) AS sourceId1, '" + RelationName.negativeDataPropertyAssertion + "' AS sourceTable1");
 		} else {
-			sql.append("(literal, class, language,)");
+			sql.append("(literal, class, language)");
 			sql.append("\n\t SELECT DISTINCT ndpa.object, ndpa.type, ndpa.language");
 		}
 		

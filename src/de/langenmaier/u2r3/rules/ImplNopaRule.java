@@ -36,7 +36,7 @@ public class ImplNopaRule extends ApplicationRule {
 			sql.append(" MIN(nopa.id) AS sourceId1, '" + RelationName.negativeObjectPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT nopa.property, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT nopa.property, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("negativeObjectPropertyAssertion") + " AS nopa");

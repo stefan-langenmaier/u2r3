@@ -32,11 +32,11 @@ public class ImplOpaRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT opa.property, '" +  clazz + "',");
+			sql.append("\n\t SELECT opa.property, '" +  clazz + "', ");
 			sql.append(" MIN(opa.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT opa.property, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT opa.property, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("objectPropertyAssertion") + " AS opa");

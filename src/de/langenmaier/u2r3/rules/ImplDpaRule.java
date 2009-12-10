@@ -36,7 +36,7 @@ public class ImplDpaRule extends ApplicationRule {
 			sql.append(" MIN(dpa.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT dpa.property, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT dpa.property, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("dataPropertyAssertion") + " AS dpa");

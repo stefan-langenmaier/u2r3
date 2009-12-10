@@ -36,7 +36,7 @@ public class ImplNdpaRule extends ApplicationRule {
 			sql.append(" MIN(ndpa.id) AS sourceId1, '" + RelationName.negativeDataPropertyAssertion + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT ndpa.property, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT ndpa.property, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("negativeDataPropertyAssertion") + " AS ndpa");

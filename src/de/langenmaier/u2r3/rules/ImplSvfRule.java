@@ -32,11 +32,11 @@ public class ImplSvfRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT svf.part, '" +  clazz + "',");
+			sql.append("\n\t SELECT svf.part, '" +  clazz + "', ");
 			sql.append(" MIN(svf.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1");
 		} else {
 			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT svf.part, '" +  clazz + "',");
+			sql.append("\n\t SELECT DISTINCT svf.part, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
