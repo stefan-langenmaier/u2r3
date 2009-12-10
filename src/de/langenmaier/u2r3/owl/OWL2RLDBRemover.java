@@ -44,6 +44,8 @@ import org.semanticweb.owlapi.model.SWRLRule;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
+import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
 import de.langenmaier.u2r3.util.U2R3Component;
 
 public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
@@ -55,8 +57,7 @@ public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
 	
 	@Override
 	public void visit(OWLDeclarationAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -80,14 +81,12 @@ public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
 
 	@Override
 	public void visit(OWLReflexiveObjectPropertyAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
 	public void visit(OWLDisjointClassesAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
@@ -254,39 +253,44 @@ public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(OWLDatatypeDefinitionAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(SWRLRule rule) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(rule);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * annotations are ignored because they are not part of the reasoning
+	 */
 
 	@Override
 	public void visit(OWLAnnotationAssertionAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
 	public void visit(OWLSubAnnotationPropertyOfAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyDomainAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyRangeAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 }

@@ -160,11 +160,15 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 
 	@Override
-	public void visit(OWLDeclarationAxiom axiom) {
-		logger.debug("  adding Declaration:" + axiom.toString());
+	/**
+	 * Not allowed because this is already implicit defined
+	 */
+	public void visit(OWLDeclarationAxiom arg0) {
+		throw new U2R3NotInProfileException(arg0);
+		//logger.debug("  adding Declaration:" + axiom.toString());
 		//relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
-		System.out.println("IGNORIERT: " + axiom);
-		logger.debug("  added Declaration");
+		//System.out.println("IGNORIERT: " + axiom);
+		//logger.debug("  added Declaration");
 	}
 
 	@Override
@@ -303,39 +307,38 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 		logger.debug(" added HasKey");		
 	}
 
+	
 	@Override
+	/**
+	 * Not allowed in the OWL2 RL Profile
+	 */
 	public void visit(OWLDatatypeDefinitionAxiom arg0) {
 		throw new U2R3NotInProfileException(arg0);
-		
 	}
 	
 	/*
 	 * (non-Javadoc)
-	 * Annotationen werden ignoriert
+	 * annotations are ignored because they are not part of the reasoning
 	 */
 
 	@Override
 	public void visit(OWLAnnotationAssertionAxiom axiom) {
-		//throw new U2R3NotInProfileException(axiom);
-		
+		throw new U2R3NotInProfileException(axiom);
 	}
 
 	@Override
 	public void visit(OWLSubAnnotationPropertyOfAxiom arg0) {
-		//throw new U2R3NotInProfileException(arg0);
-		
+		throw new U2R3NotInProfileException(arg0);
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyDomainAxiom arg0) {
-		//throw new U2R3NotInProfileException(arg0);
-		
+		throw new U2R3NotInProfileException(arg0);
 	}
 
 	@Override
 	public void visit(OWLAnnotationPropertyRangeAxiom arg0) {
-		//throw new U2R3NotInProfileException(arg0);
-		
+		throw new U2R3NotInProfileException(arg0);
 	}
 
 
