@@ -1,0 +1,9 @@
+\section{MEMA-Prinzip}
+Die des MEMA-Prinzip findet sich in der Diplomarbeit von Timo-Weithöhner. Es ermöglicht die Abspeicherung einer Ontolgie in eine Datenbank mit einem festen Satz von Tabellen. Dies vereinfacht es Regeln in SQL zu erstellen, da diese vorformuliert werden können.
+
+Das ursprüngliche MEMA-Prinzip von Timo Weithöhner ist um folgende Punkte erweitert.
+Es wurde erstmal auf den erweiterten Sprachschatz von OWL2 RL angepasst. Was aber besonders zu erwähnen ist sind die Relationen list und history. Sie speichern keine Axiome wie alle anderen. list dient als Hilfstruktur für Axiome die eine variable Anzahl von Elementen abspeichern. history wird benutzt, um benutzt um den Abhängigkeitsverlauf beim inferieren von von Fakten speichern zu können. Damit ist es möglich Ableitungen gezielt wieder rückgängig zu machen. Deswegen sind auch alle anderen Relationen mit einer id Spalte ausgestattet, die Axiome eindeutig identifiziert.
+
+Allgemein wurd bei der Erstellung der Tabellenstruktur darauf geachtet, das die Formulierung der Regeln in SQL vereinfacht wird. So ist im Normalfall die Ergebnismenge einer Regel dadurch zu erhalten, in dem man die beteiligten Relationen miteinander joinet auf den Variablen, die in den Regeln angegeben sind.
+
+Abbildung der Tabellenstruktur im Anhang

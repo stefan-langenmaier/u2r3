@@ -1,0 +1,31 @@
+\section{Regelumsetzung von OWL2 RL}
+
+In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend der Sprachmächtigkeit darin zu schlussfolgern.
+%\note Was ist die Sprachmächtigkeit?
+%\note Was heißt schlussfolgern?
+Die angegebenen Regeln sind vollständig aber nicht optimal \cite{placeholder}, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln der einzige oder minimale Satz sein, die zu diesem Ergebniss kommen..
+
+In dieser Diplomarbeit wird versucht möglichst nah an diesem Menge von Regeln zu bleiben, um sichergestellt zu haben das die Semantik korrekt erhalten ist und somit die Implementierung leichter zu überprüfen ist.
+Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{mitternachtsformel} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
+Wieso und wie das funktioniert wird in Abschnitt \cite{placeholder} an einigen Beispielen und Sonderfällen demonstriert.
+
+\subsection{Regeloptimierung}
+
+Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hier verschiedene Möglichkeiten diesen Prozess zu beeinflussen und damit auf spezielle Bedürfnisse anpassen zu können.
+
+Man kann entscheiden, ob man die Ontologie später verändern will. Das hat zur Folge, das die Entstehungsgeschichte von abgeleiteten Fakten erhalten bleiben muss.
+
+Eine naive Anwendung der Regel hätte außerdem zur Folge, das sich die Regeln immer auf alle Fakten beziehen. Meist reicht es aber asich auf erzeugt Fakten aus vorherigen Schritten zu beziehen. Das wird näher im Abschnittt \cite{placeholder} (delta-Iteration) geklärt. Hierbei gibt es zwei verschiedene Varianten wie diese umgesetzt ist.
+
+Die Struktur der Umsetzung der Regeln in SQL ist zwar fix aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implmentiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.
+
+\subsubsection{delta-Iteration}
+\input{delta-iteration}
+
+\subsubsection{Magic-Sets}
+Auf die Implementierung von Magic-Set-Algorithmen kann verzichtet werden, da die Regel-Implementierung in SQL fast ausschließlich von Hand abliefund deswegen schon von vorneherein optimiert sind.
+Referenzen-MEHR.
+
+
+\subsection{Regelbeispiele}
+\input{u2r3-regel-beispiele}

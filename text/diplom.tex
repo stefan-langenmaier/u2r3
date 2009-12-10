@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \documentclass[a4paper,10pt,bibtotoc,twoside,openright,pointlessnumbers,normalheadings,DIV=9
-%,draft
+,draft
 ]{scrbook}
 \KOMAoptions{DIV=last}
 
@@ -35,9 +35,9 @@
 %\newcommand{\titel}{Titel der Arbeit}
 \newcommand{\jahr}{2009}
 \newcommand{\matnr}{575546}
-\newcommand{\gutachterA}{Prof.~Dr.~Streng Geheim}
-\newcommand{\gutachterB}{Prof.~Dr.~Un Leserlich}
-\newcommand{\betreuer}{Betreuername}
+\newcommand{\gutachterA}{Prof.~Dr.~Friedrich von Henke}
+\newcommand{\gutachterB}{Dr.~Thorsten Liebig}
+\newcommand{\betreuer}{Dr.~Thorsten Liebig}
 % hier richtige Fakultät auswählen
 \newcommand{\fakultaet}{Ingenieurwissenschaften\\und Informatik}
 %\newcommand{\fakultaet}{Mathematik und\\Wirtschaftswissenschaften}
@@ -139,13 +139,27 @@ pdfborder=0 0 0	% keine Box um die Links!
 \tableofcontents
 
 \mainmatter
-\input{beispiele}
+\section{Vorwort}
+\chapter{Einleitung}
+\section{Geschichte}
+\subsection{u2r2}
+\subsection{Probleme und Fragen der Geschichte}
+\section{OWL1 und Ontologien}
+\section{OWL2 aktueller Stand}
+
+\chapter{Umsetzung}
+\input{regelumsetzung}
+
+\chapter{Ausblick}
+%\input{beispiele}
 % hier weitere Kapitel einbinden
 
 
 \appendix
 % hier Anhänge einbinden
-\input{sources}
+\section{Quellcode}
+\section{Regelimplementierung}
+%\input{sources}
 
 \backmatter
 
