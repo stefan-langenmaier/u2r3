@@ -42,3 +42,7 @@ Load a test case
 ./runtestcase <folder> [<testcase> [<number>]]
 e.g.
  ./runtestcase.sh /home/sl17/workspace/u2r2/ontologien/tests/owl2rl/ cls-avf
+ 
+Changing the settings for the operational mode for u2r3
+The settings for running the the reasoner can be changed in the configuration file: u2r3.properties
+The settings can be overridden in the runtime-settings of a particular application. 

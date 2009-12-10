@@ -88,7 +88,7 @@ public class Settings {
 	private boolean startClean = true;
 	
 	/**
-	 * Database Mode describes how the database is started..
+	 * Database Mode describes how the database is started.
 	 *
 	 */
 	public enum DatabaseMode { STANDALONE, EMBEDDED, IN_MEMORY };
