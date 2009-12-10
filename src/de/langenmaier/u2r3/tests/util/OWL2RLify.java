@@ -13,9 +13,11 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 
 /**
- * This test class tries to make an ontology conform to the RL Profile
+ * This class tries to make an ontology conform to the RL Profile
  * e.g. Protege always creates individuals of type owl:Thing
  *   this is prohibited in the RL Profile
+ * This class tries to make an old existing ontology conformant to
+ * the RL profile.
  * @author stefan
  *
  */
