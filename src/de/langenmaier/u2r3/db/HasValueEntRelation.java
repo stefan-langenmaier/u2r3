@@ -25,7 +25,7 @@ public class HasValueEntRelation extends Relation {
 					" class TEXT," +
 					" property TEXT, " +
 					" value TEXT," +
-					" PRIMARY KEY (class, property, value))");
+					" PRIMARY KEY (id, class, property, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

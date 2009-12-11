@@ -24,7 +24,7 @@ public class DifferentFromEntRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right))");
+					" PRIMARY KEY (id))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -39,25 +39,51 @@ public class DifferentFromEntRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDifferentIndividualsAxiom) {
 			OWLDifferentIndividualsAxiom naxiom = (OWLDifferentIndividualsAxiom) axiom;
-			for (OWLIndividual ind1 : naxiom.getIndividuals()) {
-				for (OWLIndividual ind2 : naxiom.getIndividuals()) {
-					if (!ind1.equals(ind2)) {
-						if (ind1.isAnonymous()) {
-							addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
-						} else {
-							addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+			//if only two individuals are specified this table can be use
+			if (naxiom.getIndividuals().size() == 2) {//TODO Code vereinfachen
+				for (OWLIndividual ind1 : naxiom.getIndividuals()) {
+					for (OWLIndividual ind2 : naxiom.getIndividuals()) {
+						if (!ind1.equals(ind2)) {
+							if (ind1.isAnonymous()) {
+								addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
+							} else {
+								addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+							}
+							if (ind2.isAnonymous()) {
+								addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
+							} else {
+								addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+							}
+							
+							addStatement.execute();
+							reasonProcessor.add(new AdditionReason(this));
 						}
-						if (ind2.isAnonymous()) {
-							addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
-						} else {
-							addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+					}
+				}
+			} else {//otherwise it should in the list table
+				//_:x rdf:type owl:AllDifferent.
+				//_:x owl:members (a1 … an). 
+				for (OWLIndividual ind1 : naxiom.getIndividuals()) {
+					for (OWLIndividual ind2 : naxiom.getIndividuals()) {
+						if (!ind1.equals(ind2)) {
+							if (ind1.isAnonymous()) {
+								addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
+							} else {
+								addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+							}
+							if (ind2.isAnonymous()) {
+								addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
+							} else {
+								addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+							}
+							
+							addStatement.execute();
+							reasonProcessor.add(new AdditionReason(this));
 						}
-						
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
 					}
 				}
 			}
+
 
 			return AdditionMode.NOADD;
 		} else {
@@ -77,7 +103,7 @@ public class DifferentFromEntRelation extends Relation {
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 UUID," +
 					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (left, right))");
+					" PRIMARY KEY (id))");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

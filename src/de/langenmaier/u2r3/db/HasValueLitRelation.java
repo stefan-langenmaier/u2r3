@@ -24,7 +24,7 @@ public class HasValueLitRelation extends Relation {
 					" value TEXT," +
 					" language TEXT," +
 					" type TEXT," +
-					" PRIMARY KEY (class, property, value))");
+					" PRIMARY KEY (id, class, property, value))");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
