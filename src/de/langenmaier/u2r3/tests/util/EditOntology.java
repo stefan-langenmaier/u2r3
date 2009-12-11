@@ -10,15 +10,16 @@ import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
+import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
@@ -49,7 +50,7 @@ public class EditOntology {
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
 			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
 			reasoner.loadOntologies(Collections.singleton(ont));
-			reasoner.classify();
+			//reasoner.classify();
 			
 			logger.info("Classified");
 			
@@ -59,12 +60,27 @@ public class EditOntology {
 			
 			ope.accept(remover);
 			
-			System.out.println(remover.getChanges());
+			System.out.println("changes:" + remover.getChanges());
 			
-			try {
+			/*try {
 				manager.applyChanges(remover.getChanges());
 			} catch (OWLOntologyChangeException e) {
 				e.printStackTrace();
+			}*/
+			
+			logger.info("r removed");
+			
+			OWLOntology ontAdd;
+			ontAdd = manager.loadOntologyFromPhysicalURI(URI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
+			
+			logger.info("Loaded " + ontAdd.getOntologyID());
+			
+			@SuppressWarnings("unused")
+			OWL2RLDBAdder adder = new OWL2RLDBAdder(reasoner); 
+			
+			for (OWLAxiom ax : ontAdd.getLogicalAxioms()) {
+				System.out.println(ax);
+				//ax.accept(adder);
 			}
 
 			logger.info("FERTIG");
