@@ -46,7 +46,7 @@ public class LoadReasoner {
 			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
 			reasoner.getSettings().checkProfile(false);
 			reasoner.loadOntologies(Collections.singleton(ont));
-			reasoner.classify();
+			//reasoner.classify();
 
 			logger.info("FERTIG");
 
