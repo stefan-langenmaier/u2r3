@@ -20,9 +20,9 @@ public class RelationManager {
 		propertyChain, equivalentProperty, propertyDisjointWith, inverseOf,
 		hasKey,  unionOf, complementOf, someValuesFrom, 
 		allValuesFrom, hasValueEnt, maxCardinality, maxQualifiedCardinality,
-		//members, distinctMembers,
+		members, 
 		//sourceIndividual, targetIndividual, assertionProperty, targetValue,
-		//onClass, onProperty,
+		//onClass, onProperty, distinctMembers,
 		oneOf, disjointWith, differentFromLit,
 		negativeObjectPropertyAssertion, negativeDataPropertyAssertion};
 
@@ -59,7 +59,7 @@ public class RelationManager {
 		relations.put(RelationName.propertyRange, new PropertyRangeRelation(reasoner));
 		relations.put(RelationName.differentFromEnt, new DifferentFromEntRelation(reasoner));
 		relations.put(RelationName.differentFromLit, new DifferentFromLitRelation(reasoner));
-		//relations.put(RelationName.members, new MembersRelation(reasoner));
+		relations.put(RelationName.members, new MembersRelation(reasoner));
 		//relations.put(RelationName.distinctMembers, new DistinctMembersRelation(reasoner));
 		relations.put(RelationName.subProperty, new SubPropertyRelation(reasoner));
 		relations.put(RelationName.propertyChain, new PropertyChainRelation(reasoner));

@@ -77,7 +77,11 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDisjointClassesAxiom axiom) {
 		logger.debug("  adding DisjointClasses:" + axiom.toString());
-		relationManager.getRelation(RelationName.disjointWith).add(axiom);
+		if (axiom.getClassExpressions().size() == 2) {
+			relationManager.getRelation(RelationName.disjointWith).add(axiom);
+		} else {
+			relationManager.getRelation(RelationName.members).add(axiom);
+		}
 		logger.debug("  added DisjointClasses");
 	}
 
@@ -112,21 +116,33 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	@Override
 	public void visit(OWLDifferentIndividualsAxiom axiom) {
 		logger.debug("  adding DifferentIndividuals:" + axiom.toString());
-		relationManager.getRelation(RelationName.differentFromEnt).add(axiom);
+		if (axiom.getIndividuals().size() == 2) {
+			relationManager.getRelation(RelationName.differentFromEnt).add(axiom);
+		} else {
+			relationManager.getRelation(RelationName.members).add(axiom);
+		}
 		logger.debug("  added DifferentIndividuals");
 	}
 
 	@Override
 	public void visit(OWLDisjointDataPropertiesAxiom axiom) {
 		logger.debug("  adding DisjointDataProperties:" + axiom.toString());
-		relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		if (axiom.getProperties().size() == 2) {
+			relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		} else {
+			relationManager.getRelation(RelationName.members).add(axiom);
+		}
 		logger.debug("  added DisjointDataProperties");
 	}
 
 	@Override
 	public void visit(OWLDisjointObjectPropertiesAxiom axiom) {
 		logger.debug("  adding DisjointObjectProperties:" + axiom.toString());
-		relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		if (axiom.getProperties().size() == 2) {
+			relationManager.getRelation(RelationName.propertyDisjointWith).add(axiom);
+		} else {
+			relationManager.getRelation(RelationName.members).add(axiom);
+		}
 		logger.debug("  added DisjointObjectProperties");
 	}
 

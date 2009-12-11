@@ -28,6 +28,7 @@ public class LoadReasoner {
 			BasicConfigurator.configure();
 			Logger.getRootLogger().setLevel(Level.INFO);
 			Logger logger = Logger.getLogger(LoadReasoner.class);
+			logger.info("Java loaded ");
 			
 			if (args.length<=0) {
 				System.err.println("USAGE: java " + LoadReasoner.class.getName() + " <filename>");
@@ -38,7 +39,7 @@ public class LoadReasoner {
 		
 			OWLOntology ont;
 			ont = manager.loadOntologyFromPhysicalURI(URI.create(args[0]));
-			logger.info("Loaded " + ont.getOntologyID());
+			logger.info("OWLAPI loaded " + ont.getOntologyID());
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
@@ -46,7 +47,9 @@ public class LoadReasoner {
 			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
 			reasoner.getSettings().checkProfile(false);
 			reasoner.loadOntologies(Collections.singleton(ont));
-			//reasoner.classify();
+			logger.info("Ontology loaded in DB");
+			
+			reasoner.classify();
 
 			logger.info("FERTIG");
 

@@ -16,7 +16,8 @@ public class RuleManager {
 		scm_cls_equivalentClass, prp_irp, dt_type1, cls_int_1, prp_dom_ent,
 		prp_rng_ent, prp_dom_lit, prp_rng_lit, prp_spo_1_lit, cls_svf_1_lit,
 		eq_rep_s_ent, eq_rep_p_ent, eq_rep_o_ent, eq_diff_1_lit,
-		//eq_diff_2, eq_diff_3, prp_adp_lit, prp_adp_entcax_adc
+		//, eq_diff_3,  cax_adc
+		eq_diff_2, prp_adp_lit, prp_adp_ent, cax_adc_ent, cax_adc_lit,
 		//cax_adc wurde gar nicht implementiert, 
 		prp_fp, prp_ifp, prp_symp, prp_asyp, prp_trp, prp_spo_1_ent, prp_spo_2,
 		prp_eqp_1, prp_eqp_2, prp_pdw_lit, prp_inv_1, prp_inv_2,
@@ -87,7 +88,7 @@ public class RuleManager {
 		rules.put(RuleName.eq_rep_o_lit, new EqRepOLitRule(reasoner));
 		rules.put(RuleName.eq_diff_1_ent, new EqDiff1EntRule(reasoner));
 		rules.put(RuleName.eq_diff_1_lit, new EqDiff1LitRule(reasoner));
-		//rules.put(RuleName.eq_diff_2, new EqDiff2Rule(reasoner));
+		rules.put(RuleName.eq_diff_2, new EqDiff2Rule(reasoner));
 		//rules.put(RuleName.eq_diff_3, new EqDiff3Rule(reasoner));
 		rules.put(RuleName.prp_fp, new PrpFpRule(reasoner));
 		rules.put(RuleName.prp_ifp, new PrpIfpRule(reasoner));
@@ -101,8 +102,8 @@ public class RuleManager {
 		rules.put(RuleName.prp_eqp_2, new PrpEqp2Rule(reasoner));
 		rules.put(RuleName.prp_pdw_ent, new PrpPdwEntRule(reasoner));
 		rules.put(RuleName.prp_pdw_lit, new PrpPdwLitRule(reasoner));
-		//rules.put(RuleName.prp_adp_ent, new PrpAdpEntRule(reasoner));
-		//rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
+		rules.put(RuleName.prp_adp_ent, new PrpAdpEntRule(reasoner));
+		rules.put(RuleName.prp_adp_lit, new PrpAdpLitRule(reasoner));
 		rules.put(RuleName.prp_inv_1, new PrpInv1Rule(reasoner));
 		rules.put(RuleName.prp_inv_2, new PrpInv2Rule(reasoner));
 		rules.put(RuleName.prp_key, new PrpKeyRule(reasoner));
@@ -190,6 +191,9 @@ public class RuleManager {
 		rules.put(RuleName.impl_lit_dp, new ImplLitDpRule(reasoner));
 		rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
 		rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
+		rules.put(RuleName.cax_adc_ent, new CaxAdcEntRule(reasoner));
+		rules.put(RuleName.cax_adc_lit, new CaxAdcLitRule(reasoner));
+		
 	};
 	
 }
