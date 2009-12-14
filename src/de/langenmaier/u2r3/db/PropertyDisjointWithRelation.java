@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -38,59 +39,71 @@ public class PropertyDisjointWithRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
 			OWLDisjointObjectPropertiesAxiom naxiom = (OWLDisjointObjectPropertiesAxiom) axiom;
-			for (OWLObjectPropertyExpression pe1 : naxiom.getProperties()) {
-				for (OWLObjectPropertyExpression pe2 : naxiom.getProperties()) {
-					if (!pe1.equals(pe2)) {
-						if (pe1.isAnonymous()) {
-							addStatement.setString(1, nidMapper.get(pe1).toString());
-						} else {
-							addStatement.setString(1, pe1.asOWLObjectProperty().getIRI().toString());
-						}
-						if (pe2.isAnonymous()) {
-							addStatement.setString(2, nidMapper.get(pe2).toString());
-						} else {
-							addStatement.setString(2, pe2.asOWLObjectProperty().getIRI().toString());
-						}
-						
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
-					}
+			if (naxiom.getProperties().size() == 2) {
+				Iterator<OWLObjectPropertyExpression> it = naxiom.getProperties().iterator();
+				OWLObjectPropertyExpression pe1 = it.next();
+				OWLObjectPropertyExpression pe2 = it.next();
+				
+				if (pe1.isAnonymous()) {
+					addStatement.setString(1, nidMapper.get(pe1).toString());
+				} else {
+					addStatement.setString(1, pe1.asOWLObjectProperty().getIRI().toString());
 				}
+				if (pe2.isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(pe2).toString());
+				} else {
+					addStatement.setString(2, pe2.asOWLObjectProperty().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
 				if (pe1.isAnonymous()) {
 					handleAnonymousObjectPropertyExpression(pe1);
 				}
+				
+				if (pe2.isAnonymous()) {
+					handleAnonymousObjectPropertyExpression(pe2);
+				}
+				
+				return AdditionMode.NOADD;
 			}
-
-			return AdditionMode.NOADD;
+			
 		} else if (axiom instanceof OWLDisjointDataPropertiesAxiom) {
 			OWLDisjointDataPropertiesAxiom naxiom = (OWLDisjointDataPropertiesAxiom) axiom;
-			for (OWLDataPropertyExpression pe1 : naxiom.getProperties()) {
-				for (OWLDataPropertyExpression pe2 : naxiom.getProperties()) {
-					if (!pe1.equals(pe2)) {
-						if (pe1.isAnonymous()) {
-							addStatement.setString(1, nidMapper.get(pe1).toString());
-						} else {
-							addStatement.setString(1, pe1.asOWLDataProperty().getIRI().toString());
-						}
-						if (pe2.isAnonymous()) {
-							addStatement.setString(2, nidMapper.get(pe2).toString());
-						} else {
-							addStatement.setString(2, pe2.asOWLDataProperty().getIRI().toString());
-						}
-						
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
-					}
+			if (naxiom.getProperties().size() == 2) {
+				Iterator<OWLDataPropertyExpression> it = naxiom.getProperties().iterator();
+				OWLDataPropertyExpression pe1 = it.next();
+				OWLDataPropertyExpression pe2 = it.next();
+				
+				if (pe1.isAnonymous()) {
+					addStatement.setString(1, nidMapper.get(pe1).toString());
+				} else {
+					addStatement.setString(1, pe1.asOWLDataProperty().getIRI().toString());
 				}
+				if (pe2.isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(pe2).toString());
+				} else {
+					addStatement.setString(2, pe2.asOWLDataProperty().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
 				if (pe1.isAnonymous()) {
 					handleAnonymousDataPropertyExpression(pe1);
 				}
+				
+				if (pe2.isAnonymous()) {
+					handleAnonymousDataPropertyExpression(pe2);
+				}
+				
+				return AdditionMode.NOADD;
 			}
-
-			return AdditionMode.NOADD;
-		} else {
-			throw new U2R3NotImplementedException();
 		}
+		
+		throw new U2R3NotImplementedException();
+		
 	}
 
 	@Override

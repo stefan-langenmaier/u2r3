@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
@@ -40,33 +41,40 @@ public class DisjointWithRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDisjointClassesAxiom) {
 			OWLDisjointClassesAxiom naxiom = (OWLDisjointClassesAxiom) axiom;
-			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
-				for (OWLClassExpression ce2 : naxiom.getClassExpressions()) {
-					if (!ce1.equals(ce2)) {
-						if (ce1.isAnonymous()) {
-							addStatement.setString(1, nidMapper.get(ce1).toString());
-						} else {
-							addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
-						}
-						if (ce2.isAnonymous()) {
-							addStatement.setString(2, nidMapper.get(ce2).toString());
-						} else {
-							addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
-						}
-						
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
-					}
+			if (naxiom.getClassExpressions().size() == 2) {
+				Iterator<OWLClassExpression> it = naxiom.getClassExpressions().iterator();
+				OWLClassExpression ce1 = it.next();
+				OWLClassExpression ce2 = it.next();
+				
+				if (ce1.isAnonymous()) {
+					addStatement.setString(1, nidMapper.get(ce1).toString());
+				} else {
+					addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
 				}
+				if (ce2.isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(ce2).toString());
+				} else {
+					addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
+				}
+				
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
 				if (ce1.isAnonymous()) {
 					handleAnonymousClassExpression(ce1);
 				}
+				
+				if (ce2.isAnonymous()) {
+					handleAnonymousClassExpression(ce2);
+				}
+				
+				return AdditionMode.NOADD;
+				
 			}
-
-			return AdditionMode.NOADD;
-		} else {
-			throw new U2R3NotImplementedException();
 		}
+		
+		throw new U2R3NotImplementedException();
+
 	}
 
 	@Override
