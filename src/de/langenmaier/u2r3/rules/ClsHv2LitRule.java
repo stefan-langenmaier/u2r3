@@ -39,7 +39,7 @@ public class ClsHv2LitRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueLit") + " AS hv");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = hv.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = hv.property AND isSameLiteral(prp.object, hv.value, prp.type, hv.type, prp.language, hv.language)");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
