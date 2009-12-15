@@ -59,7 +59,7 @@ public class PrpFpRule extends ApplicationRule {
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON clsA.entity = prp2.property AND prp1.subject = prp2.subject");
 		} else if (run == 1) {
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON clsA.entity = prp1.property");
-			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property");
+			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property AND prp1.subject = prp2.subject");
 		}
 		
 		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY + "'");

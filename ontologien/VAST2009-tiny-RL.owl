@@ -1,0 +1,1939 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY owl2xml "http://www.w3.org/2006/12/owl2-xml#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.informatik.uni-ulm.de/ki/Liebig/owl/VAST2009-tiny-RL.owl#"
+   xml:base="http://www.informatik.uni-ulm.de/ki/Liebig/owl/VAST2009-tiny-RL.owl"
+   xmlns:owl2xml="http://www.w3.org/2006/12/owl2-xml#"
+   xmlns:vast="http://www.informatik.uni-ulm.de/ki/Liebig/owl/VAST2009-tiny-RL.owl#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:owl="http://www.w3.org/2002/07/owl#">
+
+   <owl:Ontology rdf:about="">
+      <owl:versionInfo>27.04.2009, version 1.0</owl:versionInfo>
+      <rdfs:comment>OWL ontology of the VAST 2009 contest data (social network part). Thorsten Liebig</rdfs:comment>
+   </owl:Ontology>
+
+   <owl:Class rdf:about="#Person"/>
+
+   <owl:Class rdf:about="#City"/>
+
+   <owl:Class rdf:ID="Large_City">
+      <rdfs:subClassOf rdf:resource="#City"/>
+   </owl:Class>
+
+   <owl:Class rdf:ID="Mid-Sized_City">
+      <rdfs:subClassOf rdf:resource="#City"/>
+   </owl:Class>
+
+   <owl:Class rdf:ID="Small_City">
+      <rdfs:subClassOf rdf:resource="#City"/>
+   </owl:Class>
+
+   <owl:Class rdf:about="#Country"/>
+
+   <owl:ObjectProperty rdf:about="#located-at">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:domain rdf:resource="#City"/>
+      <rdfs:range rdf:resource="#Country"/>
+   </owl:ObjectProperty>
+
+   <owl:SymmetricProperty rdf:about="#borders-to">
+      <rdfs:range rdf:resource="#Country"/>
+      <rdfs:domain rdf:resource="#Country"/>
+   </owl:SymmetricProperty>
+
+   <owl:ObjectProperty rdf:about="#lives-in">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:range rdf:resource="#City"/>
+      <rdfs:domain rdf:resource="#Person"/>
+   </owl:ObjectProperty>
+
+   <owl:ObjectProperty rdf:about="#flitter-contact-with">
+      <!-- the scenario tells that we should "consider these connections as two-way links" -->
+      <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+      <rdfs:range rdf:resource="#Person"/>
+      <rdfs:domain rdf:resource="#Person"/>
+   </owl:ObjectProperty>
+
+   <owl:SymmetricProperty rdf:about="#nearby">
+      <rdfs:range rdf:resource="#City"/>
+      <rdfs:domain rdf:resource="#City"/>
+   </owl:SymmetricProperty>
+
+   <owl:DatatypeProperty rdf:about="#id">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+   </owl:DatatypeProperty>
+
+   <owl:DatatypeProperty rdf:about="#flitter-name">
+      <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+      <rdfs:domain rdf:resource="#Person"/>
+      <rdfs:range rdf:resource="&xsd;string"/>
+   </owl:DatatypeProperty>
+
+   <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Flovania"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+       <rdfs:subClassOf>
+           <owl:Class rdf:ID="Residents-of-Flovania"/>
+       </rdfs:subClassOf>
+   </owl:Class>
+
+    <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Flovania"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#flitter-contact-with"/>
+                  <owl:someValuesFrom rdf:resource="#Residents-of-Trium"/>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+       <rdfs:subClassOf>
+           <owl:Class rdf:ID="Residents-of-Flovania-w-Contact-to-Trium"/>
+       </rdfs:subClassOf>
+   </owl:Class>
+
+   <!-- map to RL:  -->
+   <!--
+   <owl:Class rdf:about="#Residents-of-Flovania-w-International-Contact">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Flovania"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#flitter-contact-with"/>
+                  <owl:someValuesFrom>
+                     <owl:Class>
+                        <owl:complementOf>
+                           <owl:Class>
+                              <owl:oneOf rdf:parseType="Collection">
+                                 <owl:Thing rdf:about="#Flovania"/>
+                              </owl:oneOf>
+                           </owl:Class>
+                        </owl:complementOf>
+                     </owl:Class>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+
+   <owl:Class rdf:about="#Residents-of-Posana">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Posana"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+-->
+   <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Trium"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+       <rdfs:subClassOf>
+           <owl:Class rdf:ID="Residents-of-Trium"/>
+       </rdfs:subClassOf>
+   </owl:Class>
+
+<!-- map to RL:
+   <owl:Class rdf:about="#Residents-of-Transak">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#lives-in"/>
+                  <owl:someValuesFrom>
+                     <owl:Restriction>
+                        <owl:onProperty rdf:resource="#located-at"/>
+                        <owl:hasValue rdf:resource="#Transak"/>
+                     </owl:Restriction>
+                  </owl:someValuesFrom>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+-->
+   <!-- remove the following class for EL fragment -->
+<!--
+   <owl:Class rdf:about="#Person-with-min40">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#flitter-contact-with"/>
+                  <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">40</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+
+   <owl:Class rdf:about="#Person-with-min5">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="#flitter-contact-with"/>
+                  <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">5</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Class rdf:about="#Person"/>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+-->
+
+   <!-- ABox -->
+
+   <!-- Countries -->
+
+   <Country rdf:about="#Flovania">
+      <borders-to rdf:resource="#Trium"/>
+      <borders-to rdf:resource="#Posana"/>
+      <borders-to rdf:resource="#Transak"/>
+   </Country>
+
+   <Country rdf:about="#Posana"/>
+
+   <Country rdf:about="#Transak"/>
+
+   <owl:AllDifferent>
+      <owl:distinctMembers rdf:parseType="Collection">
+         <Country rdf:about="#Flovania"/>
+         <Country rdf:about="#Trium"/>
+         <Country rdf:about="#Posana"/>
+         <Country rdf:about="#Transak"/>
+      </owl:distinctMembers>
+   </owl:AllDifferent>
+
+   <!-- Cities -->
+
+   <!-- todo: close the role flitter-contact-with -->
+
+   <Small_City rdf:about="#Ryzkland">
+      <located-at rdf:resource="#Flovania"/>
+   </Small_City>
+
+   <Mid-Sized_City rdf:about="#Kouvnic">
+      <located-at rdf:resource="#Flovania"/>
+   </Mid-Sized_City>
+
+   <Mid-Sized_City rdf:about="#Solvenz">
+      <located-at rdf:resource="#Flovania"/>
+   </Mid-Sized_City>
+
+   <Mid-Sized_City rdf:about="#Kannvic">
+      <located-at rdf:resource="#Flovania"/>
+   </Mid-Sized_City>
+
+   <Large_City rdf:about="#Prounov">
+      <located-at rdf:resource="#Flovania"/>
+   </Large_City>
+
+   <Large_City rdf:about="#Koul">
+      <located-at rdf:resource="#Flovania"/>
+      <nearby rdf:resource="#Prounov"/>
+      <nearby rdf:resource="#Solank"/>
+   </Large_City>
+
+   <Small_City rdf:about="#Solank">
+      <located-at rdf:resource="#Flovania"/>
+      <nearby rdf:resource="#Pasko"/>
+   </Small_City>
+
+   <Small_City rdf:about="#Pasko">
+      <located-at rdf:resource="#Flovania"/>
+      <nearby rdf:resource="#Transpasko"/>
+   </Small_City>
+
+   <Small_City rdf:about="#Sresk">
+      <located-at rdf:resource="#Flovania"/>
+   </Small_City>
+
+   <Small_City rdf:about="#Otello">
+      <located-at rdf:resource="#Posana"/>
+   </Small_City>
+
+   <Small_City rdf:about="#Transpasko">
+      <located-at rdf:resource="#Transak"/>
+   </Small_City>
+
+   <Small_City rdf:about="#Tulamuk">
+      <located-at rdf:resource="#Trium"/>
+   </Small_City>
+   
+   <rdf:Description rdf:about="#Prounov">
+      <nearby rdf:resource="#Koul"/>
+   </rdf:Description>
+   
+   <rdf:Description rdf:about="#Solank">
+      <nearby rdf:resource="#Koul"/>
+   </rdf:Description>  
+   
+   <rdf:Description rdf:about="#Pasko">
+      <nearby rdf:resource="#Solank"/>
+   </rdf:Description>
+   
+   <rdf:Description rdf:about="#Transpasko">
+      <nearby rdf:resource="#Pasko"/>
+   </rdf:Description>
+   
+
+   <owl:AllDifferent>
+      <owl:distinctMembers rdf:parseType="Collection">
+         <City rdf:about="#Ryzkland"/>
+         <City rdf:about="#Kouvnic"/>
+         <City rdf:about="#Solvenz"/>
+         <City rdf:about="#Kannvic"/>
+         <City rdf:about="#Prounov"/>
+         <City rdf:about="#Koul"/>
+         <City rdf:about="#Solank"/>
+         <City rdf:about="#Pasko"/>
+         <City rdf:about="#Sresk"/>
+         <City rdf:about="#Otello"/>
+         <City rdf:about="#Transpasko"/>
+         <City rdf:about="#Tulamuk"/>
+      </owl:distinctMembers>
+   </owl:AllDifferent>
+
+   <!-- Persons -->
+
+   
+   <Person rdf:about="#irvin">
+      <id rdf:datatype="&xsd;nonNegativeInteger">1</id>
+      <flitter-name rdf:datatype="&xsd;string">@irvin</flitter-name>
+   </Person>
+
+   <Person rdf:about="#rachel">
+      <id rdf:datatype="&xsd;nonNegativeInteger">2</id>
+      <flitter-name rdf:datatype="&xsd;string">@rachel</flitter-name>
+   </Person>
+
+   <Person rdf:about="#dykema">
+      <id rdf:datatype="&xsd;nonNegativeInteger">3</id>
+      <flitter-name rdf:datatype="&xsd;string">@dykema</flitter-name>
+   </Person>
+
+   <Person rdf:about="#szemeredi">
+      <id rdf:datatype="&xsd;nonNegativeInteger">4</id>
+      <flitter-name rdf:datatype="&xsd;string">@szemeredi</flitter-name>
+   </Person>
+
+   <Person rdf:about="#jantke">
+      <id rdf:datatype="&xsd;nonNegativeInteger">5</id>
+      <flitter-name rdf:datatype="&xsd;string">@jantke</flitter-name>
+   </Person>
+
+   <Person rdf:about="#tadokoro">
+      <id rdf:datatype="&xsd;nonNegativeInteger">6</id>
+      <flitter-name rdf:datatype="&xsd;string">@tadokoro</flitter-name>
+   </Person>
+   
+
+   <!-- living places -->
+
+   <rdf:Description rdf:about="#irvin">
+      <lives-in rdf:resource="#Koul"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#rachel">
+      <lives-in rdf:resource="#Kouvnic"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dykema">
+      <lives-in rdf:resource="#Koul"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#szemeredi">
+      <lives-in rdf:resource="#Kouvnic"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jantke">
+      <lives-in rdf:resource="#Kannvic"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tadokoro">
+      <lives-in rdf:resource="#Koul"/>
+   </rdf:Description>   
+
+
+   <!-- contact relations -->
+
+   <rdf:Description rdf:about="#irvin">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dykema">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dykema">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#szemeredi">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#szemeredi">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#szemeredi">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jantke">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jantke">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jantke">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jantke">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tadokoro">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tadokoro">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tadokoro">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tadokoro">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+<!-- extra -->
+
+   <Person rdf:about="#lyonns">
+      <id rdf:datatype="&xsd;nonNegativeInteger">66</id>
+      <flitter-name rdf:datatype="&xsd;string">@lyonns</flitter-name>
+   </Person>
+
+   <rdf:Description rdf:about="#lyonns">
+      <lives-in rdf:resource="#Tulamuk"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+<!--
+   <rdf:Description rdf:about="#tweedie">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tweedie">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tweedie">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tweedie">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#morillo">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#morillo">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#morillo">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#morillo">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#burgard">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#burgard">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#odberg">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#odberg">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#odberg">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#odberg">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#cornell">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#cornell">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#cornell">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#baca">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#baca">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#baca">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#baca">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#coron">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#coron">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#coron">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#coron">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#afsarmanesh">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#afsarmanesh">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#afsarmanesh">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#afsarmanesh">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#afsarmanesh">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#regin">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#regin">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#regin">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#regin">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bates">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bates">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bates">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bates">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#inenaga">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#inenaga">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#inenaga">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#inenaga">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jouvelot">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jouvelot">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jouvelot">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jouvelot">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#marrevee">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#marrevee">
+      <flitter-contact-with rdf:resource="#afsarmanesh"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#marrevee">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#marrevee">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#fugetta">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#fugetta">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#fugetta">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#fugetta">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#purcell">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#purcell">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#purcell">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#penn">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#penn">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#penn">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#penn">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#penn">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#aly">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#aly">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#aly">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#aly">
+      <flitter-contact-with rdf:resource="#penn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kurien">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kurien">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kurien">
+      <flitter-contact-with rdf:resource="#penn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kurien">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tedrick">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tedrick">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tedrick">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tedrick">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tedrick">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kajihara">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kajihara">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kajihara">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kajihara">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#klawonn">
+      <flitter-contact-with rdf:resource="#bates"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#klawonn">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#klawonn">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#klawonn">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#goodwin">
+      <flitter-contact-with rdf:resource="#marrevee"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#goodwin">
+      <flitter-contact-with rdf:resource="#coron"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#goodwin">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#goodwin">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#onuegbe">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#onuegbe">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#onuegbe">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#onuegbe">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#onuegbe">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#acklen">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#acklen">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#acklen">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#acklen">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#acklen">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#degtyarev">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#degtyarev">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#degtyarev">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#degtyarev">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bestavros">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bestavros">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bestavros">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bestavros">
+      <flitter-contact-with rdf:resource="#acklen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bestavros">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#novak">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#novak">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#novak">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#novak">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#novak">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#guangyi">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#guangyi">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#guangyi">
+      <flitter-contact-with rdf:resource="#kurien"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#guangyi">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#guangyi">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jensen">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jensen">
+      <flitter-contact-with rdf:resource="#penn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jensen">
+      <flitter-contact-with rdf:resource="#guangyi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jensen">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#jensen">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#huberman">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#huberman">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#huberman">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#huberman">
+      <flitter-contact-with rdf:resource="#onuegbe"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#huberman">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouhyoung">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouhyoung">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouhyoung">
+      <flitter-contact-with rdf:resource="#guangyi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouhyoung">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouhyoung">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#krintz">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#krintz">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#krintz">
+      <flitter-contact-with rdf:resource="#baca"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#krintz">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#krintz">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dhont">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dhont">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dhont">
+      <flitter-contact-with rdf:resource="#coron"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dhont">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dhont">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#carra">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#carra">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#carra">
+      <flitter-contact-with rdf:resource="#aly"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#carra">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#carra">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sgarro">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sgarro">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sgarro">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sgarro">
+      <flitter-contact-with rdf:resource="#coron"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sgarro">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#leonhardt">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#leonhardt">
+      <flitter-contact-with rdf:resource="#aly"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#leonhardt">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#leonhardt">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#leonhardt">
+      <flitter-contact-with rdf:resource="#kajihara"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouellette">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouellette">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouellette">
+      <flitter-contact-with rdf:resource="#guangyi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ouellette">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#whitener">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#whitener">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#whitener">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#whitener">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#whitener">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perelgut">
+      <flitter-contact-with rdf:resource="#kajihara"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perelgut">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perelgut">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perelgut">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perelgut">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gobioff">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gobioff">
+      <flitter-contact-with rdf:resource="#onuegbe"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gobioff">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gobioff">
+      <flitter-contact-with rdf:resource="#klawonn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gobioff">
+      <flitter-contact-with rdf:resource="#sgarro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#barg">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#barg">
+      <flitter-contact-with rdf:resource="#klawonn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#barg">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#barg">
+      <flitter-contact-with rdf:resource="#penn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#barg">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#weinand">
+      <flitter-contact-with rdf:resource="#guangyi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#weinand">
+      <flitter-contact-with rdf:resource="#barg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#weinand">
+      <flitter-contact-with rdf:resource="#acklen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#weinand">
+      <flitter-contact-with rdf:resource="#huberman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#weinand">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#clair">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#clair">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#clair">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#clair">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ruemmler">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ruemmler">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ruemmler">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ruemmler">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#standera">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#standera">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#standera">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#standera">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#standera">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gadepally">
+      <flitter-contact-with rdf:resource="#perelgut"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gadepally">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gadepally">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gadepally">
+      <flitter-contact-with rdf:resource="#whitener"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gadepally">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simhi">
+      <flitter-contact-with rdf:resource="#kajihara"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simhi">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simhi">
+      <flitter-contact-with rdf:resource="#clair"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simhi">
+      <flitter-contact-with rdf:resource="#huberman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simhi">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dicky">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dicky">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dicky">
+      <flitter-contact-with rdf:resource="#whitener"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#dicky">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#chretien">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#chretien">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#chretien">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bourcier">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bourcier">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bourcier">
+      <flitter-contact-with rdf:resource="#coron"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bourcier">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#bourcier">
+      <flitter-contact-with rdf:resource="#perelgut"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ochuodho">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ochuodho">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ochuodho">
+      <flitter-contact-with rdf:resource="#acklen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ochuodho">
+      <flitter-contact-with rdf:resource="#clair"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tohme">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tohme">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tohme">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tohme">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tohme">
+      <flitter-contact-with rdf:resource="#kurien"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schapiro">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schapiro">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schapiro">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schapiro">
+      <flitter-contact-with rdf:resource="#onuegbe"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schapiro">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#roark">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#roark">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#roark">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#roark">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#roark">
+      <flitter-contact-with rdf:resource="#regin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schmitt">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schmitt">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schmitt">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schmitt">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#schmitt">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simovich">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simovich">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simovich">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simovich">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#simovich">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#letelier">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#letelier">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#letelier">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#letelier">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sallaberry">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sallaberry">
+      <flitter-contact-with rdf:resource="#kajihara"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sallaberry">
+      <flitter-contact-with rdf:resource="#gadepally"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sallaberry">
+      <flitter-contact-with rdf:resource="#carra"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#sallaberry">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#priebe">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#priebe">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#priebe">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#priebe">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#priebe">
+      <flitter-contact-with rdf:resource="#schmitt"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#bourcier"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#schapiro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#lyonns">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perryman">
+      <flitter-contact-with rdf:resource="#leonhardt"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perryman">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perryman">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perryman">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#perryman">
+      <flitter-contact-with rdf:resource="#kurien"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#saraswat">
+      <flitter-contact-with rdf:resource="#onuegbe"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#saraswat">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#saraswat">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#saraswat">
+      <flitter-contact-with rdf:resource="#klawonn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gruninger">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gruninger">
+      <flitter-contact-with rdf:resource="#huberman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gruninger">
+      <flitter-contact-with rdf:resource="#schmitt"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gruninger">
+      <flitter-contact-with rdf:resource="#aly"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gruninger">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#petereit">
+      <flitter-contact-with rdf:resource="#aly"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#petereit">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#petereit">
+      <flitter-contact-with rdf:resource="#dhont"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#petereit">
+      <flitter-contact-with rdf:resource="#onuegbe"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#petereit">
+      <flitter-contact-with rdf:resource="#schmitt"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#crescenzi">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#crescenzi">
+      <flitter-contact-with rdf:resource="#perryman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#crescenzi">
+      <flitter-contact-with rdf:resource="#dhont"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kracsony">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kracsony">
+      <flitter-contact-with rdf:resource="#morillo"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kracsony">
+      <flitter-contact-with rdf:resource="#letelier"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kracsony">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kracsony">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#christianson">
+      <flitter-contact-with rdf:resource="#jouvelot"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#christianson">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#christianson">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#christianson">
+      <flitter-contact-with rdf:resource="#acklen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#christianson">
+      <flitter-contact-with rdf:resource="#standera"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ducloy">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ducloy">
+      <flitter-contact-with rdf:resource="#bestavros"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ducloy">
+      <flitter-contact-with rdf:resource="#guangyi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ducloy">
+      <flitter-contact-with rdf:resource="#klawonn"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#ducloy">
+      <flitter-contact-with rdf:resource="#afsarmanesh"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#panagopoulou">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#panagopoulou">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#panagopoulou">
+      <flitter-contact-with rdf:resource="#tadokoro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#panagopoulou">
+      <flitter-contact-with rdf:resource="#kajihara"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#panagopoulou">
+      <flitter-contact-with rdf:resource="#novak"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gibbens">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gibbens">
+      <flitter-contact-with rdf:resource="#perelgut"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gibbens">
+      <flitter-contact-with rdf:resource="#barg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gibbens">
+      <flitter-contact-with rdf:resource="#bourcier"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gibbens">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#traunmuller">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#traunmuller">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#traunmuller">
+      <flitter-contact-with rdf:resource="#jensen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#traunmuller">
+      <flitter-contact-with rdf:resource="#panagopoulou"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#myllymaki">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#myllymaki">
+      <flitter-contact-with rdf:resource="#simhi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#myllymaki">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#myllymaki">
+      <flitter-contact-with rdf:resource="#cornell"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#myllymaki">
+      <flitter-contact-with rdf:resource="#ochuodho"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#terekhov">
+      <flitter-contact-with rdf:resource="#aly"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#terekhov">
+      <flitter-contact-with rdf:resource="#schapiro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#terekhov">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#terekhov">
+      <flitter-contact-with rdf:resource="#acklen"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#foote">
+      <flitter-contact-with rdf:resource="#huberman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#foote">
+      <flitter-contact-with rdf:resource="#gobioff"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#foote">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#foote">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tsujishita">
+      <flitter-contact-with rdf:resource="#szemeredi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tsujishita">
+      <flitter-contact-with rdf:resource="#fugetta"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tsujishita">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#tsujishita">
+      <flitter-contact-with rdf:resource="#sallaberry"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gong">
+      <flitter-contact-with rdf:resource="#panagopoulou"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gong">
+      <flitter-contact-with rdf:resource="#simovich"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gong">
+      <flitter-contact-with rdf:resource="#bates"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gong">
+      <flitter-contact-with rdf:resource="#inenaga"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#gong">
+      <flitter-contact-with rdf:resource="#lyonns"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kayssi">
+      <flitter-contact-with rdf:resource="#odberg"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kayssi">
+      <flitter-contact-with rdf:resource="#tedrick"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kayssi">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kayssi">
+      <flitter-contact-with rdf:resource="#dicky"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#kayssi">
+      <flitter-contact-with rdf:resource="#traunmuller"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#stover">
+      <flitter-contact-with rdf:resource="#degtyarev"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#stover">
+      <flitter-contact-with rdf:resource="#carra"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#stover">
+      <flitter-contact-with rdf:resource="#irvin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#stover">
+      <flitter-contact-with rdf:resource="#perryman"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#stover">
+      <flitter-contact-with rdf:resource="#kayssi"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#mecklenburg">
+      <flitter-contact-with rdf:resource="#rachel"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#mecklenburg">
+      <flitter-contact-with rdf:resource="#gibbens"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#mecklenburg">
+      <flitter-contact-with rdf:resource="#dykema"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#mecklenburg">
+      <flitter-contact-with rdf:resource="#tweedie"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#mecklenburg">
+      <flitter-contact-with rdf:resource="#goodwin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#recio">
+      <flitter-contact-with rdf:resource="#goodwin"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#recio">
+      <flitter-contact-with rdf:resource="#schapiro"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#recio">
+      <flitter-contact-with rdf:resource="#jantke"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#recio">
+      <flitter-contact-with rdf:resource="#clair"/>
+   </rdf:Description>
+
+   <rdf:Description rdf:about="#recio">
+      <flitter-contact-with rdf:resource="#mecklenburg"/>
+   </rdf:Description>
+
+-->   
+
+</rdf:RDF>
