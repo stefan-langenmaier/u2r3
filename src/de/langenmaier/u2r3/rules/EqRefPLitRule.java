@@ -35,7 +35,7 @@ public class EqRefPLitRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT property AS left, property AS right");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
+		sql.append("\n\t FROM " + delta.getDeltaName("dataPropertyAssertion") + " AS top");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

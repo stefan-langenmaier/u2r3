@@ -35,7 +35,7 @@ public class ScmDpSubRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT ca.entity, ca.entity ");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS ca ");
+		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS ca ");
 		sql.append("\n\t WHERE ca.class = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
 		
 		if (again) {

@@ -139,8 +139,9 @@ public class OWL2RLDBRemover extends U2R3Component implements OWLAxiomVisitor {
 
 	@Override
 	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-		// TODO Auto-generated method stub
-
+		logger.debug("  removing ObjectPropertyAssertion:" + axiom.toString());
+		relationManager.getRelation(RelationName.objectPropertyAssertion).remove(axiom);
+		logger.debug("  removed ObjectPropertyAssertion");
 	}
 
 	@Override

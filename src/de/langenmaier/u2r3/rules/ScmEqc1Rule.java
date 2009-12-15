@@ -34,7 +34,7 @@ public class ScmEqc1Rule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT ec.left, ec.right ");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS ec ");
+		sql.append("\n\t FROM " + delta.getDeltaName("equivalentClass") + " AS ec ");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

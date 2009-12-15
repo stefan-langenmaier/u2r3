@@ -21,6 +21,7 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class ObjectPropertyAssertionRelation extends Relation {
@@ -141,9 +142,48 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	@Override
 	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
 			throws SQLException {
-		// TODO Auto-generated method stub
+		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
+			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
+			
+			String tid = TableId.getId();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id");
+			sql.append("\nFROM " + getTableName() + " AS " + tid);
+			sql.append("\nWHERE EXISTS (");
+			getSubSQL(sql, naxiom.getSubject(), tid, "subject");
+			sql.append(") AND EXISTS (");
+			getSubSQL(sql, naxiom.getProperty(), tid, "property");
+			sql.append(") AND EXISTS (");
+			getSubSQL(sql, naxiom.getObject(), tid, "object");
+			sql.append(")");
+			
+			Statement stmt = conn.createStatement();
+			System.out.println(sql.toString());
+			ResultSet rs = stmt.executeQuery(sql.toString());
+			
+			if (rs.next()) {
+				relationManager.remove((UUID) rs.getObject("id"), RelationName.objectPropertyAssertion);
+				
+				if (naxiom.getSubject().isAnonymous()) {
+					removeAnonymousIndividual(naxiom.getSubject());
+				}
+				
+				if (naxiom.getProperty().isAnonymous()) {
+					removeAnonymousPropertyExpression(naxiom.getProperty());
+				}
+				
+				if (naxiom.getObject().isAnonymous()) {
+					removeAnonymousIndividual(naxiom.getObject());
+				}
+				
+			}
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 		return null;
 	}
+
 
 	@Override
 	protected String existsImpl(String... args) {

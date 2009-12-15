@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -88,7 +89,7 @@ public class History extends U2R3Component {
 				remove(id, name);
 				
 				//remove history
-				logger.trace(" remove history: "+ sourceId.toString());
+				logger.trace(" remove history: "+ id.toString());
 				sql = "DELETE FROM " + getTableName() + " WHERE id = '" + id.toString() + "'";
 				deleteStatement.execute(sql);
 				
@@ -97,7 +98,7 @@ public class History extends U2R3Component {
 			}	
 			
 			//remove value
-			logger.trace(" remove value: "+ sourceId.toString());
+			logger.trace(" remove value: "+ sourceId.toString() + " von " + sourceTable);
 			sql = "DELETE FROM " + relationManager.getRelation(sourceTable).getTableName() + " WHERE id = '" + sourceId.toString() + "'";
 			deleteStatement.execute(sql);
 		
@@ -106,6 +107,6 @@ public class History extends U2R3Component {
 			e.printStackTrace();
 		}
 		
-		logger.trace(" removing UUID: "+ sourceId.toString());
+		logger.trace(" removed UUID: "+ sourceId.toString());
 	}
 }

@@ -104,22 +104,29 @@ public abstract class Relation extends U2R3Component {
 		throw new U2R3NotImplementedException();
 	}
 	
+	//TODO return type auf void umstellen
 	public abstract Pair<UUID, RelationName> removeImpl(OWLAxiom axiom) throws SQLException;
 	
 	public void remove(OWLAxiom axiom) {
 		try {
 			reasonProcessor.pause();
 			
-			Pair<UUID, RelationName> res = removeImpl(axiom);
+			removeImpl(axiom);
+			
+			//Pair<UUID, RelationName> res = removeImpl(axiom);
 
-			if (res != null && res.getFirst() != null) {
-				relationManager.remove(res.getFirst(), res.getSecond());
-			}
+//			if (res != null && res.getFirst() != null) {
+//				relationManager.remove(res.getFirst(), res.getSecond());
+//			}
 			
 			reasonProcessor.resume();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected void remove(OWLObject o) {
+		throw new U2R3NotImplementedException();
 	}
 	
 	public HashSet<Rule> getAdditionRules() {
@@ -334,6 +341,7 @@ public abstract class Relation extends U2R3Component {
 				sql.append(")");
 			} else {
 				sql.append("\nXXXXXXX\nTODO CE:" + ce.getClassExpressionType() + "\n");
+				throw new U2R3NotImplementedException();
 			}
 		} else {
 			sql.append("SELECT '");
@@ -347,10 +355,11 @@ public abstract class Relation extends U2R3Component {
 	}
 
 
-	private void getSubSQL(StringBuilder sql,
+	protected void getSubSQL(StringBuilder sql,
 			OWLObjectPropertyExpression property, String tid, String col) {
 		if (property.isAnonymous()) {
 			sql.append("\nXXXXXXX\nTODO CE:" + property.toString() + "\n");
+			throw new U2R3NotImplementedException();
 		} else {
 			sql.append("SELECT '" + property.asOWLObjectProperty().getIRI().toString() + "'");
 			sql.append("\n WHERE '");
@@ -380,5 +389,27 @@ public abstract class Relation extends U2R3Component {
 			return getTableName();
 		}
 		return getTableName() + "_d" + delta;
+	}
+	
+	protected void removeAnonymousClassExpression(OWLClassExpression ce) {
+		if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
+			relationManager.getRelation(RelationName.intersectionOf).remove(ce);
+		} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
+			relationManager.getRelation(RelationName.someValuesFrom).remove(ce);
+		} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
+			relationManager.getRelation(RelationName.allValuesFrom).remove(ce);
+		} else {
+			System.out.println(ce.getClassExpressionType());
+			throw new U2R3NotImplementedException();
+		}
+		
+	}
+	
+	protected void removeAnonymousPropertyExpression(OWLObjectPropertyExpression property) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	protected void removeAnonymousIndividual(OWLIndividual subject) {
+		throw new U2R3NotImplementedException();
 	}
 }

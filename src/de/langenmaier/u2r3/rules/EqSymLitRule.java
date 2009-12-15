@@ -36,7 +36,7 @@ public class EqSymLitRule extends ApplicationRule {
 			sql.append("\n\t SELECT right, left");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
+		sql.append("\n\t FROM " + delta.getDeltaName("sameAsLit") + " AS top");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

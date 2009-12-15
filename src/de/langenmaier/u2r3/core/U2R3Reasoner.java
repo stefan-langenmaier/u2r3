@@ -6,6 +6,8 @@ import java.util.Set;
 
 import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
+import org.semanticweb.owlapi.model.AddAxiom;
+import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -84,13 +86,17 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	protected void handleOntologyChanges(List<OWLOntologyChange> changes)
 			throws OWLException {
 		OWL2RLDBRemover axiomRemover = new OWL2RLDBRemover(this);
+		OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
 		System.out.println(changes);
 		for (OWLOntologyChange change : changes) {
 			if (change.isImportChange()) {
 				throw new U2R3NotImplementedException();
 			}
-			
-			change.getAxiom().accept(axiomRemover);
+			if (change instanceof AddAxiom) {
+				change.getAxiom().accept(axiomAdder);
+			} else if (change instanceof RemoveAxiom) {
+				change.getAxiom().accept(axiomRemover);
+			}
 		}
 	}
 

@@ -35,7 +35,7 @@ public class EqRefSEntRule extends ApplicationRule {
 			sql.append("\n\t SELECT DISTINCT subject AS left, subject AS right");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName() + " AS top");
+		sql.append("\n\t FROM " + delta.getDeltaName("objectPropertyAssertion") + " AS top");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

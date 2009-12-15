@@ -27,6 +27,7 @@ public class ReasonProcessor {
 	private Settings settings;
 
 	private boolean consistent = true;
+	private boolean paused = true;
 	
 	ReasonProcessor(U2R3Reasoner reasoner) {
 		actions = new RuleActionQueue(reasoner);
@@ -65,6 +66,7 @@ public class ReasonProcessor {
 	}
 
 	public void classify() {
+		paused = false;
 		do {
 			RuleAction action;
 			while (!(actions.isEmpty())) {
@@ -74,6 +76,7 @@ public class ReasonProcessor {
 			}
 			
 		} while (applyUpdates());
+		paused = true;
 
 	}
 
@@ -105,10 +108,12 @@ public class ReasonProcessor {
 	}
 
 	public void pause() {
-		if (!actions.isEmpty()) {
-			throw new U2R3RuntimeException();
+		if (!paused) {
+			if (!actions.isEmpty()) {
+				throw new U2R3RuntimeException();
+			}
+			paused = true;
 		}
-		
 	}
 
 	public void resume() {

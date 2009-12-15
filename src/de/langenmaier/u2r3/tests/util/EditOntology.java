@@ -74,26 +74,36 @@ public class EditOntology {
 			
 			logger.info("r removed");
 			
-//			OWLOntology ontAdd;
-//			ontAdd = manager.loadOntologyFromPhysicalURI(URI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
-//			
-//			logger.info("Loaded " + ontAdd.getOntologyID());
-//			
-//			List<OWLOntologyChange> addChanges = new LinkedList<OWLOntologyChange>();
-//			
-//			for (OWLAxiom ax : ontAdd.getLogicalAxioms()) {
-//				System.out.println(ax);
-//				AddAxiom addition = new AddAxiom(ont, ax);
-//				addChanges.add(addition);
-//				//ax.accept(adder);
-//			}
-//			
-//			System.out.println(addChanges);
-//			try {
-//				manager.applyChanges(addChanges);
-//			} catch (OWLOntologyChangeException e) {
-//				e.printStackTrace();
-//			}
+			reasoner.classify();
+			
+			logger.info("reclassified");
+			
+			OWLOntology ontAdd;
+			ontAdd = manager.loadOntologyFromPhysicalURI(URI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
+			
+			logger.info("Loaded " + ontAdd.getOntologyID());
+			
+			List<OWLOntologyChange> addChanges = new LinkedList<OWLOntologyChange>();
+			
+			for (OWLAxiom ax : ontAdd.getLogicalAxioms()) {
+				System.out.println(ax);
+				AddAxiom addition = new AddAxiom(ont, ax);
+				addChanges.add(addition);
+				//ax.accept(adder);
+			}
+			
+			System.out.println(addChanges);
+			try {
+				manager.applyChanges(addChanges);
+			} catch (OWLOntologyChangeException e) {
+				e.printStackTrace();
+			}
+			
+			logger.info("ontology changes added");
+			
+			reasoner.classify();
+			
+			logger.info("changes reclassified");
 
 			logger.info("FERTIG");
 

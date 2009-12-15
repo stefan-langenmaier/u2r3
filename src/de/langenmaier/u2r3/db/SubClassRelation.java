@@ -153,15 +153,26 @@ public class SubClassRelation extends Relation {
 			sql.append(")");
 			
 			Statement stmt = conn.createStatement();
-			System.out.println(sql.toString());
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
-				return new Pair<UUID, RelationName>((UUID) rs.getObject("id"), RelationName.subClass);
+				relationManager.remove((UUID) rs.getObject("id"), RelationName.subClass);
+				
+				if (naxiom.getSubClass().isAnonymous()) {
+					removeAnonymousClassExpression(naxiom.getSubClass());
+				}
+				
+				if (naxiom.getSuperClass().isAnonymous()) {
+					removeAnonymousClassExpression(naxiom.getSuperClass());
+				}
+				
 			}
+		} else {
+			throw new U2R3NotImplementedException();
 		}
 		return null;
 	}
+
 
 	@Override
 	protected String existsImpl(String... args) {
