@@ -30,7 +30,6 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -206,7 +205,7 @@ public class ClassAssertionEntRelation extends Relation {
 
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		if (axiom instanceof OWLClassAssertionAxiom) {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
@@ -225,10 +224,17 @@ public class ClassAssertionEntRelation extends Relation {
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
-				return new Pair<UUID, RelationName>((UUID) rs.getObject("id"), RelationName.classAssertionEnt);
+				relationManager.remove((UUID) rs.getObject("id"), RelationName.classAssertionEnt);
+				
+				if (naxiom.getIndividual().isAnonymous()) {
+					removeAnonymousIndividual(naxiom.getIndividual());
+				}
+				
+				if (naxiom.getClassExpression().isAnonymous()) {
+					removeAnonymousClassExpression(naxiom.getClassExpression());
+				}
 			}
 		}
-		return null;
 	}
 
 

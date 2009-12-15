@@ -1,16 +1,13 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
-import de.langenmaier.u2r3.util.Pair;
 
 public class InverseOfRelation extends Relation {
 	static Logger logger = Logger.getLogger(InverseOfRelation.class);
@@ -68,9 +65,9 @@ public class InverseOfRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
-				return null;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.TableId;
 
 public class IntersectionOfRelation extends Relation {
@@ -92,7 +91,7 @@ public class IntersectionOfRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		throw new U2R3NotImplementedException();
 	}

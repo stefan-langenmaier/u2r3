@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.ClassExpressionType;
@@ -27,7 +26,6 @@ import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.U2R3Component;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
@@ -104,8 +102,13 @@ public abstract class Relation extends U2R3Component {
 		throw new U2R3NotImplementedException();
 	}
 	
-	//TODO return type auf void umstellen
-	public abstract Pair<UUID, RelationName> removeImpl(OWLAxiom axiom) throws SQLException;
+	/**
+	 * Has to be implemented by every relation. It starts to remove an axiom 
+	 * and all of its sub expressions including the reasoning history from the db.
+	 * @param axiom
+	 * @throws SQLException
+	 */
+	public abstract void removeImpl(OWLAxiom axiom) throws SQLException;
 	
 	public void remove(OWLAxiom axiom) {
 		try {
@@ -113,18 +116,17 @@ public abstract class Relation extends U2R3Component {
 			
 			removeImpl(axiom);
 			
-			//Pair<UUID, RelationName> res = removeImpl(axiom);
-
-//			if (res != null && res.getFirst() != null) {
-//				relationManager.remove(res.getFirst(), res.getSecond());
-//			}
-			
 			reasonProcessor.resume();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Removes a "sub" object from an axiom. This works recursive and deletes
+	 * all of the reasoning hisotry.
+	 * @param o
+	 */
 	protected void remove(OWLObject o) {
 		throw new U2R3NotImplementedException();
 	}

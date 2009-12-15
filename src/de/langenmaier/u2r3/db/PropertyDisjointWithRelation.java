@@ -2,7 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
 import java.util.Iterator;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -12,10 +11,8 @@ import org.semanticweb.owlapi.model.OWLDisjointObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.Pair;
 
 public class PropertyDisjointWithRelation extends Relation {
 	static Logger logger = Logger.getLogger(PropertyDisjointWithRelation.class);
@@ -116,9 +113,9 @@ public class PropertyDisjointWithRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
-				return null;
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override

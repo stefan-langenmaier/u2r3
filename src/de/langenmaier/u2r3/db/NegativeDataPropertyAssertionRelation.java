@@ -2,7 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -10,10 +9,8 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.DatatypeCheck;
-import de.langenmaier.u2r3.util.Pair;
 
 public class NegativeDataPropertyAssertionRelation extends Relation {
 	static Logger logger = Logger.getLogger(NegativeDataPropertyAssertionRelation.class);
@@ -76,7 +73,7 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		throw new U2R3NotImplementedException();
 	}

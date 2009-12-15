@@ -19,7 +19,6 @@ import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -140,7 +139,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
@@ -159,7 +158,6 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			sql.append(")");
 			
 			Statement stmt = conn.createStatement();
-			System.out.println(sql.toString());
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
@@ -181,7 +179,6 @@ public class ObjectPropertyAssertionRelation extends Relation {
 		} else {
 			throw new U2R3NotImplementedException();
 		}
-		return null;
 	}
 
 

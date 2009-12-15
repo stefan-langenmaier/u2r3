@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
@@ -22,7 +21,6 @@ import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.DatatypeCheck;
-import de.langenmaier.u2r3.util.Pair;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
@@ -146,7 +144,7 @@ public class DataPropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	public Pair<UUID, RelationName> removeImpl(OWLAxiom axiom)
+	public void removeImpl(OWLAxiom axiom)
 			throws SQLException {
 		throw new U2R3NotImplementedException();
 	}

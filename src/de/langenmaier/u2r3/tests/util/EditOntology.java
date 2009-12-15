@@ -63,8 +63,7 @@ public class EditOntology {
 			OWLObjectProperty ope = manager.getOWLDataFactory().getOWLObjectProperty(IRI.create("http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#r"));
 			
 			ope.accept(remover);
-			
-			System.out.println("changes:" + remover.getChanges());
+
 			
 			try {
 				manager.applyChanges(remover.getChanges());
@@ -86,13 +85,10 @@ public class EditOntology {
 			List<OWLOntologyChange> addChanges = new LinkedList<OWLOntologyChange>();
 			
 			for (OWLAxiom ax : ontAdd.getLogicalAxioms()) {
-				System.out.println(ax);
 				AddAxiom addition = new AddAxiom(ont, ax);
 				addChanges.add(addition);
-				//ax.accept(adder);
 			}
 			
-			System.out.println(addChanges);
 			try {
 				manager.applyChanges(addChanges);
 			} catch (OWLOntologyChangeException e) {

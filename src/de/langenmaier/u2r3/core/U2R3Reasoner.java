@@ -87,7 +87,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			throws OWLException {
 		OWL2RLDBRemover axiomRemover = new OWL2RLDBRemover(this);
 		OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-		System.out.println(changes);
 		for (OWLOntologyChange change : changes) {
 			if (change.isImportChange()) {
 				throw new U2R3NotImplementedException();
