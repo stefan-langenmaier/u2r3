@@ -1,4 +1,28 @@
 \chapter{Motivation}
+\label{kapitel-motivation}
+
+Nachdem Ende Oktober 2009 OWL2 vom W3C als technical report veröffentlicht wurde geht die Entwicklung der Anwednunge im Berich semantic web in eine neue Runde. Hitner den bekannten Namen wie pellet, HermitT oder auch and der OWLAPI wird schon länger an der AKtualisierung auf die neue Spezifikation gearbeitet.
+
+OWL2 ust bucgt eubfacg eube Erhöhung der Versionsnummer, es wurde zwar versucht Rückwärtskompatibilität weitestgehend zu erhalten, aber die Sprache wurde auch um einige Dinge erweitert. Im folgenden wird dabei  insebsondere auf die in OWL2 hinzugekommenen Profile eingegangen. In OWL1 gab es bereits das Lite Profil, das einen gewissen Teilsatz von OWL1 anbot, in dem es einfacher war Schlussfolgerungen zu treffen. In OWL2 wurde dies jetzt noch feiner unterteilt und die Eigenschaften und Komplexitäten bzgl. der Schlussfolgerungen auf spezifischere Anwendungsgebiete festgelegt.
+
+Die gewünschten Fähigkeiten für den Schlussfolgere erreicht werden soll werden im nächsten Abschnitt Ziele \ref{abschnitt-ziele} näher erläutert. Danach wird im Abschnitt OWL2 \ref{abschnitt-owl2} die Sprache und das RL Profil näher erläutert.
+
+\section{Ziele}
+\label{abschnitt-ziele}
+
+In erster Linie soll in dieser Arbeit ein benutzbarer Schlussfolgere entstehen, der dabei einige Randbedingune erfüllt. Es sollte eine Dokumentation in ausreichendem Umfang und Qualität vorhanden sein, damit auch später sich wieder jemand in das Thema einarbeiten kann.
+
+Dies wird zum einen durch die Entwicklung mit einem Wiki und SVN Repository versucht sicherzustellen. Hier kann man die komplette Entwicklung des Quellcodes verfolgen. Zum anderen wird Javadoc verwendet, das beim Schreiben von Code in der IDE behilflich ist. Schließlich soll auch dieser Diplomarbeitstext selbst als Dokumenation dienen und die in der Implemenation getroffenen Design-Entscheidungen zu begründen.
+
+Damit der Code auch von anderen Personen überprüft und korrigiert werden kann wurde versucht den Code möglichst gut wartbar zu machen und Fehlerquellen weitestgehend von einender zu isolieren. Dies geschiet z.B. durch den Einsatz eines DBMS zum Speichern der Daten. Diese Arbeit greift dabei Ideen aus der Umsetzung des u2r2 \cite{Weithoehner2008} auf.
+Allerdings wird die Komplexität deeer Umsetzung versucht zu reduzieren und auf die aktuelle Situation anzupassen. Durch die Umstellung auf OWL2 RL als Basis für die Semantik wird der Regelsatz deutlich größer und komplexer als er in u2r2 implementiert war. Dafür fällt der Compiler zum erstellen von Regelsätzen heraus, da es nur einen fixen Satz gibt und dieser wird in SQL implementiert.
+
+
+Um den Schlussfolgerer auch wirklich benutzbar zu machen brauch er ein möglichst breites Einsatzgebiet. Dazu gehören eine dokumentierte und übliche Schnittstelle. Daurm setzt dieser Schlussfolgere auf der der OWLAPI v3 \cite{OWLAPI} auf. Dieser ermöglicht es nicht nur auf einfache Art und WEise viele syntaktische Varianten von OWL2 zu parsen, sondern stellt auch eine Schnittstelle für Schlusfolgerer zur Verfügung, die bereits von namhaften Ontologie Anwendungen (Liste) unterstützt wird, Desweiteren ist das breite Einsatzgebiet ein Grund für die Auswahl des RL Profils gewesen. Diese Teilmenge von OWL2 ist auf eine große Ausdrucksmächtigkeit ausgelegt, aber trotzdem noch entscheidbar und effizient zu bleiben. Letztendlich wurd auch die Entwicklung des u2r3 so konzipiert, das er auf verschiedene Vorrausetzungen optimiert werden kann, um nur das benötigte zu berechnen.
+
+Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er quasi auf einem reinen open-source Stack verfügbar. Die verwendete Daten H2 ist in Java implementiert und ioen-source, genauso wie die OWLAPI.
+
+Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB} ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem igbt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurden. Natürlich muss man sich abschließen bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
 \begin{verbatim}
     * Was ist Sinn und Zweck dieser Arbeit?
@@ -6,9 +30,16 @@
           o Lohnt sich der Speicher/Vorbereitungszeit-Tradeoff gegenüber der Anfragezeit?
           o Wie können Änderungen effizient realisiert werden? 
     * Was wird hier behandelt?
-          o Wo ist das OWL2 RL Fragment einzuordnen?
-          o Wie ist OWL2 aufgebaut?
-          o Was sind andere Profile
-          o Was sind ihre Unterschiede
-          o Was sind ihre Eigenschaften. 
+          o Aktuelle Spezifikation von OWL2
+            - im besonderen das RL Profil
+          o Die OWLAPI v3
+          o Die Umsetzung der Regeln aus dem RL Profil in SQL
+          o Optimierungen für einen Schlussfolgerer der nach dem Prinzip forward-chaining mit direct-materialisation arbeitet.
+          o Erweiterung des üblichen Fähigkeiten eines Schlussfolgerers durch die Umsetzung eines effizienten Verfahren zum Zurückziehen von Fakten (retraction) aber auch dem späteren hinzufügen von Fakten
+          o offenen Optimierungen ansprechen
+            - Parallelisierung
+            - Approximation
+            - eigene (smart relations)
 \end{verbatim}
+
+Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann.
