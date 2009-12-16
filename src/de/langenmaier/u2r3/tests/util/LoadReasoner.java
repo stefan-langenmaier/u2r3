@@ -45,7 +45,7 @@ public class LoadReasoner {
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
 			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
-			reasoner.getSettings().checkProfile(false);
+			reasoner.getSettings().checkProfile(true);
 			reasoner.loadOntologies(Collections.singleton(ont));
 			logger.info("Ontology loaded in DB");
 			
