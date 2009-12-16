@@ -107,8 +107,8 @@ pdfborder=0 0 0	% keine Box um die Links!
 {\footnotesize \bfseries Gutachter:}\\                     
 {\footnotesize\gutachterA\\
 \gutachterB}\\[2em]
-{\footnotesize \bfseries Betreuer:}\\ 
-{\footnotesize\betreuer}\\\\
+%{\footnotesize \bfseries Betreuer:}\\ 
+%{\footnotesize\betreuer}\\\\
 {\footnotesize\jahr}
 }
 \end{addmargin*}
@@ -142,7 +142,7 @@ pdfborder=0 0 0	% keine Box um die Links!
 
 \mainmatter
 
-\input{vorwort}
+\input{zusammenfassung}
 
 %Kapitel Motivation
 \input{motivation}
@@ -156,11 +156,11 @@ pdfborder=0 0 0	% keine Box um die Links!
 %Kapitel Realisierung
 \input{realisierung}
 
-%Kapitel Vergleiche
-\input{vergleiche}
-
 %Kapitel Evaluierung
-\input{evaluierung}
+\input{evaluierung} 
+
+%Kapitel Bewertung
+\input{bewertung}
 
 %Kapitel Ausblick
 \input{ausblick} 
@@ -183,7 +183,8 @@ pdfborder=0 0 0	% keine Box um die Links!
 
 \backmatter
 
-\bibliographystyle{plaindin} % Nummern und alphabetisch sortiert
+\bibliographystyle{alphadin}
+%\bibliographystyle{plaindin} % Nummern und alphabetisch sortiert
 %\bibliographystyle{alphadin} % Buchstaben und sortiert
 %\bibliographystyle{abbrvdin} % Nummern und abgekürzte Namen
 %\bibliographystyle{unsrtdin} % Nummern und unsortiert
