@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.tests.util;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.List;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
@@ -34,7 +36,11 @@ public class EditOntology {
 	 */
 	public static void main(String[] args) {
 		try {
-			BasicConfigurator.configure();
+			if ((new File("log4j.properties")).exists()) {
+				PropertyConfigurator.configure("log4j.properties");
+			} else {
+				BasicConfigurator.configure();
+			}
 			Logger.getRootLogger().setLevel(Level.INFO);
 			Logger logger = Logger.getLogger(EditOntology.class);
 			

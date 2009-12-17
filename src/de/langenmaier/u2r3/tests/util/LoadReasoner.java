@@ -1,11 +1,13 @@
 package de.langenmaier.u2r3.tests.util;
 
+import java.io.File;
 import java.net.URI;
 import java.util.Collections;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.inference.OWLReasonerFactory;
@@ -15,8 +17,6 @@ import org.semanticweb.owlapi.model.OWLOntologyManager;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
-import de.langenmaier.u2r3.util.Settings.DeletionType;
-import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class LoadReasoner {
 
@@ -25,7 +25,11 @@ public class LoadReasoner {
 	 */
 	public static void main(String[] args) {
 		try {
-			BasicConfigurator.configure();
+			if ((new File("log4j.properties")).exists()) {
+				PropertyConfigurator.configure("log4j.properties");
+			} else {
+				BasicConfigurator.configure();
+			}
 			Logger.getRootLogger().setLevel(Level.INFO);
 			Logger logger = Logger.getLogger(LoadReasoner.class);
 			logger.info("Java loaded ");
@@ -43,9 +47,6 @@ public class LoadReasoner {
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
 			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
-			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
-			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
-			reasoner.getSettings().checkProfile(true);
 			reasoner.loadOntologies(Collections.singleton(ont));
 			logger.info("Ontology loaded in DB");
 			
