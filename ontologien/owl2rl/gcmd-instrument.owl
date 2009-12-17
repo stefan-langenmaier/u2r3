@@ -1,0 +1,4054 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://geobrain.laits.gmu.edu/ontology/2004/11/gcmd-instrument.owl#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xml:base="http://geobrain.laits.gmu.edu/ontology/2004/11/gcmd-instrument.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="GOMOS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GOME"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Global Ozone Monitoring by Occultation of Stars</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ARP">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RECORDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Acoustic Recording Package</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="INCLINOMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Instrument"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HIRS_2">
+    <rdfs:label xml:lang="en">High Resolution Infrared Radiation Sounder/2</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="HIRS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MAPS">
+    <rdfs:label xml:lang="en">Measurement of Air Pollution from Satellite</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MEASUREMENT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LIDAR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Light Detection and Ranging</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IONIZATION_PRESSURE_GAUGES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GAUGE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">IONIZATION PRESSURE GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VLF_RECEIVERS">
+    <rdfs:label xml:lang="en">VLF RECEIVERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RECEIVER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ERBE">
+    <rdfs:label xml:lang="en">Earth Radiation Budget Experiment</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="EXPERIMENT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IMAGING_RADAR_SYSTEMS">
+    <rdfs:label xml:lang="en">Imaging Radar Systems, Real and Synthetic Aperture</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RADAR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CEP">
+    <rdfs:label xml:lang="en">Cylindrical Electrostatic Probe</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#MAS/ATLAS">
+    <rdfs:label xml:lang="en">Millimeter-wave Atmospheric Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AMSR-E">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AMSR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Advanced Microwave Scanning Radiometer-EOS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IMAGING_RADIOMETER">
+    <rdfs:label xml:lang="en">IMAGING RADIOMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RADIOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TIDI">
+    <rdfs:label xml:lang="en">Timed Doppler Interferometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="INTERFEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ICE_AUGER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">ICE AUGERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PARTICLE_SPECTROMETERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">PARTICLE SPECTROMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GRANULOMETRIC_SIEVES">
+    <rdfs:label xml:lang="en">GRANULOMETRIC SIEVES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CPL">
+    <rdfs:label xml:lang="en">Cloud Physics Lidar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ECHO_SOUNDERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">ECHO SOUNDERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIS">
+    <rdfs:label xml:lang="en">Arizona Imager Spectrograph</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SPECTROGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BRTS">
+    <rdfs:label xml:lang="en">Background Radiometric Temperature Sensors</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ATSR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Along Track Scanning Radiometer and Microwave</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TOC">
+    <rdfs:label xml:lang="en">Total Organic Carbon Analyzer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TIM">
+    <rdfs:label xml:lang="en">Total Irradiance Monitor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MONITOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ELASTIC_BACKSCATTER_LIDAR">
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+    <rdfs:label xml:lang="en">ELASTIC BACKSCATTER LIDAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MESSR">
+    <rdfs:label xml:lang="en">Multispectral Electronic Self-Scanning Radiometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GILINET">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GLORIA">
+    <rdfs:label xml:lang="en">Geological Long-Range Inclined ASDIC</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EQUILIBRATOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CTD">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Conductivity, Temperature, Depth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Lyman-Alpha Total Water</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SRTM">
+    <rdfs:label xml:lang="en">Shuttle Radar Topography Mission</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="WS">
+    <rdfs:label xml:lang="en">Wind Scatterometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SCATTEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NEXRAD">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Next Generation Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MERIS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Medium Resolution Imaging Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES_SOUNDER">
+    <rdfs:label xml:lang="en">GOES SOUNDER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PROTON_MAGNETOMETER">
+    <rdfs:label xml:lang="en">PROTON MAGNETOMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MAGNETOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LASCO">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CORONAGRAPH"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Large Angle and Spectrometric Cogronagraph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_INTEGRATING_SPHERE">
+    <rdfs:label xml:lang="en">LICOR INTEGRATING SPHERE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HCMR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Heat Capacity Mapping Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NAVREC">
+    <rdfs:label xml:lang="en">ER-2 NAV RECORDER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECORDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HXT">
+    <rdfs:label xml:lang="en">Hard X-ray Telescope</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TELESCOPE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ASAR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Advanced Synthetic Aperature Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAMPLER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CAPAC">
+    <rdfs:label xml:lang="en">Cloud and Aerosol Particle Characterization</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ROCKETSONDES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RWP915">
+    <rdfs:label xml:lang="en">915-MHZ Radar Wind Profiler and Radio Acoustic Sounding System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PROFILER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PYRANMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRS">
+    <rdfs:label xml:lang="en">Infrared Radiometer/Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SDPTR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECEIVER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Satellite Doppler Positioning Transit Receivers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MIPAS">
+    <rdfs:label xml:lang="en">Michelson Interferometer for Passive Atmospheric Sounding</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HYDROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CLOCKS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LYMAN-ALPHA_HYGROMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="HYGROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">LYMAN-ALPHA HYGROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MIMS">
+    <rdfs:label xml:lang="en">Magnetic Ion-Mass Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LASER_SPECTROMETER">
+    <rdfs:label xml:lang="en">LASER SPECTROMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RED_CORONAGRAPH">
+    <rdfs:label xml:lang="en">RED CORONAGRAPH</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CORONAGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HSB">
+    <rdfs:label xml:lang="en">Humidity Sounder for Brazil</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VNIR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Visible and Near Infrared Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MLA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ARRAY"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Multi-Linear Array</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_LEAF_AREA_METER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="METER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">LICOR LEAF AREA METER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GROUND_WATER_LEVEL_GAUGES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GAUGE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">GROUND WATER LEVEL GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HUMIDITY_SENSORS">
+    <rdfs:label xml:lang="en">HUMIDITY SENSORS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AMMS">
+    <rdfs:label xml:lang="en">Advanced Microwave Moisture Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AMI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SDTA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Satellite Drag Tracking Apparatus</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DIAL">
+    <rdfs:label xml:lang="de">Differential Absorption Lidar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSMOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PARS">
+    <rdfs:label xml:lang="en">Photosynthetically Active Radiation Sensors</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SWMS">
+    <rdfs:label xml:lang="en">Surface Water Monitoring System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MONITOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TOTCAP">
+    <rdfs:label xml:lang="en">Tropospheric Ozone and Tracers from Commercial Aircraft Platforms</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GERDIEN_CONDUCTIVITY_PROBE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="UMKEHR_OBSERVATIONS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">UMKEHR OBSERVATIONS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE_I">
+    <rdfs:label xml:lang="en">SAGE I</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SAGE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="OPTICAL_TELESCOPES">
+    <rdfs:label xml:lang="en">OPTICAL TELESCOPES</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CO2NDIR">
+    <rdfs:label xml:lang="en">Carbon Dioxide Nondispersive Infrared Analyzer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CO2_ANALYZERS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ILAS_II">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ILAS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Imported Limb Atmospheric Spectrometer-II</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="INFRARED_THERMOMETERS">
+    <rdfs:label xml:lang="en">INFRARED THERMOMETERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="THERMOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PRT">
+    <rdfs:label xml:lang="en">Precision Radiation Thermometers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#THERMOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COSPEC">
+    <rdfs:label xml:lang="en">Correlation Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NACE">
+    <rdfs:label xml:lang="en">Neutral Atmosphere Composition Experiment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NAST-MTS">
+    <rdfs:label xml:lang="en">NPOESS Aircraft Microwave Temperature Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="POROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PIN_DIODE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label></rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CEPTOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SLAR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Side-Looking Airborne Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PR-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Second Generation Precipitation Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MIR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Millimeter Imaging Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OCTS">
+    <rdfs:label xml:lang="en">Ocean Color and Temperature Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SSFR">
+    <rdfs:label xml:lang="en">Solar Spectral flux Radiometers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TRMM Precipitation Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PANCHROMATIC">
+    <rdfs:label xml:lang="en">IRS Panchromatic Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DTG">
+    <rdfs:label xml:lang="en">Differential Thermogravimeter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GRAVIMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HRIR">
+    <rdfs:label xml:lang="en">High-Resolution Infrared Radiometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="HRR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AWIN">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Automatic Weigh and Identification Nest-System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUN_PHOTOMETERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PHOTOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SUN PHOTOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TIROS-N">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TIROS-N OPERATIONAL VERTICAL SOUNDER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SEAWINDS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SIMULATOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Thematic Mapper Simmulator</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BIMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Bennett Ion-Mass Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RPA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Retarding Potential Analyzer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SAGE">
+    <rdfs:label xml:lang="en">Stratospheric Aerosol and Gas Experiment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XRPD">
+    <rdfs:label xml:lang="en">X-ray Powder Diffractometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="XRD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MASS_SPECTROMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">MASS SPECTROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GAMMA_RAY_SPECTROMETERS">
+    <rdfs:label xml:lang="en">GAMMA RAY SPECTROMETERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SWAN">
+    <rdfs:label xml:lang="en">Solar Wind Anisotropies</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AA">
+    <rdfs:label xml:lang="en">Atomic Absorption Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="WATS">
+    <rdfs:label xml:lang="en">Wind and Temperature Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ACOUSTIC_RADAR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">ACOUSTIC RADAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FLUORESCENCE_MICROSCOPY">
+    <rdfs:label xml:lang="en">FLUORESCENCE MICROSCOPY</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MICROSCOPE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COSSIR">
+    <rdfs:label xml:lang="en">Conical Scanning Sub-mm wave Imaging Radiometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MBES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Multibeam Mapping System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERS_WIND_SCATTEROMETER">
+    <rdfs:label xml:lang="en">ERS WIND SCATTEROMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCATTEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IONIZATION_CHAMBER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CHAMBER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">IONIZATION CHAMBER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HALOE">
+    <rdfs:label xml:lang="en">Halogen Occultation Experiment</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#EXPERIMENT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PSR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADIOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Polarimetric Scanning Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES-FM1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CERES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System - Flight Model 1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#RADIOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MASPR">
+    <rdfs:label xml:lang="en">Multiple-Angle Aerosol Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HSRL">
+    <rdfs:label xml:lang="en">High Spectral Resolution Lidar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PMS">
+    <rdfs:label xml:lang="en">Particle Measuring System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SABER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Sounding of the Atmosphere using Broadband Emission Radiometry</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WIFS">
+    <rdfs:label xml:lang="en">Wide Field Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DETECTOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PAS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Photoelectric Aerosol Sensor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MSU">
+    <rdfs:label xml:lang="en">Microwave Sounding Unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="UNIT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SCINTILIATION_COUNTERS">
+    <rdfs:label xml:lang="en">SCINTILIATION COUNTERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="COUNTER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PORTOS">
+    <rdfs:label xml:lang="en">Radiometer Hyper-Frequence Multi-Frequence</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VIRS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TRMM Visible Infrared Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DIFFERENTIAL_MOBILITY_ANALYZERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DIFFERENTIAL MOBILITY ANALYZERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EDDY_CORRELATION_DEVICES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">EDDY CORRELATION DEVICES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SIR-B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Shuttle Imaging Radar-B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUPERCONDUCTING_GRAVIMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GRAVIMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SUPERCONDUCTING GRAVIMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SURVEYING_TOOLS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">SURVEYING TOOLS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CONDUCTIVITY_METERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">CONDUCTIVITY METERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MFRSR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PYRANOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Multifilter Rotating Shadowband Radiometer and Broadband Pyranometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DIELECTRIC_PROBE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DIELECTRIC PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RAIN_GAUGES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GAUGE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">RAIN GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MMRS">
+    <rdfs:label xml:lang="en">Multispectral Medium Resolution Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SEAWIFS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Sea-Viewing Wide Field-of-View Sensor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AUTOANALYZER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AUTOANALYZER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TDDR">
+    <rdfs:label xml:lang="en">Total-Direct-Diffuse Multichannel Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FLUORESCENCE_SPECTROSCOPY">
+    <rdfs:label xml:lang="en">FLUORESCENCE SPECTROSCOPY</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PES">
+    <rdfs:label xml:lang="en">Photoelectron Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SEISMOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BIONESS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LRGM">
+    <rdfs:label xml:lang="en">Lacoste-Romberg Gravity Meter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GRAVIMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="C-STAR">
+    <rdfs:label xml:lang="en">Conically-Scanning Two-look Airborne Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="POLSCAT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCATTEROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Polarimetric Ku-Band Scatterometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GSD">
+    <rdfs:label xml:lang="en">Germanium Semiconductor Detector</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:about="#MEASUREMENT">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRBORNE_TRACKING_SUNPHOTOMETER">
+    <rdfs:label xml:lang="en">AIRBORNE TRACKING SUNPHOTOMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PHOTOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TEMPERATURE_SENSORS">
+    <rdfs:label xml:lang="en">TEMPERATURE SENSORS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ADCP">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROFILER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Acoustic Depth Gauge</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#AMI">
+    <rdfs:label xml:lang="en">Active Microwave Instrument</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SAW">
+    <rdfs:label xml:lang="en">JPL Surface Acoustic Wave Hygrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DOBSON_SPECTROPHOTOMETERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DOBSON SPECTROPHOTOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUNFLECK_CEPTOMETER">
+    <rdfs:label xml:lang="en">SUNFLECK CEPTOMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CEPTOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MONOCHROMATOR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MICHELSON_INTERFEROMETER">
+    <rdfs:label xml:lang="en">MICHELSON INTERFEROMETER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="XCP">
+    <rdfs:label xml:lang="en">Expendable Current Profiler</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROFILER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ICPAES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Inductively Coupled Plasma Atomic emission Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NISKIN_BOTTLES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BOTTLE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">NISKIN BOTTLES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TURBIDITY_METERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TURBIDITY METERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TIMAX">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">X-ray Imaging Telescope</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NPOL">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">NASA Portable S-band Multiparameter Weather Research Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LIQUID_CHROMATOGRAPHS">
+    <rdfs:label xml:lang="en">LIQUID CHROMATOGRAPHS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PARTICALE_DETECTORS">
+    <rdfs:label xml:lang="en">PARTICLE DETECTORS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MISR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Multi-Angle Imaging SpectroRadiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HYPERION">
+    <rdfs:label xml:lang="en">HYPERSPECTRAL IMAGER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SONOBUOYS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EGC">
+    <rdfs:label xml:lang="en">Electron Gas Chromatograph</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COULOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WET_BULB_THERMOMETERS">
+    <rdfs:label xml:lang="en">WET BULB THERMOMETERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#THERMOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#MONITOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HVPS">
+    <rdfs:label xml:lang="en">High Volume Particle Sampler</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IDM">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Ion Drift Meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="UV_OZONE_DETECTORS">
+    <rdfs:label xml:lang="en">UV OZONE DETECTORS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CAMRA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">CWVC Chilbolton Advanced Meteorological Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA_PROFILER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROFILER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">NOAA PROFILER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LEED">
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+    <rdfs:label xml:lang="en">Low Energy Electron Detectors</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CASI">
+    <rdfs:label xml:lang="en">Compact Airborne Spectrographic Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PHOTOSYNTHESIS_CHAMBER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHAMBER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">PHOTOSYNTHESIS CHAMBER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AERS">
+    <rdfs:label xml:lang="en">Atmospheric/Emitted Radiation Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="INFRARED_RADIOMETERS">
+    <rdfs:label xml:lang="en">INFRARED RADIOMETERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SONAR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Sound Navigation and Ranging</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NORPAC_ZOOPLANKTON_NET">
+    <rdfs:label xml:lang="en">NORPAC ZOOPLANTON NET</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRANSMISSOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VISSR">
+    <rdfs:label xml:lang="en">Visible and Infrared Spin Scan Radiometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="VIRR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GLAS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ALTIMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geoscience Laser Altimeter System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="UCN">
+    <rdfs:label xml:lang="en">Ultrafine Condensation Nucleus Counter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COUNTER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ANTENNA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ISO">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Imaging Spectrometric Observatory</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES_I-M_IMAGER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GOES_IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">GOES I-M IMAGER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IRM_MAGNETOMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MAGNETOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AMPTE/IRM Three-axis Fluxgate Magnetometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#GOME">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#EXPERIMENT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Global Ozone Monitoring Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CRS">
+    <rdfs:label xml:lang="en">Cloud Radar System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOMMA">
+    <rdfs:label xml:lang="en">SingleOperator Multiparameter Metabolic Analyzer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IMG">
+    <rdfs:label xml:lang="en">Interferometric Monitor for Greenhouse Gases</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SILICON_PHOTODIODES">
+    <rdfs:label xml:lang="en">SILICON PHOTODIODES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES_SCANNER">
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CERES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">CERS SCANNER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WATERGUNS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_PROBE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">PRESSURE PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ACOUSTIC_SOUNDERS">
+    <rdfs:label xml:lang="en">ACOUSTIC SOUNDERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AES">
+    <rdfs:label xml:lang="en">Atmospheric Emission Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SNOWPACK_TEMPERATURE_PROBE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SNOWPACK TEMPERATURE PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TDR">
+    <rdfs:label xml:lang="en">Time Domain Reflectometry Probe</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_SAMPLER">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">SOIL SAMPLER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OLS">
+    <rdfs:label xml:lang="en">Operational Linescan System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="WVSS">
+    <rdfs:label xml:lang="en">Water Vapor Sensing System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VTPR">
+    <rdfs:label xml:lang="en">Vertical Temperature Profile Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STD">
+    <rdfs:label xml:lang="en">Salinity, Temperature, Depth</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SPECIFIC_ION_METERS">
+    <rdfs:label></rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RBV">
+    <rdfs:label xml:lang="en">Return Beam Vidicon</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SCATTEROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OPS">
+    <rdfs:label xml:lang="en">Optical Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PAM">
+    <rdfs:label xml:lang="en">Portable Fluorescence Analyzers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RDEFM">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="FIELD_MILL"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Rotating Dipole Electric Field Mill</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATSR-2">
+    <rdfs:label xml:lang="en">Along Track Scanning Radiometer 2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ATSR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="INCOHERENT_SCATTER_RADAR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RADAR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">INCOHERENT SCATTER RADAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LLLTV">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TV"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Low Light Level TV</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="KNOLLENBERG_PROBE">
+    <rdfs:label xml:lang="en">KNOLLENBERG PROBE</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="REFLECTOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RL">
+    <rdfs:label xml:lang="en">Raman Lidar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_SIMULATORS">
+    <rdfs:label xml:lang="en">SOLAR SIMULATORS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SIMULATOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NANSEN_BOTTLES">
+    <rdfs:label xml:lang="en">Nansen Water Sampling Bottles</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BOTTLE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#MAGNETOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEISMIC_REFLECTION_PROFILERS">
+    <rdfs:label xml:lang="en">SEISMIC REFLECTION PROFILERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROFILER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#RADAR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DC8_DROPSONDES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DROPSONDE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DC8 DROPSONDES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPECTRORADIOMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SODAR">
+    <rdfs:label xml:lang="en">Sound Detection and Ranging</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SSALT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ALTIMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">POSEIDON Solid State Radar Altimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSI_ES">
+    <rdfs:label xml:lang="en">SSI/ES</rdfs:label>
+    <rdfs:label xml:lang="en">Special Sensor Ionospheric Plasma Monitor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_GAUGES">
+    <rdfs:label xml:lang="en">PRESSURE GAUGES</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GAUGE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ACE-FTS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Fourier Transform Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ISS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Integrated Sounding System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NDIR_GAS_ANALYZER">
+    <rdfs:label xml:lang="en">Nondispersive Infrared Gas Analyzer</rdfs:label>
+    <rdfs:label xml:lang="en">NDIR GAS ANALYZER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="WL_CR">
+    <rdfs:label xml:lang="en">WATER LEVEL/CLIMATE RECORDERS</rdfs:label>
+    <rdfs:label xml:lang="en">WL/CR</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECORDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LOPC-PMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COUNTER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Laser Optical Particle Counter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="N-MASS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Nucleation-Mode Aerosol Size Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_UV_SPECTROMETERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SOLAR UV SPECTROMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_HEAT_PROBE">
+    <rdfs:label xml:lang="en">SOIL HEAT PROBE</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GYROS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XSV">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROFILER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Expendable Sound Velocity Profilers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CLASS">
+    <rdfs:label xml:lang="en">C-LORAN Atmospheric Sounding System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TLPCS">
+    <rdfs:label xml:lang="en">Thermoluminescence Photon Counting System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PALS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Passive and Active L- and S-Band System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="POLDER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Polarization/Directionality of the Earth's Reflectance</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE_III">
+    <rdfs:subClassOf rdf:resource="#SAGE"/>
+    <rdfs:label xml:lang="en">SAGE III</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MULTICHANNEL_FILTER_RADIOMETER">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">MULTICHANNEL FILTER RADIOMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ARRAY">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ACCELEROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmospheric Density Accelerometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ASC">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CAMERA"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">All-Sky Camera</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AWQT">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Apparatus for Water Quality Test</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="Geobrain_Class_135">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="WIND_VANES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAMI">
+    <rdfs:label xml:lang="en">Nitrogen Oxide Automatic Measuring Instrument</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="COUNTERFLOW_VIRTUAL_IMPACTOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">COUNTERFLOW VIRTUAL IMPACTOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUMER">
+    <rdfs:label xml:lang="en">Solar Ultraviolet Measurements of Emitted Radiation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GOES_IMAGER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">GOES IMAGER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#CHAMBER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="POLARIMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCOR_WP-2_ZOOPLANTKON_NET">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">SCOR WP-2 ZOOPLANTKON NET</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SMPS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Scanning Mobility Particle Sizer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VAS">
+    <rdfs:label xml:lang="en">VISSR Atmospheric Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VARIOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SECCHI_DISKS">
+    <rdfs:label xml:lang="en">SECCHI DISKS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#EXPERIMENT">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SLS">
+    <rdfs:label xml:lang="en">Submillimeter Limb Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#METER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MAGNETO_OPTICAL_FILTER">
+    <rdfs:label xml:lang="en">MAGNETO OPTICAL FILTER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="FILTER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIO_TELESCOPES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">RADIOI TELESCOPES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VLA">
+    <rdfs:subClassOf rdf:resource="#ARRAY"/>
+    <rdfs:label xml:lang="en">Very Large Array</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LYMAN-ALPHA_PHOTOMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PHOTOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">LYMAN-ALPHA PHOTOMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PYRGEOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OCPS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CAMERA"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Orbiter Camera Payload System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MOMS-02">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MOMS-01"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Modular Optoelectronic Multispectral Stereo Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRSAR">
+    <rdfs:label xml:lang="en">Airborne Synthetic Aperture Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEDIMENT_TRAPS">
+    <rdfs:label xml:lang="en">SEDIMENT TRAPS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HYPSOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FLAME-IONIZATION_DETECTOR">
+    <rdfs:label xml:lang="en">FLAME-IONIZATION DETECTOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OCE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Ocean Color Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MEPAD">
+    <rdfs:label xml:lang="en">Medium Energy Proton and Alpha Detector</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AMMR">
+    <rdfs:label xml:lang="en">Airborne Multichannel Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MIMR">
+    <rdfs:label xml:lang="en">Multifrequency Imaging Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOFIA">
+    <rdfs:label xml:lang="en">STRATOSPHERIC OBSERVATORY FOR INFRARED ASTRONOMY</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="C-SAR">
+    <rdfs:label xml:lang="en">C-Band Synthetic Aperture Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ETM">
+    <rdfs:label xml:lang="en">Enhanced Thematic Mapper Plus</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="FPS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Fabray-Perot Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ACATS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Airborne Chromatograph for Atomspheric Trace Species</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DORIS">
+    <rdfs:label xml:lang="en">Doppler Orbitography and Radiopositioning Integrated by Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#XRD">
+    <rdfs:label xml:lang="en">X-ray Diffractometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HRV">
+    <rdfs:label xml:lang="en">High Resolution Visible Imaging System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RIOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Relative Ionospheric Opacity Meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_PLANT_CANOPY_ANALYZOR">
+    <rdfs:label xml:lang="en">LICOR_PLANT_CANOPY_ANALYZER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="EUVS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Solar Extreme Ultraviolet Spectrophotometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PAR_SENSORS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Phytosynthetically Active Radiation Sensors</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TEM">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MICROSCOPE"/>
+    </rdfs:subClassOf>
+    <rdfs:label></rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CZCS">
+    <rdfs:label xml:lang="en">Coastal Zone Color Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ALIAS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Airborne Laser Infrared Absorption Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SFM">
+    <rdfs:label xml:lang="en">Spectrofluorometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MOS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Modular Optoelectronic Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="XPS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PHOTOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">XUV Photometer System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HPLC">
+    <rdfs:label xml:lang="en">High-Performance Liquid Chromatograph</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VIL">
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+    <rdfs:label xml:lang="en">Volume Imaging Lidar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NEUSTRON_PROBE">
+    <rdfs:label xml:lang="en">NEUSTRON PROBE</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CCD_IMAGER">
+    <rdfs:label xml:lang="en">CCD Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ELECTRONATOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MRIR">
+    <rdfs:label xml:lang="en">Medium-Resolution Infrared Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ISAMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Improved Stratospheric and Mesospheric Sounder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WATER_BOTTLES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BOTTLE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">WATER BOTTLES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FLUXGATE_MAGNETOMETERS">
+    <rdfs:subClassOf rdf:resource="#MAGNETOMETER"/>
+    <rdfs:label xml:lang="en">FLUXGATE MAGNETOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TEMPERATURE_LOGGERS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">TEMPERATURE LOGGERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MACAWS">
+    <rdfs:label xml:lang="en">Multicenter Airborne Coherent Atmospheric Profiling Wind Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="THEODOLITE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AVHRR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Advanced Very High Resolution Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#THERMOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Reversing Thermometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LBLSC">
+    <rdfs:label xml:lang="en">Low Background Liquid Scintillation Counter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COUNTER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ESTAR">
+    <rdfs:label xml:lang="en">Electronically Scanned Thinned Array Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ALTIMETER">
+    <rdfs:label xml:lang="en">ALTIMETERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DROGUE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AETHAELOMETER">
+    <rdfs:label xml:lang="en">AETHAELOMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="INFAMED">
+    <rdfs:label xml:lang="en">Insitu Fossil Air Melt Extraction Device</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ELDORA">
+    <rdfs:label xml:lang="en">Electra Doppler Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PSYCHROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRGLOW_SENSOR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AIRGLOW SENSOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TNR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Thermopile Net Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LRR">
+    <rdfs:subClassOf rdf:resource="#REFLECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MARK_IV_INTERFEROMETER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">MARK IV INTERFEROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RSMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Rapid Single-Particle Mass Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LLS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Laser-Light Scattering</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOPA">
+    <rdfs:label xml:lang="en">Synchronous Orbit Particle Analyzer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TEOM">
+    <rdfs:label xml:lang="en">Tapered Element Oscillating Microbalance</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SIMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Secondary Ion Mass Spectrometers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OFFI">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Optical Free Fall Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#RECEIVER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WBS">
+    <rdfs:label xml:lang="en">Wide Band Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DREDGING_DEVICES">
+    <rdfs:label xml:lang="en">DREDGING DEVICES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RAMS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Radiation Measurement System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EPSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BOLOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_GAS_EXCHANGE_SYSTEM">
+    <rdfs:label xml:lang="en">LICOR GAS EXCHANGE SYSTEM</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HFOVR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Hemispherical Field of View Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ASUR">
+    <rdfs:label xml:lang="en">Airborne Submillimeter Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MSR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Microwave Scanning Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BBHSR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Broad Spectral Bandpass Hemispherical Solar Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DOPS">
+    <rdfs:label xml:lang="en">Dual Optical Pulse Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ACRIM_III">
+    <rdfs:label xml:lang="en">ACRIM III</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ACRIM"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Active Cavity Radiometer Irradiance Monitor III</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MASP">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PHOTOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Mobile Automatic Scanning Photometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SIR-A">
+    <rdfs:label xml:lang="en">Shuttle Imaging Radar-A</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES-FM4">
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System - Flight Model 4</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CERES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LFC">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CAMERA"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Large Format Camera</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#TM">
+    <rdfs:label xml:lang="en">Thematic Mapper</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROVANES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">AEROVANES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SCIAMACHY">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Scanning Imaging Absorption Spectrometer for Atmospheric Chartograph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="THERMOSALINOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MICROBAROGRAPH">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BAROMETERS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MAS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SIMULATOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">MODIS Airborne Simulator</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RAWINSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MMS">
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+    <rdfs:label xml:lang="en">Meteorological Measurement System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#AMSR">
+    <rdfs:label xml:lang="en">Advanced Microwave Scanning Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#AMI"/>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NAST-I">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">NPOESS Aircraft Sounder Testbed-Interferometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GREEN_CORONAGRAPH">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CORONAGRAPH"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">GREEN CORONAGRAPH</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AEPI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmospheric Emissions Photometric Imaging</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AAS">
+    <rdfs:label xml:lang="en">Atomic Absorption Spectrophotometry</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRMISR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Airborne Multi-angle Imaging SpectroRadiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DENSIOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RA">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RADAR_ALTIMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">ERS Radar Altimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GPS">
+    <rdfs:label xml:lang="en">Global Positioning System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCR-HF">
+    <rdfs:label xml:lang="en">Surface Current Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FRRF">
+    <rdfs:label xml:lang="en">Fast Repetition Rate Fluorometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="FLUOROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AERI">
+    <rdfs:label xml:lang="en">Atmospheric Emitted Radiance Interferometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_CHAMBERS">
+    <rdfs:subClassOf rdf:resource="#CHAMBER"/>
+    <rdfs:label xml:lang="en">PRESSURE CHAMBERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GEK">
+    <rdfs:label xml:lang="en">Geomagnetic Electrokinetographs</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CELIAS">
+    <rdfs:label xml:lang="en">Charge, Element, and Isotope Analysis System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CLOUD_PARTICLE_SIZER">
+    <rdfs:label xml:lang="en">AEROSOL/CLOUD PARTICLE SIZER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SIZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PASSIVE_OPTICAL_TRACKING">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">PASSIVE OPTICAL TRACKING</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLSPEC">
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+    <rdfs:label xml:lang="en">Solar Spectrum Measurement</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#UNIT">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PIPE_STRAIN_METER">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">PIPE STRAIN METER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LDSP">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Multichannel High Resolution UV and Visible Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FILTERABLE_DEPOSIT_JAR_SAMPLER">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">FILTERABLE DEPOSIT JAR SAMPLER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HRDI">
+    <rdfs:label xml:lang="en">High Resolution Doppler Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DISDROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="THERMOCOUPLE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ION_MICROPROBES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">ION MICROPROBES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FCAS">
+    <rdfs:label xml:lang="en">Focused Cavity Aerosol Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="C-SCAT">
+    <rdfs:subClassOf rdf:resource="#SCATTEROMETER"/>
+    <rdfs:label xml:lang="en">C-Band Scatterometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ELECTRIC_FIELD_MILL">
+    <rdfs:label xml:lang="en">ELECTRIC FIELD MILL</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#FIELD_MILL"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PMS_2D-C_PROBE">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#PROBE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Particle Measuring Systems 2D-C Probe</rdfs:label>
+    <rdfs:label xml:lang="en">PMS 2D-C PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DOPPLER_RADAR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">DOPPLER RADAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERNE">
+    <rdfs:label xml:lang="en">Energetic and Relativistic Nuclei and Electron</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FTIR_SPECTROMETER">
+    <rdfs:label xml:lang="en">FTIR SPECTROMETER</rdfs:label>
+    <rdfs:label xml:lang="en">Fourier Transform Infrared Spectrometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SIRS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Satellite Infrared Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#GRAVIMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TUCKER_TRAWLS">
+    <rdfs:label xml:lang="en">TUCKER_TRAWLS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TRAWL"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Inverted Echo Sounders</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SPECTROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BATHYPHOTOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UVIC">
+    <rdfs:subClassOf rdf:resource="#CHAMBER"/>
+    <rdfs:label xml:lang="en">UV Ion Chamber</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WSI">
+    <rdfs:label xml:lang="en">Whole-Sky Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ACCELEROGRAPHS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ACCELEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOSUS">
+    <rdfs:label xml:lang="en">Sound Surveillance System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OPTICAL_BEACON">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">OPTICAL BEACON</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BEDLOAD_SENSORS">
+    <rdfs:label xml:lang="en">Bedload Sensors</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BCS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Bragg Crystal Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CIN">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="NEPHELOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Cloud Integrating Nephelometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MOP_VIS-IR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">MOP VIS/IR</rdfs:label>
+    <rdfs:label xml:lang="en">MOP Imaging Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CSR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECORDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Compressive Strength Recorder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MEIS">
+    <rdfs:label xml:lang="en">Multispectral Electro-optical Imaging Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NEAR-INFRARED_SPECTROMETER">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">NEAR-INFRARED SPECTROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALPS">
+    <rdfs:label xml:lang="en">Airborne Laser Polarization Sensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#PROFILER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOLF">
+    <rdfs:label xml:lang="en">Global Oscillations at Low Frequencies</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ARMAR">
+    <rdfs:label xml:lang="en">Airborne Rain Mapping Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="INFRARED_LASER_SPECTROSCOPY">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">INFRARED LASER SPECTROSCOPY</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NEUSTON_NET">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">NEUSTON NET</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS">
+    <rdfs:label xml:lang="en">Step Sampler</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ALAE">
+    <rdfs:label xml:lang="en">Atmospheric Lyman-Alpha Emissions</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SNOW_MEASURING_ROD">
+    <rdfs:label xml:lang="en">SNOW MEASURING ROD</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BOTTOM_PRESSURE_GAUGES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GAUGE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Bottom Pressure Gauges</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CLOUD_TOP_SPECTROMETER">
+    <rdfs:label xml:lang="en">CLOUD TOP SPECTROMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CERES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AVNIR">
+    <rdfs:label xml:lang="en">Advanced Visible and Near-Infrared Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PYRRADIOMETER">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ESMR">
+    <rdfs:label xml:lang="en">Electronic Scanning Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IKAR">
+    <rdfs:label xml:lang="en">Multichannel Microwave Radiometric System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BGO">
+    <rdfs:label xml:lang="en">Bismuth Germanate Scintillator</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ALI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Advanced Land Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MTP">
+    <rdfs:label xml:lang="en">Microwave Temperature Profiler</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MBLA">
+    <rdfs:label xml:lang="en">Multi-Beam Laser Altimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ALTIMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NAST-M">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">NPOESS Aircraft Sounder Testbed-Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="APMS">
+    <rdfs:label xml:lang="en">Ames Particle Measurement System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SIZER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WATER_LEVEL_GAUGES">
+    <rdfs:label xml:lang="en">WATER LEVEL GAUGES</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GAUGE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GLI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Global Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LACE">
+    <rdfs:label xml:lang="en">Lightweight Airborne Chromatograph Experiment</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CHROMATOGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RWP50">
+    <rdfs:label xml:lang="en">50-MHZ Radar Wind Profiler and Radio Acoustic Sounding System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BROADBEAM_RIOMETERS">
+    <rdfs:subClassOf rdf:resource="#RIOMETER"/>
+    <rdfs:label xml:lang="en">Broadbeam Riometers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HYGROTHERMOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Microwave Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#GAUGE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DRY_DEPOSITION_COLLECTORS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="COLLECTOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DRY DEPOSITION COLLECTORS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERB-SCANNER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HST">
+    <rdfs:label xml:lang="en">HUBBLE SPACE TELESCOPE</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ROSEMOUNT_PRESSURE_GAUGE">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">ROSEMOUNT PRESSURE GAUGE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GONG_NETWORK">
+    <rdfs:label xml:lang="en">Global Oscillation Network Group Network</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">GONG NETWORK</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IASI">
+    <rdfs:label xml:lang="en">Infrared Atmospheric Sounding Interferometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#INTERFEROMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOUP">
+    <rdfs:subClassOf rdf:resource="#POLARIMETER"/>
+    <rdfs:label></rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSM_T-2">
+    <rdfs:label xml:lang="en">Special Sensor Microwave/Temperature Profiler</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+    <rdfs:label xml:lang="en">SSM/T-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATLAS">
+    <rdfs:label xml:lang="en">Airborne Tunable Laser Absorption Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CARBON_ANALYZERS">
+    <rdfs:label xml:lang="en">Carbon Analyzers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IONOSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SMM-HXIS">
+    <rdfs:label xml:lang="en">SMM Hard X-ray Imaging Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRANSPARENCY_METER">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">TRANSPARENCY METER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#HIRS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">High Resolution Infrared Radiation Sounder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VISIBLE_SPECTROMETER">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">VISIBLE SPECTROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AOLFL">
+    <rdfs:label xml:lang="en">Airborne Oceanographic Lidar Fluorosensor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SENSOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HIS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">High Resolution Interferometer Sounder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#MOMS-01">
+    <rdfs:label xml:lang="en">Modular Optoelectronic Multispectral Scanner</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SCANNER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LASERS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Light Amplification by Stimulaed Emission of Radiation</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GPS_RECEIVERS">
+    <rdfs:label xml:lang="en">GPS RECEIVERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GPS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DRY_BULB_THERMOMETERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#THERMOMETER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DRY BULB THERMOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_HEAT_FLUX_TRANSDUCER">
+    <rdfs:label xml:lang="en">SOIL HEAT FLUX TRANSDUCER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TRANSDUCER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SIM">
+    <rdfs:label xml:lang="en">Spectral Irradiance Monitor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WAS">
+    <rdfs:label xml:lang="en">Whole Air Sampler</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SBUV_2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SBUV"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SBUV/2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MSIR">
+    <rdfs:label xml:lang="en">Multispectral Imaging Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="P-SYSTEM">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">High Pressure Gas Sampling System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MBT">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BATHYTHERMOGRAPH"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Mechanical Bathythermographs</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AVIRIS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Airborne Visible and Infrared Imaging Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AOCI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Airborne Ocean Color Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AVAPS">
+    <rdfs:label xml:lang="en">Airborne Vertical Atmosphere Profiling Systems</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DFS-V48">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SEISMOGRAPH"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">DFS-V 48 Channel Seismograph Attached to Seismic Geophones</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HARD_X-RAY_MONITOR">
+    <rdfs:label xml:lang="en">HARD X-RAY MONITOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LIP">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Lighting Instrument Package</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CORING_DEVICES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">CORING DEVICES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VCEIL">
+    <rdfs:label xml:lang="en">Vaisala Ceilometer</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CEILOMETER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SIDE-SCAN_SONAR">
+    <rdfs:subClassOf rdf:resource="#SONAR"/>
+    <rdfs:label xml:lang="en">SIDE-SCAN SONAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FOURIER_TRANSFORM_SPECTROMETERS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">FOURIER TRANSFORM SPECTROMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AMSU">
+    <rdfs:label xml:lang="en">Advanced Microwave Sounding</rdfs:label>
+    <rdfs:label xml:lang="en">Advanced Microwave Sounding Unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf rdf:resource="#AMI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOON_SOLAR_TELESCOPES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SOON SOLAR TELESCOPES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HXIS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Hard X-ray Imaging Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MESONET">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">The Oklahoma Mesonetwork</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SLRAR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">Side-Looking Airborne Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#PROBE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OZONEMETERS">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GAS_CORRELATION_FILTERS">
+    <rdfs:label xml:lang="en">GAS CORRELATION FILTERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#FILTER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_TELESCOPES">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TELESCOPE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">SOLAR_TELESCOPES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#TRAWL">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LAICPMS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Laser Ablation Inductively Coupled Plasma Mass Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RASS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Radio Acoustic Sounding System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CLAES">
+    <rdfs:label xml:lang="en">Cryogenic Limb Array Etalon Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DOAS">
+    <rdfs:label xml:lang="en">Differential Optical Absorption Spectrometers</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SLR">
+    <rdfs:label xml:lang="en">Satellite Laser Ranging</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_TEMPERATURE_PROBE">
+    <rdfs:label xml:lang="en">SOLAR TEMPERATURE PROBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BBSS">
+    <rdfs:label xml:lang="en">Ballon-Borne Sounding System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GONG_INSTRUMENT">
+    <rdfs:label xml:lang="en">GONG INSTRUMENT</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Global Oscillation Network Group Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MACS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COLLECTOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Multiple Aerosol Collection System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PIEZOMETERS">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TELESCOPE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DADS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">DC-8 DATA ACCUISTION AND DISTRIBUTION SYSTEM</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SENSOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Spatial Coordinate Apparatus</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HAMSR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">High Altitude MMIC Sounding Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIO_BURST_RECEIVERS">
+    <rdfs:subClassOf rdf:resource="#RECEIVER"/>
+    <rdfs:label xml:lang="en">RADIO BURST RECEIVERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALTUS_DATA_COLLECTION_SYSTEM">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">ALTUS DATA COLLECTION SYSTEM</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ELECTROSTATIC_ANALYZERS">
+    <rdfs:label xml:lang="en">ELECTROSTATIC ANALYZERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="UVCS">
+    <rdfs:label xml:lang="en">Ultraviolet Coronograph Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FIRSC">
+    <rdfs:label xml:lang="en">Far-Infrared Sensor for Cirrus</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SCANNER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MODIS">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Moderate-Resolution Imaging Spectroradiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CAMI">
+    <rdfs:label xml:lang="en">Carbon Monoxide Automatic Measuring Instrument</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TIDE_GAUGES">
+    <rdfs:label xml:lang="en">TIDE GAUGES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCHOLANDER_PRESSURE_CHAMBER">
+    <rdfs:label xml:lang="en">SCHOLANDER PRESSURE CHAMBER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CHAMBER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIO_TRANSPONDERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TRANSPONDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">RADIO TRANSPONDERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LORAN">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Long Range Navigation</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PLANKTON_NETS">
+    <rdfs:label xml:lang="en">PLANKTON NETS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CHN_ANALYZERS">
+    <rdfs:label xml:lang="en">Carbon, Hydrogen, Nitrogen Analyzers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">CHN ANALYZERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CNC">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COUNTER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Condensation Nuclei Counter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#TRANSPONDER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CO2_ANALYZERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">CO2 ANALYZERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MMCR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">Millimeter-Wavelength Cloud Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSIES">
+    <rdfs:label xml:lang="en">Ion Scintallation Monitor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MAGNETOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#HYGROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ACRIM">
+    <rdfs:label xml:lang="en">Active Cavity Radiometer Irradiance Monitor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TCISS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TOGA COARE Integrated Sounding System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_SENSORS">
+    <rdfs:label xml:lang="en">PRESSURE SENSORS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HELIOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IMAGING_RIOMETERS">
+    <rdfs:label xml:lang="en">IMAGING RIOMETERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ATM">
+    <rdfs:label xml:lang="en">Airborne Topographic Mapper</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RSP">
+    <rdfs:label xml:lang="en">Research Scanning Polarimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#POLARIMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CPFM">
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+    <rdfs:label xml:lang="en">Composition and Photodissociative Flux Measurement</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MOCNESS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">MOCNESS Plankton Net</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="THIR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Temperature-Humidity Infrared Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RING_SHEAR_TESTERS">
+    <rdfs:label xml:lang="en">RING SHEAR TESTER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CUFES">
+    <rdfs:label xml:lang="en">Continuous Underway Fish Egg Sampling System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RADAR_ALTIMETER">
+    <rdfs:subClassOf rdf:resource="#ALTIMETER"/>
+    <rdfs:label xml:lang="en">RADAR ALTIMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="APS">
+    <rdfs:label xml:lang="en">Aerodynamic Particle Sizer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SIZER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="KEMMERER_SAMPLER">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">KEMMERER SAMPLER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HYDROPHONE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DAEDALUS_TMS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SIMULATOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Daedalus Thematic Mapper Simulator</rdfs:label>
+    <rdfs:label xml:lang="en">DAEDALUS TMS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HRVIR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">High Resolution Visible and Infrared</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSM_T">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">SSM/T</rdfs:label>
+    <rdfs:label xml:lang="en">Special Sensor Micorwave/Temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BALANCE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SNOW_DENSITY_CUTTER">
+    <rdfs:label xml:lang="en">SNOW DENSITY CUTTER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TRANSDUCER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SPOL">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">NCAR S-band Polarimetric Doppler Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#WIND_VANES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">WIND VANES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUSIM">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">Solar Ultraviolet Spectral Irradiance Monitor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MIPS-EFM">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#FIELD_MILL"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">MIPS Electric Field Mill</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#MICROSCOPE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SALINOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VECTOR_MAGNETOGRAPHS">
+    <rdfs:subClassOf rdf:resource="#MAGNETOGRAPH"/>
+    <rdfs:label xml:lang="en">VECTOR MAGNETOGRAPHS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CEDAR_IMAGER">
+    <rdfs:label xml:lang="en">Cedar Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#SEISMOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DEWPOINT_HYDROMETERS">
+    <rdfs:subClassOf rdf:resource="#HYDROMETER"/>
+    <rdfs:label xml:lang="en">DEWPOINT HYDROMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PENETROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FAN-ASPIRATED_RADIATION_SHIELD">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">FAN-ASPIRATED RADIATION SHIELD</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ANEROID_PRESSURE_SENSOR">
+    <rdfs:label xml:lang="en">Aneroid Pressure Sensor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CLOUD_LIQUID_WATER_PROBE">
+    <rdfs:label xml:lang="en">CLOUD LIQUID WATER PROBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OTD">
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+    <rdfs:label xml:lang="en">Optical Transient Detector</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CCD_LINEAR_ARRAY">
+    <rdfs:label xml:lang="en">CCD Linear Array</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ARRAY"/>
+  </owl:Class>
+  <owl:Class rdf:ID="X-RAY_TELESCOPE">
+    <rdfs:subClassOf rdf:resource="#TELESCOPE"/>
+    <rdfs:label xml:lang="en">X-RAY TELESCOPE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_SOIL_GAS_CHAMBER">
+    <rdfs:label xml:lang="en">LICOR_SOIL_GAS_CHAMBER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CHAMBER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MOPITT">
+    <rdfs:label xml:lang="en">Measurements of Pollution in the Troposphere</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RA-2">
+    <rdfs:subClassOf rdf:resource="#RADAR_ALTIMETER"/>
+    <rdfs:label xml:lang="en">Radar Altimeter-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES-FM3">
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System - Flight Model 3</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CERES"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RIS">
+    <rdfs:subClassOf rdf:resource="#REFLECTOR"/>
+    <rdfs:label xml:lang="en">Retroreflector in Space</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SASS">
+    <rdfs:subClassOf rdf:resource="#SCATTEROMETER"/>
+    <rdfs:label xml:lang="en">SEASAT-A  Scatterometer System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSCC">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CAMERA"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Spin Scan Cloud Camera</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MMR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Modular Multiband Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SIMULATOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FCAS_II">
+    <rdfs:label xml:lang="en">Focused Cavity Aerosol Spectrometer II</rdfs:label>
+    <rdfs:label xml:lang="en">FACS II</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#FCAS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HRTS">
+    <rdfs:subClassOf rdf:resource="#TELESCOPE"/>
+    <rdfs:label xml:lang="en">High Resolution Telescope and Spectrograph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DROPWINDSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SWIR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Short Wavelength Infrared Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SXT">
+    <rdfs:label xml:lang="en">Soft X-ray Telescope</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#TELESCOPE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SUNSHINE_RECORDERS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECORDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SMMR">
+    <rdfs:label xml:lang="en">Scanning Multichannel Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CORONAGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TUNABLE_DIODE_LASER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">TUNABLE DIODE LASER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CLINOMETERS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#FLUOROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TMI">
+    <rdfs:label xml:lang="en">TRMM Microwave Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="HVAS">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">High Volume Air Sampler</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PTGA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Propeller Type Generating Anemovane</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#CHROMATOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AMSU-A">
+    <rdfs:subClassOf rdf:resource="#AMSU"/>
+    <rdfs:label xml:lang="en">Advanced Microwave Sounding Unit-A</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PLANT_STRESS_MONITOR">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">PLANT STRESS MONITOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPECTROHELIOGRAPH">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPECTROGRAPH"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="BOPS">
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+    <rdfs:label xml:lang="en">Bio Optical Profiling System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OZONESONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GFC_RADIOMETER">
+    <rdfs:label xml:lang="en">Gas Filter Correlated Radiometer</rdfs:label>
+    <rdfs:label xml:lang="en">GFC RADIOMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCANNING_ELECTRON_MICROSCOPES">
+    <rdfs:label xml:lang="en">SCANNING ELECTRON MICROSCOPE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MICROSCOPE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ROWS">
+    <rdfs:label xml:lang="en">Radar Ocean Wave Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#INTERFEROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DIGITIZER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOSAR">
+    <rdfs:label xml:lang="en">Geographic Synthetic Aperture Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PLA">
+    <rdfs:subClassOf rdf:resource="#ARRAY"/>
+    <rdfs:label xml:lang="en">Panchromatic Linear Array</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CXRI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Coded Mask X-ray Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TETHERSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TOMS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Total Ozone Mapping Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SPECTROGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BUV">
+    <rdfs:label xml:lang="en">Backscatter Ultraviolet</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HIRDLS">
+    <rdfs:label xml:lang="en">High-Resolution Dynamics Limb Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PRARE">
+    <rdfs:label xml:lang="en">Precise Range and Range-Rate Equipment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PALMS">
+    <rdfs:label xml:lang="en">Particle Analysis by Laser Mass Spectrometry</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ANALYZER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_TRANSDUCERS">
+    <rdfs:subClassOf rdf:resource="#TRANSDUCER"/>
+    <rdfs:label xml:lang="en">PRESSURE TRANSDUCERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE_II">
+    <rdfs:subClassOf rdf:resource="#SAGE"/>
+    <rdfs:label xml:lang="en">SAGE II</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GPR">
+    <rdfs:label xml:lang="en">Ground Penetrating Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OZONE_MONITORS">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">OXYGEN_MONITORS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MAGVAR">
+    <rdfs:subClassOf rdf:resource="#VARIOMETER"/>
+    <rdfs:label xml:lang="en">Magnetic Variometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROSOL_COLLECTORS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COLLECTOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AEROSOL COLLECTORS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_MOISTURE_PROBE">
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+    <rdfs:label xml:lang="en">SOIL MOISTURE PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAFS">
+    <rdfs:label xml:lang="en">Scanning Actinic Flux Spectroradiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#BATHYTHERMOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CPR">
+    <rdfs:label xml:lang="en">Continuous Plankton Recorder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RECORDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LICOR_QUANTUM_SENSOR">
+    <rdfs:label xml:lang="en">LICOR QUANTUM SENSOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CRWVA">
+    <rdfs:label xml:lang="en">Combined Recording Wind Vane Anemograph</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OPTICAL_TRACKING">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">OPTICAL TRACKING</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PMS_2D-P_PROBE">
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+    <rdfs:label xml:lang="en">Particle Measuring Systems 2D-P Probe</rdfs:label>
+    <rdfs:label xml:lang="en">PMS 2D-P PROBE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ILAS">
+    <rdfs:label xml:lang="en">Imported Limb Atmospheric Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AIMR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Airborne Imaging Microwave Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ANALYZER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PEM">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">Particle Environment Monitor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LYSIMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SAMS">
+    <rdfs:label xml:lang="en">Stratospheric and Mesospheric Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AEM">
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+    <rdfs:label xml:lang="en">Airborne Electromagnetic Profiler</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LASER_TRACKING_REFLECTOR">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="LASER_REFLECTOR"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">LASER_TRACKING_REFLECTOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WATER_HEIGHT_GAUGES">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">WATER_HEIGHT_GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SHRIMP">
+    <rdfs:subClassOf rdf:resource="#MICROSCOPE"/>
+    <rdfs:label xml:lang="en">Sensitive High Resolution Ion Microscope</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="USIM">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">Underwater Spectral Irradiance Meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MFR">
+    <rdfs:label xml:lang="en">Multichannel Flux Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ANEROID_BAROMETERS">
+    <rdfs:label xml:lang="en">Aneroid Barometers</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BAROMETERS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="OMI">
+    <rdfs:label xml:lang="en">Ozone Measuring Instrument</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CVI">
+    <rdfs:label xml:lang="en">COUNTERFLOW VIRTUAL IMPACTOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OAMI">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Oxidants Automatic Measuring Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ICPMS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Inductively Coupled Plasma Mass Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRGUN_ARRAYS">
+    <rdfs:subClassOf rdf:resource="#ARRAY"/>
+    <rdfs:label xml:lang="en">AIRGUN ARRAYS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSJ_4">
+    <rdfs:label xml:lang="en">SSJ/4</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">Precipitating Plasma Monitor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RADAR_ECHO_SOUNDERS">
+    <rdfs:label xml:lang="en">RADAR ECHO SOUNDERS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CHAMP-BLACKJACK">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GUST_PROBES">
+    <rdfs:label xml:lang="en">GUST PROBES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#LASER_REFLECTOR">
+    <rdfs:label xml:lang="en">LASER REFLECTOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#REFLECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PYRANOGRAPH">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MSS">
+    <rdfs:label xml:lang="en">Multispectral Scanner</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SCANNER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SACC-BALCKJACK">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NUCLEAR_PRECESSION_MAGNETOMETER">
+    <rdfs:label xml:lang="en">NUCLEAR PRECESSION MAGNETOMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MAGNETOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PYRHELIOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AMS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Accelerator Mass Spectrometers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="INS">
+    <rdfs:label xml:lang="en">Inertial Navigation System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BLIP">
+    <rdfs:label xml:lang="en">Boundary Layer Instrument Package</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HUMIDITY_TRANSDUCERS">
+    <rdfs:label xml:lang="en">HUMIDITY TRANSDUCERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TMRS2">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Tower Mounted Radiometer System 2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ACTIONMETER">
+    <rdfs:label xml:lang="en">Radiation Thermocouple Actionmeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STEEL_MEASURING_TAPE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">STEEL MEASURING TAPE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#PYRANOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TLRS">
+    <rdfs:label xml:lang="en">Transportable Laser Ranging Systems</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MDI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Michelson Doppler Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OZONE_SENSOR">
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+    <rdfs:label xml:lang="en">OZONE_SENSOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CIMS">
+    <rdfs:label xml:lang="en">Chemical Ionization Mass Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UV_SPECTROMETER">
+    <rdfs:label xml:lang="en">UV SPECTROMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ROCK_CORERS">
+    <rdfs:label xml:lang="en">ROCK CORERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VGT-S10">
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+    <rdfs:label xml:lang="en">Vegetation Sensor (SPOT 4)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TEMPERATURE_PROBE">
+    <rdfs:label xml:lang="en">TEMPERATURE PROBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HXRBS">
+    <rdfs:label xml:lang="en">Hard X-ray Burst Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OXYGEN_ANALYZERS">
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">OXYGEN ANALYZERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MUON_COSMIC_RAY_DETECTORS">
+    <rdfs:label xml:lang="en">MUON COSMIC RAY DETECTORS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADS">
+    <rdfs:label xml:lang="en">Automated DNA Sequencer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GBMR">
+    <rdfs:label xml:lang="en">Ground Based Passive Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="X-SAR">
+    <rdfs:label></rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SAR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COSTEP">
+    <rdfs:label xml:lang="en">Comprehensive Suprathermal and Energetic Particle Analyzer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SIRIS">
+    <rdfs:label xml:lang="en">Stratospheric Infrared Interferometer Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:subClassOf rdf:resource="#INTERFEROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#COLLECTOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XRF">
+    <rdfs:label xml:lang="en">X-ray Fluorescence Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ACCELEROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SSM_I">
+    <rdfs:label xml:lang="en">SSM/I</rdfs:label>
+    <rdfs:label xml:lang="en">Special Sensor Microwave/Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VERTICAL_POINTING_RADAR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">VERTICAL POINTING RADAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="XRP">
+    <rdfs:label xml:lang="en">X-ray Polychromator</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SONIC_ANEMOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">SONIC ANEMOMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NATE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Neutral Atmosphere Temperature Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TELEMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FPI">
+    <rdfs:subClassOf rdf:resource="#INTERFEROMETER"/>
+    <rdfs:label xml:lang="en">Fabry-Perot Interferometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MLS">
+    <rdfs:label xml:lang="en">Microwave Limb Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#BOTTLE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LIMS">
+    <rdfs:label xml:lang="en">Limb Infrared Monitor of the Stratosphere</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MULTILENS_CAMERAS">
+    <rdfs:label xml:lang="en">MULTILENS CAMERAS</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#CAMERA"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DFS-V60">
+    <rdfs:label xml:lang="en">DFS-V 60 Channel Seismograph Attached to Seismic Geophones</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SEISMOGRAPH"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LASE">
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+    <rdfs:label xml:lang="en">Lidar Atmospheric Sensing Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#TV">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IR_CO2_ANALYZER">
+    <rdfs:label xml:lang="en">ION CO2 ANALYZER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">Infrared Carbon Dioxide Analyzer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALT">
+    <rdfs:label xml:lang="en">TOPEX Radar Altimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ALTIMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MHS">
+    <rdfs:label xml:lang="en">Microwave Humidity Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COMPASSES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ION_CHROMATOGRAPHS">
+    <rdfs:label xml:lang="en">ION CHROMATOGRAPHS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CHROMATOGRAPH"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ASAS">
+    <rdfs:label xml:lang="en">Advanced Solid-state Array Spectroradiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GC-MS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Gas Chromograph/Mass Spectrometry</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ASTER">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Advanced Spaceborne Thermal Emission and Reflection Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RAD_GAUGE">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">Ram Atmosphere Density Gauge</rdfs:label>
+    <rdfs:label xml:lang="en">RAD GAUGE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MSBS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Multibeam Swath Bathymetry System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES-PFM">
+    <rdfs:subClassOf rdf:resource="#CERES"/>
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System - Prototype Flight Model</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TIMS">
+    <rdfs:subClassOf rdf:resource="#SCANNER"/>
+    <rdfs:label xml:lang="en">Thermal Infrared Multispectral Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SNOW_TUBE">
+    <rdfs:label xml:lang="en">SNOW TUBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOPHONE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARIMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRGA">
+    <rdfs:label xml:lang="en">Infrared Gas Analyzers</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UPWARD_LOOKING_SONAR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">UPWARD LOOKING SONAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PRESSURE_JUMP_DETECTOR">
+    <rdfs:label xml:lang="en">PRESSURE JUMP DETECTOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Anemometer">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Anemometers</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TENSION_INFILTROMETER">
+    <rdfs:label xml:lang="en">TENSION INFILTROMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ARGOS">
+    <rdfs:label xml:lang="en">ARGOS Data Collection and Position Location System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GAS_CHROMATOGRAPHS">
+    <rdfs:label xml:lang="en">GAS CHROMATOGRAPHS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CHROMATOGRAPH"/>
+  </owl:Class>
+  <owl:Class rdf:ID="POAM_III">
+    <rdfs:label xml:lang="en">POAM III</rdfs:label>
+    <rdfs:label xml:lang="en">Polar Ozone and Aerosol Measurement III</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PISTON_SAMPLERS">
+    <rdfs:label xml:lang="en">PISTON SAMPLERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ELECTRON_MICROPROBES">
+    <rdfs:label xml:lang="en">ELECTRON MICROPROBES</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MINARAD_RST-10">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">MINARAD RST-10</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LIS">
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+    <rdfs:label xml:lang="en">Lighting Imaging Sensor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPMAMI">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Suspended Particulate Matter Automatic Measuring Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MESA">
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">Miniature Electrostatic Analyzer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_TEMPERATURE_PROBE">
+    <rdfs:label xml:lang="en">SOIL TEMPERATURE PROBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GUVI">
+    <rdfs:label xml:lang="en">Global Ultraviolet Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SIR-C">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">Shuttle Imaging Radar-C</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PH_METERS">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">PH METERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRGLOW_AURORA_IMAGER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AIRGLOW/AURORA IMAGER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STOKES_POLARIMETER">
+    <rdfs:subClassOf rdf:resource="#POLARIMETER"/>
+    <rdfs:label xml:lang="en">STOKES POLARIMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EDOP">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">ER2-Doppler Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSBUV">
+    <rdfs:label xml:lang="en">Shuttle Solar Backscatter Ultrviolet</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SCATTEROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AATSR">
+    <rdfs:label xml:lang="en">Advanced Along-Track Scaning Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Open-Source Neutral Mass Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GRILLE">
+    <rdfs:label xml:lang="en">Grille Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TEMPERATURE_PROFILES">
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+    <rdfs:label xml:lang="en">TEMPERATURE PROFILES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GAMMA_RADIATION_DETECTOR">
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+    <rdfs:label xml:lang="en">GAMMA RADIATION DETECTOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EDAX">
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">Energy-Dispersive Analysis of X-Ray</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#BAROMETERS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PHOTOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ORG">
+    <rdfs:label xml:lang="en">Optical Rain Gauge</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PXRI">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Pinhole X-ray Imager</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPIN-SCAN_AURORAL_IMAGER">
+    <rdfs:label xml:lang="en">SPIN-SCAN AURORAL IMAGER</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NEUSTRON_MONITORS">
+    <rdfs:label xml:lang="en">NEUSTON NET</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EHAD">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DROPSONDE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">ER-2 High Altitude Dropsonde</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CPI">
+    <rdfs:label xml:lang="en">Cloud Particle Imager</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MAMS">
+    <rdfs:label xml:lang="en">Multispectral Mapping Atmospheric Sensor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DIGISONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#THERMOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#CEILOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADG">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">Acoustic Depth Gauge</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HEPAD">
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+    <rdfs:label xml:lang="en">High Energy Proton and Alpha Detector</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATOVS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Advanced Tiros-N Operational Vertical Sounder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TUBBS_TOWS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">TUBBS TOWS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="INCUBATOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="COLORIMETERS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MSU-E">
+    <rdfs:subClassOf rdf:resource="#SCANNER"/>
+    <rdfs:label xml:lang="en">Multichannel High Resolution Electronic Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ICE_STRESS_SENSORS">
+    <rdfs:label xml:lang="en">ICE STRESS SENSORS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HPGE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Hyperpure Germanium</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MPL">
+    <rdfs:label xml:lang="en">Micropulse Lidar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LONG_STREAMERS">
+    <rdfs:label xml:lang="en">LONG STREAMERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADRAD">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">Texas Aggie Doppler Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CDS">
+    <rdfs:label xml:lang="en">Coronal Diagnostics Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SBUV">
+    <rdfs:label xml:lang="en">Solar Backscatter Ultraviolet</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STEP_FREQUENCY_RADIOMETERS">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">STEP FREQUENCY RADIOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VISUAL_OBSERVATION">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">VISUAL OBSERVATION</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EB_SPECTROMETER">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Ebert-Fastie Spectrometer</rdfs:label>
+    <rdfs:label xml:lang="en">EB SPECTROMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#FIELD_MILL">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">FIELD MILL</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SAR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">Synthetic Aperture Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SEDIMENT_CORERS">
+    <rdfs:label xml:lang="en">SEDIMENT CORERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MOBLAS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Mobile Laser System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#VIRR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Visible and Infrared Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SCR">
+    <rdfs:label xml:lang="en">Selective Chopper Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VAE">
+    <rdfs:label xml:lang="en">Visible Airglow Photometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PHOTOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEDIMENT_METERS">
+    <rdfs:label xml:lang="en">SEDIMENT METERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#METER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ELECTROMAGNETIC_DIRECTION_METER">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">ELECTROMAGNETIC DIRECTION METER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAMI">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">SO2 Automatic Measuring Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="QUARTZ_CRYSTAL_THERMOMETER">
+    <rdfs:label></rdfs:label>
+    <rdfs:subClassOf rdf:resource="#THERMOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="INFRASONIC_MICROPHONES">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">INFRASONIC MICROPHONES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERB">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Earth Radiation Budget</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NMLR">
+    <rdfs:label xml:lang="en">Nebraska Multiband Leaf Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TMR">
+    <rdfs:label xml:lang="en">TOPEX Microwave Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PHASE_CONTRAST_MICROSCOPES">
+    <rdfs:subClassOf rdf:resource="#MICROSCOPE"/>
+    <rdfs:label xml:lang="en">PHASE CONTRAST MICROSCOPES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AMSU-B">
+    <rdfs:subClassOf rdf:resource="#AMSU"/>
+    <rdfs:label xml:lang="en">Advanced Microwave Sounding Unit-B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPECTROPHOTOMETER">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AURORA_IMAGER">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IMAGER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">AIRGLOW/AURORA IMAGER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EGS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">EUV Grating Spectrograph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CERES-FM2">
+    <rdfs:label xml:lang="en">Clouds and the Earth's Radiant Energy System - Flight Model 2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CERES"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OXYGEN_DETECTORS">
+    <rdfs:label xml:lang="en">OXYGEN DETECTOR</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:about="#IMAGER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PETROGRAPHIC_MICROSCOPE">
+    <rdfs:subClassOf rdf:resource="#MICROSCOPE"/>
+    <rdfs:label xml:lang="en">PETROGRAPHIC MICROSCOPE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATMOS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Atmospheric Trace Molecule Spectroscopy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TES">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Tropospheric Emission Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PERMEAMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BATSE">
+    <rdfs:subClassOf rdf:resource="#EXPERIMENT"/>
+    <rdfs:label xml:lang="en">Burst and Transient Source Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CPA">
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">Charged Particle Analyzer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BSR">
+    <rdfs:label xml:lang="en">Broadband Solar Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="UVSP">
+    <rdfs:subClassOf rdf:resource="#POLARIMETER"/>
+    <rdfs:label xml:lang="en">Ultraviolet Spectrometer and Polarimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VLBI">
+    <rdfs:label xml:lang="en">Very Long Baseline Interferometry</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#INTERFEROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ULTRASONIC_DEPTH_GAUGE">
+    <rdfs:label xml:lang="en">ULTRASONIC DEPTH GAUGE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#HRR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">High Resolution Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#FILTER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WELL_LOGGING_TOOLS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">WELL LOGGING TOOLS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NSCAT">
+    <rdfs:label xml:lang="en">NASA Scatterometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SCATTEROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="XBT">
+    <rdfs:label xml:lang="en">Expendable Bathythermographs</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#BATHYTHERMOGRAPH"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EIT">
+    <rdfs:label xml:lang="en">Extreme Ultraviolet Imaging Telescope</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#TELESCOPE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="_2DC">
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+    <rdfs:label xml:lang="en">2D Cloud Probe</rdfs:label>
+    <rdfs:label xml:lang="en">2DC</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DENDROMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EUV_SPECTROMETER">
+    <rdfs:label xml:lang="en">EUV SPECTROMETER</rdfs:label>
+    <rdfs:label xml:lang="en">Extreme UV Spectrometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TED">
+    <rdfs:label xml:lang="en">Total Energy Detector</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DETECTOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AMPR">
+    <rdfs:label xml:lang="en">Advanced Microwave Precipitation Radiometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#AMI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WINDII">
+    <rdfs:subClassOf rdf:resource="#INTERFEROMETER"/>
+    <rdfs:label xml:lang="en">Wind Imaging Interferometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSU">
+    <rdfs:label xml:lang="en">Stratospheric Sounding Unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#UNIT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="THERMISTOR">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NEPHELOMETER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RECORDER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROSOL_MONITOR">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">AEROSOL MONITOR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MSU-SK">
+    <rdfs:subClassOf rdf:resource="#SCANNER"/>
+    <rdfs:label xml:lang="en">Multichannel Middle Resolution Conical Scanner</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ARGUS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">CO/PH4 - Carbon Monoxide/Methane</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#CAMERA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ATHOS">
+    <rdfs:subClassOf rdf:resource="#SENSOR"/>
+    <rdfs:label xml:lang="en">Airborne Tropospheric Hydroxides Sensor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PCASP">
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+    <rdfs:label xml:lang="en">Passive-Cavity Aerosol Spectrometer Probe</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SSM">
+    <rdfs:label xml:lang="en">Special Sensor Magnetometer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MAGNETOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ESUM">
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+    <rdfs:label xml:lang="en">Extreme Solar UV Monitor</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SCARAB">
+    <rdfs:label xml:lang="en">The Scanner for Radiation Budget</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SCANNER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NET_RADIOMETERS">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">NET RADIOMETERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#COUNTER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MSBSP">
+    <rdfs:subClassOf rdf:resource="#PHOTOMETER"/>
+    <rdfs:label xml:lang="en">Multi-Spectral Band Sun Photometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FLASK">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEE">
+    <rdfs:label xml:lang="en">Solar EUV Experiment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PARABOLA">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Portable Apparatus Rapid Acquisition Bidirectional Observ Land and Atmos</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MCPHA">
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+    <rdfs:label xml:lang="en">Multichannel Pulse Height Analyzer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DRIFTING_BUOYS">
+    <rdfs:label xml:lang="en">DRIFTING BUOYS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SBT">
+    <rdfs:label xml:lang="en">Select-Level Bathythermographs</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#BATHYTHERMOGRAPH"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BONGO_NETS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Bongo Nets</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SXM-2">
+    <rdfs:subClassOf rdf:resource="#PHOTOMETER"/>
+    <rdfs:label xml:lang="en">Multichannel Sun Photometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FSI">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">Filter Sampling Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WIND_PROFILERS">
+    <rdfs:label xml:lang="en">WIND PROFILERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROFILER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GPS_SONDE">
+    <rdfs:label xml:lang="en">GPS SONDE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GPS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LRA">
+    <rdfs:label xml:lang="en">Laser Retroreflector Array</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LRR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EDXA">
+    <rdfs:label xml:lang="en">Energy Dispersive X-Ray Analyzer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ANALYZER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ACRIM_II">
+    <rdfs:label xml:lang="en">Active Cavity Radiometer Irradiance Monitor II</rdfs:label>
+    <rdfs:label xml:lang="en">ACRIM II</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ACRIM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TOGA_RADAR">
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+    <rdfs:label xml:lang="en">TOGA RADAR</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TOVS">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">TIROS Operational Vertical Sounder</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="POSEIDON-2">
+    <rdfs:subClassOf rdf:resource="#ALTIMETER"/>
+    <rdfs:label xml:lang="en">JASON-1 RADAR ALTIMETER</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIR_PERMEAMTERS">
+    <rdfs:label xml:lang="en">AIR PERMEAMETERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PERMEAMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLCON">
+    <rdfs:label xml:lang="en">Measurement of the Solar Constant</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MEASUREMENT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OXYGEN_METERS">
+    <rdfs:label xml:lang="en">OXYGEN METERS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#METER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Scanning Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CLS">
+    <rdfs:subClassOf rdf:resource="#LIDAR"/>
+    <rdfs:label xml:lang="en">Cloud Lidar System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AWS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Automated Weather System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CAPS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Cloud, Aerosol, Precipitation Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LAND_SUBSIDENCE_GAUGES">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">LAND SUBSIDENCE GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NEVZOROV_PROBE">
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+    <rdfs:label xml:lang="en">NEVZOROV PROBE</rdfs:label>
+    <rdfs:label xml:lang="en">Nevzorov Water Vapor Probe</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SEARCHCOIL_MAGNETOMETERS">
+    <rdfs:label xml:lang="en">SEARCHCOIL MAGNETOMETER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MAGNETOMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PHOTOMETERS">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRS">
+    <rdfs:label xml:lang="en">Atmospheric Infrared Sounder</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOUNDER"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLSTICE">
+    <rdfs:label xml:lang="en">Solar-Stellar Irradiance Comparison Experiment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NS-001_TMS">
+    <rdfs:label xml:lang="en">NS-001 Thematic Mapper Simulator</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SIMULATOR"/>
+    <rdfs:label xml:lang="en">NS-001 TMS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#DROPSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SOUNDER">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RF_ANTENNA">
+    <rdfs:subClassOf rdf:resource="#ANTENNA"/>
+    <rdfs:label xml:lang="en">RF ANTENNA</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IRIS">
+    <rdfs:subClassOf rdf:resource="#SPECTROMETER"/>
+    <rdfs:label xml:lang="en">Infrared Interferometer Spectrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WET_DRY_PRECIPITATION_SAMPLERS">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">WET/DRY PRECIPITATION SAMPLERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="_1DP">
+    <rdfs:label xml:lang="en">1D Particles Probe</rdfs:label>
+    <rdfs:label xml:lang="en">1DP</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PHOTOSYNTHETRON">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIOSONDE">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HAMI">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">Hydrocarbon Automatic Measuring Instrument</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="XPOL">
+    <rdfs:subClassOf rdf:resource="#DOPPLER_RADAR"/>
+    <rdfs:label xml:lang="en">NOAA/ETL X-Band Polarimetric Doppler Radar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VHRR">
+    <rdfs:subClassOf rdf:resource="#RADIOMETER"/>
+    <rdfs:label xml:lang="en">Very High Resolution Radiometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOIL_DEPTH_PROBE">
+    <rdfs:label xml:lang="en">SOIL DEPTH PROBE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WWS">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">Whole Water Sampler</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OMI-EOS">
+    <rdfs:label xml:lang="en">Ozone Monitoring Instrument-EOS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#MONITOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FSSP">
+    <rdfs:label xml:lang="en">Forward Scattering Spectrometer Probe</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PROBE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STREAM_GAUGES">
+    <rdfs:subClassOf rdf:resource="#GAUGE"/>
+    <rdfs:label xml:lang="en">STREAM GAUGES</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_OSCILLATIONS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">K-LINE CCD/SOLAR OSCILLATIONS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CURRENT_METERS">
+    <rdfs:subClassOf rdf:resource="#METER"/>
+    <rdfs:label xml:lang="en">CURRENT METERS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MST">
+    <rdfs:label xml:lang="en">Mesosphere, Stratosphere and Troposphere Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#RADAR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JPL_LASER_HYGROMETERS">
+    <rdfs:subClassOf rdf:resource="#HYGROMETER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RTOVS">
+    <rdfs:label xml:lang="en">REVISED TIROS-N OPERATIONAL VERTICAL SOUNDER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SOUNDER"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DOPPLER_BEACONS">
+    <rdfs:subClassOf rdf:resource="#Instrument"/>
+    <rdfs:label xml:lang="en">DOPPLER BEACONS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GRAB_SAMPLERS">
+    <rdfs:subClassOf rdf:resource="#SAMPLER"/>
+    <rdfs:label xml:lang="en">GRAB SAMPLERS</rdfs:label>
+  </owl:Class>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 1.2, Build 161)  http://protege.stanford.edu -->
