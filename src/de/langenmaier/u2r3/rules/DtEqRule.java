@@ -30,12 +30,11 @@ public class DtEqRule extends ApplicationRule {
 			sql.append("\n\t SELECT ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language, MIN(ca1.id) AS sourceId1, '" + RelationName.classAssertionLit + "' AS sourceTable1, MIN(ca2.id) AS sourceId2, '" + RelationName.classAssertionLit + "' AS sourceTable2");
 		} else {
 			sql.append(" (left, right, left_type, right_type, left_language, right_language)");
-			sql.append("\n\t SELECT DISTINCT ca1.left, ca2.right, ca1.class, ca2.class, ca1.language, ca2.language ");
+			sql.append("\n\t SELECT DISTINCT ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language ");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionLit") + " AS ca1 ");
 		sql.append("\n\t\t CROSS JOIN classAssertionLit AS ca2");
-		//sql.append("\n\t WHERE ca1.literal = ca2.literal AND ca1.class = ca2.class AND ca1.language = ca2.language"); //TODO durch bessere Funktion ersetzen
 		sql.append("\n\t WHERE isSameLiteral(ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language)");
 		
 		if (again) {
