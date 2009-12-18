@@ -20,9 +20,11 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:owl2="http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#">
     <owl:Ontology rdf:about="http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl">
+        <rdfs:comment>Wo bzw. wer ist Walter?
+
+Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter zu tun. Nat&#252;rlich sind alle Walter recht &#228;hnlich aber nur einer ist Walter.</rdfs:comment>
         <dc:creator>Stefan Langenmaier</dc:creator>
         <dc:title>Wer ist Walter?</dc:title>
-        <rdfs:comment>Wo bzw. wer ist Walter</rdfs:comment>
     </owl:Ontology>
     
 
@@ -52,9 +54,51 @@
     
 
 
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#besitzt -->
+
+    <owl:ObjectProperty rdf:about="&owl2;besitzt">
+        <owl:equivalentProperty rdf:resource="&owl2;hat"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#hat -->
 
     <owl:ObjectProperty rdf:about="&owl2;hat"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#mag -->
+
+    <owl:ObjectProperty rdf:about="&owl2;mag"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#wird-besessen-von -->
+
+    <owl:ObjectProperty rdf:about="&owl2;wird-besessen-von">
+        <owl:inverseOf rdf:resource="&owl2;besitzt"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#wird-genannt -->
+
+    <owl:ObjectProperty rdf:about="&owl2;wird-genannt">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+        <rdfs:domain rdf:resource="&owl2;Person"/>
+        <rdfs:range rdf:resource="&owl2;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#wird-gerufen -->
+
+    <owl:ObjectProperty rdf:about="&owl2;wird-gerufen">
+        <rdf:type rdf:resource="&owl;SymmetricProperty"/>
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+    </owl:ObjectProperty>
     
 
 
@@ -69,16 +113,69 @@
     
 
 
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Brille -->
+
+    <owl:Class rdf:about="&owl2;Brille">
+        <rdfs:subClassOf rdf:resource="&owl2;Kleidung"/>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Hund -->
+
+    <owl:Class rdf:about="&owl2;Hund">
+        <rdfs:subClassOf rdf:resource="&owl2;Tier"/>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Kleidung -->
+
+    <owl:Class rdf:about="&owl2;Kleidung"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Muetze -->
+
+    <owl:Class rdf:about="&owl2;Muetze">
+        <rdfs:subClassOf rdf:resource="&owl2;Kleidung"/>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Muetzentraeger -->
+
+    <owl:Class rdf:about="&owl2;Muetzentraeger"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Person -->
+
+    <owl:Class rdf:about="&owl2;Person"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Pulli -->
+
+    <owl:Class rdf:about="&owl2;Pulli">
+        <rdfs:subClassOf rdf:resource="&owl2;Kleidung"/>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Tier -->
+
+    <owl:Class rdf:about="&owl2;Tier"/>
+    
+
+
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Walter -->
 
     <owl:Class rdf:about="&owl2;Walter">
         <owl:equivalentClass>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="&owl2;hat"/>
-                        <owl:hasValue rdf:resource="&owl2;Brille"/>
-                    </owl:Restriction>
+                    <rdf:Description rdf:about="&owl2;Person"/>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="&owl2;hat"/>
                         <owl:hasValue rdf:resource="&owl2;PudelMuetze"/>
@@ -87,9 +184,14 @@
                         <owl:onProperty rdf:resource="&owl2;hat"/>
                         <owl:hasValue rdf:resource="&owl2;RotWeisserPulli"/>
                     </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="&owl2;hat"/>
+                        <owl:hasValue rdf:resource="&owl2;WalterBrille"/>
+                    </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="&owl2;Person"/>
     </owl:Class>
     
 
@@ -107,31 +209,179 @@
 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Bjoern -->
 
-    <owl:NamedIndividual rdf:about="&owl2;Bjoern"/>
+    <owl:NamedIndividual rdf:about="&owl2;Bjoern">
+        <rdf:type rdf:resource="&owl2;Person"/>
+        <besitzt rdf:resource="&owl2;PudelMuetze"/>
+    </owl:NamedIndividual>
     
 
 
-    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Brille -->
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Charlie -->
 
-    <owl:NamedIndividual rdf:about="&owl2;Brille"/>
+    <owl:NamedIndividual rdf:about="&owl2;Charlie">
+        <rdf:type rdf:resource="&owl2;Muetzentraeger"/>
+        <hat rdf:resource="&owl2;RotWeisserPulli"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Holger -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Holger">
+        <wird-genannt rdf:resource="&owl2;Charlie"/>
+    </owl:NamedIndividual>
     
 
 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Jimmy -->
 
-    <owl:NamedIndividual rdf:about="&owl2;Jimmy"/>
+    <owl:NamedIndividual rdf:about="&owl2;Jimmy">
+        <rdf:type rdf:resource="&owl2;Person"/>
+        <besitzt rdf:resource="&owl2;WalterBrille"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Pudel -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Pudel">
+        <rdf:type rdf:resource="&owl2;Hund"/>
+    </owl:NamedIndividual>
     
 
 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#PudelMuetze -->
 
-    <owl:NamedIndividual rdf:about="&owl2;PudelMuetze"/>
+    <owl:NamedIndividual rdf:about="&owl2;PudelMuetze">
+        <rdf:type rdf:resource="&owl2;Muetze"/>
+    </owl:NamedIndividual>
     
 
 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#RotWeisserPulli -->
 
-    <owl:NamedIndividual rdf:about="&owl2;RotWeisserPulli"/>
+    <owl:NamedIndividual rdf:about="&owl2;RotWeisserPulli">
+        <rdf:type rdf:resource="&owl2;Pulli"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Sehschwaeche -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Sehschwaeche"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Waldo -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Waldo">
+        <wird-genannt rdf:resource="&owl2;Charlie"/>
+        <besitzt rdf:resource="&owl2;Sehschwaeche"/>
+        <mag rdf:resource="&owl2;WalterStyle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Wally -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Wally">
+        <wird-genannt rdf:resource="&owl2;Charlie"/>
+        <wird-genannt rdf:resource="&owl2;Holger"/>
+        <owl:sameAs rdf:resource="&owl2;Willy"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#WalterBrille -->
+
+    <owl:NamedIndividual rdf:about="&owl2;WalterBrille">
+        <rdf:type rdf:resource="&owl2;Brille"/>
+        <wird-besessen-von rdf:resource="&owl2;Waldo"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#WalterStyle -->
+
+    <owl:NamedIndividual rdf:about="&owl2;WalterStyle"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Wenda -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Wenda"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Willy -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Willy">
+        <mag rdf:resource="&owl2;Pudel"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Wilma -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Wilma"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Woof -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Woof">
+        <rdf:type rdf:resource="&owl2;Hund"/>
+        <hat rdf:resource="&owl2;PudelMuetze"/>
+        <hat rdf:resource="&owl2;RotWeisserPulli"/>
+        <hat rdf:resource="&owl2;WalterBrille"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:Class>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;hat"/>
+                <owl:hasValue rdf:resource="&owl2;PudelMuetze"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;besitzt"/>
+                <owl:someValuesFrom rdf:resource="&owl2;Muetze"/>
+            </owl:Restriction>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;mag"/>
+                <owl:hasValue rdf:resource="&owl2;Pudel"/>
+            </owl:Restriction>
+        </owl:intersectionOf>
+    </owl:Class>
+    <owl:Class>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;hat"/>
+                <owl:hasValue rdf:resource="&owl2;WalterBrille"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:intersectionOf rdf:parseType="Collection">
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;besitzt"/>
+                <owl:hasValue rdf:resource="&owl2;Sehschwaeche"/>
+            </owl:Restriction>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;mag"/>
+                <owl:hasValue rdf:resource="&owl2;WalterStyle"/>
+            </owl:Restriction>
+        </owl:intersectionOf>
+    </owl:Class>
 </rdf:RDF>
 
 

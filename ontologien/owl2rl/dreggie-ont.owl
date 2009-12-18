@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://daml.umbc.edu/ontologies/dreggie-ont#"
+     xml:base="http://daml.umbc.edu/ontologies/dreggie-ont"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont">
+        <owl:versionInfo>Filip Perich and Dipanjan Chakraborty</owl:versionInfo>
+        <rdfs:comment>Anamika Primary Ontology</rdfs:comment>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&owl;versionInfo"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Availability -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Availability"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#CPURequirement -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#CPURequirement">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Capability -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Capability">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CapabilityClass"/>
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientCapability -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientCapability">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CapabilityClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientInputType -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientInputType">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#InputClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientMobility -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientMobility">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#MobilityClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientOutputType -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientOutputType">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#OutputClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientProperty -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientProperty">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Cost -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Cost">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CostClass"/>
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#CpuType -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#CpuType">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Description -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Description">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Component"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#DiskRequirement -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#DiskRequirement">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#FileSystem -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#FileSystem">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Input -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Input">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#InputClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Local -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Local">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CostClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Memory -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Memory">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#MemoryRequirement -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#MemoryRequirement">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Mobility -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Mobility">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#MobilityClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#OSRequirement -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#OSRequirement">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#VersionName"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#OperatingSystem -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#OperatingSystem">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Output -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Output">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#OutputClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Property -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Property">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Component"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Remote -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Remote">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CostClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Requirements -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Requirements">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceCapability -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceCapability">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#CapabilityClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceInputType -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceInputType">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#InputClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceMobility -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceMobility">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#MobilityClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceOutputType -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceOutputType">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#OutputClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceProperty -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceProperty">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyType"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Size -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Size">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Software -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Software">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#SoftwareRequirement -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#SoftwareRequirement">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#VersionName"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Speed -->
+
+    <owl:ObjectProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Speed">
+        <rdfs:range rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Amount -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Amount">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+        <rdfs:range rdf:resource="&xsd;nonNegativeInteger"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ClientName -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ClientName">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Name -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Name">
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceAlias -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceAlias">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#ServiceName -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#ServiceName">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Unit -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Unit">
+        <rdfs:domain rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Version -->
+
+    <owl:DatatypeProperty rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Version">
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#AmountUnit"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#CapabilityClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#CapabilityClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Component -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Component">
+        <rdfs:label>Component</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#CostClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#CostClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#DescriptionClass">
+        <rdfs:label>Description Class</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#InputClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#InputClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#MobilityClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#MobilityClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#OutputClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#OutputClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#PropertyClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#PropertyType -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#PropertyType"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#RequirementsClass"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#Type -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#VersionName -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#VersionName"/>
+    
+
+
+    <!-- http://daml.umbc.edu/ontologies/dreggie-ont#VersionType -->
+
+    <owl:Class rdf:about="http://daml.umbc.edu/ontologies/dreggie-ont#VersionType">
+        <rdfs:subClassOf rdf:resource="http://daml.umbc.edu/ontologies/dreggie-ont#Type"/>
+    </owl:Class>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.0.0.1323) http://owlapi.sourceforge.net -->
+
