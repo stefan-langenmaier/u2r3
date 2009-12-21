@@ -16,7 +16,7 @@ public class PrpDomEntRule extends ApplicationRule {
 		
 		//relations on the right side
 		relationManager.getRelation(RelationName.propertyDomain).addAdditionRule(this);
-		relationManager.getRelation(RelationName.dataPropertyAssertion).addAdditionRule(this);
+		relationManager.getRelation(RelationName.objectPropertyAssertion).addAdditionRule(this);
 		
 		//on the left side, aka targetRelation
 		relationManager.getRelation(targetRelation).addDeletionRule(this);
@@ -31,13 +31,13 @@ public class PrpDomEntRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1, MIN(dom.id) AS sourceId2, '" + RelationName.propertyDomain + "' AS sourceTable2");
+			sql.append("\n\t SELECT ass.subject, dom.Domain, MIN(ass.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, MIN(dom.id) AS sourceId2, '" + RelationName.propertyDomain + "' AS sourceTable2");
 		} else {
 			sql.append("(entity, class)");
 			sql.append("\n\t SELECT DISTINCT ass.subject, dom.Domain");
 		}
 		
-		sql.append("\n\t FROM " + delta.getDeltaName("dataPropertyAssertion") + " AS ass");
+		sql.append("\n\t FROM " + delta.getDeltaName("objectPropertyAssertion") + " AS ass");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("propertyDomain") + " AS dom");
 		sql.append("\n\t\t ON ass.Property = dom.Property");
 
@@ -57,7 +57,7 @@ public class PrpDomEntRule extends ApplicationRule {
 
 	@Override
 	public String toString() {
-		return "classAssertionEnt(X, C) :- propertyDomain(P, C), dataPropertyAssertion(X, P, Y)";
+		return "classAssertionEnt(X, C) :- propertyDomain(P, C), objectPropertyAssertion(X, P, Y)";
 	}
 
 }
