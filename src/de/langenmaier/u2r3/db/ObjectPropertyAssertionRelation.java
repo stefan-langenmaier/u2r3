@@ -36,7 +36,10 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
-					" PRIMARY KEY (subject, property, object))");
+					" PRIMARY KEY HASH (subject, property, object));" +
+					" CREATE HASH INDEX " + tableName + "_subject ON " + tableName + "(subject);" +
+					" CREATE HASH INDEX " + tableName + "_property ON " + tableName + "(property);" +
+					" CREATE HASH INDEX " + tableName + "_object ON " + tableName + "(object);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -81,7 +84,10 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" sourceTable2 VARCHAR(100)," +
 					" sourceId3 UUID," +
 					" sourceTable3 VARCHAR(100)," +
-					" PRIMARY KEY (id, subject, property, object))");
+					" PRIMARY KEY HASH (id, subject, property, object));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

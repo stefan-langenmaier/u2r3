@@ -25,7 +25,9 @@ public class SameAsEntRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right))");
+					" PRIMARY KEY (left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -88,7 +90,9 @@ public class SameAsEntRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 UUID," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, left, right))");
+					" PRIMARY KEY (id, left, right));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

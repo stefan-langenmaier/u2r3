@@ -46,7 +46,9 @@ public class ClassAssertionEntRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" entity TEXT," +
 					" class TEXT," +
-					" PRIMARY KEY (entity, class))");
+					" PRIMARY KEY HASH (entity, class));" +
+					" CREATE HASH INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
+					" CREATE HASH INDEX " + tableName + "_class ON " + tableName + "(class);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
@@ -144,7 +146,9 @@ public class ClassAssertionEntRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 UUID," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, entity, class))");
+					" PRIMARY KEY HASH (id, entity, class));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(class);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
