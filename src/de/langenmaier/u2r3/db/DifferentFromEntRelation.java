@@ -92,22 +92,7 @@ public class DifferentFromEntRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left TEXT," +
-					" right TEXT," +
-					" sourceId1 UUID," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (id));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 
 	@Override
