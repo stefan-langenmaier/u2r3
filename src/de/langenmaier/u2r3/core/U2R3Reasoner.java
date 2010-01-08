@@ -307,7 +307,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	public Set<OWLNamedIndividual> getRelatedIndividuals(
 			OWLNamedIndividual ni, OWLObjectPropertyExpression op)
 			throws OWLReasonerException {
-		if (ni.isAnonymous() ||op.isAnonymous()) {
+		if (ni.isAnonymous() || op.isAnonymous()) {
 			return null;
 		} else {
 			ObjectPropertyAssertionRelation opa = (ObjectPropertyAssertionRelation) relationManager.getRelation(RelationName.objectPropertyAssertion);
@@ -589,6 +589,10 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 			return relationManager.getRelation(RelationName.equivalentProperty).exists(pe1.asOWLObjectProperty().getIRI().toString(), pe2.asOWLObjectProperty().getIRI().toString());
 		}
 		throw new U2R3NotImplementedException();
+	}
+	
+	public boolean isDifferentFrom(OWLLiteral l1, OWLLiteral l2) {
+		return l1.equals(l2);
 	}
 
 
