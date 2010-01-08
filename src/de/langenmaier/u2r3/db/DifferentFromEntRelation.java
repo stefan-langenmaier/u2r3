@@ -21,7 +21,9 @@ public class DifferentFromEntRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (id))");
+					" PRIMARY KEY (id));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -100,7 +102,9 @@ public class DifferentFromEntRelation extends Relation {
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 UUID," +
 					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (id))");
+					" PRIMARY KEY (id));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

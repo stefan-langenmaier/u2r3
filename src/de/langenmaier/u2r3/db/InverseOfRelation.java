@@ -17,7 +17,13 @@ public class InverseOfRelation extends Relation {
 		try {
 			tableName = "inverseOf";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), PRIMARY KEY (left, right))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" left TEXT," +
+					" right TEXT," +
+					" PRIMARY KEY (left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -52,12 +58,7 @@ public class InverseOfRelation extends Relation {
 
 	@Override
 	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), leftSourceId UUID, leftSourceTable VARCHAR(100), rightSourceId UUID, rightSourceTable VARCHAR(100), PRIMARY KEY (left, right))");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		throw new U2R3NotImplementedException();
 	}
 	
 	public void merge(DeltaRelation delta) {

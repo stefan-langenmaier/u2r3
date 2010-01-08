@@ -21,7 +21,9 @@ public class ComplementOfRelation extends Relation {
 					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right))");
+					" PRIMARY KEY (left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

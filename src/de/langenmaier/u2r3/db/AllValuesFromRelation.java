@@ -27,7 +27,10 @@ public class AllValuesFromRelation extends Relation {
 					" part TEXT," +
 					" property TEXT, " +
 					" total TEXT, " +
-					" PRIMARY KEY (part, total))");
+					" PRIMARY KEY (part, total));" +
+					" CREATE HASH INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_total ON " + getTableName() + "(total);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

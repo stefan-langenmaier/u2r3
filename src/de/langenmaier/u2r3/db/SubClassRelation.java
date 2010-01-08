@@ -29,7 +29,9 @@ public class SubClassRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" sub TEXT," +
 					" super TEXT," +
-					" PRIMARY KEY (sub, super))");
+					" PRIMARY KEY (sub, super));" +
+					" CREATE HASH INDEX " + getTableName() + "_sub ON " + getTableName() + "(sub);" +
+					" CREATE HASH INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -80,7 +82,9 @@ public class SubClassRelation extends Relation {
 					" sourceTable4 VARCHAR(100)," +
 					" sourceId5 UUID," +
 					" sourceTable5 VARCHAR(100)," +
-					" PRIMARY KEY (sub, super))");
+					" PRIMARY KEY (sub, super));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

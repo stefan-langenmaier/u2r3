@@ -25,7 +25,7 @@ public class SameAsEntRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right));" +
+					" PRIMARY KEY HASH (left, right));" +
 					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
 					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
@@ -76,8 +76,8 @@ public class SameAsEntRelation extends Relation {
 			// bis zu 6 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
-					" left VARCHAR(100)," +
-					" right VARCHAR(100)," +
+					" left TEXT," +
+					" right TEXT," +
 					" sourceId1 UUID," +
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 UUID," +
@@ -90,7 +90,7 @@ public class SameAsEntRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 UUID," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, left, right));" +
+					" PRIMARY KEY HASH (id, left, right));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right)");
 		} catch (SQLException e) {

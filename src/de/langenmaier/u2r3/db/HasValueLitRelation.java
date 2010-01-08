@@ -21,7 +21,10 @@ public class HasValueLitRelation extends Relation {
 					" value TEXT," +
 					" language TEXT," +
 					" type TEXT," +
-					" PRIMARY KEY (id, class, property, value))");
+					" PRIMARY KEY (id, class, property, value));" +
+					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

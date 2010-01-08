@@ -22,7 +22,13 @@ public class PropertyDisjointWithRelation extends Relation {
 		try {
 			tableName = "propertyDisjointWith";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, left VARCHAR(100), right VARCHAR(100), PRIMARY KEY (left, right))");
+			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
+					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" left TEXT," +
+					" right TEXT," +
+					" PRIMARY KEY (left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

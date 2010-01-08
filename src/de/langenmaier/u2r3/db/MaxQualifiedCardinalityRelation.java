@@ -23,7 +23,11 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 					" property TEXT, " +
 					" total TEXT, " +
 					" value TEXT," +
-					" PRIMARY KEY (class, property, class, value))");
+					" PRIMARY KEY (class, property, class, value));" +
+					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_total ON " + getTableName() + "(total);" +
+					" CREATE HASH INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

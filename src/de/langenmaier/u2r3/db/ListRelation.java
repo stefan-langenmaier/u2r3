@@ -20,7 +20,9 @@ public class ListRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" name TEXT," +
 					" element TEXT," +
-					" PRIMARY KEY (name, element))");
+					" PRIMARY KEY HASH (name, element));" +
+					" CREATE HASH INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
+					" CREATE HASH INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

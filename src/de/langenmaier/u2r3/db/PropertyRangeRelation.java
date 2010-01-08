@@ -27,7 +27,9 @@ public class PropertyRangeRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
 					" property TEXT," +
 					" range TEXT," +
-					" PRIMARY KEY (property, range))");
+					" PRIMARY KEY (property, range));" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_range ON " + getTableName() + "(range);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -90,7 +92,9 @@ public class PropertyRangeRelation extends Relation {
 					" sourceTable1 VARCHAR(100), " +
 					" sourceId2 UUID, " +
 					" sourceTable2 VARCHAR(100), " +
-					" PRIMARY KEY (property, range))");
+					" PRIMARY KEY (property, range));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -27,7 +27,10 @@ public class SameAsLitRelation extends Relation {
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" PRIMARY KEY (id, left, right))");
+//TODO: koennte id nicht durch die anderen vier spalten ersetzt werden?
+					" PRIMARY KEY (id, left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -68,7 +71,9 @@ public class SameAsLitRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 UUID," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, left, right))");
+					" PRIMARY KEY (id, left, right));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

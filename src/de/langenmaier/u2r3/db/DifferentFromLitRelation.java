@@ -22,7 +22,9 @@ public class DifferentFromLitRelation extends Relation {
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" PRIMARY KEY (id, left, right))");
+					" PRIMARY KEY (id, left, right));" +
+					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

@@ -22,7 +22,10 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
-					" PRIMARY KEY (subject, property, object))");
+					" PRIMARY KEY (subject, property, object));" +
+					" CREATE HASH INDEX " + getTableName() + "_subject ON " + getTableName() + "(subject);" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_object ON " + getTableName() + "(object);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

@@ -32,7 +32,9 @@ public class ClassAssertionLitRelation extends Relation {
 					" literal TEXT," +
 					" class TEXT," +
 					" language TEXT," +
-					" PRIMARY KEY (id, literal, class))");
+					" PRIMARY KEY (id, literal, class));" +
+					" CREATE HASH INDEX " + getTableName() + "_literal ON " + getTableName() + "(literal);" +
+					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 			
 			create();
@@ -88,7 +90,9 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 UUID," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, literal, class))");
+					" PRIMARY KEY (id, literal, class));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(class);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

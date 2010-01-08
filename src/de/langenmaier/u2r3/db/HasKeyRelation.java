@@ -22,7 +22,9 @@ public class HasKeyRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" class TEXT," +
 					" list TEXT," +
-					" PRIMARY KEY (class, list))");
+					" PRIMARY KEY (class, list));" +
+					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" CREATE HASH INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

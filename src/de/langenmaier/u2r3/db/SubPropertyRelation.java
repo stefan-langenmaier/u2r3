@@ -27,7 +27,9 @@ public class SubPropertyRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" sub TEXT," +
 					" super TEXT," +
-					" PRIMARY KEY (sub, super))");
+					" PRIMARY KEY (sub, super));" +
+					" CREATE HASH INDEX " + getTableName() + "_sub ON " + getTableName() + "(sub);" +
+					" CREATE HASH INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -87,7 +89,9 @@ public class SubPropertyRelation extends Relation {
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 UUID," +
 					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (sub, super))");
+					" PRIMARY KEY (sub, super));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

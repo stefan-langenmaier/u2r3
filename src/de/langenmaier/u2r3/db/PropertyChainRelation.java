@@ -22,7 +22,9 @@ public class PropertyChainRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
 					" property TEXT," +
 					" list TEXT," +
-					" PRIMARY KEY (property, list))");
+					" PRIMARY KEY (property, list));" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();

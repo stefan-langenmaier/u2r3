@@ -27,7 +27,9 @@ public class PropertyDomainRelation extends Relation {
 					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
 					" property TEXT," +
 					" domain TEXT," +
-					" PRIMARY KEY (property, domain))");
+					" PRIMARY KEY (property, domain));" +
+					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE HASH INDEX " + getTableName() + "_domain ON " + getTableName() + "(domain);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
 
 			create();
@@ -63,7 +65,9 @@ public class PropertyDomainRelation extends Relation {
 					" sourceTable1 VARCHAR(100), " +
 					" sourceId2 UUID, " +
 					" sourceTable2 VARCHAR(100), " +
-					" PRIMARY KEY (property, domain))");
+					" PRIMARY KEY (property, domain));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
