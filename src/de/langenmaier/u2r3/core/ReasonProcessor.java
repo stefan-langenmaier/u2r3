@@ -15,6 +15,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.util.RuleActionQueue;
 import de.langenmaier.u2r3.util.Settings;
+import de.langenmaier.u2r3.util.Settings.ConsistencyLevel;
 import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 public class ReasonProcessor {
@@ -84,20 +85,28 @@ public class ReasonProcessor {
 		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 			return false;
 		} else if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
-			//Konsistenzregeln anwenden
-			logger.debug("Applying consistency rules");
-			for(RuleAction ra : actions.getConsistencyRules()) {
-				ra.apply();
+			if (settings.getConsistencyLevel() == ConsistencyLevel.DEFAULT) {
+				//Konsistenzregeln anwenden
+				logger.debug("Applying consistency rules");
+				for(RuleAction ra : actions.getConsistencyRules()) {
+					ra.apply();
+				}
+				logger.debug("Applied consistency rules");
+				
 			}
-			logger.debug("Applied consistency rules");
-			logger.trace(" ------------------------------------ ");
-			logger.trace(" --------     next round     -------- ");
-			logger.trace(" ------------------------------------ ");
+			
+			logger.debug("Merging relations");
 			for (Relation r : relationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();
 				}
 			}
+			logger.debug("Relations merged");
+			
+			logger.trace(" ------------------------------------ ");
+			logger.trace(" --------     next round     -------- ");
+			logger.trace(" ------------------------------------ ");
+			
 			return (!(actions.isEmpty()));
 		}
 		return false;
