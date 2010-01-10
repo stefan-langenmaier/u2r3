@@ -20,7 +20,7 @@ Allerdings wird die Komplexität deeer Umsetzung versucht zu reduzieren und auf 
 
 Um den Schlussfolgerer auch wirklich benutzbar zu machen brauch er ein möglichst breites Einsatzgebiet. Dazu gehören eine dokumentierte und übliche Schnittstelle. Daurm setzt dieser Schlussfolgere auf der der OWLAPI v3 \cite{OWLAPI} auf. Dieser ermöglicht es nicht nur auf einfache Art und WEise viele syntaktische Varianten von OWL2 zu parsen, sondern stellt auch eine Schnittstelle für Schlusfolgerer zur Verfügung, die bereits von namhaften Ontologie Anwendungen (Liste) unterstützt wird, Desweiteren ist das breite Einsatzgebiet ein Grund für die Auswahl des RL Profils gewesen. Diese Teilmenge von OWL2 ist auf eine große Ausdrucksmächtigkeit ausgelegt, aber trotzdem noch entscheidbar und effizient zu bleiben. Letztendlich wurd auch die Entwicklung des u2r3 so konzipiert, das er auf verschiedene Vorrausetzungen optimiert werden kann, um nur das benötigte zu berechnen.
 
-Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er quasi auf einem reinen open-source Stack verfügbar. Die verwendete Daten H2 ist in Java implementiert und ioen-source, genauso wie die OWLAPI.
+Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er quasi auf einem reinen open-source Stack verfügbar. Die verwendete Daten H2 ist in Java implementiert und open-source, genauso wie die OWLAPI.
 
 Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB} ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem igbt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurden. Natürlich muss man sich abschließen bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
@@ -42,4 +42,11 @@ Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden
             - eigene (smart relations)
 \end{verbatim}
 
-Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann.
+Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann, auch wenn hier sicherlich nicht alles behandelt und implementiert werden kann. Trotzdem wird auch versucht offene Optimierungen anzusprechen.
+
+\begin{itemize}
+  \item Parallelisierung
+  \item Approximation
+  \item smart relations (eigene)
+\end{itemize}
+
