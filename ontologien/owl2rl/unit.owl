@@ -1,0 +1,1536 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns="http://www.loria.fr/~coulet/ontology/unit/version1.9/unit.owl#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xml:base="http://www.loria.fr/~coulet/ontology/unit/version1.9/unit.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unconsistency checked by RacerPro .1.9.0 the 02/14/2007</rdfs:comment>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >version:    02/14/2007 modified
+modifier:  Adrien Coulet
+contact:   coulet at loria dot fr
+University of Nancy</owl:versionInfo>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >- This ontology was originally downloaded from sourceforge in OBO format. 
+- This ontology was translated in OWL thanks to the BONG plugin for protege.
+- "OBO_" prefixes have been removed in the OWL file.</owl:versionInfo>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >version:  1.9
+release:   02/14/2007
+contact: obo-unit@lists.sourceforge.net</owl:versionInfo>
+  </owl:Ontology>
+  <owl:Class rdf:ID="parts_per_quadrillion">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="parts_per_notation"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per quadrillion</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="molar">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="unit_of_molarity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >molar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="millivolt">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="electric_potential_difference"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millivolt</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="power_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >power unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="gram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="magnetic_flux">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >magnetic flux</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="gram_per_deciliter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="mass_density_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram per deciliter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_per_square_meter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="area_density_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram per square meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="meter_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >meter per second</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="speed_velocity_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="concentration_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >concentration unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="milligram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milligram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="becquerel">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >becquerel</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="activity__of_a_radionuclide__unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="time_derived_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >time derived unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="millimolar">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molarity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millimolar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="radiation_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radiation unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="volt_hour">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volt-hour</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#magnetic_flux"/>
+  </owl:Class>
+  <owl:Class rdf:ID="angular_velocity_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angular velocity unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="pascal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="pressure_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pascal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="illuminance_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="light_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >illuminance unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="milliliter_per_kilogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milliliter per kilogram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="specific_volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="volume_per_unit_volume">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volume per unit volume</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="microliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="chroma_sampling_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >chroma sampling unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="image_resolution_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_centimeter_per_mole">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="molar_volume_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic centimeter per mole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="volt">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#electric_potential_difference"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volt</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="month">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >month</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#specific_volume_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >specific volume unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="tesla">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="magnetic_flux_density"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tesla</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picogram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="nanomolal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanomolal</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="unit_of_molality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="millimole">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="substance_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millimole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="watt_hour">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >watt-hour</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="energy_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="milliliter_per_cubic_meter">
+    <rdfs:subClassOf rdf:resource="#volume_per_unit_volume"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milliliter per cubic meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanovolt">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanovolt</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#electric_potential_difference"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="microgram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microgram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="micromolal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >micromolal</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="information_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >information unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#mass_density_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass density unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="density_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="percent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >percent</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ratio"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="year">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >year</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#area_density_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >area density unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#density_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="millimolal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millimolal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ratio">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ratio</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="dimensionless_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="normal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="unit_of_normality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >normal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="femtomole">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >femtomole</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#substance_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#activity__of_a_radionuclide__unit">
+    <rdfs:subClassOf rdf:resource="#radiation_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >activity (of a radionuclide) unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_centimeter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic centimeter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#electric_potential_difference">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >electric potential difference</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="temperature_derived_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >temperature derived unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="momentum_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >momentum unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="megabyte">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >megabyte</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="linear_density_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >linear density unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#density_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="angstrom">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="length_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angstrom</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="katal_per_cubic_meter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >katal per cubic meter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="catalytic__activity__concentration_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="colony_forming_unit_per_volume">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >colony forming unit per volume</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="millisievert">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="dose_equivalent_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millisievert</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="katal_per_liter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#catalytic__activity__concentration_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >katal per liter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="absorbed_dose_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >absorbed dose unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#radiation_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="lumen">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="luminous_flux_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lumen</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lux">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lux</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#illuminance_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="unit_per_milliliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit per milliliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="unit_per_volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="nanomolar">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molarity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanomolar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picometer">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#length_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="microgray">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microgray</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#absorbed_dose_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="katal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >katal</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="catalytic_activity_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="micromolar">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >micromolar</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molarity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_per_meter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram per meter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#linear_density_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mole_fraction">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="fraction"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mole fraction</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pi">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#dimensionless_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pi</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="plaque_forming_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="count"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >plaque forming unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kelvin">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kelvin</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="temperature_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#magnetic_flux_density">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >magnetic flux density</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanogram</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="deciliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deciliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="kilowatt_hour">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#energy_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilowatt-hour</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#unit_of_molality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit of molality</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="nanosecond">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanosecond</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="time_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="luminance_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#light_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >luminance unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="einstein_per_square_meter_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >einstein per square meter per second</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="irradiance_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="plaque_forming_unit_per_volume">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >plaque forming unit per volume</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="one_turn_per_second">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="rotational_frequency_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >one turn per second</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilodalton">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilodalton</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#mass_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#dimensionless_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dimensionless unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#derived_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="nanogray">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanogray</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#absorbed_dose_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#unit_per_volume_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit per volume unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="fahrenheit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fahrenheit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#temperature_derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="steradian">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="solid_angle_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >steradian</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="attomole">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >attomole</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#substance_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="microliter_per_kilogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microliter per kilogram</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#specific_volume_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="counts_per_minute">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >counts per minute</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="joule">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#energy_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >joule</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#derived_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >derived unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="gram_per_milliliter">
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram per milliliter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="degree_celsius">
+    <rdfs:subClassOf rdf:resource="#temperature_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >degree celsius</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="candela_per_square_meter">
+    <rdfs:subClassOf rdf:resource="#luminance_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >candela per square meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sievert">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sievert</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#dose_equivalent_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="microsievert">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microsievert</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#dose_equivalent_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="square_centimeter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >square centimeter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="area_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="mass_percentage">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:subClassOf rdf:resource="#percent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass percentage</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="radian_per_second_per_second">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="angular_acceleration_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radian per second per second</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="degree">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="plane_angle_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >degree</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="rad">
+    <rdfs:subClassOf rdf:resource="#absorbed_dose_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rad</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="femtomolar">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#unit_of_molarity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >femtomolar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="watt_per_steradian_per_square_meter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >watt per steradian per square meter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="radiance_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_meter_per_mole">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic meter per mole</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#molar_volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="gram_per_cubic_centimeter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram per cubic centimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#luminous_flux_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#light_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >luminous flux unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="radian_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radian per second</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angular_velocity_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="square_meter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#area_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >square meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="parts_per_trillion">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per trillion</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#parts_per_notation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="radian">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radian</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#plane_angle_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_per_mole">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="molar_mass_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram per mole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="watt_per_square_meter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#irradiance_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >watt per square meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#speed_velocity_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >speed/velocity unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_meter_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram meter per second</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#momentum_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#temperature_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="base_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >temperature unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#image_resolution_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >image resolution unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cells_per_milliliter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cell_concentration_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cells per milliliter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanometer">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#length_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="parts_per_million">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#parts_per_notation"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per million</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#molar_volume_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >molar volume unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="electric_charge">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >electric charge</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="molal">
+    <rdfs:subClassOf rdf:resource="#unit_of_molality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >molal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilovolt">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilovolt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_potential_difference"/>
+  </owl:Class>
+  <owl:Class rdf:ID="parts_per_thousand">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per thousand</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#parts_per_notation"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="micron">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="spatial_resolution_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >micron</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="curie">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curie</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="micrometer">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#length_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >micrometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#substance_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >substance unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="gram_per_mole">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#molar_mass_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram per mole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="coulomb">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >coulomb</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_charge"/>
+  </owl:Class>
+  <owl:Class rdf:ID="purity_percentage">
+    <rdfs:subClassOf rdf:resource="#percent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >purity percentage</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="microampere">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="electric_current_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microampere</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#unit_of_normality">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit of normality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="watt_per_steradian">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >watt per steradian</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="radiant_intensity_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_decimeter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic decimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="centimeter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#length_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >centimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_per_liter">
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram per liter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ampere">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#electric_current_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ampere</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="mass_volume_percentage">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass volume percentage</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:subClassOf rdf:resource="#percent"/>
+  </owl:Class>
+  <owl:Class rdf:about="#electric_current_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >electric current unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="week">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >week</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#light_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#plane_angle_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >plane angle unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="angle_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#pressure_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pressure unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#irradiance_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >irradiance unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#light_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="plaque_forming_unit_per_milliliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >plaque forming unit per milliliter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#plaque_forming_unit_per_volume"/>
+  </owl:Class>
+  <owl:Class rdf:about="#angular_acceleration_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angular acceleration unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#rotational_frequency_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rotational frequency unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hour">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hour</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#unit_of_molarity">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit of molarity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="milligray">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milligray</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#absorbed_dose_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="milliliter_per_liter">
+    <rdfs:subClassOf rdf:resource="#volume_per_unit_volume"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milliliter per liter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picoliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picoliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#molar_mass_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >molar mass unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="microsecond">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microsecond</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#time_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="femtoliter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >femtoliter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picomolar">
+    <rdfs:subClassOf rdf:resource="#unit_of_molarity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picomolar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#catalytic_activity_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >catalytic activity unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picomolal">
+    <rdfs:subClassOf rdf:resource="#unit_of_molality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picomolal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="byte">
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >byte</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#area_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >area unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="disintegrations_per_second">
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disintegrations per second</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="picosecond">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picosecond</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#time_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#spatial_resolution_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spatial resolution unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#image_resolution_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="volume_percentage">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volume percentage</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#percent"/>
+    <rdfs:subClassOf rdf:resource="#volume_per_unit_volume"/>
+  </owl:Class>
+  <owl:Class rdf:ID="force_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >force unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanoliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanoliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="century">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >century</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#time_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >time unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="luminous_intensity_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >luminous intensity unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >second</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#time_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pH">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pH</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:subClassOf rdf:resource="#dimensionless_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="micromole">
+    <rdfs:subClassOf rdf:resource="#substance_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >micromole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="mebibyte">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mebibyte</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="microvolt">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microvolt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_potential_difference"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mole">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mole</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#substance_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#count">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >count</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#dimensionless_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="acceleration_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >acceleration unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="enzyme_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >enzyme unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#catalytic_activity_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#catalytic__activity__concentration_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >catalytic (activity) concentration unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="picovolt">
+    <rdfs:subClassOf rdf:resource="#electric_potential_difference"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picovolt</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="parts_per_billion">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#parts_per_notation"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per billion</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#mass_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass unit</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="disintegrations_per_minute">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disintegrations per minute</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="roentgen">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >roentgen</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="exposure_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="microcurie">
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microcurie</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#angle_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angle unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="milliliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milliliter</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#radiant_intensity_unit">
+    <rdfs:subClassOf rdf:resource="#light_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radiant intensity unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#solid_angle_unit">
+    <rdfs:subClassOf rdf:resource="#angle_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >solid angle unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="liter_per_kilogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >liter per kilogram</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#specific_volume_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="colony_forming_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >colony forming unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#count"/>
+  </owl:Class>
+  <owl:Class rdf:about="#radiance_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radiance unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#light_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#length_unit">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#base_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >length unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="minute">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >minute</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kibibyte">
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kibibyte</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dots_per_inch">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dots per inch</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#spatial_resolution_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="half_life">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >half life</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="liter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#volume_unit"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >liter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="gram_per_liter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gram per liter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="millimeter">
+    <rdfs:subClassOf rdf:resource="#length_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilobyte">
+    <rdfs:subClassOf rdf:resource="#information_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilobyte</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="femtogram">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >femtogram</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mass_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_meter_per_kilogram">
+    <rdfs:subClassOf rdf:resource="#specific_volume_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic meter per kilogram</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanosievert">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanosievert</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#dose_equivalent_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="milligram_per_milliliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milligram per milliliter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram_per_cubic_meter">
+    <rdfs:subClassOf rdf:resource="#mass_density_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram per cubic meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#volume_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volume unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="meter_per_second_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >meter per second per second</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#acceleration_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="day">
+    <rdfs:subClassOf rdf:resource="#time_derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >day</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#fraction">
+    <rdfs:subClassOf rdf:resource="#ratio"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fraction</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="square_millimeter">
+    <rdfs:subClassOf rdf:resource="#area_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >square millimeter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unit_per_liter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unit per liter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#unit_per_volume_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="megavolt">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >megavolt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_potential_difference"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hertz">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hertz</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="frequency_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#base_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >base unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#frequency_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >frequency unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="candela">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >candela</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#luminous_intensity_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="milliampere">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >milliampere</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_current_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="weber">
+    <rdfs:subClassOf rdf:resource="#magnetic_flux"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >weber</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pixels_per_inch">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pixels per inch</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#spatial_resolution_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="millisecond">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millisecond</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#time_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mass_per_unit_volume">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass per unit volume</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="confluence_percentage">
+    <rdfs:subClassOf rdf:resource="#percent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >confluence percentage</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pixels_per_millimeter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pixels per millimeter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#spatial_resolution_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="Roentgen_equivalent_man">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Roentgen equivalent man</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#dose_equivalent_unit"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="picomole">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >picomole</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#substance_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="base_pair">
+    <rdfs:subClassOf rdf:resource="#length_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >base pair</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#density_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >density unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#cell_concentration_unit">
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cell concentration unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="kilogram">
+    <rdfs:subClassOf rdf:resource="#mass_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilogram</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="meter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >meter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#length_unit"/>
+  </owl:Class>
+  <owl:Class rdf:about="#parts_per_notation">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per notation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration_unit"/>
+    <rdfs:subClassOf rdf:resource="#dimensionless_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dalton">
+    <rdfs:subClassOf rdf:resource="#mass_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dalton</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="parts_per_hundred">
+    <rdfs:subClassOf rdf:resource="#parts_per_notation"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parts per hundred</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#energy_unit">
+    <rdfs:subClassOf rdf:resource="#derived_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >energy unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dynamic_range_unit">
+    <rdfs:subClassOf rdf:resource="#image_resolution_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dynamic range unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="newton">
+    <rdfs:subClassOf rdf:resource="#force_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >newton</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nanomole">
+    <rdfs:subClassOf rdf:resource="#substance_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nanomole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="colony_forming_unit_per_milliliter">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >colony forming unit per milliliter</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#colony_forming_unit_per_volume"/>
+  </owl:Class>
+  <owl:Class rdf:ID="molecule_count">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >molecule count</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#count"/>
+  </owl:Class>
+  <owl:Class rdf:ID="kilovolt_hour">
+    <rdfs:subClassOf rdf:resource="#magnetic_flux"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >kilovolt-hour</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#exposure_unit">
+    <rdfs:subClassOf rdf:resource="#radiation_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >exposure unit</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="foot_candle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >foot candle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#illuminance_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="millicurie">
+    <rdfs:subClassOf rdf:resource="#activity__of_a_radionuclide__unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >millicurie</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="watt">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >watt</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#power_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cubic_meter">
+    <rdfs:subClassOf rdf:resource="#volume_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cubic meter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#dose_equivalent_unit">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dose equivalent unit</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#radiation_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="microeinstein_per_square_meter_per_second">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >microeinstein per square meter per second</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#irradiance_unit"/>
+  </owl:Class>
+  <owl:Class rdf:ID="gray">
+    <rdfs:subClassOf rdf:resource="#absorbed_dose_unit"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >gray</rdfs:label>
+  </owl:Class>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.2.1, Build 365)  http://protege.stanford.edu -->

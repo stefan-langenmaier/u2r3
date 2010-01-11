@@ -1,0 +1,1860 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://geobrain.laits.gmu.edu/ontology/2004/11/gcmd-platform.owl#"
+  xml:base="http://geobrain.laits.gmu.edu/ontology/2004/11/gcmd-platform.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="METEOR-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="METEOR"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PLATFORM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="NIMBUS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARD-7A">
+    <rdfs:label xml:lang="en">Solar Radiation-2</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SOLRAD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5B_F3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-8">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-8</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SPACE_SHUTTLE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">SPACE SHUTTLE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CBERS-1">
+    <rdfs:label xml:lang="en">China-Brazil Earth Resource Satellite 1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="CBERS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SPOT-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SPOT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="fr">Systeme Probatoire Pour l'Observation de la Terre-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-62">
+    <rdfs:label xml:lang="en">Space Transport System STS-62</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="EXPLORER-35">
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform D (IMP-E)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GMS-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GMS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Meteorological Satellite-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AE-A">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmosphere Explorer A (Explorer 17)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-4">
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-4</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="OSO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AEM">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Applications Explorer Missioin</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NIMBUS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PROFS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Program for Regional Observing and Forecast Systems Mesonet</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ETALON-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ETALON"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ISIS-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ISIS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">International Satellite for Ionospheric Studies-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ODIN">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ORBVIEW-2">
+    <rdfs:label xml:lang="en">Orbital Science Corporation OrbView-2 Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MOS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="MOS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Japanese Marine Observation Satellite 1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-12">
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-12</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GOES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PIBAL">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BALLOON"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Pilot Balloons</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Stratospheric Aerosol and Gas Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ADEOS-I">
+    <rdfs:label xml:lang="en">Advanced Earth Observing Satellite-I</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ADEOS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOS-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GEOS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geodetic Earth Orbiting Satellite-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALOUETTE-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ALOUETTE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GSN">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Global Seismic Network</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NEUTRON_MONITOR_STATIONS">
+    <rdfs:label xml:lang="en">NEUTRON MONITOR STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GROUND_STATION">
+    <rdfs:label xml:lang="en">GROUND STATION</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-64">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-64</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-1_F1">
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-39">
+    <rdfs:label xml:lang="en">Space Transport System STS-39</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-2">
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-2</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="OGO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-41">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-41</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="QUIKSCAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Quick Recovery Scatterometer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA_POES">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">NOAA Polar Orbiting Environmental Satellites</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AE-C">
+    <rdfs:label xml:lang="en">Atmosphere Explorer C (Explorer 51)</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ACRIMSAT">
+    <rdfs:label xml:lang="en">Active  Cavity Radiometer Irradiance Monitor Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EXPLORER-9">
+    <rdfs:label xml:lang="en">Air Density Ballon</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#BALLOON"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AEM-2">
+    <rdfs:subClassOf rdf:resource="#AEM"/>
+    <rdfs:label xml:lang="en">Applications Explorer Missioin-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-51F">
+    <rdfs:label xml:lang="en">Space Transport System STS-51F</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-5">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#NIMBUS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CRYOSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IMP">
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARD-10">
+    <rdfs:label xml:lang="en">Solar Radiation-10</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOLRAD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SORCE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Solar Radiation and Climate Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OKEAN-O">
+    <rdfs:label xml:lang="en">Ukranian-Russian Ocean Remote Sensing System</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="OCEAN_PLATFORM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="STELLA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRMM">
+    <rdfs:label xml:lang="en">Tropical Rainfall Measuring Mission</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="MIO">
+    <rdfs:label xml:lang="en">Mobile Ionospheric Observatory</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-10">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-10</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LAGEOS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="LAGEOS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Laser Geodetic Satellite-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F11">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F11</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IRAS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Infrared Astronomy Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALOS">
+    <rdfs:label xml:lang="en">Advanced Land Observing Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GLONASS-40-82">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Global Navigation Satellite System 40-82</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-7">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="METEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AWOS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Automated Weather Observing System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GMS-4">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GMS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Meteorological Satellite-4</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-4">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="LANDSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="TIROS-N">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="TIROS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Television Infrared Operational Satellite-N</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FIXED_OBSERVATION_STATIONS">
+    <rdfs:label xml:lang="en">FIXED OBSERVATION STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OV-102">
+    <rdfs:label xml:lang="en">Columbia Space Shuttle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPACE_SHUTTLE"/>
+  </owl:Class>
+  <owl:Class rdf:about="#METEOR">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="R_V_NBP">
+    <rdfs:label xml:lang="en">R/V Nathaniel B. Palmer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARD-1">
+    <rdfs:label xml:lang="en">Solar Radiation-1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOLRAD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPOT-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPOT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="fr">Systeme Probatoire Pour l'Observation de la Terre-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AE-E">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmosphere Explorer E (Explorer 55)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ARGON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-11">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-11</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F13">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F13</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-7">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="RAE-A">
+    <rdfs:label xml:lang="en">Radio Astronomy Explorer-A</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="RAE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SPOT-4">
+    <rdfs:label xml:lang="fr">Systeme Probatoire Pour l'Observation de la Terre-4</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPOT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLRAD-7B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOLRAD"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Solar Radiation-7B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-56">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-56</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#SPOT">
+    <rdfs:label xml:lang="fr">Systeme Probatoire Pour l'Observation de la Terre</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ARWS">
+    <rdfs:label xml:lang="en">Automatic Remote Weather System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-6">
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-6</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MIPS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Mobile Integrated Profiling System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BAPMON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Background Air Pollution Monitoring Stations</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOR-3M">
+    <rdfs:subClassOf rdf:resource="#METEOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="METOP">
+    <rdfs:label></rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRS-1A">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="IRS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Indian Remote Sensing Satellite-1A</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-68">
+    <rdfs:label xml:lang="en">Space Transport System STS-68</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOMET">
+    <rdfs:label xml:lang="en">USGS Desert Winds Geological/Meteorological Ground Station</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEISMOLOGICAL_STATIONS">
+    <rdfs:label xml:lang="en">SEISMOLOGICAL STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SPACELAB-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SPACELAB"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="UARS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Upper Atmosphere Research Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OV-104">
+    <rdfs:label xml:lang="en">Atlantis Space Shuttle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPACE_SHUTTLE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F15">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F15</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-7">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="INSAT">
+    <rdfs:label xml:lang="en">Indian National Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SPACELAB-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SPACELAB"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MIDAS_2">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Missile Defense Alarm System 2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AIR_PHOTOGRAPH">
+    <rdfs:label xml:lang="en">AIR PHOTOGRAPH</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRS-1C">
+    <rdfs:label xml:lang="en">Indian Remote Sensing Satellite-1C</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AEROS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="PMS">
+    <rdfs:label xml:lang="en">Permafrost Monitoring Stations</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-66">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-66</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-4">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-4</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIO_TRANSMITTER">
+    <rdfs:label xml:lang="en">RADIO TRANSMITTER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IMAGE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Imager for Magnetopause -to - Aurora Global Exploration</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HATDL">
+    <rdfs:label xml:lang="en">Hobo XT Air Temperature Logger</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JASON-1">
+    <rdfs:label></rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SMM">
+    <rdfs:label xml:lang="en">Solar Maximum Mission</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="INSAT-1B">
+    <rdfs:subClassOf rdf:resource="#INSAT"/>
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform-1B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-5">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-5</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#GEOS">
+    <rdfs:label xml:lang="en">Geodetic Earth Orbiting Satellite</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="COASTAL_STATIONS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">COASTAL STATIONS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SRL-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SRL"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Radar Laboratory-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ERS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">European Remote Sensing Satellite-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IMP-8">
+    <rdfs:subClassOf rdf:resource="#IMP"/>
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform-8</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="YOHKOH">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-6">
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-6</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OSO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GFO-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEOSAT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">GEOSAT FOLLOW-ON-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-3">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-3</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-13">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-13</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ALOUETTE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AEROS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSTA-1">
+    <rdfs:label xml:lang="en">Office of Space &amp; Terrestrial Applicaitons-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ECHO-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ECHO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GONG_NETWORK">
+    <rdfs:label xml:lang="en">Global Oscillation Network Group</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="APOLLO-SOYUZ">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="APOLLO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DASH-2">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#NIMBUS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRS-P3">
+    <rdfs:label xml:lang="en">Indian ISRO IRS-P3 Spacecraft</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-17">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-17</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-8">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DIADEM-1D">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="DIADEM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SMS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SMS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Synchronous Meteorological Satellite 1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BE-B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="BE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Beacon Explorer-B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SME">
+    <rdfs:label xml:lang="en">Solar Mesospheirc Explorer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-72">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-72</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Dynamics Explorer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EOS_CHEM">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Observing System - Chemistry</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GMS-5">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GMS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Meteorological Satellite-5</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATS-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ATS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Advanced Technology Satellite-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-9">
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-9</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-4">
+    <rdfs:label xml:lang="en">Meteosat Operational Programme 1 (MOP-1)</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GPS-35">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GPS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Global Positioning System Satellite-35</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#LANDSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-6">
+    <rdfs:subClassOf rdf:resource="#NIMBUS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TIPS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Tether Physics and Survivability</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#BALLOON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SKYLAB">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-5">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#LANDSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-15">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-15</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AD-B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="AD"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmosphere Dynamics B (Explorer 24)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATS-1">
+    <rdfs:label xml:lang="en">Advanced Technology Satellite-1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ATS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARD-9">
+    <rdfs:label xml:lang="en">Solar Radiation-9</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SOLRAD"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-1_F3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-5">
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-5</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OGO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SUBMARINE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DE-2">
+    <rdfs:label xml:lang="en">Dynamics Explorer-2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AES">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Atmospheric Environment Service</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-10">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#GPS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Global Positioning System Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="IMP-I">
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform-I</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#IMP"/>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-6">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Meteosat Operational Programme 2 (MOP-3)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-43">
+    <rdfs:label xml:lang="en">Space Transport System STS-43</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ISIS-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ISIS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">International Satellite for Ionospheric Studies-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="VENERA-13">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="VENERA"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NAVSTAR">
+    <rdfs:label xml:lang="en">NAVSTAR Global Positioning System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="POLAR">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ISS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">International Space Station</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-8">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OSO"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-8</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HAGGLUND">
+    <rdfs:label xml:lang="en">NZAP Hagglund Oversnow Vehicle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#BE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Beacon Explorer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-7">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-7</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-1">
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OSO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#AD">
+    <rdfs:label xml:lang="en">Atmosphere Dynamics</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-12">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="IKONOS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F7">
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F7</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-2">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RESURS-01">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CRRES">
+    <rdfs:label xml:lang="en">Combined Release and Radiation Effects Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SV">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Snow Vechicle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#LAGEOS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Laser Geodetic Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MESONET">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Mesoscale Meteorological Network</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-4">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#CBERS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">China-Brazil Earth Resource Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ETALON-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ETALON"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SPAS-II">
+    <rdfs:label xml:lang="en">Shuttle Pallet Satellite-II</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ATLAS_MOORINGS">
+    <rdfs:label xml:lang="en">Autonomous Temperature Line Acquisition System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">ATLAS MOORINGS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LANYARD">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-45">
+    <rdfs:label xml:lang="en">Space Transport System STS-45</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-6">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEMINI"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE-III">
+    <rdfs:label xml:lang="en">Stratospheric Aerosol and Gas Experiment-II</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAGE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F9">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DMSP"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F9</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-59">
+    <rdfs:label xml:lang="en">Space Transport System STS-59</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MICROLAB-1">
+    <rdfs:label xml:lang="en">OSC Microlab-1 Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GEMINI">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#DMSP">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-3">
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-3</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OGO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="CLOUDSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GMS-1">
+    <rdfs:label xml:lang="en">Geostationary Meteorological SatelliteGeostationary Meteorological Satellite-1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GMS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MAXIS">
+    <rdfs:label xml:lang="en">MeV Auroral X-ray Imaging and Spectroscopy</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NSRN">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">NOAA Solar Radiation Network</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OSO"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="WESTPAC">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Western Pacific Laser Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-11">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-11</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOR-3">
+    <rdfs:subClassOf rdf:resource="#METEOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ACE">
+    <rdfs:label xml:lang="en">Advanced Composition Explorer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GMCC">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">NOAA Geophysical Monitoring for Climate Change Stations</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="COSMOS_1500">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="COSMOS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">COSMOS 1500</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CMDL">
+    <rdfs:label xml:lang="en">NOAA Climate Monitoring Diagnostics Laboratory Stations</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AE-B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#AE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Atmosphere Explorer B (Explorer 32)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OGO"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ECHO">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRITON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Triangle Trans-Ocean Buoy Network</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SEASOAR">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WTSS">
+    <rdfs:label xml:lang="en">Water Temperature and Salinity System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DE-1">
+    <rdfs:label xml:lang="en">Dynamics Explorer-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="C-MAN">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Coastal Marine Network</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#LANDSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-11">
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-11</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#ATS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Advanced Technology Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SMART-R">
+    <rdfs:label xml:lang="en">Shared Mobile Atmospheric Research and Teaching Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOUNDING_ROCKET">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">SOUNDING ROCKET</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ANTHMS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Antarctic Hydrometric Stations</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERS-2">
+    <rdfs:label xml:lang="en">European Remote Sensing Satellite-2</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ERS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VENERA-14">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#VENERA"/>
+    </rdfs:subClassOf>
+    <rdfs:label></rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EXOS-A">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-4">
+    <rdfs:subClassOf rdf:resource="#NIMBUS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TRACE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Transition Region and Coronal Explorer</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SOLRAD">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Solar Radiation</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TIROS-M">
+    <rdfs:label xml:lang="en">Television Infrared Operational Satellite-M</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#TIROS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ALOUETTE-2">
+    <rdfs:subClassOf rdf:resource="#ALOUETTE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-2">
+    <rdfs:subClassOf rdf:resource="#NIMBUS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OV-099">
+    <rdfs:subClassOf rdf:resource="#SPACE_SHUTTLE"/>
+    <rdfs:label xml:lang="en">Challenger Space Shuttle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GRACE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Gravity Recovery and Climate Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CBERS-2">
+    <rdfs:label xml:lang="en">China-Brazil Earth Resource Satellite 2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#CBERS"/>
+  </owl:Class>
+  <owl:Class rdf:about="#AE">
+    <rdfs:label xml:lang="en">Atmosphere Explorer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PASSCAL">
+    <rdfs:label xml:lang="en">Program for Array Seismic Studies of the Continental Lithosphere</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="COSMOS_49">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#COSMOS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">COSMOS 49</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLAR_RADIATION_STATIONS">
+    <rdfs:label xml:lang="en">SOLAR RADIATION STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SAGE-I">
+    <rdfs:label xml:lang="en">Stratospheric Aerosol and Gas Experiment-I</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SAGE"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-1_F4">
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F4</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METROROLOGICAL_STATIONS">
+    <rdfs:label xml:lang="en">METROROLOGICAL STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-9">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-9</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TOPEX_POSEIDON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Ocean Topography Experiment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SMS">
+    <rdfs:label xml:lang="en">Synchronous Meteorological Satellites</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-5">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-5</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-12">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-12</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F12">
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F12</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OV-103">
+    <rdfs:subClassOf rdf:resource="#SPACE_SHUTTLE"/>
+    <rdfs:label xml:lang="en">Discovery Space Shuttle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="LAGEOS-2">
+    <rdfs:label xml:lang="en">Laser Geodetic Satellite-2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#LAGEOS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOLARD-8">
+    <rdfs:label xml:lang="en">Solar Radiation-8</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SOLRAD"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-55">
+    <rdfs:label xml:lang="en">Space Transport System STS-55</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NWS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">National Weather Service</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROS-2">
+    <rdfs:subClassOf rdf:resource="#AEROS"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GMS">
+    <rdfs:label xml:lang="en">Japan Geostationary Meteorological Satellite</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="GEOSTATIONARY_SATELLITE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-3">
+    <rdfs:subClassOf rdf:resource="#LANDSAT"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ISIS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">International Satellite for Ionospheric Studies</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-3">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F14">
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F14</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OCEAN_WEATHER_STATION">
+    <rdfs:label xml:lang="en">OCEAN WEATHER STATION</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OCEAN_PLATFORM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AJISAI">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Experimental Geodetic Satellite (Japanese EGS)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MOS-1B">
+    <rdfs:label xml:lang="en">Japanese Marine Observation Satellite 1B</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#MOS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RAE-B">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#RAE"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Radio Astronomy Explorer-B</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#OSO">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-9">
+    <rdfs:label xml:lang="en">Space Transport System STS-9</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ENVISAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Environmental Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-1">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GOES"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GRAVITY_STATION">
+    <rdfs:label xml:lang="en">GRAVITY STATION</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GOES">
+    <rdfs:label xml:lang="en">NOAA Geostationary Operational Environment Satellite</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#GEOSTATIONARY_SATELLITE"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-10">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-10</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EO-1">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Orbiter-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GMS-3">
+    <rdfs:subClassOf rdf:resource="#GMS"/>
+    <rdfs:label xml:lang="en">Geostationary Meteorological Satellite-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SUNSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Stellenbosch University Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-34">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-34</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-7">
+    <rdfs:subClassOf rdf:resource="#GOES"/>
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-7</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#GEOSAT">
+    <rdfs:label xml:lang="en">Geodetic Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HESSI">
+    <rdfs:label xml:lang="en">High Energy Solar Spectroscopic Imager</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SAC-A">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="SAC"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Satellite de Aplicaciones Cientifico-A</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-F1_F2">
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F2</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOMAGNETIC_STATIONS">
+    <rdfs:label xml:lang="en">GEOMAGNETIC STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GRO">
+    <rdfs:label xml:lang="en">Gamma-Ray Observatory</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="IRS-1B">
+    <rdfs:label xml:lang="en">Indian Remote Sensing Satellite-1B</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#IRS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="AE-D">
+    <rdfs:subClassOf rdf:resource="#AE"/>
+    <rdfs:label xml:lang="en">Atmosphere Explorer D (Explorer 54)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EOLE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EOS_AURA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Observing System - AURA</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SPACELAB">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOS-3">
+    <rdfs:subClassOf rdf:resource="#GEOS"/>
+    <rdfs:label xml:lang="en">Geodetic Earth Orbiting Satellite-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="INSAT-1A">
+    <rdfs:subClassOf rdf:resource="#INSAT"/>
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform-1A</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ERBS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Radiation Budget Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#ADEOS">
+    <rdfs:label xml:lang="en">Advanced Earth Observing Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F16">
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F16</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ALTUS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="CHAMP">
+    <rdfs:label xml:lang="en">Challenging Minisatellite Payload</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OV-105">
+    <rdfs:subClassOf rdf:resource="#SPACE_SHUTTLE"/>
+    <rdfs:label xml:lang="en">Endeavour Space Shuttle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="HCMM">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Heat Capacity Mapping Mission</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F10">
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F10</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+  </owl:Class>
+  <owl:Class rdf:ID="EOS_CHEM-1">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Observing System, Chemistry Series</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PAM-II">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="PAM"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Portable Automated Mesonet II</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="TERRA">
+    <rdfs:label xml:lang="en">Earth Observing System, TERRA (AM-1)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FY-1">
+    <rdfs:label xml:lang="en">China's Meteorological Satellite-1</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="FY"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="GEODYNAMIC_STATIONS">
+    <rdfs:label xml:lang="en">GEODYNAMIC STATIONS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DIADEM-1C">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#DIADEM"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ROCKET">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ZODIACS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AVAPS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Airborne Vertical Atmosphere Profiling System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="AQUA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Observing System, AQUA</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-51B">
+    <rdfs:label xml:lang="en">Space Transport System STS-51B</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="RADIOSONDE">
+    <rdfs:label xml:lang="en">RADIOSONDE</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ADEOS-II">
+    <rdfs:label xml:lang="en">Advanced Earth Observing Satellite-II</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#ADEOS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SCISAT">
+    <rdfs:label xml:lang="en">Atmospheric Chemistry Experiment</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SEASAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Ocean Dynamics Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#VENERA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-16">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-15</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOON">
+    <rdfs:label xml:lang="en">Solar Observing Optical Network</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="WEATHER_STATION">
+    <rdfs:label xml:lang="en">WEATHER STATION</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEOS-1">
+    <rdfs:label xml:lang="en">Geodetic Earth Orbiting Satellite-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GEOS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DRILLING_PLATFORMS">
+    <rdfs:label xml:lang="en">DRILLING PLATFORMS</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ZEIA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-5">
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-5</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#OSO"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-6">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-6</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="BE-C">
+    <rdfs:subClassOf rdf:resource="#BE"/>
+    <rdfs:label xml:lang="en">Beacon Explorer-C</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="MSTI-2">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Miniature Sensor Technology Integration-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="X-POW">
+    <rdfs:label xml:lang="en">X-band Polarimetric Weather Radar</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VANGUARD">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEROSONDE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOSAT-5">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#METEOSAT"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Meteosat Operational Programme 2 (MOP-2)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SMS-2">
+    <rdfs:subClassOf rdf:resource="#SMS"/>
+    <rdfs:label xml:lang="en">Synchronous Meteorological Satellite 2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-7">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#STS"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">Space Transport System STS-7</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SPOT-3">
+    <rdfs:label xml:lang="fr">Systeme Probatoire Pour l'Observation de la Terre-3</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#SPOT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-9">
+    <rdfs:subClassOf rdf:resource="#GEMINI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GOES-8">
+    <rdfs:label xml:lang="en">Geostationary Operational Environment Satellite-8</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#GOES"/>
+  </owl:Class>
+  <owl:Class rdf:about="#PAM">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Portable Automated Mesonet</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FY-2">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#FY"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="en">China's Meteorological Satellite-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SRL-2">
+    <rdfs:label xml:lang="en">Space Radar Laboratory-2</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SRL"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="MIR-PRIRODA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">PRIRODA Module of MIR Space Station</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EP-TOMS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Probe-TOMS</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="RADARSAT-1">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#FY">
+    <rdfs:label xml:lang="en">China's Meteorological Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#SRL">
+    <rdfs:label xml:lang="en">Space Radar Laboratory</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="VCL">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Vegetation Canopy Lidar</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="FDSN">
+    <rdfs:label xml:lang="en">Federation of Digital Seismographic Networks</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="JERS-1">
+    <rdfs:label xml:lang="en">Japanese Earth Resources Satellite-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AD-C">
+    <rdfs:subClassOf rdf:resource="#AD"/>
+    <rdfs:label xml:lang="en">Atmosphere Dynamics C (Explorer 39)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ECHO-1">
+    <rdfs:subClassOf rdf:resource="#ECHO"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-14">
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-14</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+  </owl:Class>
+  <owl:Class rdf:about="#GEOSTATIONARY_SATELLITE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">GEOSTATIONARY SATELLITE</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ATS-2">
+    <rdfs:subClassOf rdf:resource="#ATS"/>
+    <rdfs:label xml:lang="en">Advanced Technology Satellite-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SOYUZ">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TMRS2">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Tower Mounted Radiometer System 2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GPS-36">
+    <rdfs:subClassOf rdf:resource="#GPS"/>
+    <rdfs:label xml:lang="en">Global Positioning System Satellite-36</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#COSMOS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LANDSAT-1">
+    <rdfs:subClassOf rdf:resource="#LANDSAT"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DMSP_5D-2_F8">
+    <rdfs:subClassOf rdf:resource="#DMSP"/>
+    <rdfs:label xml:lang="en">Defense Meteorological Satellite Program-F8</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EOS_PM-1">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Earth Observing System, PM-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PALACE_FLOAT">
+    <rdfs:label xml:lang="en">Profiling Autonomous Lagrangian Circulation Explorer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-11">
+    <rdfs:subClassOf rdf:resource="#GEMINI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ASOS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Automated Surface Observing System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="PAGEOS_1">
+    <rdfs:label xml:lang="en">Passive Geodetic Earth Orbiting Satellite 1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="METEOR_2-21">
+    <rdfs:label xml:lang="en">METEOR 2-21</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#METEOR"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TIMED">
+    <rdfs:label xml:lang="en">Thermosphere, Ionosphere, Mesosphere Energetics and Dynamics</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DROPWINDSONDE">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEM-3">
+    <rdfs:subClassOf rdf:resource="#AEM"/>
+    <rdfs:label xml:lang="en">Applications Explorer Missioin-3</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SAC-C">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#SAC"/>
+    </rdfs:subClassOf>
+    <rdfs:label xml:lang="fr">Satellite de Aplicaciones Cientifico - C</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-6">
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-6</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OGO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#ERS">
+    <rdfs:label xml:lang="en">European Remote Sensing Satellite-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GFZ-1">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">GeoForschungsZentrum-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#MOS">
+    <rdfs:label xml:lang="en">Japanese Marine Observation Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AEM-1">
+    <rdfs:label xml:lang="en">Applications Explorer Missioin-1</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#AEM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#APOLLO">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AD-A">
+    <rdfs:label xml:lang="en">Atmosphere Dynamics A (Explorer 19)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#AD"/>
+  </owl:Class>
+  <owl:Class rdf:about="#STS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Space Transport System</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#OCEAN_PLATFORM">
+    <rdfs:label xml:lang="en">OCEAN PLATFORM</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ETALON">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-7">
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-7</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#OSO"/>
+  </owl:Class>
+  <owl:Class rdf:about="#TIROS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Television Infrared Operational Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#DIADEM">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ACARS">
+    <rdfs:label xml:lang="en">ACARS Groudidng Receiving Station</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="BUOY">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#METEOSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OSO-2">
+    <rdfs:subClassOf rdf:resource="#OSO"/>
+    <rdfs:label xml:lang="en">Orbiting Solar Observatory-2</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="EXPLORER-33">
+    <rdfs:label xml:lang="en">Interplanetary Monitoring Platform D (IMP-D)</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="SOHO">
+    <rdfs:label xml:lang="en">Solar and Heliospheric Observatory</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ATS-4">
+    <rdfs:subClassOf rdf:resource="#ATS"/>
+    <rdfs:label xml:lang="en">Advanced Technology Satellite-4</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-3">
+    <rdfs:subClassOf rdf:resource="#GEMINI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="FEDSAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ATLAS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Atmospheric Laboratory for Applications and Science</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#IRS">
+    <rdfs:label xml:lang="en">Indian Remote Sensing Satellite</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="AIRCRAFT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-1">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-1</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SHIP">
+    <rdfs:label xml:lang="en">SHIP</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GROUND-BASED_OBSERVATION">
+    <rdfs:label xml:lang="en">GROUND-BASED OBSERVATION</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:about="#RAE">
+    <rdfs:label xml:lang="en">Radio Astronomy Explorer</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="PROTEUS">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Profile Telemetry of Upper Ocean Currents</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="CORONA">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="TIROS-7">
+    <rdfs:label xml:lang="en">Television Infrared Operational Satellite-7</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#TIROS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="STS-41G">
+    <rdfs:subClassOf rdf:resource="#STS"/>
+    <rdfs:label xml:lang="en">Space Transport System STS-41G</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#SAC">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="fr">Satellite de Aplicaciones Cientifico </rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ICESAT">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Ice, Cloud and Land Elevation Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NPOESS">
+    <rdfs:label xml:lang="en">National Polar-orbiting Operational Environmental Satellite System</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="OGO-4">
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory-4</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#OGO"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="VOLCANO_OBSERVATORY">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">VOLCANO OBSERVATORY</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NOAA-4">
+    <rdfs:subClassOf rdf:resource="#NOAA"/>
+    <rdfs:label xml:lang="en">National Oceanic &amp; Atmospheric Administration-4</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="SCD">
+    <rdfs:label xml:lang="fr">Satellites de Coleta de Dados</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="DCP">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Data Collection Systme</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="GOMS">
+    <rdfs:subClassOf rdf:resource="#GEOSTATIONARY_SATELLITE"/>
+    <rdfs:label xml:lang="en">Geostationary Operational Meteorological Satellite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#OGO">
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+    <rdfs:label xml:lang="en">Orbiting Geophysical Observatory</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="NIMBUS-7">
+    <rdfs:subClassOf rdf:resource="#NIMBUS"/>
+  </owl:Class>
+  <owl:Class rdf:ID="HELICOPTER">
+    <rdfs:label xml:lang="en">HELICOPTER</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+  <owl:Class rdf:ID="GEMINI-5">
+    <rdfs:subClassOf rdf:resource="#GEMINI"/>
+  </owl:Class>
+  <owl:Class rdf:ID="LPATS">
+    <rdfs:label xml:lang="en">Lightning Postioning and Tracking System Network</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#PLATFORM"/>
+  </owl:Class>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 1.2, Build 161)  http://protege.stanford.edu -->

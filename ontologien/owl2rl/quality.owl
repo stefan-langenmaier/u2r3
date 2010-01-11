@@ -1,0 +1,4102 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.loria.fr/~coulet/ontology/pato/version1.33/quality.owl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xml:base="http://www.loria.fr/~coulet/ontology/pato/version1.33/quality.owl">
+  <owl:Ontology rdf:about="">
+    <rdfs:comment rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Unconsistency checked by RacerPro .1.9.0 the 02/14/2007</rdfs:comment>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >version:  1.33
+release:   02/14/2007
+contact: obo-phenotype@lists.sourceforge.net</owl:versionInfo>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >- This ontology was originally downloaded from sourceforge in OBO format. 
+- This ontology was translated in OWL thanks to the BONG plugin for protege.
+- "OBO_" prefixes have been removed in the OWL file. 
+- "Obsolete" concepts have been removed.</owl:versionInfo>
+    <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >version:    02/14/2007 modified
+modifier:  Adrien Coulet
+contact:   coulet at loria dot fr
+University of Nancy</owl:versionInfo>
+  </owl:Ontology>
+  <owl:Class rdf:ID="dorsalized">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dorsalized</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="diluted">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="concentration"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >diluted</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="asymmetrical">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="symmetry"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >asymmetrical</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="high_threshold">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="threshold"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >high threshold</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="radial_symmetry">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radial symmetry</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#symmetry"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_cyan">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale cyan</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cyan"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="infrequent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >infrequent</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="frequency"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="flavourful">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flavourful</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="flavor"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="reproductive_quality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >reproductive quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="spongy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spongy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="focused">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >focused</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="focus"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="warty">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >warty</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="texture"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="localised">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >localised</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="whole">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="wholeness"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >whole</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="self_renewal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >self-renewal</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cellular_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="porosity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="permeability"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >porosity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="delayed_phase">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="phase"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >delayed phase</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="F_minus">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >F minus</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="bacterial_mating_type"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="short_height">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="height"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >short height</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fluorescence">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fluorescence</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="luminosity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased temperature</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="temperature"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="spiny">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spiny</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_grey">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale grey</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="grey"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="refractile">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="refractivity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >refractile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="spherical">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spherical</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="viability">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viability</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="underdeveloped">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >underdeveloped</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="closure">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="spatial"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >closure</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="rhizoidal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rhizoidal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="viable">
+    <rdfs:subClassOf rdf:resource="#viability"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viable</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="malformed">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >malformed</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="calcified">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >calcified</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="coordination">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="behavioral_quality_of_occurent"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >coordination</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="occurrence">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="quantitative"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >occurrence</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="uncrowded">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >uncrowded</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="delayed">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >delayed</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="duration"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="nucleate_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nucleate quality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#cellular_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="deviation_from_normal_">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="qualitative"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deviation(from_normal)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="rosy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rosy</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="red"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_yellow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark yellow</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="yellow"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_number">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="count"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased number</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="allopolyploidy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="polyploid"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >allopolyploidy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dappled">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="color_pattern"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dappled</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_phase">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark phase</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#phase"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="mixed_sex">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="biological_sex"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mixed sex</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sound">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sound</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="latency">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="time"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >latency</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="multipotent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cellular_potency"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >multipotent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fast">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#time"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fast</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sound_speed">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sound speed</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sound"/>
+  </owl:Class>
+  <owl:Class rdf:ID="h_minus">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >h minus</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Schizosaccharomyces_pombe_mating_type"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="adolescent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >adolescent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="purple">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >purple</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="h_plus">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >h plus</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Schizosaccharomyces_pombe_mating_type"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="damage">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >damage</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#duration">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >duration</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="monadic_quality_of_occurrent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="elliptic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >elliptic</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="flexible">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flexible</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="flexibility"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_magenta">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="magenta"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright magenta</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="solubility">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >solubility</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="relational_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="pinnate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pinnate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="behavioral_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >behavioral quality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="curved_ventral">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="curved"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curved ventral</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lethal__sensu_genetics_">
+    <rdfs:subClassOf rdf:resource="#viability"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lethal (sensu genetics)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unfused">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unfused</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="condensed">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >condensed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="curved_caudal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#curved"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curved caudal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="life_span">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >life span</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#time"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="disassembled">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disassembled</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#wholeness"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_duration_of_temperature">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="duration_of_temperature"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased duration of temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="punctiform">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >punctiform</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="optical_quality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="electromagnetic__EM__radiation_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >optical quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="angular_velocity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angular velocity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="black">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >black</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="inconspicuous">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="presence"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inconspicuous</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lateral">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="position"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lateral</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="coiled">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >coiled</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="mass_density">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass density</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="density"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="linear">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#position"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >linear</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="up">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >up</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="direction"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="severe">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >severe</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="intensity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="anaerobic__for_occurrence_">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >anaerobic (for occurrence)</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="sensitivity_of_occurrent_to_oxygen"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="insomnia">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="sleep_pattern"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >insomnia</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#cellular_potency">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#cellular_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cellular potency</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="organized">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >organized</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sessile__sensus_zoology_">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="attachment"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sessile (sensus zoology)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#quantitative">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quantitative</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="growth_rate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="growth_quality_of_occurrent"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >growth rate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="abnormal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >abnormal</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#deviation_from_normal_"/>
+  </owl:Class>
+  <owl:Class rdf:ID="neotonic_growth">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="heterochronic_growth"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >neotonic growth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="regular_duration">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >regular duration</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#duration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="volume">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >volume</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#monadic_quality_of_occurrent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="quality_of_occurrent"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >monadic quality of occurrent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="recent">
+    <rdfs:subClassOf rdf:resource="#duration"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >recent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="color_brightness">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >color brightness</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cloudy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cloudy</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="relative_color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="uncoiled">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >uncoiled</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="striated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >striated</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="sensitivity_to_oxygen">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="sensitivity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sensitivity to oxygen</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="vermilion">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#red"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >vermilion</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="symmetrical">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >symmetrical</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#symmetry"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="prostrate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prostrate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hypoactive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypoactive</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#behavioral_quality_of_occurent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="detached">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="relational_structural_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >detached</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="notched">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >notched</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="weight">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >weight</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="force"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased temperature</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temperature"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="momentum">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >momentum</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#electromagnetic__EM__radiation_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >electromagnetic (EM) radiation quality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="acidic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="medium_acidity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >acidic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#permeability">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >permeability</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="functionality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >functionality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cartilaginous">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cartilaginous</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bang_sensitive">
+    <rdfs:subClassOf rdf:resource="#behavioral_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bang sensitive</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hypertrophic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="size"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypertrophic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="resistant">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >resistant</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="resistance"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="delaminated">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >delaminated</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="susceptibility">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#sensitivity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >susceptibility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#density">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >density</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="morphology">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >morphology</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#cyan">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cyan</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sound_frequency">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sound frequency</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sound"/>
+  </owl:Class>
+  <owl:Class rdf:ID="orange">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >orange</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="present">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#presence"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >present</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lethargic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lethargic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#behavioral_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="fertility">
+    <rdfs:subClassOf rdf:resource="#reproductive_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fertility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="monosomy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="aneuploid"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >monosomy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="convex_angle">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="angle"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >convex angle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="opacity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >opacity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="red_brown">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="brown"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >red brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="buoyancy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >buoyancy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="consumption">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >consumption</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="relational_quality_of_occurrent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="area_density">
+    <rdfs:subClassOf rdf:resource="#density"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >area density</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fasciated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fasciated</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="small_volume">
+    <rdfs:subClassOf rdf:resource="#volume"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >small volume</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="irregular_duration">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >irregular duration</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#duration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="radiation_reflective_quality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="full_spectrum_EM_radiation_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radiation reflective quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="herniated">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >herniated</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="reflectivity">
+    <rdfs:subClassOf rdf:resource="#radiation_reflective_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >reflectivity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="filamentous">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >filamentous</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#heterochronic_growth">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="growth_timing_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >heterochronic growth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_rate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased rate</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="rate"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="truncated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >truncated</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="anaerobic">
+    <rdfs:subClassOf rdf:resource="#sensitivity_to_oxygen"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >anaerobic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="speed_velocity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >speed/velocity</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="ventral">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ventral</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#position"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="abolished">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >abolished</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="conspicuous">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#presence"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >conspicuous</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="relative_quantity">
+    <rdfs:subClassOf rdf:resource="#quantitative"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >relative_quantity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="haploid">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="ploidy"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >haploid</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sloped">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sloped</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#angle">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#spatial"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angle</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="violet">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >violet</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="decayed">
+    <rdfs:subClassOf rdf:resource="#viability"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decayed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="strain">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >strain</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cellular_motility">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cellular_spatiotemporal_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cellular motility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_pink">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="pink"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright pink</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="displaced">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >displaced</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_brown">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#brown"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="diameter">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="length"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >diameter</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="nonporous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nonporous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#porosity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_blue">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="blue"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale blue</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="continuous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >continuous</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="temporal"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#aneuploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >aneuploid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ploidy"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="chromatic_property">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >chromatic property</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ectopic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ectopic</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="senescent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="age"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >senescent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="prototroph">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="nutritional"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prototroph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="undamaged">
+    <rdfs:subClassOf rdf:resource="#damage"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >undamaged</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_threshold">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#threshold"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased threshold</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="damaged">
+    <rdfs:subClassOf rdf:resource="#damage"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >damaged</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="heart_shaped">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >heart shaped</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#length">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >length</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_grey">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#grey"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark grey</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="glabrous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >glabrous</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="pilosity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#position">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#spatial"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >position</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="mosaic_trisomy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="trisomy"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mosaic trisomy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="insoluble">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >insoluble</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#solubility"/>
+  </owl:Class>
+  <owl:Class rdf:about="#spatial">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spatial</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_orange">
+    <rdfs:subClassOf rdf:resource="#orange"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light orange</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hot">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hot</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temperature"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="homophilic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >homophilic</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="cellular_adhesivity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="closure_incomplete">
+    <rdfs:subClassOf rdf:resource="#closure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >closure incomplete</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="angular_acceleration">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >angular acceleration</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="amylose_composition">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >amylose composition</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="composition"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#rate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temporal"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="strength">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >strength</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="work">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >work</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#relative_color">
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >relative color</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="edematous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >edematous</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="mobility">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mobility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="mobile">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mobile</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mobility"/>
+  </owl:Class>
+  <owl:Class rdf:ID="fecundity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fecundity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#reproductive_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="euploid">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ploidy"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >euploid</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="F">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#bacterial_mating_type"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >F</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="female">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >female</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="oriented">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="orientation"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >oriented</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="transparent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >transparent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#opacity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sound_amplitude">
+    <rdfs:subClassOf rdf:resource="#sound"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sound amplitude</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="indifference">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >indifference</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="preference"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#size">
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >size</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_green">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark green</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="green"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="female_sterile">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >female sterile</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="female_fertility"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="rhythmic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rhythmic</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="rhythm"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="high_frequency_recombinant">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >high frequency recombinant</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="variability_of_temperature">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="variability"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variability of temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="surface_tension">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >surface tension</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#pilosity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pilosity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unlocalised">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unlocalised</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#flexibility">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flexibility</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="uninterrupted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >uninterrupted</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#occurrence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="unresponsive">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="response"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unresponsive</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sonic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sonic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sound_frequency"/>
+  </owl:Class>
+  <owl:Class rdf:ID="distance">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >distance</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased">
+    <rdfs:subClassOf rdf:resource="#relative_quantity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="aversion">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#preference"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >aversion</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#orientation">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >orientation</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#spatial"/>
+  </owl:Class>
+  <owl:Class rdf:ID="flavourless">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#flavor"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flavourless</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#female_fertility">
+    <rdfs:subClassOf rdf:resource="#fertility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >female fertility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="distal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >distal</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#position"/>
+  </owl:Class>
+  <owl:Class rdf:ID="erect">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >erect</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="maternal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="parental_type"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >maternal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="balance">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#behavioral_quality_of_occurent"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >balance</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="temporally_extended">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >temporally extended</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#duration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="medial">
+    <rdfs:subClassOf rdf:resource="#position"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >medial</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#direction">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >direction</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="compatibility">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >compatibility</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="regular">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >regular</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="pattern"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="colored">
+    <rdfs:subClassOf rdf:resource="#relative_color"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >colored</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="flat">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flat</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="functional">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >functional</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#functionality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pubescent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pubescent</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="rugose">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rugose</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="light_phase">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#phase"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light phase</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="overdeveloped">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >overdeveloped</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hardness">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hardness</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#threshold">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >threshold</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hyperactive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hyperactive</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#behavioral_quality_of_occurent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="serrate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >serrate</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="heterochronic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temporal"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >heterochronic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_magenta">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#magenta"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark magenta</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="diffuse">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >diffuse</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pattern"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="monoploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >monoploid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ploidy"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="epinastic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >epinastic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="cleft">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cleft</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="curved_rostral">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curved rostral</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#curved"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#polyploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >polyploid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ploidy"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="hyperresponsive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hyperresponsive</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#response"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="wavelength">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >wavelength</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#color_brightness"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hypoplastic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypoplastic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#time">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >time</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="tall_height">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tall height</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#height"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="susceptible">
+    <rdfs:subClassOf rdf:resource="#susceptibility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >susceptible</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hermaphrodite">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hermaphrodite</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unbalanced">
+    <rdfs:subClassOf rdf:resource="#balance"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unbalanced</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="autopolyploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >autopolyploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="exserted">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >exserted</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="curled">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curled</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="diploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >diploid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#ploidy"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="viscosity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viscosity</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="flux">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flux</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temporal"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="discontinuous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discontinuous</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temporal"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="frequent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#frequency"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >frequent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_yellow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light yellow</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#yellow"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="severe_increased_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >severe increased temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#increased_temperature"/>
+  </owl:Class>
+  <owl:Class rdf:ID="retracted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >retracted</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#position"/>
+  </owl:Class>
+  <owl:Class rdf:about="#response">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >response</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="inserted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inserted</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="binucleate">
+    <rdfs:subClassOf rdf:resource="#nucleate_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >binucleate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="opaque">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >opaque</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#opacity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="glutinous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >glutinous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#amylose_composition"/>
+  </owl:Class>
+  <owl:Class rdf:ID="undulate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >undulate</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="prepubescent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prepubescent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="branched">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#shape"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >branched</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="male_sterile">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >male sterile</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="male_fertility"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="down">
+    <rdfs:subClassOf rdf:resource="#direction"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >down</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="duplicated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >duplicated</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="increased_number"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="irregular">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pattern"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >irregular</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="a_mating_type__yeast_">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="Saccharomyces_cerevisiae_mating_type"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >a mating type (yeast)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#shape">
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >shape</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="large_size">
+    <rdfs:subClassOf rdf:resource="#size"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >large size</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#frequency">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >frequency</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="arrhythmic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#rhythm"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >arrhythmic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="crowded">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >crowded</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="juvenile">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >juvenile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="amorphous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >amorphous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cold">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cold</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temperature"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="left">
+    <rdfs:subClassOf rdf:resource="#direction"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >left</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#nutritional">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >nutritional</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="thin">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="thickness"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >thin</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="arrested">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >arrested</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#duration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="square">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >square</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="inflexible">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inflexible</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#flexibility"/>
+  </owl:Class>
+  <owl:Class rdf:about="#symmetry">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >symmetry</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pattern"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#brown">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#quality_of_occurrent">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality of occurrent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="impermeable">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >impermeable</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#permeability"/>
+  </owl:Class>
+  <owl:Class rdf:ID="light_blue">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#blue"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light blue</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="low_position">
+    <rdfs:subClassOf rdf:resource="#position"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >low position</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="reflex_angle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >reflex angle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angle"/>
+  </owl:Class>
+  <owl:Class rdf:ID="monstrous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >monstrous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+  </owl:Class>
+  <owl:Class rdf:ID="recurrent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >recurrent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#occurrence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pedicellate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pedicellate</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#attachment"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="unstructured">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unstructured</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="vivid">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="color_saturation"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >vivid</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="moderate_increased_temperature">
+    <rdfs:subClassOf rdf:resource="#increased_temperature"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >moderate increased temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="aerobic">
+    <rdfs:subClassOf rdf:resource="#sensitivity_to_oxygen"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >aerobic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hyporesponsive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hyporesponsive</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#response"/>
+  </owl:Class>
+  <owl:Class rdf:ID="tapered">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tapered</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="light_purple">
+    <rdfs:subClassOf rdf:resource="#purple"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light purple</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="quality_of_a_liquid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality of a liquid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="balanced">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >balanced</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#balance"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sound_wavelength">
+    <rdfs:subClassOf rdf:resource="#sound"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sound wavelength</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="non_functional">
+    <rdfs:subClassOf rdf:resource="#functionality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >non-functional</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="moderate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intensity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >moderate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="alive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >alive</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#viability"/>
+  </owl:Class>
+  <owl:Class rdf:ID="asynchronous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >asynchronous</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#temporal"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="perforated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >perforated</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="narrow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >narrow</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="width"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#count">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >count</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#quantitative"/>
+  </owl:Class>
+  <owl:Class rdf:ID="viscid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viscid</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#texture"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="white">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >white</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="compatible">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >compatible</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#compatibility"/>
+  </owl:Class>
+  <owl:Class rdf:ID="wide">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#width"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >wide</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="partial_trisomy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#trisomy"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >partial trisomy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#trisomy">
+    <rdfs:subClassOf rdf:resource="#aneuploid"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >trisomy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#variability">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variability</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:about="#temporal">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >temporal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="tolerant">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#resistance"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tolerant</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="paralysed">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >paralysed</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#behavioral_quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#force">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#physical_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >force</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="umbonate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >umbonate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="odorless">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="odor"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >odorless</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="passive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >passive</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#behavioral_quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#physical_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >physical quality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="light_red">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#red"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light red</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#odor">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >odor</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#relational_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#intensity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >intensity</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="loud">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >loud</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sound_amplitude"/>
+  </owl:Class>
+  <owl:Class rdf:ID="brood_size">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="brood_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >brood size</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#focus">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >focus</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#yellow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >yellow</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="persistence">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >persistence</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#rhythm"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="globular">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >globular</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="motley">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >motley</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color_pattern"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_blue">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright blue</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#blue"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="larval">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >larval</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_weight">
+    <rdfs:subClassOf rdf:resource="#weight"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light weight</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="elasticity">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >elasticity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#brood_quality">
+    <rdfs:subClassOf rdf:resource="#reproductive_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >brood quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_rate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased rate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#rate"/>
+  </owl:Class>
+  <owl:Class rdf:ID="female_fertile">
+    <rdfs:subClassOf rdf:resource="#female_fertility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >female fertile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="radiation_emitting_quality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#full_spectrum_EM_radiation_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >radiation emitting quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="prepupal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prepupal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#parental_type">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >parental type</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="brood_viability">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >brood viability</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#brood_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="supernumerary">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >supernumerary</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#count"/>
+  </owl:Class>
+  <owl:Class rdf:ID="action_potential">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="electric_potential"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >action potential</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="punctate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >punctate</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pattern"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="quality_of_a_gas">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality of a gas</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="spiral">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spiral</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="misrouted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >misrouted</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="impulse">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >impulse</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#presence">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#qualitative"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >presence</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_grey">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#grey"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright grey</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ultrasonic">
+    <rdfs:subClassOf rdf:resource="#sound_frequency"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ultrasonic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="immature">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >immature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="soluble">
+    <rdfs:subClassOf rdf:resource="#solubility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >soluble</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="uniparental_disomy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >uniparental disomy</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="disomy"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="odorous">
+    <rdfs:subClassOf rdf:resource="#odor"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >odorous</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hexaploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hexaploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="low_threshold">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >low threshold</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#threshold"/>
+  </owl:Class>
+  <owl:Class rdf:about="#thickness">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >thickness</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="variant_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variant temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#variability_of_temperature"/>
+  </owl:Class>
+  <owl:Class rdf:ID="disorganized">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disorganized</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="long_distance">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >long distance</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#distance"/>
+  </owl:Class>
+  <owl:Class rdf:about="#texture">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >texture</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+  </owl:Class>
+  <owl:Class rdf:about="#magenta">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#red"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >magenta</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_consumption">
+    <rdfs:subClassOf rdf:resource="#consumption"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased consumption</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="auxotroph">
+    <rdfs:subClassOf rdf:resource="#nutritional"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >auxotroph</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#growth_timing_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >growth timing quality</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#growth_quality_of_occurrent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_blue">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#blue"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark blue</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_variation_of_temperature">
+    <rdfs:subClassOf rdf:resource="#variability_of_temperature"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased variation of temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pentaploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pentaploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="insusceptible">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >insusceptible</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#susceptibility"/>
+  </owl:Class>
+  <owl:Class rdf:ID="totipotent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >totipotent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#cellular_potency"/>
+  </owl:Class>
+  <owl:Class rdf:ID="discrimination">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discrimination</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_red">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale red</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#red"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="morbidity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >morbidity</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="light_green">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#green"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light green</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#duration_of_temperature">
+    <rdfs:subClassOf rdf:resource="#duration"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >duration of temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bent</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="fragile">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fragile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="yeast_mating_type">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >yeast mating type</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="thick">
+    <rdfs:subClassOf rdf:resource="#thickness"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >thick</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_grey">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#grey"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light grey</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_cyan">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light cyan</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#cyan"/>
+  </owl:Class>
+  <owl:Class rdf:ID="amplitude">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >amplitude</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="aerobic__for_occurrence_">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#sensitivity_of_occurrent_to_oxygen"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >aerobic (for occurrence)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="increased">
+    <rdfs:subClassOf rdf:resource="#relative_quantity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#behavioral_quality_of_occurent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >behavioral quality of occurent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:about="#relational_quality_of_occurrent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >relational quality of occurrent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="straight_angle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >straight angle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angle"/>
+  </owl:Class>
+  <owl:Class rdf:ID="intrasonic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >intrasonic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sound_frequency"/>
+  </owl:Class>
+  <owl:Class rdf:ID="increased_threshold">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased threshold</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#threshold"/>
+  </owl:Class>
+  <owl:Class rdf:ID="maroon">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#red"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >maroon</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="inverted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inverted</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="anucleate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >anucleate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#nucleate_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="separated">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#relational_structural_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >separated</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="soft">
+    <rdfs:subClassOf rdf:resource="#hardness"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >soft</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="complexity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >complexity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="quality_of_a_solid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality of a solid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mislocalised">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mislocalised</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#cellular_spatiotemporal_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cellular spatiotemporal quality</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="long_length">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >long length</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#length"/>
+  </owl:Class>
+  <owl:Class rdf:ID="bilateral_symmetry">
+    <rdfs:subClassOf rdf:resource="#symmetry"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bilateral symmetry</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hypotrophic">
+    <rdfs:subClassOf rdf:resource="#size"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypotrophic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="internal_angle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >internal angle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angle"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sessile__sensus_botany_">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sessile (sensus botany)</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#attachment"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="complex">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >complex</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#complexity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_orange">
+    <rdfs:subClassOf rdf:resource="#orange"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright orange</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#blue">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >blue</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="paternal">
+    <rdfs:subClassOf rdf:resource="#parental_type"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >paternal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="short_length">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >short length</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#length"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mucoid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mucoid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hypotrophic_growth">
+    <rdfs:subClassOf rdf:resource="#growth_rate"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypotrophic growth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="obstructed">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >obstructed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_consumption">
+    <rdfs:subClassOf rdf:resource="#consumption"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased consumption</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#width">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >width</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="light">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#color_brightness"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pleomorphic">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pleomorphic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lateralized">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lateralized</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="unbranched">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unbranched</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="incompatible">
+    <rdfs:subClassOf rdf:resource="#compatibility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >incompatible</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="elongated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >elongated</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#length"/>
+  </owl:Class>
+  <owl:Class rdf:about="#refractivity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >refractivity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#radiation_reflective_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="concentrated">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#concentration"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >concentrated</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#sensitivity_of_occurrent_to_oxygen">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sensitivity of occurrent to oxygen</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="sensitivity_of_occurrent"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_magenta">
+    <rdfs:subClassOf rdf:resource="#magenta"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale magenta</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="chronological_age">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >chronological age</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#age"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#wholeness">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >wholeness</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="light_pink">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pink"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light pink</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#pattern">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pattern</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#concentration">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >concentration</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#red">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >red</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="premature">
+    <rdfs:subClassOf rdf:resource="#duration"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >premature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="slow_speed">
+    <rdfs:subClassOf rdf:resource="#speed_velocity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >slow speed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_red_brown">
+    <rdfs:subClassOf rdf:resource="#red_brown"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark red brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="discriminate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discriminate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#discrimination"/>
+  </owl:Class>
+  <owl:Class rdf:ID="heavy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >heavy</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#weight"/>
+  </owl:Class>
+  <owl:Class rdf:ID="unipotent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unipotent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#cellular_potency"/>
+  </owl:Class>
+  <owl:Class rdf:ID="actinomorphic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >actinomorphic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#radial_symmetry"/>
+  </owl:Class>
+  <owl:Class rdf:about="#qualitative">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >qualitative</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="tetraploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tetraploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="structured">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >structured</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#structure"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="large_mass">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >large mass</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="mass"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="alpha_mating_type__yeast_">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#Saccharomyces_cerevisiae_mating_type"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >alpha mating type (yeast)</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_purple">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright purple</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#purple"/>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_red">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright red</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#red"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_pink">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale pink</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#pink"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="tone">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tone</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="invariant">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >invariant</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#variability"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_green">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#green"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale green</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="raised">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >raised</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:about="#temperature">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pressure">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pressure</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#structure">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >structure</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#morphology"/>
+  </owl:Class>
+  <owl:Class rdf:ID="apoptotic">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >apoptotic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_green">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright green</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#green"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="dense">
+    <rdfs:subClassOf rdf:resource="#density"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dense</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="energy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >energy</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_brown">
+    <rdfs:subClassOf rdf:resource="#brown"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hyperplastic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hyperplastic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="interrupted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >interrupted</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#occurrence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_duration_of_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased duration of temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#duration_of_temperature"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sensitive">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#sensitivity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sensitive</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="zygomorphic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >zygomorphic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#bilateral_symmetry"/>
+  </owl:Class>
+  <owl:Class rdf:ID="young">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#age"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >young</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_purple">
+    <rdfs:subClassOf rdf:resource="#purple"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark purple</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unilateral">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unilateral</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="invariant_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >invariant temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#variability_of_temperature"/>
+  </owl:Class>
+  <owl:Class rdf:ID="disrupted">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disrupted</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="rod_shaped">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rod-shaped</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="responsive">
+    <rdfs:subClassOf rdf:resource="#response"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >responsive</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="enlarged">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >enlarged</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="oblong">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >oblong</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="Y_shaped">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Y-shaped</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="vacuolated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >vacuolated</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="disoriented">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disoriented</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#orientation"/>
+  </owl:Class>
+  <owl:Class rdf:ID="prolonged_period">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prolonged period</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="period"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="T_shaped">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >T-shaped</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Saccharomyces_cerevisiae_mating_type">
+    <rdfs:subClassOf rdf:resource="#yeast_mating_type"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Saccharomyces cerevisiae mating type</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#color_saturation">
+    <rdfs:subClassOf rdf:resource="#chromatic_property"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >color saturation</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="power">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >power</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="quiet">
+    <rdfs:subClassOf rdf:resource="#sound_amplitude"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quiet</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#full_spectrum_EM_radiation_quality">
+    <rdfs:subClassOf rdf:resource="#electromagnetic__EM__radiation_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >full-spectrum EM radiation quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="normal">
+    <rdfs:subClassOf rdf:resource="#deviation_from_normal_"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >normal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="linear_density">
+    <rdfs:subClassOf rdf:resource="#density"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >linear density</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fused">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fused</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="numerical">
+    <rdfs:subClassOf rdf:resource="#quantitative"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >numerical</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="oligopotent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >oligopotent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#cellular_potency"/>
+  </owl:Class>
+  <owl:Class rdf:about="#sleep_pattern">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sleep pattern</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#behavioral_quality_of_occurent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_orange">
+    <rdfs:subClassOf rdf:resource="#orange"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark orange</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#mass">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mass</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="inelastic">
+    <rdfs:subClassOf rdf:resource="#elasticity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >inelastic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pubescent_hair">
+    <rdfs:subClassOf rdf:resource="#pilosity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pubescent hair</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="translucent">
+    <rdfs:subClassOf rdf:resource="#opacity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >translucent</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="hypertrophic_growth">
+    <rdfs:subClassOf rdf:resource="#growth_rate"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hypertrophic growth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#relational_structural_quality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#relational_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >relational structural quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#composition">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#monadic_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >composition</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="vestigial">
+    <rdfs:subClassOf rdf:resource="#size"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >vestigial</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#electric_potential">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >electric potential</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="shortened_period">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >shortened period</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#period"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="short_distance">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >short distance</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#distance"/>
+  </owl:Class>
+  <owl:Class rdf:ID="color_hue">
+    <rdfs:subClassOf rdf:resource="#chromatic_property"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >color hue</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="permeable">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >permeable</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#permeability"/>
+  </owl:Class>
+  <owl:Class rdf:ID="erose">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >erose</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_purple">
+    <rdfs:subClassOf rdf:resource="#purple"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale purple</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="decreased_variation_of_temperature">
+    <rdfs:subClassOf rdf:resource="#variability_of_temperature"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >decreased variation of temperature</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_yellow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright yellow</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#yellow"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mild_increased_temperature">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mild increased temperature</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#increased_temperature"/>
+  </owl:Class>
+  <owl:Class rdf:about="#grey">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#color"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >grey</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="male">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >male</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#biological_sex"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="male_fertile">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#male_fertility"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >male fertile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#monadic_quality_of_continuant">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >monadic quality of continuant</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="quality_of_continuant"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="colorless">
+    <rdfs:subClassOf rdf:resource="#relative_color"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >colorless</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="efficiency">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >efficiency</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#height">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >height</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="compound_acidity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >compound acidity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="right_angle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >right angle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angle"/>
+  </owl:Class>
+  <owl:Class rdf:about="#ploidy">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#cellular_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ploidy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="collapsed">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >collapsed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="synchronous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >synchronous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#temporal"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mononuclear">
+    <rdfs:subClassOf rdf:resource="#nucleate_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mononuclear</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#phase">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#rhythm"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >phase</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="ventralized">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ventralized</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#male_fertility">
+    <rdfs:subClassOf rdf:resource="#fertility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >male fertility</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#curved">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curved</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sharp">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sharp</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#color_pattern">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >color pattern</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#chromatic_property"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mild">
+    <rdfs:subClassOf rdf:resource="#intensity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mild</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="adhesivity">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#relational_quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >adhesivity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dorsal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dorsal</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#position"/>
+  </owl:Class>
+  <owl:Class rdf:ID="paleopolyploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >paleopolyploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="endopolyploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >endopolyploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:about="#disomy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >disomy</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#aneuploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="absorption_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >absorption quality</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#full_spectrum_EM_radiation_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="light_red_brown">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light red brown</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#red_brown"/>
+  </owl:Class>
+  <owl:Class rdf:ID="small_mass">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >small mass</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#mass"/>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_brown">
+    <rdfs:subClassOf rdf:resource="#brown"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright brown</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="heterophilic">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#cellular_adhesivity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >heterophilic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#color">
+    <rdfs:subClassOf rdf:resource="#chromatic_property"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >color</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="alkaline">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#medium_acidity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >alkaline</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#pink">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pink</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#color"/>
+  </owl:Class>
+  <owl:Class rdf:about="#biological_sex">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_continuant"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >biological sex</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="convex">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >convex</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="acceleration">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >acceleration</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="catalytic_activity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >catalytic activity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="absent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >absent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#presence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="immobile">
+    <rdfs:subClassOf rdf:resource="#mobility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >immobile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bright_cyan">
+    <rdfs:subClassOf rdf:resource="#cyan"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bright cyan</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="unknown_sex">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >unknown sex</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#biological_sex"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_orange">
+    <rdfs:subClassOf rdf:resource="#orange"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale orange</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="rough">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rough</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#texture"/>
+  </owl:Class>
+  <owl:Class rdf:ID="albedo">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >albedo</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#radiation_reflective_quality"/>
+  </owl:Class>
+  <owl:Class rdf:ID="spindle_shaped">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >spindle-shaped</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="degenerate">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >degenerate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="area">
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >area</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="broken">
+    <rdfs:subClassOf rdf:resource="#wholeness"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >broken</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#relational_quality_of_continuant">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#quality_of_continuant"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >relational quality of continuant</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="blurry">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >blurry</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#focus"/>
+  </owl:Class>
+  <owl:Class rdf:ID="prominent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >prominent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ciliatedness">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#cellular_quality"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ciliatedness</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="triploid">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >triploid</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#polyploid"/>
+  </owl:Class>
+  <owl:Class rdf:ID="old">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#age"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >old</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dwarf">
+    <rdfs:subClassOf rdf:resource="#size"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dwarf</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="anterioralized">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >anterioralized</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="deep">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >deep</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#position"/>
+  </owl:Class>
+  <owl:Class rdf:about="#quality_of_continuant">
+    <rdfs:subClassOf rdf:resource="#quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >quality of continuant</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pulvinate">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pulvinate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#age">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >age</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#time"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hairy">
+    <rdfs:subClassOf rdf:resource="#pilosity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hairy</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="consistency">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >consistency</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#physical_quality"/>
+  </owl:Class>
+  <owl:Class rdf:about="#growth_quality_of_occurrent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >growth quality of occurrent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="posterioralized">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >posterioralized</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#placement"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="porous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >porous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#porosity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="necrotic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >necrotic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#viability"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ossified">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >ossified</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="round">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >round</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#rhythm">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_occurrent"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >rhythm</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_cyan">
+    <rdfs:subClassOf rdf:resource="#cyan"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark cyan</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="membrane_potential">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >membrane potential</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#electric_potential"/>
+  </owl:Class>
+  <owl:Class rdf:ID="variant">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >variant</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#variability"/>
+  </owl:Class>
+  <owl:Class rdf:about="#period">
+    <rdfs:subClassOf rdf:resource="#time"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >period</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="impaired">
+    <rdfs:subClassOf rdf:resource="#behavioral_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >impaired</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="open">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >open</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#closure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="biomaterial_purity">
+    <rdfs:subClassOf rdf:resource="#composition"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >biomaterial purity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#placement">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >placement</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#spatial"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dysplastic">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dysplastic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sterile">
+    <rdfs:subClassOf rdf:resource="#fertility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sterile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="oblate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >oblate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:about="#cellular_quality">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cellular quality</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_continuant"/>
+  </owl:Class>
+  <owl:Class rdf:ID="narcolepsy">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >narcolepsy</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#sleep_pattern"/>
+  </owl:Class>
+  <owl:Class rdf:ID="hard">
+    <rdfs:subClassOf rdf:resource="#hardness"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >hard</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="high_position">
+    <rdfs:subClassOf rdf:resource="#position"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >high position</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#increased_number">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >increased number</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#count"/>
+  </owl:Class>
+  <owl:Class rdf:ID="large_volume">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >large volume</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#volume"/>
+  </owl:Class>
+  <owl:Class rdf:ID="light_magenta">
+    <rdfs:subClassOf rdf:resource="#magenta"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >light magenta</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="bouts">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bouts</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#time"/>
+  </owl:Class>
+  <owl:Class rdf:ID="incidence">
+    <rdfs:subClassOf rdf:resource="#temporal"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >incidence</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#medium_acidity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >medium acidity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#concentration"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_brown">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale brown</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#brown"/>
+  </owl:Class>
+  <owl:Class rdf:ID="proximal">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >proximal</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#position"/>
+  </owl:Class>
+  <owl:Class rdf:ID="insensitive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >insensitive</rdfs:label>
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#sensitivity"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#attachment">
+    <rdfs:subClassOf rdf:resource="#structure"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >attachment</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="advanced">
+    <rdfs:subClassOf rdf:resource="#phase"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >advanced</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fractured">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fractured</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#wholeness"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pointed">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pointed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="aplastic">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >aplastic</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#hypoplastic"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pupal">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#maturity"/>
+    </rdfs:subClassOf>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pupal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#cellular_adhesivity">
+    <rdfs:subClassOf rdf:resource="#adhesivity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >cellular adhesivity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_pink">
+    <rdfs:subClassOf rdf:resource="#pink"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark pink</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dead">
+    <rdfs:subClassOf rdf:resource="#viability"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dead</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="acute_angle">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >acute angle</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#angle"/>
+  </owl:Class>
+  <owl:Class rdf:ID="right">
+    <rdfs:subClassOf rdf:resource="#direction"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >right</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fertile">
+    <rdfs:subClassOf rdf:resource="#fertility"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fertile</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="multi_colored">
+    <rdfs:subClassOf rdf:resource="#color_pattern"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >multi-colored</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="dark_red">
+    <rdfs:subClassOf rdf:resource="#red"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dark red</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="anteverted">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >anteverted</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#placement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pale_yellow">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale yellow</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#yellow"/>
+  </owl:Class>
+  <owl:Class rdf:ID="haplodiploid">
+    <rdfs:subClassOf rdf:resource="#diploid"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >haplodiploid</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="elastic">
+    <rdfs:subClassOf rdf:resource="#elasticity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >elastic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="closed">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >closed</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#closure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="pluripotent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pluripotent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#cellular_potency"/>
+  </owl:Class>
+  <owl:Class rdf:about="#sensitivity">
+    <rdfs:subClassOf rdf:resource="#relational_quality_of_continuant"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sensitivity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="fast_speed">
+    <rdfs:subClassOf rdf:resource="#speed_velocity"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >fast speed</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="phosphorescence">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >phosphorescence</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#fluorescence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="viscous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >viscous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#viscosity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dentate">
+    <rdfs:subClassOf rdf:resource="#shape"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >dentate</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="non_glutinous">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >non-glutinous</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#amylose_composition"/>
+  </owl:Class>
+  <owl:Class rdf:ID="mono_colored">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >mono-colored</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#color_pattern"/>
+  </owl:Class>
+  <owl:Class rdf:about="#flavor">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >flavor</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#relational_quality_of_continuant"/>
+  </owl:Class>
+  <owl:Class rdf:ID="glistening">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >glistening</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#reflectivity"/>
+  </owl:Class>
+  <owl:Class rdf:about="#resistance">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >resistance</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_continuant"/>
+  </owl:Class>
+  <owl:Class rdf:ID="curved_dorsal">
+    <rdfs:subClassOf rdf:resource="#curved"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >curved dorsal</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="coordinated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >coordinated</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#coordination"/>
+  </owl:Class>
+  <owl:Class rdf:about="#sensitivity_of_occurrent">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sensitivity of occurrent</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#relational_quality_of_occurrent"/>
+  </owl:Class>
+  <owl:Class rdf:ID="shrunken">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >shrunken</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:about="#Schizosaccharomyces_pombe_mating_type">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >Schizosaccharomyces pombe mating type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#yeast_mating_type"/>
+  </owl:Class>
+  <owl:Class rdf:ID="proportionality">
+    <rdfs:subClassOf rdf:resource="#relational_quality_of_continuant"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >proportionality</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="slow">
+    <rdfs:subClassOf rdf:resource="#time"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >slow</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#luminosity">
+    <rdfs:subClassOf rdf:resource="#optical_quality"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >luminosity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="lobate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >lobate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#shape"/>
+  </owl:Class>
+  <owl:Class rdf:about="#maturity">
+    <rdfs:subClassOf rdf:resource="#monadic_quality_of_continuant"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >maturity</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="sporadic">
+    <rdfs:subClassOf rdf:resource="#occurrence"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >sporadic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="uncoordinated">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >uncoordinated</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#coordination"/>
+  </owl:Class>
+  <owl:Class rdf:ID="superficial">
+    <rdfs:subClassOf rdf:resource="#position"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >superficial</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#preference">
+    <rdfs:subClassOf rdf:resource="#discrimination"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >preference</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#green">
+    <rdfs:subClassOf rdf:resource="#color"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >green</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="smooth">
+    <rdfs:subClassOf rdf:resource="#texture"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >smooth</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="alternation">
+    <rdfs:subClassOf rdf:resource="#quantitative"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >alternation</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="tonicity">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >tonicity</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#structure"/>
+  </owl:Class>
+  <owl:Class rdf:ID="repetitive">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >repetitive</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#occurrence"/>
+  </owl:Class>
+  <owl:Class rdf:ID="small_size">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >small size</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#size"/>
+  </owl:Class>
+  <owl:Class rdf:ID="discolored">
+    <rdfs:subClassOf rdf:resource="#relative_color"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >discolored</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:about="#bacterial_mating_type">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bacterial mating type</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#biological_sex"/>
+  </owl:Class>
+  <owl:Class rdf:ID="bilateral">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >bilateral</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#placement"/>
+  </owl:Class>
+  <owl:Class rdf:ID="simple">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >simple</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#complexity"/>
+  </owl:Class>
+  <owl:Class rdf:ID="indiscriminate">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >indiscriminate</rdfs:label>
+    <rdfs:subClassOf rdf:resource="#discrimination"/>
+  </owl:Class>
+  <owl:Class rdf:ID="diastatic">
+    <rdfs:subClassOf rdf:resource="#separated"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >diastatic</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="pale">
+    <rdfs:subClassOf rdf:resource="#color_saturation"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >pale</rdfs:label>
+  </owl:Class>
+  <owl:Class rdf:ID="obtuse_angle">
+    <rdfs:subClassOf rdf:resource="#angle"/>
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string"
+    >obtuse angle</rdfs:label>
+  </owl:Class>
+  <owl:ObjectProperty rdf:ID="is_unit_of">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="has_unit"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="has_magnitude">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="is_magnitude_of"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="is_quality_of">
+    <rdfs:domain rdf:resource="#quality"/>
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="has_quality"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="has_measurement">
+    <owl:inverseOf>
+      <owl:ObjectProperty rdf:ID="is_measurement_of"/>
+    </owl:inverseOf>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#is_measurement_of">
+    <owl:inverseOf rdf:resource="#has_measurement"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:ID="is_quale_of"/>
+  <owl:ObjectProperty rdf:about="#has_unit">
+    <owl:inverseOf rdf:resource="#is_unit_of"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#has_quality">
+    <owl:inverseOf rdf:resource="#is_quality_of"/>
+    <rdfs:range rdf:resource="#quality"/>
+  </owl:ObjectProperty>
+  <owl:ObjectProperty rdf:about="#is_magnitude_of">
+    <owl:inverseOf rdf:resource="#has_magnitude"/>
+  </owl:ObjectProperty>
+  <owl:TransitiveProperty rdf:ID="nullpart_of">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </owl:TransitiveProperty>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.2.1, Build 365)  http://protege.stanford.edu -->
