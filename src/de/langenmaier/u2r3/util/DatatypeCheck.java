@@ -10,25 +10,10 @@ public class DatatypeCheck {
 	 * @return a unified format of the literal
 	 */
 	public static String validateType(String literal, OWLDatatype datatype) {
-		if (datatype.isBuiltIn()) {
-			try {
-				if (datatype.isBoolean()) {
-					return String.valueOf(Boolean.parseBoolean(literal));
-				}
-				if (datatype.isBoolean()) {
-					return String.valueOf(Integer.parseInt(literal));
-				}
-				if (datatype.isFloat()) {
-					return String.valueOf(Float.parseFloat(literal));
-				}
-				if (datatype.isDouble()) {
-					return String.valueOf(Double.parseDouble(literal));
-				}
-			} catch (NumberFormatException nfe) {
-				return null;
-			}
+		if (isValid(literal, datatype)) {
+			return literal;
 		}
-		return literal;
+		return null;
 	}
 
 	public static boolean isValid(String literal, OWLDatatype dt) {
@@ -37,7 +22,7 @@ public class DatatypeCheck {
 				if (dt.isBoolean()) {
 					Boolean.parseBoolean(literal);
 				}
-				if (dt.isBoolean()) {
+				if (dt.isInteger()) {
 					Integer.parseInt(literal);
 				}
 				if (dt.isFloat()) {
@@ -60,6 +45,13 @@ public class DatatypeCheck {
 		}
 		if (l2 == null) {
 			l2 = "";
+		}
+		
+		if (dt1 == null) {
+			dt1 = "";
+		}
+		if (dt2 == null) {
+			dt2 = "";
 		}
 		
 		if (lt1.equals(lt2) && dt1.equals(dt2) && l1.equals(l2)) {
