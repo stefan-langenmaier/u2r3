@@ -43,7 +43,7 @@ public class DtNotTypeRule extends ConsistencyRule {
 			ResultSet rs = statement.executeQuery(sql);
 			while(rs.next()) {
 				OWLDatatype dt = dataFactory.getOWLDatatype(IRI.create(rs.getString("class")));
-				if (DatatypeCheck.isValid(rs.getString("literal"), dt)) {
+				if (!DatatypeCheck.isValid(rs.getString("literal"), dt)) {
 					logger.warn("Inconsistency found!");
 					reasonProcessor.setInconsistent(this);
 				}
