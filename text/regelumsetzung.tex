@@ -1,3 +1,47 @@
+\section{Regelumsetzung allgemein}
+Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahren zur Berechnung logischer Folgerungen. Inferenzenprozeduren sind bereits aus der Aussagenlogik bekannt.
+
+\begin{itemize}
+  \item Modus ponens
+  A->B
+  A
+  ---
+  B
+  \item Modus tollens
+  A->B
+  ~B
+  ---
+  ~A
+\end{itemize}
+
+Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere ABleitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
+
+Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
+
+A -> B
+B
+---
+A
+
+ist z.B. kein gültiger Schluss.
+
+Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit OWL2 RL Fragement zu erreichen.
+
+\subsection{Kriterien für Inferenzprozeduren}
+Die Ableitungsregeln arbeiten eng mit der Wissensrepräsentation zusammen. Auch hier gibt es Kriterien für die Einordnung der Ableitungsprozedur.
+
+\begin{itemize}
+  \item Korrektheit
+  Eine Inferenzprodzerdur ist korrekt, wenn für jede Ableitung einer Formel aus einer Formel Menge auch gilt, das diese Formel Modell für die Formelmenge ist.
+  \item Vollständigkeit
+  Eine Inferenzprozedur ist vollständig, wenn für jedes Modell einer Formelmenge auch die Inferenzprozedur die Formel ableiten kann.
+  \item Entscheidbarkeit
+  Eine Inferenzprozedur ist entscheidbar, wenn sie immer zu dem Ergebniss kommt (terminiert), ob die Formel aus der Formelmenge ableitbar ist oder nicht.
+  \item Komplexität
+  Die Komplexität bezieht sich auf die Komplexität der Inferenzprozedur, um eine Ableitung durchzuführen.
+\end{itemize}
+
+
 \section{Regelumsetzung von OWL2 RL}
 
 In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend der Sprachmächtigkeit darin zu schlussfolgern.
