@@ -1,0 +1,91 @@
+\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=4cm]
+
+\begin{tikzpicture}[node distance=6cm]
+	\node (history) [relation, rectangle split, rectangle split parts=2]{
+			\textbf{history}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\underline{table}: TABLE\newline
+			\underline{sourceId}: INT\newline
+			\underline{sourceTable}: TABLE
+	};
+	\node (list) [relation, rectangle split, rectangle split parts=2, left of= history]{
+			\textbf{list}
+		\nodepart{second}
+			id: INT\newline
+			\textbf{\underline{name}}: CLASS\newline
+			\textbf{\underline{element}}: CLASS/IND
+	};
+
+\end{tikzpicture}
+
+
+\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=5cm]
+\begin{tikzpicture}[node distance=3cm]
+	\node (subClass) [relation, rectangle split, rectangle split parts=2]{
+			\textbf{subClass}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{sub}}: CLASS\newline
+			\textbf{\underline{super}}: CLASS
+	};
+	
+	
+	\node (classAssertionEnt) [relation, rectangle split, rectangle split parts=2, below of= subClass]{
+			\textbf{classAssertionEnt}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{entity}}: IND/CLASS\newline
+			\textbf{\underline{class}}: CLASS
+	};
+	
+	\node (classAssertionLit) [relation, rectangle split, rectangle split parts=2, right =2cm of classAssertionEnt]{
+			\textbf{classAssertionLit}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{literal}}: IND/CLASS\newline
+			\textbf{\underline{class}}: CLASS\newline
+			\textbf{\underline{language}}: LANGUAGE
+	};
+	
+	\node (sameAsEnt) [relation, rectangle split, rectangle split parts=2, below =2cm of classAssertionEnt]{
+			\textbf{sameAsEnt}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{left}}: IND\newline
+			\textbf{\underline{right}}: IND
+	};
+	
+	\node (sameAsLit) [relation, rectangle split, rectangle split parts=2, right =2cm of sameAsEnt, text width=6cm]{
+			\textbf{sameAsLit}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{left}}: IND\newline
+			\textbf{\underline{right}}: IND\newline
+			\textbf{\underline{left\_type}}: CLASS\newline
+			\textbf{\underline{right\_type}}: CLASS\newline
+			\textbf{\underline{left\_language}}: LANGUAGE\newline
+			\textbf{\underline{right\_language}}: LANGUAGE
+	};
+	
+	\node (objectPropertyAssertion) [relation, rectangle split, rectangle split parts=2, below =2cm of sameAsEnt]{
+			\textbf{objectPropertyAssertion}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{subject}}: IND\newline
+			\textbf{\underline{property}}: PROPERTY\newline
+			\textbf{\underline{object}}: IND
+	};
+	
+	\node (dataPropertyAssertion) [relation, rectangle split, rectangle split parts=2, right =2cm of objectPropertyAssertion, text width=6cm]{
+			\textbf{dataPropertyAssertion}
+		\nodepart{second}
+			\underline{id}: INT\newline
+			\textbf{\underline{subject}}: IND\newline
+			\textbf{\underline{property}}: PROPERTY\newline
+			\textbf{\underline{object}}: LITERAL\newline
+			\textbf{\underline{type}}: CLASS\newline
+			\textbf{\underline{language}}: LANGUAGE
+	};
+
+\end{tikzpicture}

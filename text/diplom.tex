@@ -10,7 +10,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \renewcommand{\sfdefault}{phv}
-\renewcommand{\rmdefault}{phv}
+%\renewcommand{\rmdefault}{phv}
 \renewcommand{\ttdefault}{pcr}
 \usepackage{graphicx}
 \usepackage{verbatim}
@@ -79,6 +79,10 @@ colorlinks=false,
 pdfborder=0 0 0	% keine Box um die Links!
 }
 
+\usepackage{tikz}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
+
+ 
 %Trennungsregeln
 \hyphenation{Sil-ben-trenn-ung}
 
@@ -116,7 +120,7 @@ pdfborder=0 0 0	% keine Box um die Links!
 
 % Impressum
 \clearpage
-\thispagestyle{empty}
+,\thispagestyle{empty}
 { \small
   \flushleft
   Fassung \today \\\vfill
