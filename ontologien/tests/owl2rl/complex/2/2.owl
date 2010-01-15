@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+]>
+ 
+ <rdf:RDF xml:base="http://www.informatik.uni-ulm.de/ki/Liebig/owl/asym-test-owl2-rl.owl#"
+   xmlns="http://www.informatik.uni-ulm.de/ki/Liebig/owl/asym-test-owl2-rl.owl#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+ 
+	<owl:Ontology rdf:about="">
+		<rdfs:comment>
+			An example to test the asymmetric property reasoning within OWL-RL, Thorsten Liebig
+		</rdfs:comment>
+	</owl:Ontology>
+
+	<owl:ObjectProperty rdf:about="#r" >
+           <rdf:type rdf:resource="&owl;FunctionalProperty" />
+	</owl:ObjectProperty>
+
+	<owl:ObjectProperty rdf:about="#p">
+           <rdf:type rdf:resource="&owl;AntisymmetricProperty" />
+	</owl:ObjectProperty>
+
+	<owl:Class rdf:ID="A"/>
+
+	<A rdf:about="#a">
+           <p rdf:resource="#b" />
+        </A>
+
+	<A rdf:about="#d" />
+
+	<A rdf:about="#b">
+           <p rdf:resource="#d" />
+        </A>
+
+	<A rdf:about="#e" />
+
+	<A rdf:about="#e">
+           <r rdf:resource="#a" />
+        </A>
+
+	<A rdf:about="#e">
+           <r rdf:resource="#d" />
+        </A>
+
+<!--
+     conclusion: ontology is inconsistent
+-->
+	
+</rdf:RDF>
