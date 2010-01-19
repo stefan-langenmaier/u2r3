@@ -514,6 +514,13 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public boolean isAsymmetric(OWLObjectProperty arg0)
+			throws OWLReasonerException {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public boolean isTransitive(OWLObjectProperty arg0)
@@ -545,13 +552,6 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	
 	public OWLDataFactory getDataFactory() {
 		return getOWLDataFactory();
-	}
-
-	@Override
-	public boolean isAsymmetric(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public NodeIDMapper getNIDMapper() {

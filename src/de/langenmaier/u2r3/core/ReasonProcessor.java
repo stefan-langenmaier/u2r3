@@ -95,17 +95,17 @@ public class ReasonProcessor {
 				
 			}
 			
-			logger.debug("Merging relations");
+			logger.info("Merging relations");
 			for (Relation r : relationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();
 				}
 			}
-			logger.debug("Relations merged");
+			logger.info("Relations merged");
 			
-			logger.trace(" ------------------------------------ ");
-			logger.trace(" --------     next round     -------- ");
-			logger.trace(" ------------------------------------ ");
+			logger.info(" ------------------------------------ ");
+			logger.info(" --------     next round     -------- ");
+			logger.info(" ------------------------------------ ");
 			
 			return (!(actions.isEmpty()));
 		}
