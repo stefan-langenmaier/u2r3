@@ -6,6 +6,47 @@
 
 \input{aufbau-des-schlussfolgerers}
 
+\section{Auswertungsstrategien}
+Modusname: '''!EvaluationStrategy''' := COMMONLAST | RARELAST
+
+== Alle Regeln nacheinander ==
+trivial (nicht implementiert, sollte in der !RuleActionQueue umgesetzt werden)
+
+== Abhängigkeiten der Regeln ausnutzen/Regeln in eine Queue packen ==
+
+Regeln zusammenfassen, falls sie mehrmals angefragt werden
+
+ * an ihrer Position in der Queue lassen
+ * zurückschieben '''im Moment implementiert''' (siehe !RuleActionQueue)
+
+== Regelauslösung ==
+Für jeden Manipulation der Datenbank (DELETE/INSERT) wird/muss eine Reason ausgelöst (werden). Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen war. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
+
+
+%{{{
+DB Manipulation  (1) ===> (1) Reason (1) ===> (n) RuleActions
+%}}}
+
+%{{{
+           Realtion                     Delta
+%            ######
+%            ######         <===           #
+%            ######
+                                          |
+(welche Regel) |                          | (welche neuen Daten)
+               |                          |
+%                ####>  Reason  <==========
+
+                          | (1)
+                          |
+                          | (eine Regel mit neuen Daten)
+                          |
+                          v (n)
+
+                      RuleAction
+
+%}}}
+
 \begin{verbatim}
     * Was ist der Unterschied zu OWL1 DL/Lite?
     * Was sind Fähigkeiten, die der neue U2R2 haben soll?

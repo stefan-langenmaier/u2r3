@@ -1,0 +1,49 @@
+\chapter{Anhang}
+% hier Anhänge einbinden
+\section*{Quellcode}
+\section*{Regelimplementierung}
+\section*{Java-Dokumentation}
+\section*{Wiki}
+\section*{Repository}
+\section*{Testfälle}
+Regeltest
+
+Nach der Implementierung der Regel muss überprüft werden, ob die Regel korrekt implementiert wurden.
+
+== Selbsttest ==
+Die collective und die delta-Iteration benötigen zwei verschiedene Regelimplementierungen in SQL, ob die Umsetzung wirklich korrekt ist könnte z.B. durch einen Vergleich von zwei Läufen mit dem jeweiligen Verfahren getestet werden.
+
+== Testsuite ==
+ * http://km.aifb.uni-karlsruhe.de/projects/owltests/index.php/Test:RL
+ * http://www.fzi.de/downloads/ipe/testsuite-owl2-rdfbased.zip (Paper: [source:/trunk/referenzen/schneider2009-conformance-test-suite.pdf schneider2009-conformance-test-suite.pdf])
+ 
+\section*{Systemanforderungen}
+\section*{Bibliotheken}
+Die Entwicklung des Schlussfolgerers setzt auf verschiedenen Anwendungen und Bibliotheken auf. Diese dienen teilweise zur Entwicklung, teilweise als Schnittstelle zu anderen Anwendungen und teilweise als Hilfsanwendungen um von komplexen Bereich zu abstrahieren und des Schlussfolgerers möglichst modular halten. Natürlich büerlappen sich diese Bereich auch. Im folgenden wird kurz darauf eingegangen wieso diese Anwendungen und Bibliotheken verwendet wurden und was ihre Rolle in der Entwicklung spielte.
+
+== Entwicklung ==
+
+Die hier aufgeführten Anwendungen wurden nur zum entwickeln des Programmcodes und zur Erstellung des Programms verwendet.
+
+ * Eclipse
+ * Ant
+ * Java
+ * SVN
+ * Trac
+ * Apache
+ * Linux-Stack
+ * Subclipse
+ * Junit
+
+== Laufzeitabhängigkeiten ==
+Die hier aufgeführten Programmen und Anwendungen sind für die Ausführung des Schlussfolgerers nötig.
+
+ * OWLAPI v3
+ * H2 Datenbank
+
+=== H2 Datenbank ===
+Die H2 Datenbank ist eine komplett in Java implementierte Datenbank, die unter einer open-source Lizenz veröffentlicht wird. Sie fügt sich damit hervorragend in den bisherigen Anwendungsstapel ein (Java und open-source). Sie zeichnet sich durch ihre hohe Geschwindigkeit und die verschiedenen Anwendungsmöglichkeiten aus. So kann sie z.B. in einem eingebetten Modus betrieben werden ohne eine speziellen Datenbankserver einzurichten. Außerdem lässt sie durch die einfache Erstellung von Datenbankfunktionen in Java eine hohe Flexibilität in Abfragen zu.
+
+== OWLAPI ==
+
+Horridge2009: The OWL API: A Java API for Working with OWL 2 Ontologies

@@ -3,7 +3,83 @@ In den einleitenden Abschnitten wurden bereits einige Begriffe verwendet, die no
 
 Dazu gehören Ontologien, für was sie stehen und wozu sie nützlich sind. Die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründen für die Umsetzungen von Ontologien in Datenbanken.
 
+\section{Kriterien der Wissensrepräsentation}
+
+Die Wissensrepräsentation ist zentraler Bestandteil eine KI-Systems. Eine Wissensrepräsentation wird zu jedem Bereich von intelligenten rechnergestützten Systemen benötigt.
+
+Eine Wissensrepräsentation kann für verschiedene Anwendungsgebiete ausgelegt sein, daher gibt es einige allgemeine Kriterien, um solche Sprachen einzuordnen.
+
+== Bergriffserkläung ==
+ * Korrektheit
+Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus einer Wissenrepräsentation zu ziehen. Falsche Schlüsse beziehen sich dabei auf die Semantik des Verfahrens.
+ * Vollständigkeit
+Ein Verfahren ist vollständig wenn alle korrekten Schlüsse folgerbar sind.
+ * Entscheidbarkeit
+Ein Verfahren ist entscheidbar, wenn immer der Algorithmus für das Schlussfolgern immer existiert.
+ * Adäquatheit
+Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen auf eine einfache und verständliche Art möglich ist.
+ * Komplexität
+Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
+
+== OWL2 RL Eigenschaften ==
+
+Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
+
+Sofern sich eine Ontologie an die syntaktischen Rahmenbedigungen des Sprachfragments hält und ein Schlussfoglerer entsprechend der angebenen Regelsemantik implementiert ist, können sich daraus einige positive Kriterien ableiten lassen. So ist dann garantiert, das alle und nur gültige Ergebnisse vom Schlussfolgerer geliefert werden. Das Verfahren für die Wissensrepräsentation ist damit korrekt und vollständig. (siehe Beweis)
+Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntaktisch konformen Ontologien zu schlussfolgern. Es ist dann zwar nicht mehr möglich alle Ergebnisse zu ermitteln, aber es werden zumindest weiterhin nur gültige Ergebnisse abgeleitet.
+
+Eine vollständige Beschreibung für die syntaktisch Einschränkung dieser Sprache findet man im Anhang und in der Referenz [ref].
+
+Natürlich ist das Sprachfragemnt OWL2 RL entscheidbar und zwar in polynomieller Zeit entscheidbar. In der Profilbeschreibung wird dabei feiner unterschieden.
+
+
+ * U2R2 ist ein Reasoner im SHIF-Fragment (woher weiß ich das Referenz dringend)
+ * OWL liegt in SHOIN (Referenz)
+ * OWL2 basiert auf SROIQ (Krötzsch2008)
+ * OWL-DL entspricht SHOIN (Referenz)
+
+TABELLE der Komplexitäten TABELLE
+
+% http://www.webont.org/owl/1.1/tractable.html
+
+% http://www.cs.manchester.ac.uk/~ezolin/dl/
+
+% http://www.w3.org/TR/owl2-profiles/#Computational_Properties
+ 
+= Attributive Language =
+
+Die attributive language ist die grundlegende Beschreibungssprache. Sie wird mit AL abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
+
+AL: C,D --> A | $\top$ | BOTTOM | ~A | C int D | forall r.C | some r
+
+Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema wird aber von vielen Programmen wie z.B. Protege verwendet.
+
+Bei diesem Namenschema werden an die Buchstaben AL noch weitere Kürzel angehängt die für die zusätzlichen Operatoren stehen.
+
+ * C für volle Negation (Complement)
+ * (D) für konkrete Domäne  	Use of datatype properties, data values or data types.
+ * U Concept union.
+ * E Full existential qualification (Existential restrictions that have fillers other than owl:thing)
+ * N Functional properties.
+ * I Inverse properties.
+ * O Nominals. (Enumerated classes of object value restrictions - owl:oneOf, owl:hasValue).
+ * H Role hierarchy (subproperties - rdfs:subPropertyOf).
+ * F Functional properties.
+
+== Komplexität in Form attributive language ==
+
+== Zusammenhang mit einem Schlussfolgerer ==
+
+Die Wissensrepräsentation hängt nicht direkt mit dem Schlussfolger zusammen, wenn man allerdings über die gewünschte Wissensrepräsentation bescheid weiß, ist es möglich den Schlussfolger daraufhin zu trimmen. Im Falle dieser Arbeit wird mit einer Wissensrepräsentation gearbeitet -- OWL2 RL -- und der Schlussfolgerer ist daraufhin optimiert, die in der Sprache repräsentierten Kriterien, wie Entscheidbarkeit und Komplexität zu erreichen.
+Das bedeutet  zum einen einfach, das wenn die Sprache entscheidbar ist, also es einen immer einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese  beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
+Die Komplexität einer Sprache gibt nur einen theoretischen Wert an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nah an der Definition der Sprache umgesetzt werden und somit auch nah an der theoretischen Komplexität bleiben.
+Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete Rolle.
+
 \section{Ontologien}
+= Unterschied zu relationaler Datenbank =
+
+Beim Abspeichern einer Ontologie in einer relatioalenDatenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die unique name assumption, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von  eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder unique deklariert werden wird sichergestellt das Namen eindeutig sind.
+Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden ist nicht Tel des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
 
 \section{OWL2}
 

@@ -1,0 +1,77 @@
+\section{Löschung}
+Modusname: '''!DeletionType''' := CLEAN | CASCADING
+
+== Ableitungsreihenfolge abspeichern ==
+ * OWL2 RL ist eine monotone Logik ([ticket:20])
+   * Neue Fakten können einfach hinzugefügt werden und darüber erneut geschloßen werden. Alte Fakten werden dadurch nicht beeinflusst.
+   * Änderungen von Daten können auf löschen von Fakten und hinzufügen von Fakten reduziert werden. Hinzufügen ist einfach (siehe oben).
+   * Löschen von Fakten
+     * Fakten die abgeleitet wurden können nicht gelöscht werden
+     * Fakten die keine Ableitungen verursacht haben können gelöscht werden
+     * Fakten die eine Ableitung verursacht haben können nur gelöscht werden, wenn alle ihre Ableitungen gelöscht werden.
+
+Durch das Speichern der Ableitungsreihenfolge Manipulationen an der Ontologie beschleunigen.
+
+=== Woher ist etwas abgeleitet ===
+ * eine Regel
+ * '''mehrere Fakten'''
+Regel egal, da diese ja auf Grund der Fakten ausgewählt wurde.
+''Gilt das nur für die ABox oder auch die TBox?'' '''ja''
+
+=== Wie speichert man die Ableitungsreihenfolge ab ===
+Die !ApplicationRules so erweitern, dass sie von jeder verwendeten Tabelle, die id der Zeile mitliefert. Dazu müssen ids in Tabellen eingeführt werden. Das entspricht sehr dem !MEMA-Schema, da durch id eine klare, einheitlich Historie-Tabelle angelegt werden kann, die unabhängig von unterschiedlichen Axiom-Konstrukten ist. Die ids müssen !UNIQUE pro Tabelle sein.
+
+Falls die Anzahl der Spalten einer Abfrage nicht bekannt ist, kann sie auch dynamisch erstellt werden, da die einheitliche ids pro Axiom verwendet werden. Die Anzahl der Spalten pro Tabelle ist von H2 nicht begrenzt (schon überprüft, in der Dokumentation).
+
+Danach müssen die Daten-Spalten in eine seperate Referenztabelle (Historien-Tabelle). Hier wird zu einer id und einer Tabelle, die Quelldaten woher dieser Fakt stammt ebenfalls in Form von einer id und Tabelle abgepseichert.
+
+Regel
+%{{{
+subClass(A,C) := subClass(A,B), subClass(B,C)
+ neue\_id             id\_x           id\_y
+%}}}
+
+Historie
+%{{{
+   id      ||   quelle
+========================
+ neue\_id         id\_x
+ neue\_id         id\_y 
+%}}}
+
+
+'''ABER'''
+
+Den Deltas kann im voraus keine deterministische id gegeben werden oder nur mit erheblichen Locking- und Management-Aufwand. Daher liegt es nahe sog. !UUIDs zu verwenden. Das ist allerdings ein kleiner Performance- und Speicherverlust. Verliert aber dabei nicht an Skalierbarkeit.
+
+==== Idee ====
+Evtl. können auch Daten mit einer Art Wildcard angelegt werden. Daten, die keine Quellangabe haben werden immer gelöscht.
+
+=== Wie löscht man dann Daten ===
+Die id des zu löschenden Axioms bestimmen.
+Schauen, ob die id in der Historientabelle vorhanden ist. Wenn ja dann alle Abhängigkeiten finden. Rekursiv diese löschen. Dann den Wert selbst löschen.
+
+z.B.: subClass(B,C) => id\_y
+%{{{
+SELECT id FROM Historie WHERE quelle = $id_y$
+
+while(id)
+  lösche(id)
+  DELETE FROM Historie WHERE id = id
+
+DELETE FROM subClass WHERE id = $id_y$
+%}}}
+
+=== Kann man Unterschiede in ABox und TBox Löschungen ausnützen? ===
+In U2R2/3 verschwimmt der Unterschied zwischen ABox und TBox weiter, da beide in den selben Strukturen abgespeichert werden.
+
+
+== Wann müssen beim Löschen Regeln ausglöst werden? ==
+Es müssen für alle gelöschte Fakten Reason augelöst werden, da nicht von vornherein gesagt werden kann, wie Daten erzeugt werden.
+
+== Welche Regeln müssen beim Löschen ausgelöst werden? ==
+Relationen müssen wissen welche Regeln bei Ihnen Daten erzeugen können. Diese Regeln müssen dann ausgelöst werden. Im Gegenteil zu ''normalen'' Inferenzregeln.
+
+Beim löschen müssen die Regeln angestoßen werden, die in der gelöschten Tabelle Daten erzeugen könnten. Für die Unterscheidung sollten zwei verschiedene Reason eingeführt werden.
+ * !AdditionReason (wenn der Grund durch das hinzufügen eines Faktes entstanden ist)
+ * !DeletionReason (wenn der Grund durch das hinzufügen eines Faktes entstanden ist)
