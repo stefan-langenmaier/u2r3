@@ -1,0 +1,23 @@
+\section{Konsistenzprüfungen}
+
+Es gibt verschiedene Modus als Vorschlag
+ * nach jeder Regelanwendung ('''nicht sinnvoll''': es kann durch eine Regelanwendung nicht gegen beliebige Konsistenzregeln verstoßen werden)
+ * nach kompletter Ableitung ('''fraglich''', es sollte zwar gehen, aber ob es soviel schneller ist als nur die abhängigen ist unbekannt)
+ * nur abhängige Konsistenzregeln ('''default''': sicher und nur nötigster Aufwand)
+ * keine ('''schnell''', wenn bekannt ist, das die Ontologie konsistent ist braucht ja nicht jedesmal ihre Konsistenz wieder überpürft werden)
+Modusname: '''!ConsistencyLevel''' := NONE | DEFAULT
+
+== Einsatzort ==
+Die Tabellen sollten hier auch wissen, welche (Konsistenz-)Regeln sie auslösen (können), der !ReasonProcessor entscheidet dann, welche !RuleActions er anlegt.
+
+== Rückmeldung ==
+Konsistenzregeln melden sich nur in einem Fehlerfall zurück. Die Rückmeldung erfolgt aus den Regeln selbst während ihrer Ausführung.
+
+Hier gibt es die zwei Möglichkeiten:
+ * nur eine Warnung auszugeben (log4j)
+ * die Verarbeitung unterbrechen (Exception werfen)
+ * abhängig von der Inkonsistenz reagieren
+Modusname: '''!InconsitencyReaction''' := WARN | FAIL | PERCASE
+
+== Implementierung ==
+Von der Klasse Rule wird eine Subklasse !ConsistencyRule abgeleitet von der alle Konsistenzregeln abgeleitet sein sollen.
