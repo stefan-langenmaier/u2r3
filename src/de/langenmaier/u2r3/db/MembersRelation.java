@@ -29,7 +29,7 @@ public class MembersRelation extends Relation {
 			tableName = "members";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" class TEXT," +
 					" list TEXT," +
 					" PRIMARY KEY HASH (class, list));" +

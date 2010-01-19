@@ -33,7 +33,7 @@ public class DataPropertyAssertionRelation extends Relation {
 			tableName = "dataPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -82,8 +82,8 @@ public class DataPropertyAssertionRelation extends Relation {
 		try {
 			dropDelta(id);
 			//max 3 Quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +

@@ -15,7 +15,7 @@ public class DifferentFromLitRelation extends Relation {
 			tableName = "differentFromLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" left_language TEXT," +

@@ -18,7 +18,7 @@ public class DifferentFromEntRelation extends Relation {
 			tableName = "differentFromEnt";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" PRIMARY KEY (id));" +

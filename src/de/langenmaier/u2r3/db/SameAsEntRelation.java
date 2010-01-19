@@ -22,7 +22,7 @@ public class SameAsEntRelation extends Relation {
 			tableName = "sameAsEnt";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" PRIMARY KEY HASH (left, right));" +
@@ -75,7 +75,7 @@ public class SameAsEntRelation extends Relation {
 			dropDelta(id);
 			// bis zu 6 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" sourceId1 UUID," +

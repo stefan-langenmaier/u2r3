@@ -15,7 +15,7 @@ public class HasValueLitRelation extends Relation {
 			tableName = "hasValueLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" class TEXT," +
 					" property TEXT, " +
 					" value TEXT," +

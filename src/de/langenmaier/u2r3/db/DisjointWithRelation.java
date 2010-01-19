@@ -21,7 +21,7 @@ public class DisjointWithRelation extends Relation {
 			tableName = "disjointWith";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" PRIMARY KEY (left, right));" +

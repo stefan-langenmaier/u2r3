@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 
@@ -36,10 +35,10 @@ public class History extends U2R3Component {
 				dropStatement.execute();
 			
 				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-						" id UUID NOT NULL," +
-						" table VARCHAR(100)," +
-						" sourceId UUID," +
-						" sourceTable VARCHAR(100)," +
+						" id BIGINT NOT NULL," +
+						" table VARCHAR(100) NOT NULL," +
+						" sourceId BIGINT NOT NULL," +
+						" sourceTable VARCHAR(100) NOT NULL," +
 						" PRIMARY KEY (id, sourceId))");
 				createStatement.execute();
 			}
@@ -66,8 +65,8 @@ public class History extends U2R3Component {
 		
 	}
 
-	public void remove(UUID sourceId, RelationName sourceTable) {
-		logger.trace(" removing UUID: "+ sourceId.toString());
+	public void remove(Long sourceId, RelationName sourceTable) {
+		logger.trace(" removing UID: "+ sourceId.toString());
 		
 		Statement stmt = null;
 		Statement deleteStatement = null;
@@ -83,7 +82,7 @@ public class History extends U2R3Component {
 			
 			//remove dependecies
 			while (rs.next()) {
-				UUID id = UUID.fromString(rs.getString("id"));
+				Long id = rs.getLong("id");
 				RelationName name = RelationName.valueOf(rs.getString("table"));
 				remove(id, name);
 				

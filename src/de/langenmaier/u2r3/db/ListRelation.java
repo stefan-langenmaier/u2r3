@@ -17,7 +17,7 @@ public class ListRelation extends Relation {
 			tableName = "list";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" name TEXT," +
 					" element TEXT," +
 					" PRIMARY KEY HASH (name, element));" +

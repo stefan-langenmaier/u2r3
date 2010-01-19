@@ -24,7 +24,7 @@ public class SubPropertyRelation extends Relation {
 			tableName = "subProperty";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" PRIMARY KEY (sub, super));" +
@@ -82,7 +82,8 @@ public class SubPropertyRelation extends Relation {
 	public void createDeltaImpl(int id) {
 		try {
 			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" sourceId1 UUID," +

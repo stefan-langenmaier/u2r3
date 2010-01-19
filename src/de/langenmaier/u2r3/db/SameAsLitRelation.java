@@ -20,14 +20,13 @@ public class SameAsLitRelation extends Relation {
 			tableName = "sameAsLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-//TODO: koennte id nicht durch die anderen vier spalten ersetzt werden?
 					" PRIMARY KEY (id, left, right));" +
 					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
 					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
@@ -52,7 +51,7 @@ public class SameAsLitRelation extends Relation {
 			dropDelta(id);
 			// bis zu 8 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
 					" left_language TEXT," +

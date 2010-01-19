@@ -19,7 +19,7 @@ public class HasKeyRelation extends Relation {
 			tableName = "hasKey";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" class TEXT," +
 					" list TEXT," +
 					" PRIMARY KEY (class, list));" +

@@ -3,7 +3,6 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -26,7 +25,7 @@ public class SubClassRelation extends Relation {
 			tableName = "subClass";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" PRIMARY KEY (sub, super));" +
@@ -69,7 +68,7 @@ public class SubClassRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" sourceId1 UUID," +
@@ -159,7 +158,7 @@ public class SubClassRelation extends Relation {
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
-				relationManager.remove((UUID) rs.getObject("id"), RelationName.subClass);
+				relationManager.remove(rs.getLong("id"), RelationName.subClass);
 				
 				if (naxiom.getSubClass().isAnonymous()) {
 					removeAnonymousClassExpression(naxiom.getSubClass());

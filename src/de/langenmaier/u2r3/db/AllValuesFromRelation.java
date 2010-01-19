@@ -3,7 +3,6 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,11 +22,11 @@ public class AllValuesFromRelation extends Relation {
 			tableName = "allValuesFrom";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" part TEXT," +
 					" property TEXT, " +
-					" total TEXT, " +
-					" PRIMARY KEY (part, total));" +
+					" total TEXT); " +
+					//" PRIMARY KEY (id, part, property, total));" +
 					" CREATE HASH INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
 					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE HASH INDEX " + getTableName() + "_total ON " + getTableName() + "(total);");
@@ -127,7 +126,7 @@ public class AllValuesFromRelation extends Relation {
 				ResultSet rs = stmt.executeQuery(sql.toString());
 				
 				if (rs.next()) {
-					relationManager.remove((UUID) rs.getObject("id"), RelationName.allValuesFrom);
+					relationManager.remove(rs.getLong("id"), RelationName.allValuesFrom);
 
 					if (avf.getProperty().isAnonymous()) {
 						removeAnonymousPropertyExpression(avf.getProperty());

@@ -2,7 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.UUID;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -97,7 +96,7 @@ public class RelationManager {
 		
 	}
 
-	public void remove(UUID id, RelationName name) {
+	public void remove(Long id, RelationName name) {
 		if (reasoner.getSettings().getDeletionType() == DeletionType.CASCADING) {
 			history.remove(id, name);
 		} //else if (Settings.getDeletionType() == DeletionType.CLEAN) {

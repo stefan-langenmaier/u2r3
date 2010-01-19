@@ -18,7 +18,7 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 			tableName = "negativeObjectPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +

@@ -24,7 +24,7 @@ public class PropertyRangeRelation extends Relation {
 			tableName = "propertyRange";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" property TEXT," +
 					" range TEXT," +
 					" PRIMARY KEY (property, range));" +
@@ -85,7 +85,7 @@ public class PropertyRangeRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE, " +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" property TEXT," +
 					" range TEXT," +
 					" sourceId1 UUID, " +

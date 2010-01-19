@@ -3,7 +3,6 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.NodeID;
@@ -28,7 +27,7 @@ public class IntersectionOfRelation extends Relation {
 			tableName = "intersectionOf";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" class TEXT," +
 					" list TEXT," +
 					" PRIMARY KEY (class, list));" +
@@ -132,7 +131,7 @@ public class IntersectionOfRelation extends Relation {
 				ResultSet rs = stmt.executeQuery(sql.toString());
 				
 				if (rs.next()) {
-					relationManager.remove((UUID) rs.getObject("id"), RelationName.intersectionOf);
+					relationManager.remove(rs.getLong("id"), RelationName.intersectionOf);
 					
 					for(OWLClassExpression ce : oi.getOperands()) {
 						if (ce.isAnonymous()) {

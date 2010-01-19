@@ -6,7 +6,6 @@ import java.sql.Statement;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
@@ -43,7 +42,7 @@ public class ClassAssertionEntRelation extends Relation {
 			tableName = "classAssertionEnt";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
 					" class TEXT," +
 					" PRIMARY KEY HASH (entity, class));" +
@@ -134,8 +133,8 @@ public class ClassAssertionEntRelation extends Relation {
 		try {
 			dropDelta(id);
 			//max 4 quellen außer in cls-int1
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + 
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
 					" class TEXT," +
 					" sourceId1 UUID," +
@@ -228,7 +227,7 @@ public class ClassAssertionEntRelation extends Relation {
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
-				relationManager.remove((UUID) rs.getObject("id"), RelationName.classAssertionEnt);
+				relationManager.remove(rs.getLong("id"), RelationName.classAssertionEnt);
 				
 				if (naxiom.getIndividual().isAnonymous()) {
 					removeAnonymousIndividual(naxiom.getIndividual());

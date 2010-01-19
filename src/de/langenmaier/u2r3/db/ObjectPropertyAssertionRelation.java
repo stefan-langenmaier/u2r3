@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.inference.OWLReasonerException;
@@ -32,7 +31,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			tableName = "objectPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -73,8 +72,8 @@ public class ObjectPropertyAssertionRelation extends Relation {
 		try {
 			dropDelta(id);
 			//max 3 Quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "" +
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -167,7 +166,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			ResultSet rs = stmt.executeQuery(sql.toString());
 			
 			if (rs.next()) {
-				relationManager.remove((UUID) rs.getObject("id"), RelationName.objectPropertyAssertion);
+				relationManager.remove(rs.getLong("id"), RelationName.objectPropertyAssertion);
 				
 				if (naxiom.getSubject().isAnonymous()) {
 					removeAnonymousIndividual(naxiom.getSubject());

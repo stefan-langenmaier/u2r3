@@ -3,7 +3,6 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.UUID;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
@@ -23,7 +22,7 @@ public class SomeValuesFromRelation extends Relation {
 			tableName = "someValuesFrom";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" part TEXT," +
 					" property TEXT," +
 					" total TEXT," +
@@ -127,7 +126,7 @@ public class SomeValuesFromRelation extends Relation {
 				ResultSet rs = stmt.executeQuery(sql.toString());
 				
 				if (rs.next()) {
-					relationManager.remove((UUID) rs.getObject("id"), RelationName.someValuesFrom);
+					relationManager.remove(rs.getLong("id"), RelationName.someValuesFrom);
 
 					if (svf.getProperty().isAnonymous()) {
 						removeAnonymousPropertyExpression(svf.getProperty());

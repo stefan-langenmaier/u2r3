@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 /**
- * This class creates setups special functions in the database.
+ * This class setups special functions in the database.
  * @author stefan
  *
  */
@@ -26,6 +26,9 @@ public class DBSetup {
 			dropStatement.execute();
 		
 			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
+			createStatement.execute();
+			
+			createStatement = conn.prepareStatement("CREATE SEQUENCE IF NOT EXISTS uid");
 			createStatement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();

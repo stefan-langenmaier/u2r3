@@ -18,7 +18,7 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 			tableName = "maxQualifiedCardinality";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					"id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" class TEXT," +
 					" property TEXT, " +
 					" total TEXT, " +

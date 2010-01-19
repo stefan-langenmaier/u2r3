@@ -28,7 +28,7 @@ public class ClassAssertionLitRelation extends Relation {
 			tableName = "classAssertionLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" literal TEXT," +
 					" class TEXT," +
 					" language TEXT," +
@@ -77,8 +77,8 @@ public class ClassAssertionLitRelation extends Relation {
 		try {
 			dropDelta(id);
 			//max 4 quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + 
-					" (id UUID DEFAULT RANDOM_UUID() NOT NULL UNIQUE," +
+			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
+					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" literal TEXT," +
 					" class TEXT," +
 					" language TEXT," +
