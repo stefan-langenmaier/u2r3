@@ -21,6 +21,7 @@ Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen au
  * Komplexität
 Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
 
+
 == OWL2 RL Eigenschaften ==
 
 Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
@@ -80,8 +81,22 @@ Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete R
 
 Beim Abspeichern einer Ontologie in einer relatioalenDatenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die unique name assumption, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von  eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder unique deklariert werden wird sichergestellt das Namen eindeutig sind.
 Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden ist nicht Tel des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
+\begin{figure}
+\includegraphics{images/w3-layercake.pdf}
+\end{figure}
 
 \section{OWL2}
+\begin{figure}
+\includegraphics{images/owl-layer-map.pdf}
+\end{figure}
+
+\begin{figure}
+\includegraphics{images/sprachierarchie.pdf}
+\end{figure}
+
+\begin{figure}
+\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
+\end{figure}
 
 \section{Schlussfolger}
 

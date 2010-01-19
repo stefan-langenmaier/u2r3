@@ -45,6 +45,12 @@ Nachfolgend eine Übersicht über einen Ablauf des Schlussfolgerers, wenn er ein
 \begin{figure}
 \includegraphics{images/u2r3-workflow.pdf}
 \end{figure}
+konform: überprüft, ob die verwendete Syntax im OWL2 RL Profil liegt
+laden: bringt die Ontolgoie in das Datenbank-Schema, dabei merkt es an welche Regeln für das ableiten ausgeführt werden sollen
+initialisieren: erzeugt das Datenbankschema notfalls, läd Standardwerte und richtet in der Datenbank nötige Funktionen ein
+konsistent: ist eine Hülle um dafür zu sorgen, das nur über konsistente Fakten geschlossen wird. Die Häufigkeit kann eingestellt werden.
+ableiten:Wendet die Ableitungsregeln an. Die Regelandwendung ist abgschloßen wenn keine neuen Fakten erzeugt werden können.
+abfragen: implementiert die Schnittstelle der OWLAPI, mit der man Anfragen an die abgeleiteten Fakten stellen kann
 
 
 Speicherung
