@@ -172,8 +172,9 @@ public class RuleManager {
 		rules.put(RuleName.eq_ref_o_lit, new EqRefOLitRule(reasoner));
 		rules.put(RuleName.prp_ap, new PrpApRule(reasoner));
 		rules.put(RuleName.dt_type_2, new DtType2Rule(reasoner));
-		rules.put(RuleName.dt_not_type, new DtNotTypeRule(reasoner));
-		rules.put(RuleName.dt_eq, new DtEqRule(reasoner));
+		//rules.put(RuleName.dt_not_type, new DtNotTypeRule(reasoner));
+		//zu heftig
+		//rules.put(RuleName.dt_eq, new DtEqRule(reasoner));
 		rules.put(RuleName.impl_obj_int, new ImplObjIntRule(reasoner));
 		rules.put(RuleName.impl_obj_uni, new ImplObjUniRule(reasoner));
 		rules.put(RuleName.impl_obj_com, new ImplObjComRule(reasoner));
