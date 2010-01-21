@@ -40,10 +40,10 @@ public class DataPropertyAssertionRelation extends Relation {
 					" language TEXT NULL,"+
 					" type TEXT NULL,"+
 					" PRIMARY KEY (subject, property, object));" +
-					" CREATE HASH INDEX " + tableName + "_subject ON " + tableName + "(subject);" +
-					" CREATE HASH INDEX " + tableName + "_property ON " + tableName + "(property);" +
-					" CREATE HASH INDEX " + tableName + "_object ON " + tableName + "(object);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + tableName + "_subject ON " + tableName + "(subject);" +
+					" CREATE INDEX " + tableName + "_property ON " + tableName + "(property);" +
+					" CREATE INDEX " + tableName + "_object ON " + tableName + "(object);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object, language, type) VALUES (?, ?, ?, ?, ?)");

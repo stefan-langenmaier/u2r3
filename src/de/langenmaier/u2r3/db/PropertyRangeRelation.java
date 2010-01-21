@@ -28,9 +28,9 @@ public class PropertyRangeRelation extends Relation {
 					" property TEXT," +
 					" range TEXT," +
 					" PRIMARY KEY (property, range));" +
-					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
-					" CREATE HASH INDEX " + getTableName() + "_range ON " + getTableName() + "(range);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE INDEX " + getTableName() + "_range ON " + getTableName() + "(range);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");

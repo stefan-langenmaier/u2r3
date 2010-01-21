@@ -24,9 +24,9 @@ public class OneOfRelation extends Relation {
 					" class TEXT," +
 					" list TEXT," +
 					" PRIMARY KEY (class, list));" +
-					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
-					" CREATE HASH INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");

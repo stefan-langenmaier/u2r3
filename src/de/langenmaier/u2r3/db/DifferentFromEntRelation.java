@@ -22,9 +22,9 @@ public class DifferentFromEntRelation extends Relation {
 					" left TEXT," +
 					" right TEXT," +
 					" PRIMARY KEY (id));" +
-					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
-					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");

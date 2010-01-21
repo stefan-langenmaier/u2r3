@@ -31,12 +31,15 @@ public class History extends U2R3Component {
 		conn = U2R3DBConnection.getConnection();
 		try {
 			if (settings.startClean()) {
-				dropStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS");
-				dropStatement.execute();
-			
+				dropStatement = conn.prepareStatement("DROP TABLE " + getTableName());
+				try {
+					dropStatement.execute();
+				} catch (SQLException e) {
+					logger.warn("Relation has NOT been deleted.");
+				}
 				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 						" id BIGINT NOT NULL," +
-						" table VARCHAR(100) NOT NULL," +
+						" tablename VARCHAR(100) NOT NULL," +
 						" sourceId BIGINT NOT NULL," +
 						" sourceTable VARCHAR(100) NOT NULL," +
 						" PRIMARY KEY (id, sourceId))");

@@ -46,9 +46,9 @@ public class ClassAssertionEntRelation extends Relation {
 					" entity TEXT," +
 					" class TEXT," +
 					" PRIMARY KEY HASH (entity, class));" +
-					" CREATE HASH INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
-					" CREATE HASH INDEX " + tableName + "_class ON " + tableName + "(class);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
+					" CREATE INDEX " + tableName + "_class ON " + tableName + "(class);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, class) VALUES (?, ?)");

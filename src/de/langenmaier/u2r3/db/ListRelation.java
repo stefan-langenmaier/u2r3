@@ -20,10 +20,10 @@ public class ListRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" name TEXT," +
 					" element TEXT," +
-					" PRIMARY KEY HASH (name, element));" +
-					" CREATE HASH INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
-					" CREATE HASH INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" PRIMARY KEY (name, element));" +
+					" CREATE INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
+					" CREATE INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, element) VALUES (?, ?)");

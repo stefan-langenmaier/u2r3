@@ -33,9 +33,9 @@ public class ClassAssertionLitRelation extends Relation {
 					" class TEXT," +
 					" language TEXT," +
 					" PRIMARY KEY (id, literal, class));" +
-					" CREATE HASH INDEX " + getTableName() + "_literal ON " + getTableName() + "(literal);" +
-					" CREATE HASH INDEX " + getTableName() + "_class ON " + getTableName() + "(class);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_literal ON " + getTableName() + "(literal);" +
+					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(class);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, class, language) VALUES (?, ?, ?)");

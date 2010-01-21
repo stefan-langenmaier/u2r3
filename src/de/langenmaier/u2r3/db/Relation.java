@@ -148,14 +148,19 @@ public abstract class Relation extends U2R3Component {
 	}
 	
 	protected void create() {
-		try {
-			if (settings.startClean()) {
+		if (settings.startClean()) {
+			try {
 				dropMainStatement.execute();
-				createMainStatement.executeUpdate();
+			} catch (SQLException e) {
+				logger.warn("Relation has NOT been deleted");
+				//e.printStackTrace();
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				createMainStatement.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 		}
 	}
 	

@@ -27,10 +27,10 @@ public class SomeValuesFromRelation extends Relation {
 					" property TEXT," +
 					" total TEXT," +
 					" PRIMARY KEY (id, part, property, total));" +
-					" CREATE HASH INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
-					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
-					" CREATE HASH INDEX " + getTableName() + "_total ON " + getTableName() + "(total)");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
+					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total)");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, property, total) VALUES (?, ?, ?)");

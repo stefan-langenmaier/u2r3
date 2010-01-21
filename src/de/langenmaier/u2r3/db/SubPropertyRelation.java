@@ -28,9 +28,9 @@ public class SubPropertyRelation extends Relation {
 					" sub TEXT," +
 					" super TEXT," +
 					" PRIMARY KEY (sub, super));" +
-					" CREATE HASH INDEX " + getTableName() + "_sub ON " + getTableName() + "(sub);" +
-					" CREATE HASH INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_sub ON " + getTableName() + "(sub);" +
+					" CREATE INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (sub, super) VALUES (?, ?)");

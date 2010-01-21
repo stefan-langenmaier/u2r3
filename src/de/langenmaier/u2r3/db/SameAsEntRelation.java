@@ -25,10 +25,10 @@ public class SameAsEntRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" left TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY HASH (left, right));" +
-					" CREATE HASH INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
-					" CREATE HASH INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" PRIMARY KEY (left, right));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");

@@ -28,9 +28,9 @@ public class PropertyDomainRelation extends Relation {
 					" property TEXT," +
 					" domain TEXT," +
 					" PRIMARY KEY (property, domain));" +
-					" CREATE HASH INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
-					" CREATE HASH INDEX " + getTableName() + "_domain ON " + getTableName() + "(domain);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() + " IF EXISTS ");
+					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
+					" CREATE INDEX " + getTableName() + "_domain ON " + getTableName() + "(domain);");
+			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, domain) VALUES (?, ?)");
