@@ -39,7 +39,7 @@ public class History extends U2R3Component {
 				}
 				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 						" id BIGINT NOT NULL," +
-						" tablename VARCHAR(100) NOT NULL," +
+						" table VARCHAR(100) NOT NULL," +
 						" sourceId BIGINT NOT NULL," +
 						" sourceTable VARCHAR(100) NOT NULL," +
 						" PRIMARY KEY (id, sourceId))");
