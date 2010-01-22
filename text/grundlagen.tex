@@ -24,6 +24,8 @@ Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schluss
 
 == OWL2 RL Eigenschaften ==
 
+Under a monotonic logic, when new explicit facts (statements) are added to the KB (repository), this can cause that new implicit facts can extend its inferred closure, but in no case facts which were part of the inferred closure before, should be removed. In other words addition of new facts can only monotonically extend the inferred closure. [ref]
+
 Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
 
 Sofern sich eine Ontologie an die syntaktischen Rahmenbedigungen des Sprachfragments hält und ein Schlussfoglerer entsprechend der angebenen Regelsemantik implementiert ist, können sich daraus einige positive Kriterien ableiten lassen. So ist dann garantiert, das alle und nur gültige Ergebnisse vom Schlussfolgerer geliefert werden. Das Verfahren für die Wissensrepräsentation ist damit korrekt und vollständig. (siehe Beweis)
