@@ -13,9 +13,9 @@
     </description>
 	<property name="src" location="src"/>
 	<property name="build" location="build"/>
-	<property name="dist"  location="dist"/>
-	<property name="doc"  location="javadoc"/>
-	
+	<property name="dist" location="dist"/>
+	<property name="doc" location="javadoc"/>
+	<property name="images" location="text/images"/>
 	
 	<target name="init">
 		<!-- Create the time stamp -->
@@ -74,6 +74,22 @@
 		    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
 		    -->
 		  </javadoc>
+	</target>
+	
+	<target name="images" description="Generates the pdf images from the svg sources">
+		<apply verbose="true" executable="inkscape" dest="${images}" parallel="false">
+			<!-- <arg value="-file="/> -->
+			<srcfile/>
+			
+			<arg value="-A"/>
+			<targetfile/>
+			
+			<arg value="-z"/>
+			
+			<fileset dir="${images}" includes="*.svg"/>
+			<mapper type="glob" from="*.svg" to="*.pdf"/>
+		</apply>
+
 	</target>
 
 
