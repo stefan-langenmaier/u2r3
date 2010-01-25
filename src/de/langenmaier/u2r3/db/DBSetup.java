@@ -28,18 +28,28 @@ public class DBSetup {
 			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
 			createStatement.execute();
 
+			/*
+			 * Henne-Ei-Problem
+			 * Die Sequence kann erste geloescht werden wenn alle
+			 * Abhaengigkeiten beseitigt sind. Aber um neue Tabellen
+			 * anzulegen muss sie wieder vorhanden sein. Man kann also
+			 * den Aufruf nicht einfach ans Ende stellen.
+			 */
 			dropStatement = conn.prepareStatement("DROP SEQUENCE uid");
 			try {
 				dropStatement.execute();
 			} catch (SQLException e) {
 				logger.warn("Sequence has NOT been deleted.");
-				//e.printStackTrace();
 			}
 
 			createStatement = conn.prepareStatement("CREATE SEQUENCE uid");
-			createStatement.execute();
+			try {
+				createStatement.execute();
+			} catch (SQLException e) {
+				logger.warn("Sequence has NOT been created.");
+			}
 		} catch (SQLException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
