@@ -108,6 +108,6 @@ public class History extends U2R3Component {
 			e.printStackTrace();
 		}
 		
-		logger.trace(" removed UUID: "+ sourceId.toString());
+		logger.trace(" removed UID: "+ sourceId.toString());
 	}
 }

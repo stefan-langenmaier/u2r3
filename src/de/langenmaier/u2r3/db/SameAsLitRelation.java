@@ -58,17 +58,17 @@ public class SameAsLitRelation extends Relation {
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" sourceId1 UUID," +
+					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
+					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 UUID," +
+					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 UUID," +
+					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
-					" sourceId5 UUID," +
+					" sourceId5 BIGINT," +
 					" sourceTable5 VARCHAR(100)," +
-					" sourceId6 UUID," +
+					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
 					" PRIMARY KEY (id, left, right));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +

@@ -22,23 +22,24 @@ public class DBSetup {
 	
 	public static void setup() {
 		try {
-//			dropStatement = conn.prepareStatement("DROP ALIAS isSameLiteral IF EXISTS");
-//			dropStatement.execute();
-//		
-//			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
-//			createStatement.execute();
+			dropStatement = conn.prepareStatement("DROP ALIAS isSameLiteral IF EXISTS");
+			dropStatement.execute();
+		
+			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
+			createStatement.execute();
 
 			dropStatement = conn.prepareStatement("DROP SEQUENCE uid");
 			try {
 				dropStatement.execute();
 			} catch (SQLException e) {
 				logger.warn("Sequence has NOT been deleted.");
+				//e.printStackTrace();
 			}
 
 			createStatement = conn.prepareStatement("CREATE SEQUENCE uid");
 			createStatement.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

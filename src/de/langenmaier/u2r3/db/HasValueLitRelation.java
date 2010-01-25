@@ -1,11 +1,19 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
+import java.sql.Types;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDataHasValue;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLStringLiteral;
+import org.semanticweb.owlapi.model.OWLTypedLiteral;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
+import de.langenmaier.u2r3.util.DatatypeCheck;
 
 public class HasValueLitRelation extends Relation {
 	
@@ -57,7 +65,46 @@ public class HasValueLitRelation extends Relation {
 		
 		throw new U2R3NotImplementedException();
 	}
+	
+	@Override
+	public void add(OWLObject ce) {
+		try {
+			if (ce instanceof  OWLDataHasValue) {
+				OWLDataHasValue hv = (OWLDataHasValue) ce;
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				
+				if (hv.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(hv.getProperty()).toString());
+				} else {
+					addStatement.setString(2, hv.getProperty().asOWLDataProperty().getIRI().toString());
+				}
+				
+				if (hv.getValue().isTyped()) {
+					OWLTypedLiteral tl = (OWLTypedLiteral) hv.getValue();
+					addStatement.setString(3, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
+					addStatement.setString(5, tl.getDatatype().getIRI().toString());
+					addStatement.setNull(4, Types.LONGVARCHAR);
+				} else {
+					OWLStringLiteral sl = (OWLStringLiteral) hv.getValue();
+					addStatement.setString(3, sl.getLiteral());
+					addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
+					addStatement.setString(4, sl.getLang());
+				}
 
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
+				if (hv.getProperty().isAnonymous()) {
+					handleAnonymousDataPropertyExpression(hv.getProperty());
+				}
+			} else {
+				throw new U2R3NotImplementedException();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();

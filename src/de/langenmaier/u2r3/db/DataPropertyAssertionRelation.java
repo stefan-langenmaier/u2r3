@@ -89,11 +89,11 @@ public class DataPropertyAssertionRelation extends Relation {
 					" object TEXT," +
 					" language TEXT," +
 					" type TEXT," +
-					" sourceId1 UUID," +
+					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
+					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 UUID," +
+					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
 					" PRIMARY KEY (subject, property, object));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +

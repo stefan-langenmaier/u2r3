@@ -73,7 +73,6 @@ public class HasValueEntRelation extends Relation {
 				
 				if (hv.getProperty().isAnonymous()) {
 					addStatement.setString(2, nidMapper.get(hv.getProperty()).toString());
-					handleAnonymousObjectPropertyExpression(hv.getProperty());
 				} else {
 					addStatement.setString(2, hv.getProperty().asOWLObjectProperty().getIRI().toString());
 				}

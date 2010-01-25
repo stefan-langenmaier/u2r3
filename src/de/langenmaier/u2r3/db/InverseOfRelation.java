@@ -5,9 +5,12 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
+import org.semanticweb.owlapi.model.OWLObject;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.util.AdditionReason;
 
 public class InverseOfRelation extends Relation {
 	static Logger logger = Logger.getLogger(InverseOfRelation.class);
@@ -62,7 +65,32 @@ public class InverseOfRelation extends Relation {
 	}
 	
 	public void merge(DeltaRelation delta) {
-		
+		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void add(OWLObject ce) {
+		if (ce instanceof OWLObjectInverseOf) {
+			OWLObjectInverseOf io = (OWLObjectInverseOf) ce;
+			try {
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				if (io.getInverse().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(io.getInverse()).toString());
+				} else {
+					addStatement.setString(2, io.getInverse().asOWLObjectProperty().getIRI().toString());
+				}
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
+				if (io.getInverse().isAnonymous()) {
+					handleAnonymousObjectPropertyExpression(io.getInverse());
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		} else {
+			throw new U2R3NotImplementedException();
+		}
 	}
 
 	@Override

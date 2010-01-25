@@ -61,7 +61,7 @@ public class ClassAssertionLitRelation extends Relation {
 			} else if (o instanceof OWLStringLiteral) {
 				OWLStringLiteral sl = (OWLStringLiteral) o;
 				addStatement.setString(1, sl.getLiteral());
-				addStatement.setString(2, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString()); //XXX ist das korrekt
+				addStatement.setString(2, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
 				addStatement.setString(3, sl.getLang());
 			}
 				
@@ -82,13 +82,13 @@ public class ClassAssertionLitRelation extends Relation {
 					" literal TEXT," +
 					" class TEXT," +
 					" language TEXT," +
-					" sourceId1 UUID," +
+					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
+					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 UUID," +
+					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 UUID," +
+					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
 					" PRIMARY KEY (id, literal, class));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +

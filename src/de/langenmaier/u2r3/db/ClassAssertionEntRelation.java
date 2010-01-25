@@ -137,13 +137,13 @@ public class ClassAssertionEntRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
 					" class TEXT," +
-					" sourceId1 UUID," +
+					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 UUID," +
+					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 UUID," +
+					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 UUID," +
+					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
 					" PRIMARY KEY HASH (id, entity, class));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +

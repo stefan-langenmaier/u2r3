@@ -16,6 +16,7 @@ import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
@@ -278,6 +279,8 @@ public abstract class Relation extends U2R3Component {
 			relationManager.getRelation(RelationName.allValuesFrom).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_HAS_VALUE) {
 			relationManager.getRelation(RelationName.hasValueEnt).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.DATA_HAS_VALUE) {
+			relationManager.getRelation(RelationName.hasValueLit).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
 			OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
 			if (mc.isQualified()) {
@@ -286,6 +289,7 @@ public abstract class Relation extends U2R3Component {
 				relationManager.getRelation(RelationName.maxCardinality).add(ce);
 			}
 		} else {
+			System.out.println(ce.getClassExpressionType());
 			throw new U2R3NotImplementedException();
 		}
 	}
@@ -293,7 +297,12 @@ public abstract class Relation extends U2R3Component {
 	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
 		//Dürfen laut Grammatik nur für InverseObjectProperty aufgerufen werden
 		//ObjectPropertyExpression := ObjectProperty | InverseObjectProperty
-		throw new U2R3NotImplementedException();
+		if (pe instanceof OWLObjectInverseOf) {
+			relationManager.getRelation(RelationName.inverseOf).add(pe);
+		} else {
+			throw new U2R3NotImplementedException();
+		}
+		
 	}
 	
 	protected void handleAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {

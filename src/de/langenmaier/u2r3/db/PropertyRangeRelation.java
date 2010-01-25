@@ -88,9 +88,9 @@ public class PropertyRangeRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" property TEXT," +
 					" range TEXT," +
-					" sourceId1 UUID, " +
+					" sourceId1 BIGINT, " +
 					" sourceTable1 VARCHAR(100), " +
-					" sourceId2 UUID, " +
+					" sourceId2 BIGINT, " +
 					" sourceTable2 VARCHAR(100), " +
 					" PRIMARY KEY (property, range));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
