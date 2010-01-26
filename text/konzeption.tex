@@ -88,6 +88,8 @@ DB Manipulation  (1) ===> (1) Reason (1) ===> (n) RuleActions
 \end{verbatim}
 
 
+\section{Zurückziehen von Fakten}
+Das Einfügen von Fakten, die man löschen will um herauszufinden, welche gleich sind, um sie danach wieder zu löschen macht keinen großen Sinn. Erstens ist es Recht aufwendig zu implementieren. Zweitens müsste nach dem Einfügen neuer Fakten ersteinmal wieder die Ableitungsregeln ausgeführt werden. Das zerstört den Vorteil den man sich durch forward-chaining mit direct-materialisation erkauft hat sofort wieder und bringt außerdem auch Nachteille mit sich wenn man noch nicht komplett fertig war mit dem Schlussfolgern.
+Daher muss es ein Verfahren geben die zu löschenden Fakten zu finden ohne sie vorher einfügen zu müssen.
 
-    
-     
+\section{Finden von Fakten}
