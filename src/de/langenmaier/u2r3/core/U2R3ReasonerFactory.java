@@ -1,33 +1,46 @@
 package de.langenmaier.u2r3.core;
 
-import java.util.Set;
-
-import org.semanticweb.owlapi.inference.OWLReasoner;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.IllegalConfigurationException;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
+import org.semanticweb.owlapi.reasoner.SimpleConfiguration;
 
 public class U2R3ReasonerFactory implements OWLReasonerFactory {
 
 	@Override
-	public OWLReasoner createReasoner(OWLOntologyManager arg0,
-			Set<OWLOntology> arg1) {
-		try {
-			if (arg1 == null) {
-				return new U2R3Reasoner(arg0);
-			}
-			return new U2R3Reasoner(arg0, arg1);
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-
-	@Override
 	public String getReasonerName() {
 		return "u2r3";
+	}
+
+
+	@Override
+	public OWLReasoner createNonBufferingReasoner(OWLOntology ontology) {
+		return createNonBufferingReasoner(ontology, new SimpleConfiguration());
+	}
+
+
+	@Override
+	public OWLReasoner createNonBufferingReasoner(OWLOntology ontology,
+			OWLReasonerConfiguration config)
+			throws IllegalConfigurationException {
+		return new U2R3Reasoner(ontology, config, BufferingMode.NON_BUFFERING);
+	}
+
+
+	@Override
+	public OWLReasoner createReasoner(OWLOntology ontology) {
+		return createReasoner(ontology, new SimpleConfiguration());
+	}
+
+
+	@Override
+	public OWLReasoner createReasoner(OWLOntology ontology,
+			OWLReasonerConfiguration config)
+			throws IllegalConfigurationException {
+		return new U2R3Reasoner(ontology, config, BufferingMode.NON_BUFFERING);
 	}
 
 }

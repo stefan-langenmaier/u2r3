@@ -40,15 +40,15 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
 			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 			if (naxiom.getObject().isAnonymous()) {
-				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
+				addStatement.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
 			}
 		}
 		return AdditionMode.ADD;

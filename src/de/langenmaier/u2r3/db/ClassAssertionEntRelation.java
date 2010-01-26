@@ -3,12 +3,8 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.EntityType;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAsymmetricObjectPropertyAxiom;
@@ -23,6 +19,10 @@ import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasonerException;
+import org.semanticweb.owlapi.reasoner.impl.OWLClassNodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -62,7 +62,7 @@ public class ClassAssertionEntRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLClassAssertionAxiom) {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getIndividual().asNamedIndividual().getIRI().toString());
+			addStatement.setString(1, naxiom.getIndividual().asOWLNamedIndividual().getIRI().toString());
 			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
 			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
@@ -252,14 +252,14 @@ public class ClassAssertionEntRelation extends Relation {
 	}
 
 
-	public Set<Set<OWLClass>> getTypes(OWLNamedIndividual namedIndividual) throws OWLReasonerException {
+	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual) {
 		try {
 			StringBuilder sql = new StringBuilder();
 		
 			Statement stmt = conn.createStatement();
 			ResultSet rs;
 			
-			Set<Set<OWLClass>> ret = new HashSet<Set<OWLClass>>();
+			OWLClassNodeSet ret = new OWLClassNodeSet();
 			
 			
 			sql.append("SELECT class");
@@ -270,7 +270,7 @@ public class ClassAssertionEntRelation extends Relation {
 			
 			while(rs.next()) {
 				String iri = rs.getString("class");
-				ret.add(Collections.singleton(dataFactory.getOWLClass(IRI.create(iri))));
+				ret.addEntity(dataFactory.getOWLClass(IRI.create(iri)));
 			}
 			return ret;
 		} catch (SQLException e) {
@@ -280,14 +280,14 @@ public class ClassAssertionEntRelation extends Relation {
 	}
 
 
-	public Set<OWLNamedIndividual> getIndividuals(OWLClass clazz) throws OWLReasonerException {
+	public NodeSet<OWLNamedIndividual> getIndividuals(OWLClass clazz) throws OWLReasonerException {
 		try {
 			StringBuilder sql = new StringBuilder();
 		
 			Statement stmt = conn.createStatement();
 			ResultSet rs;
 			
-			Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
+			OWLNamedIndividualNodeSet ret = new OWLNamedIndividualNodeSet();
 			
 			
 			sql.append("SELECT entity");
@@ -298,7 +298,7 @@ public class ClassAssertionEntRelation extends Relation {
 			
 			while(rs.next()) {
 				String iri = rs.getString("entity");
-				ret.add(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
+				ret.addEntity(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
 			}
 			return ret;
 		} catch (SQLException e) {

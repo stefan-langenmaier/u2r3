@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -57,20 +56,20 @@ public class DataPropertyAssertionRelation extends Relation {
 		if (axiom instanceof OWLDataPropertyAssertionAxiom) {
 			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
 			
-			if (!naxiom.getObject().isTyped()) {
-				addStatement.setString(3, naxiom.getObject().getLiteral());
-				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
-				addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
-			} else {
-				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLStringLiteral().getDatatype()));
+			if (naxiom.getObject().isOWLTypedLiteral()) {
+				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLTypedLiteral().getDatatype()));
 				addStatement.setNull(4, Types.LONGVARCHAR);
-				addStatement.setString(5, naxiom.getObject().asOWLStringLiteral().getDatatype().getIRI().toString());
+				addStatement.setString(5, naxiom.getObject().asOWLTypedLiteral().getDatatype().getIRI().toString());
+			} else {
+				addStatement.setString(3, naxiom.getObject().getLiteral());
+				addStatement.setString(4, naxiom.getObject().getLang());
+				addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
 			}
 			
 		}
@@ -165,8 +164,8 @@ public class DataPropertyAssertionRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
-	public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual ni,
-			OWLDataProperty dp) throws OWLReasonerException {
+	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ni,
+			OWLDataProperty dp) {
 		try {
 			StringBuilder sql = new StringBuilder();
 		

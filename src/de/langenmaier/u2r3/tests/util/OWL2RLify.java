@@ -1,10 +1,9 @@
 package de.langenmaier.u2r3.tests.util;
 
-import java.net.URI;
-
 import org.apache.log4j.BasicConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
@@ -35,8 +34,8 @@ public class OWL2RLify {
 				return;
 			}
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
-			URI physicalURI = URI.create(args[0]);
-			OWLOntology ontology = manager.loadOntologyFromPhysicalURI(physicalURI);
+			IRI physicalURI = IRI.create(args[0]);
+			OWLOntology ontology = manager.loadOntology(physicalURI);
 	
 			//OWL2RLProfile profile = new OWL2RLProfile();
 			//OWLProfileReport report = profile.checkOntology(ontology, manager);

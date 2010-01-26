@@ -44,14 +44,14 @@ public class DifferentFromEntRelation extends Relation {
 					for (OWLIndividual ind2 : naxiom.getIndividuals()) {
 						if (!ind1.equals(ind2)) {
 							if (ind1.isAnonymous()) {
-								addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
+								addStatement.setString(1, ind1.asOWLAnonymousIndividual().getID().toString());
 							} else {
-								addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+								addStatement.setString(1, ind1.asOWLNamedIndividual().getIRI().toString());
 							}
 							if (ind2.isAnonymous()) {
-								addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
+								addStatement.setString(2, ind2.asOWLAnonymousIndividual().getID().toString());
 							} else {
-								addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+								addStatement.setString(2, ind2.asOWLNamedIndividual().getIRI().toString());
 							}
 							
 							addStatement.execute();
@@ -66,14 +66,14 @@ public class DifferentFromEntRelation extends Relation {
 					for (OWLIndividual ind2 : naxiom.getIndividuals()) {
 						if (!ind1.equals(ind2)) {
 							if (ind1.isAnonymous()) {
-								addStatement.setString(1, ind1.asAnonymousIndividual().getID().toString());
+								addStatement.setString(1, ind1.asOWLAnonymousIndividual().getID().toString());
 							} else {
-								addStatement.setString(1, ind1.asNamedIndividual().getIRI().toString());
+								addStatement.setString(1, ind1.asOWLNamedIndividual().getIRI().toString());
 							}
 							if (ind2.isAnonymous()) {
-								addStatement.setString(2, ind2.asAnonymousIndividual().getID().toString());
+								addStatement.setString(2, ind2.asOWLAnonymousIndividual().getID().toString());
 							} else {
-								addStatement.setString(2, ind2.asNamedIndividual().getIRI().toString());
+								addStatement.setString(2, ind2.asOWLNamedIndividual().getIRI().toString());
 							}
 							
 							addStatement.execute();

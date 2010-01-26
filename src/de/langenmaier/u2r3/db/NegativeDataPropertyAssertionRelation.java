@@ -45,15 +45,15 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 		if (axiom instanceof OWLNegativeDataPropertyAssertionAxiom) {
 			OWLNegativeDataPropertyAssertionAxiom naxiom = (OWLNegativeDataPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
 			
-			if (!naxiom.getObject().isTyped()) {
+			if (!naxiom.getObject().isOWLTypedLiteral()) {
 				addStatement.setString(3, naxiom.getObject().getLiteral());
-				addStatement.setString(4, naxiom.getObject().asRDFTextLiteral().getLang());
+				addStatement.setString(4, naxiom.getObject().getLang());
 				addStatement.setString(5, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
 			} else {
 				addStatement.setString(3, DatatypeCheck.validateType(naxiom.getObject().getLiteral(), naxiom.getObject().asOWLStringLiteral().getDatatype()));

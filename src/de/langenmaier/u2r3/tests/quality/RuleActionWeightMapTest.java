@@ -1,17 +1,15 @@
 package de.langenmaier.u2r3.tests.quality;
 
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-
-import de.langenmaier.u2r3.util.RuleAction;
-
+import junit.framework.TestCase;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
+import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
 import de.langenmaier.u2r3.db.DeltaRelation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.rules.RuleManager.RuleName;
+import de.langenmaier.u2r3.util.RuleAction;
 import de.langenmaier.u2r3.util.RuleActionWeightMap;
-import junit.framework.TestCase;
 
 public class RuleActionWeightMapTest extends TestCase {
 
@@ -19,12 +17,8 @@ public class RuleActionWeightMapTest extends TestCase {
 		RuleActionWeightMap wp = new RuleActionWeightMap();
 		
 		U2R3Reasoner reasoner = null;
-		try {
-			reasoner = new U2R3Reasoner(null, null);
-		} catch (OWLReasonerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		reasoner = (U2R3Reasoner) new U2R3ReasonerFactory().createReasoner(null);
+		
 		RuleManager ruleManager = reasoner.getRuleManager();
 		RelationManager relationManager = reasoner.getRelationManager();
 		

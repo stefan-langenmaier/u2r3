@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.tests.util;
 
 import java.io.File;
-import java.net.URI;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,8 +10,6 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
 import org.semanticweb.owlapi.model.AddAxiom;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -22,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLOntologyChange;
 import org.semanticweb.owlapi.model.OWLOntologyChangeException;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 import org.semanticweb.owlapi.util.OWLEntityRemover;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
@@ -52,15 +50,15 @@ public class EditOntology {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
 			OWLOntology ont;
-			ont = manager.loadOntologyFromPhysicalURI(URI.create(args[0]));
+			ont = manager.loadOntology(IRI.create(args[0]));
 			logger.info("Loaded " + ont.getOntologyID());
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
-			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
+			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(ont);
 			reasoner.getSettings().setDeltaIteration(DeltaIteration.COLLECTIVE);
 			reasoner.getSettings().setDeletionType(DeletionType.CASCADING);
-			reasoner.loadOntologies(Collections.singleton(ont));
-			reasoner.classify();
+			//reasoner.loadOntologies(Collections.singleton(ont));
+			reasoner.prepareReasoner();
 			
 			logger.info("Classified");
 			
@@ -79,12 +77,12 @@ public class EditOntology {
 			
 			logger.info("r removed");
 			
-			reasoner.classify();
+			reasoner.prepareReasoner();
 			
 			logger.info("reclassified");
 			
 			OWLOntology ontAdd;
-			ontAdd = manager.loadOntologyFromPhysicalURI(URI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
+			ontAdd = manager.loadOntology(IRI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
 			
 			logger.info("Loaded " + ontAdd.getOntologyID());
 			
@@ -103,7 +101,7 @@ public class EditOntology {
 			
 			logger.info("ontology changes added");
 			
-			reasoner.classify();
+			reasoner.prepareReasoner();
 			
 			logger.info("changes reclassified");
 
@@ -111,8 +109,6 @@ public class EditOntology {
 
 			
 		} catch (OWLOntologyCreationException e) {
-			e.printStackTrace();
-		} catch (OWLReasonerException e) {
 			e.printStackTrace();
 		}
 

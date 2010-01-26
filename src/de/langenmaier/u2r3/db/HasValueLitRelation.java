@@ -79,7 +79,7 @@ public class HasValueLitRelation extends Relation {
 					addStatement.setString(2, hv.getProperty().asOWLDataProperty().getIRI().toString());
 				}
 				
-				if (hv.getValue().isTyped()) {
+				if (hv.getValue().isOWLTypedLiteral()) {
 					OWLTypedLiteral tl = (OWLTypedLiteral) hv.getValue();
 					addStatement.setString(3, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
 					addStatement.setString(5, tl.getDatatype().getIRI().toString());

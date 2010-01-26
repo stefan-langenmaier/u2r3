@@ -390,11 +390,11 @@ public abstract class Relation extends U2R3Component {
 
 	protected void getSubSQL(StringBuilder sql, OWLIndividual individual, String tid, String col) {
 		if (individual.isAnonymous()) {
-			sql.append("SELECT '" + individual.asAnonymousIndividual().getID().toString() + "'");
+			sql.append("SELECT '" + individual.asOWLAnonymousIndividual().getID().toString() + "'");
 		} else {
-			sql.append("SELECT '" + individual.asNamedIndividual().getIRI().toString() + "'");
+			sql.append("SELECT '" + individual.asOWLNamedIndividual().getIRI().toString() + "'");
 			sql.append("\n WHERE '");
-			sql.append(individual.asNamedIndividual().getIRI().toString());
+			sql.append(individual.asOWLNamedIndividual().getIRI().toString());
 			sql.append("' = ");
 			sql.append(tid + "." + col);
 		}

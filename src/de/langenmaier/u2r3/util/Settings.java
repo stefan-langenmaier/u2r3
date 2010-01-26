@@ -63,6 +63,14 @@ public class Settings {
 				}
 			}
 			
+			if (prop.containsKey("u2r3.checkProfile")) {
+				if (prop.get("u2r3.checkProfile").equals("TRUE")) {
+					checkProfile(true);
+				} else if (prop.get("u2r3.checkProfile").equals("FALSE")) {
+					checkProfile(false);
+				}
+			}
+			
 			if (prop.containsKey("u2r3.databaseMode")) {
 				if (prop.get("u2r3.databaseMode").equals("EMBEDDED")) {
 					setDatabaseMode(DatabaseMode.EMBEDDED);

@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.tests.rules;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.OWLAnnotationAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyDomainAxiom;
 import org.semanticweb.owlapi.model.OWLAnnotationPropertyRangeAxiom;
@@ -46,6 +45,7 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
+import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
@@ -71,18 +71,14 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLDeclarationAxiom axiom) {
-		try {
 			used = false;
 			logger.trace("Testing for axiom:" + axiom.toString());
 
-			if (!reasoner.isDefined(axiom.getEntity())) {
+			if (!reasoner.isEntailed(axiom)) {
 				correct = false;
 			}
 			
 			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -177,18 +173,7 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLDifferentIndividualsAxiom axiom) {
-		/*try {
-			used = false;
-			
-			if (!(axiom.getSubject().isAnonymous() || axiom.getObject().isAnonymous())) {
-				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject().asNamedIndividual())) {
-					correct = false;
-				}
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
-		}*/
+		used = false;
 	}
 
 	@Override
@@ -227,7 +212,7 @@ public class AxiomChecker extends U2R3Component implements
 			logger.trace("Is axiom defined?");
 			
 			if (!(axiom.getSubject().isAnonymous() || axiom.getObject().isAnonymous())) {
-				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject().asNamedIndividual())) {
+				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asOWLNamedIndividual(), axiom.getProperty(), axiom.getObject().asOWLNamedIndividual())) {
 					correct = false;
 				}
 			}
@@ -297,11 +282,11 @@ public class AxiomChecker extends U2R3Component implements
 			used = false;
 			logger.trace("Testing for axiom:" + arg0.toString());
 			logger.trace("Is axiom defined?");
-			if(!reasoner.isDefined(arg0.getIndividual())) {
+			if(!reasoner.isEntailed(arg0)) {
 				correct = false;
 			}
 			logger.trace("Has axiom the type");
-			if(!reasoner.hasType(arg0.getIndividual().asNamedIndividual(), arg0.getClassExpression(), true)) {
+			if(!reasoner.hasType(arg0.getIndividual().asOWLNamedIndividual(), arg0.getClassExpression(), true)) {
 				correct = false;
 			}
 			
@@ -340,11 +325,10 @@ public class AxiomChecker extends U2R3Component implements
 			logger.trace("Is axiom defined?");
 			
 			if (!(axiom.getSubject().isAnonymous())) {
-				if(!reasoner.hasDataPropertyRelationship(axiom.getSubject().asNamedIndividual(), axiom.getProperty(), axiom.getObject())) {
+				if(!reasoner.hasDataPropertyRelationship(axiom.getSubject().asOWLNamedIndividual(), axiom.getProperty(), axiom.getObject())) {
 					correct = false;
 				}
-				if (axiom.getObject().isTyped()) {
-					//Type überprüfen XXX
+				if (axiom.getObject().isOWLTypedLiteral()) {
 					reasoner.hasType(axiom.getObject(), axiom.getObject().asOWLStringLiteral().getDatatype());
 				}
 			}

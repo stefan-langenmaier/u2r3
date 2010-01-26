@@ -1,19 +1,17 @@
 package de.langenmaier.u2r3.tests.util;
 
 import java.io.File;
-import java.net.URI;
-import java.util.Collections;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.inference.OWLReasonerFactory;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
@@ -42,22 +40,20 @@ public class LoadReasoner {
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 		
 			OWLOntology ont;
-			ont = manager.loadOntologyFromPhysicalURI(URI.create(args[0]));
+			ont = manager.loadOntology(IRI.create(args[0]));
 			logger.info("OWLAPI loaded " + ont.getOntologyID());
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
-			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(manager, null);
-			reasoner.loadOntologies(Collections.singleton(ont));
+			U2R3Reasoner reasoner = (U2R3Reasoner) reasonerFactory.createReasoner(ont);
+			//reasoner.loadOntologies(Collections.singleton(ont));
 			logger.info("Ontology loaded in DB");
 			
-			reasoner.classify();
+			reasoner.prepareReasoner();
 
 			logger.info("FERTIG");
 
 			
 		} catch (OWLOntologyCreationException e) {
-			e.printStackTrace();
-		} catch (OWLReasonerException e) {
 			e.printStackTrace();
 		}
 

@@ -58,7 +58,7 @@ public class OneOfRelation extends Relation {
 				if (ind.isAnonymous()) {
 					addListStatement.setString(2, nidMapper.get(ind).toString());
 				} else {
-					addListStatement.setString(2, ind.asNamedIndividual().getIRI().toString());
+					addListStatement.setString(2, ind.asOWLNamedIndividual().getIRI().toString());
 				}
 				
 				addListStatement.execute();

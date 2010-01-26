@@ -1,36 +1,38 @@
 package de.langenmaier.u2r3.core;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-import org.semanticweb.owlapi.inference.OWLReasonerAdapter;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
-import org.semanticweb.owlapi.model.AddAxiom;
-import org.semanticweb.owlapi.model.RemoveAxiom;
-import org.semanticweb.owlapi.model.EntityType;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLDatatype;
-import org.semanticweb.owlapi.model.OWLEntity;
-import org.semanticweb.owlapi.model.OWLException;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLOntology;
-import org.semanticweb.owlapi.model.OWLOntologyChange;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.profiles.OWL2RLProfile;
 import org.semanticweb.owlapi.profiles.OWLProfileReport;
 import org.semanticweb.owlapi.profiles.OWLProfileViolation;
-import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
+import org.semanticweb.owlapi.reasoner.AxiomNotInProfileException;
+import org.semanticweb.owlapi.reasoner.BufferingMode;
+import org.semanticweb.owlapi.reasoner.ClassExpressionNotInProfileException;
+import org.semanticweb.owlapi.reasoner.FreshEntitiesException;
+import org.semanticweb.owlapi.reasoner.InconsistentOntologyException;
+import org.semanticweb.owlapi.reasoner.Node;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.OWLReasonerConfiguration;
+import org.semanticweb.owlapi.reasoner.OWLReasonerException;
+import org.semanticweb.owlapi.reasoner.ReasonerInterruptedException;
+import org.semanticweb.owlapi.reasoner.TimeOutException;
+import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
+import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
+import org.semanticweb.owlapi.util.Version;
 
 import de.langenmaier.u2r3.db.ClassAssertionEntRelation;
 import de.langenmaier.u2r3.db.DataPropertyAssertionRelation;
@@ -46,17 +48,16 @@ import de.langenmaier.u2r3.rules.RuleManager;
 import de.langenmaier.u2r3.util.NodeIDMapper;
 import de.langenmaier.u2r3.util.Settings;
 
-public class U2R3Reasoner extends OWLReasonerAdapter {
+public class U2R3Reasoner extends OWLReasonerBase {
 	private RuleManager ruleManager;
 	private RelationManager relationManager;
 	private ReasonProcessor reasonProcessor;
 	private Settings settings;
 	private NodeIDMapper nidMapper;
 	
-	private boolean isClassified = false;
-
-	protected U2R3Reasoner(OWLOntologyManager manager) throws OWLReasonerException {
-		super(manager);
+	public U2R3Reasoner(OWLOntology ontology, OWLReasonerConfiguration config,
+			BufferingMode non_buffering) {
+		super(ontology, config, non_buffering);
 		
 		ruleManager = new RuleManager(this);
 		relationManager = new RelationManager(this);
@@ -68,192 +69,39 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		ruleManager.initialize();
 		reasonProcessor.initialize();
 		
-	}
+		if (settings.checkProfile()) {
+			OWL2RLProfile profile = new OWL2RLProfile();
+			OWLProfileReport report = profile.checkOntology(ontology);
+			
+			if (!report.isInProfile()) {
+				for (OWLProfileViolation violation : report.getViolations()) {
+					System.out.println(violation);
+				}
+				
+				throw new U2R3NotInProfileException("OWL file is not in RL Profile!");
+			}
+		}
 
-	public U2R3Reasoner(OWLOntologyManager manager,
-			Set<OWLOntology> importsClosure) throws OWLReasonerException {
-		this(manager);
-
-		loadOntologies(importsClosure);		
+		OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
+		for(OWLAxiom ax : ontology.getLogicalAxioms()) {
+			ax.accept(axiomAdder);
+		}
 	}
 
 	@Override
-	protected void disposeReasoner() {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	protected void handleOntologyChanges(List<OWLOntologyChange> changes)
-			throws OWLException {
+	protected void handleChanges(Set<OWLAxiom> addAxioms,
+			Set<OWLAxiom> removeAxioms) {
 		OWL2RLDBRemover axiomRemover = new OWL2RLDBRemover(this);
 		OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-		for (OWLOntologyChange change : changes) {
-			if (change.isImportChange()) {
-				throw new U2R3NotImplementedException();
-			}
-			if (change instanceof AddAxiom) {
-				change.getAxiom().accept(axiomAdder);
-			} else if (change instanceof RemoveAxiom) {
-				change.getAxiom().accept(axiomRemover);
-			}
+		for (OWLAxiom change : removeAxioms) {
+			change.accept(axiomRemover);
+		}
+		for (OWLAxiom change : addAxioms) {
+			change.accept(axiomAdder);
 		}
 	}
 
-	@Override
-	protected void ontologiesChanged() throws OWLReasonerException {
-		//add the axioms
-		for(OWLOntology ont : getLoadedOntologies()) {
-			//check if current ontologies are conform
-			if (settings.checkProfile()) {
-				OWL2RLProfile profile = new OWL2RLProfile();
-				OWLProfileReport report = profile.checkOntology(ont);
-				
-				if (!report.isInProfile()) {
-					for (OWLProfileViolation violation : report.getViolations()) {
-						System.out.println(violation);
-					}
-					
-					throw new U2R3NotInProfileException("OWL file is not in RL Profile!");
-				}
-			}
-
-			OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
-			for(OWLAxiom ax : ont.getLogicalAxioms()) {
-				ax.accept(axiomAdder);
-			}
-			
-		}
-
-	}
-
-	@Override
-	protected void ontologiesCleared() throws OWLReasonerException {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public boolean isConsistent(OWLOntology arg0) throws OWLReasonerException {
-		return reasonProcessor.isConsistent();
-	}
-
-	@Override
-	public void classify() throws OWLReasonerException {
-		reasonProcessor.classify();
-		isClassified = true;
-	}
-
-	@Override
-	public boolean isClassified() throws OWLReasonerException {
-		return isClassified;
-	}
-
-	@Override
-	public boolean isDefined(OWLClass arg0) throws OWLReasonerException {
-		String clazz = arg0.getIRI().toString();
-		String type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-	}
-	
-	/**
-	 * Determines if the specified entity is defined in the reasoner. If a entity is defined then the 
- 	 * reasoner "knows" about it, if a entity is not defined then the reasoner doesn't know about it.
-	 * @param entity
-	 * @return  true if the entity is defined in the reasoner, or false if the entity is not defined in
-	 * the reasoner.
-	 * @throws OWLReasonerException
-	 */
-	public boolean isDefined(OWLEntity entity) throws OWLReasonerException {
-		String clazz = entity.getIRI().toString();
-		String type;
-		if (entity.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.OBJECT_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.DATA_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
-			type = OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.CLASS) {
-			type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.DATATYPE) {
-			type = OWLRDFVocabulary.OWL_DATATYPE.getIRI().toString();
-		} else {
-			throw new U2R3NotImplementedException();
-		}
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-	}
-
-	@Override
-	public boolean isDefined(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		String clazz = arg0.getIRI().toString();
-		String type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-	}
-
-	@Override
-	public boolean isDefined(OWLDataProperty arg0) throws OWLReasonerException {
-		String clazz = arg0.getIRI().toString();
-		String type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-	}
-
-	@Override
-	public boolean isDefined(OWLIndividual arg0) throws OWLReasonerException {
-		String subject = arg0.asNamedIndividual().getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(subject);
-	}
-
-	@Override
-	public boolean isRealised() throws OWLReasonerException {
-		return isClassified;
-	}
-
-	@Override
-	public void realise() throws OWLReasonerException {
-		classify();
-	}
-
-	@Override
-	public Set<Set<OWLClass>> getAncestorClasses(OWLClassExpression arg0)
-			throws OWLReasonerException {
-		return getSuperClasses(arg0);
-	}
-
-	@Override
-	public Set<Set<OWLClass>> getDescendantClasses(OWLClassExpression arg0)
-			throws OWLReasonerException {
-		return getSubClasses(arg0);
-	}
-
-	@Override
-	public Set<OWLClass> getEquivalentClasses(OWLClassExpression ce)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLClass>> getSubClasses(OWLClassExpression arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLClass>> getSuperClasses(OWLClassExpression arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLClass> getUnsatisfiableClasses() throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
+	//TODO wird in isEntailed wandern
 	public boolean isEquivalentClass(OWLClassExpression ce1,
 			OWLClassExpression ce2) throws OWLReasonerException {
 		if (!(ce1.isAnonymous() || ce2.isAnonymous())) {
@@ -262,7 +110,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		throw new U2R3NotImplementedException();
 	}
 
-	@Override
+	//TODO wird in isEntailed wandern
 	public boolean isSubClassOf(OWLClassExpression sub, OWLClassExpression sup)
 			throws OWLReasonerException {
 		if (!(sup.isAnonymous() || sub.isAnonymous())) {
@@ -271,83 +119,28 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		throw new U2R3NotImplementedException();
 
 	}
-
+	
 	@Override
-	public boolean isSatisfiable(OWLClassExpression arg0)
-			throws OWLReasonerException {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public Map<OWLDataProperty, Set<OWLLiteral>> getDataPropertyRelationships(
-			OWLNamedIndividual arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLNamedIndividual> getIndividuals(OWLClassExpression clazz,	boolean arg1) throws OWLReasonerException {
-		if (clazz.isAnonymous()) {
-			return null;
-		} else {
-			ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
-			return ca.getIndividuals(clazz.asOWLClass());
-		}
-		
-	}
-
-	@Override
-	public Map<OWLObjectProperty, Set<OWLNamedIndividual>> getObjectPropertyRelationships(
-			OWLNamedIndividual arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLNamedIndividual> getRelatedIndividuals(
-			OWLNamedIndividual ni, OWLObjectPropertyExpression op)
-			throws OWLReasonerException {
-		if (ni.isAnonymous() || op.isAnonymous()) {
-			return null;
-		} else {
-			ObjectPropertyAssertionRelation opa = (ObjectPropertyAssertionRelation) relationManager.getRelation(RelationName.objectPropertyAssertion);
-			return opa.RelatedIndividuals(ni, op.asOWLObjectProperty());
-		}
-	}
-
-	@Override
-	public Set<OWLLiteral> getRelatedValues(OWLNamedIndividual ni,
-			OWLDataPropertyExpression dp) throws OWLReasonerException {
-		if (ni.isAnonymous() ||dp.isAnonymous()) {
-			return null;
-		} else {
-			DataPropertyAssertionRelation dpa = (DataPropertyAssertionRelation) relationManager.getRelation(RelationName.dataPropertyAssertion);
-			return dpa.getRelatedValues(ni, dp.asOWLDataProperty());
-		}
-	}
-
-	@Override
-	public Set<Set<OWLClass>> getTypes(OWLNamedIndividual namedIndividual, boolean arg1)
-			throws OWLReasonerException {
+	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual, boolean arg1) {
 		ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
 		return ca.getTypes(namedIndividual);
 	}
 
-	@Override
+	//TODO wird in isEntailed wandern
 	public boolean hasDataPropertyRelationship(OWLNamedIndividual arg0,
 			OWLDataPropertyExpression arg1, OWLLiteral arg2)
 			throws OWLReasonerException {
 		String subject = arg0.getIRI().toString();
 		String property = arg1.asOWLDataProperty().getIRI().toString();
 		String object = arg2.getLiteral();
-		if (!arg2.isTyped()) {
-			String lang = arg2.asRDFTextLiteral().getLang();
+		if (!arg2.isOWLTypedLiteral()) {
+			String lang = arg2.getLang();
 			return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object, lang);
 		}
 		return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object);
 	}
 
-	@Override
+	//TODO wird in isEntailed wandern
 	public boolean hasObjectPropertyRelationship(OWLNamedIndividual arg0,
 			OWLObjectPropertyExpression arg1, OWLNamedIndividual arg2)
 			throws OWLReasonerException {
@@ -357,7 +150,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		return relationManager.getRelation(RelationName.objectPropertyAssertion).exists(subject, property, object);
 	}
 
-	@Override
+	//TODO wird in isEntailed wandern
 	public boolean hasType(OWLNamedIndividual arg0, OWLClassExpression arg1,
 			boolean arg2) throws OWLReasonerException {
 		String clazz = arg0.getIRI().toString();
@@ -365,168 +158,11 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
 	}
 	
-	
+	//TODO wird in isEntailed wandern
 	public boolean hasType(OWLLiteral arg0, OWLDatatype arg1) throws OWLReasonerException {
 		String literal = arg0.getLiteral();
 		String clazz = arg1.getIRI().toString();
 		return relationManager.getRelation(RelationName.classAssertionLit).exists(literal, clazz);
-	}
-
-	@Override
-	public Set<Set<OWLObjectProperty>> getAncestorProperties(
-			OWLObjectProperty arg0) throws OWLReasonerException {
-		return getSuperProperties(arg0);
-	}
-
-	@Override
-	public Set<Set<OWLDataProperty>> getAncestorProperties(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		return getSuperProperties(arg0);
-	}
-
-	@Override
-	public Set<Set<OWLObjectProperty>> getDescendantProperties(
-			OWLObjectProperty arg0) throws OWLReasonerException {
-		return getSubProperties(arg0);
-	}
-
-	@Override
-	public Set<Set<OWLDataProperty>> getDescendantProperties(
-			OWLDataProperty arg0) throws OWLReasonerException {
-		return getSubProperties(arg0);
-	}
-
-	@Override
-	public Set<Set<OWLClassExpression>> getDomains(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLClassExpression>> getDomains(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLObjectProperty> getEquivalentProperties(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLDataProperty> getEquivalentProperties(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLObjectProperty>> getInverseProperties(
-			OWLObjectProperty arg0) throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLClassExpression> getRanges(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<OWLDataRange> getRanges(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLObjectProperty>> getSubProperties(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLDataProperty>> getSubProperties(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLObjectProperty>> getSuperProperties(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Set<OWLDataProperty>> getSuperProperties(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean isFunctional(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isFunctional(OWLDataProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isInverseFunctional(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isIrreflexive(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isReflexive(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isSymmetric(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public boolean isAsymmetric(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean isTransitive(OWLObjectProperty arg0)
-			throws OWLReasonerException {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public Settings getSettings() {
@@ -547,7 +183,7 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 
 	public boolean hasSame(OWLIndividual ind) throws OWLReasonerException {
 		return relationManager.getRelation(RelationName.sameAsEnt)
-			.exists(ind.asNamedIndividual().getIRI().toString());
+			.exists(ind.asOWLNamedIndividual().getIRI().toString());
 	}
 	
 	public OWLDataFactory getDataFactory() {
@@ -593,6 +229,332 @@ public class U2R3Reasoner extends OWLReasonerAdapter {
 	
 	public boolean isDifferentFrom(OWLLiteral l1, OWLLiteral l2) {
 		return l1.equals(l2);
+	}
+
+
+
+	@Override
+	public Node<OWLClass> getBottomClassNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLDataProperty> getBottomDataPropertyNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLObjectProperty> getBottomObjectPropertyNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getDataPropertyDomains(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ind,
+			OWLDataProperty pe) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		if (ind.isAnonymous() || pe.isAnonymous()) {
+			return null;
+		} else {
+			DataPropertyAssertionRelation dpa = (DataPropertyAssertionRelation) relationManager.getRelation(RelationName.dataPropertyAssertion);
+			return dpa.getDataPropertyValues(ind, pe.asOWLDataProperty());
+		}
+	}
+
+	@Override
+	public NodeSet<OWLNamedIndividual> getDifferentIndividuals(
+			OWLNamedIndividual ind) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getDisjointClasses(OWLClassExpression ce,
+			boolean direct) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLDataProperty> getDisjointDataProperties(
+			OWLDataPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLObjectProperty> getDisjointObjectProperties(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLDataProperty> getEquivalentDataProperties(OWLDataProperty pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLObjectProperty> getEquivalentObjectProperties(
+			OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLNamedIndividual> getInstances(OWLClassExpression ce,
+			boolean direct) throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		if (ce.isAnonymous()) {
+			return null;
+		} else {
+			ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
+			try {
+				return ca.getIndividuals(ce.asOWLClass());
+			} catch (OWLReasonerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public Node<OWLObjectProperty> getInverseObjectProperties(
+			OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getObjectPropertyDomains(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getObjectPropertyRanges(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(
+			OWLNamedIndividual ind, OWLObjectPropertyExpression pe)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		if (ind.isAnonymous() || pe.isAnonymous()) {
+			return null;
+		} else {
+			ObjectPropertyAssertionRelation opa = (ObjectPropertyAssertionRelation) relationManager.getRelation(RelationName.objectPropertyAssertion);
+			return opa.getObjectPropertyValues(ind, pe.asOWLObjectProperty());
+		}
+	}
+
+	@Override
+	public String getReasonerName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Version getReasonerVersion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLNamedIndividual> getSameIndividuals(OWLNamedIndividual ind)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getSubClasses(OWLClassExpression ce, boolean direct) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLDataProperty> getSubDataProperties(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLObjectProperty> getSubObjectProperties(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLClass> getSuperClasses(OWLClassExpression ce,
+			boolean direct) throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLDataProperty> getSuperDataProperties(OWLDataProperty pe,
+			boolean direct) throws InconsistentOntologyException,
+			FreshEntitiesException, ReasonerInterruptedException,
+			TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeSet<OWLObjectProperty> getSuperObjectProperties(
+			OWLObjectPropertyExpression pe, boolean direct)
+			throws InconsistentOntologyException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLClass> getTopClassNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLDataProperty> getTopDataPropertyNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLObjectProperty> getTopObjectPropertyNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void interrupt() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isConsistent() throws ReasonerInterruptedException,
+			TimeOutException {
+		return reasonProcessor.isConsistent();
+	}
+
+	@Override
+	public boolean isEntailed(OWLAxiom axiom)
+			throws ReasonerInterruptedException,
+			UnsupportedEntailmentTypeException, TimeOutException,
+			AxiomNotInProfileException, FreshEntitiesException {
+		//XXX axiom statt entity
+		/*String clazz = axiom.getIRI().toString();
+		String type;
+		if (entity.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.OBJECT_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.DATA_PROPERTY) {
+			type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
+			type = OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.CLASS) {
+			type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
+		} else if (entity.getEntityType() == EntityType.DATATYPE) {
+			type = OWLRDFVocabulary.OWL_DATATYPE.getIRI().toString();
+		} else {
+			throw new U2R3NotImplementedException();
+		}
+		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
+		*/
+		return false;
+	}
+
+	@Override
+	public boolean isEntailed(Set<? extends OWLAxiom> axioms)
+			throws ReasonerInterruptedException,
+			UnsupportedEntailmentTypeException, TimeOutException,
+			AxiomNotInProfileException, FreshEntitiesException {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
+		return true;
+	}
+
+	@Override
+	public void prepareReasoner() throws ReasonerInterruptedException,
+			TimeOutException {
+		reasonProcessor.classify();
+	}
+
+	@Override
+	public Node<OWLClass> getEquivalentClasses(OWLClassExpression ce)
+			throws InconsistentOntologyException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node<OWLClass> getUnsatisfiableClasses()
+			throws ReasonerInterruptedException, TimeOutException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isSatisfiable(OWLClassExpression classExpression)
+			throws ReasonerInterruptedException, TimeOutException,
+			ClassExpressionNotInProfileException, FreshEntitiesException,
+			InconsistentOntologyException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 

@@ -69,9 +69,9 @@ public class MembersRelation extends Relation {
 			for (OWLIndividual ind : naxiom.getIndividuals()) {
 				addListStatement.setString(1, lid.toString());
 				if (ind.isAnonymous()) {
-					addListStatement.setString(2, ind.asAnonymousIndividual().getID().toString());
+					addListStatement.setString(2, ind.asOWLAnonymousIndividual().getID().toString());
 				} else {
-					addListStatement.setString(2, ind.asNamedIndividual().getIRI().toString());
+					addListStatement.setString(2, ind.asOWLNamedIndividual().getIRI().toString());
 				}
 				
 				addListStatement.execute();

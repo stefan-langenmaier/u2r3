@@ -78,9 +78,9 @@ public class HasValueEntRelation extends Relation {
 				}
 				
 				if (hv.getValue().isAnonymous()) {
-					addStatement.setString(3, hv.getValue().asAnonymousIndividual().getID().toString());
+					addStatement.setString(3, hv.getValue().asOWLAnonymousIndividual().getID().toString());
 				} else {
-					addStatement.setString(3, hv.getValue().asNamedIndividual().getIRI().toString());
+					addStatement.setString(3, hv.getValue().asOWLNamedIndividual().getIRI().toString());
 				}
 				
 				addStatement.execute();

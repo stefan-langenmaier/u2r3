@@ -3,16 +3,15 @@ package de.langenmaier.u2r3.db;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.semanticweb.owlapi.inference.OWLReasonerException;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.reasoner.NodeSet;
+import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
@@ -53,15 +52,15 @@ public class ObjectPropertyAssertionRelation extends Relation {
 		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
 			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asAnonymousIndividual().toStringID());
+				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(1, naxiom.getSubject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
 			}
 			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 			if (naxiom.getObject().isAnonymous()) {
-				addStatement.setString(3, naxiom.getObject().asAnonymousIndividual().toStringID());
+				addStatement.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
 			} else {
-				addStatement.setString(3, naxiom.getObject().asNamedIndividual().getIRI().toString());
+				addStatement.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
 			}
 		}
 		return AdditionMode.ADD;
@@ -195,15 +194,15 @@ public class ObjectPropertyAssertionRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
-	public Set<OWLNamedIndividual> RelatedIndividuals(OWLNamedIndividual ni,
-			OWLObjectProperty op) throws OWLReasonerException {
+	public NodeSet<OWLNamedIndividual> getObjectPropertyValues(OWLNamedIndividual ni,
+			OWLObjectProperty op) {
 		try {
 			StringBuilder sql = new StringBuilder();
 		
 			Statement stmt = conn.createStatement();
 			ResultSet rs;
 			
-			Set<OWLNamedIndividual> ret = new HashSet<OWLNamedIndividual>();
+			OWLNamedIndividualNodeSet ret = new OWLNamedIndividualNodeSet();
 			
 			
 			sql.append("SELECT object");
@@ -214,7 +213,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			
 			while(rs.next()) {
 				String iri = rs.getString("object");
-				ret.add(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
+				ret.addEntity(dataFactory.getOWLNamedIndividual(IRI.create(iri)));
 			}
 			return ret;
 		} catch (SQLException e) {
