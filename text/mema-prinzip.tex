@@ -9,6 +9,21 @@ Allgemein wurd bei der Erstellung der Tabellenstruktur darauf geachtet, das die 
 Abbildung der Tabellenstruktur im Anhang
 \input{db-schema}
 
+\section{Optimierungen für das MEMA-Prinzip}
+
+Im Paper Classifying ELH Ontologies in SQL Databases sind interessante Ansätze für Verbesserungen.
+
+Zum einen wird eine Normalisierung vorgeschlagen. Diese ist über zwei Wege möglich:
+ * Vereinheitlichung von strukturell gleichen Ausdrücken.
+   Das bedeutet, das wenn die selben Ausdrücke mehrmals in einer Ontologie vorkommen, z.B. als Teile in einem komplexeren Ausdruck, werden alle diese gleichen Unterausdrücke nur einmal abgespeichert. Das hat den Vorteil das es den Speicherplatz verringert und über den selben Ausdruck nicht mehrmals geschloßen wird. Dies ist mit der OWLAPI sogar relativ leicht möglich, da sie schon von selbst strukturelle gleiche Ausdrücke zusammenfasst. Allerdings wurde diese Optimierung nicht umgesetzt, den für die Möglichkeit abgeleitete Fakten wieder zu löschen muss der Weg wie Fakten entstanden sind eindeutig sein. Hier würde man aber Probleme verursachen. Diese Optimierung ist grundsätzlich nicht ausgeschloßen. Für den Fall das man nichts löschen müsste könnte sie direkt umgesetzt werden. Für den Fall das man etwas löschen will, müsste man etwas geschickter Vorgehen. Auf diese Optimierung wurde auf Grund ihrer Komplexität in diesem Fall verzichtet.
+ * Umwandlung gewisser Konstrukte
+   Es wird außerdem vorgeschlagen manche Konstrukte umzuwandeln. So z.B. A subsumiert B int C ==> A subsumes B, A subsumes C
+   Damit könnte man sich manche Regeln sparen. Inwieferen dies im RL Fragment nützlich ist, da hier doch recht viele Konstrukte aus OWL2 zu gelassen sind und welche Regeln man damit wirklch einzusparen sind ist eine offene Frage.
+
+Desweitern wird beschrieben wie sie die Leistung beim Laden der Ontologie steigern. Hier werden ebenfalls zwei Tricks verwendet:
+ * Zum einen wird die Ontologie on-the-fly in die Datenbank geschrieben, das heißt während die Ontologie gelesen wird wird sie auch parallel in die Datenbank geschrieben. Das hat den Vorteil das sie nicht zweimal durchlaufen werden muss. Die OWLAPI lässt es zwar auch die Serialisierung direkt in eine Datenbank zu. Das Laden der Ontologie in die OWLAPI und den Schlussfolgerer ist aus den folgenden Gründen entkoppelt. Zum einen kann es sein das man die OWLAPI ersteinmal läd und erst später den Schlussfolgerer dazu startet. So ist zumindest der normale Ablauf. Hier würde ein solche Optimierung also nichts bringen. Zweitens müsste man sich bei einer direkten Serialisierung um alle Konstrukte in einer Ontologie kümmern und nicht nur um die, die man zum ableiten verwendet. Es würde also den Schlussfolgerer komplexer in seinem Aufbau machen.
+ * Es werden Konstrukte immer in eine in-memory Relation eingefügt und dann in größeren Blöcken auf einmal rausgeschrieben. Ob diese Optimierung wirklich soviel bringt ist fraglich, da ein gutes Datenbanksystem ein solches Caching von alleine betreiben sollte. Außerdem liegt der Overhead dabei vermutlich eher beim parsen der vielen INSERT Statements. Tortzdem könnte man diese Optimierung in betracht ziehen. Sie wurde ebenfalls aus Komplexitätsgrunden außer Acht gelassen.
+
 \subsection{Andere Materialisierungsmöglichkeiten}
 http://owldb.sf.net
 
