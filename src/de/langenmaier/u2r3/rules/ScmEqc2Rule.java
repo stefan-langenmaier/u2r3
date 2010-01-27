@@ -36,12 +36,12 @@ public class ScmEqc2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (colLeft, right, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT sc1.sub, sc2.sub,");
 			sql.append(" MIN(sc1.id) AS sourceId1, '" + RelationName.subClass + "' AS sourceTable1,");
 			sql.append(" MIN(sc2.id) AS sourceId2, '" + RelationName.subClass + "' AS sourceTable2");
 		} else {
-			sql.append(" (colLeft, right)");
+			sql.append(" (colLeft, colRight)");
 			sql.append("\n\t SELECT DISTINCT sc1.sub, sc2.sub ");
 		}
 		
@@ -55,9 +55,9 @@ public class ScmEqc2Rule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT colLeft, right");
+			sql.append("\n\t\t SELECT colLeft, colRight");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.colLeft = sc1.sub AND bottom.right = sc2.sub) ");
+			sql.append("\n\t\t WHERE bottom.colLeft = sc1.sub AND bottom.colRight = sc2.sub) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {

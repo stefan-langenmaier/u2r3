@@ -38,7 +38,7 @@ public class CaxEqc2EntRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("equivalentClass") + " AS ec ON clsA.class = ec.right");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("equivalentClass") + " AS ec ON clsA.class = ec.colRight");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

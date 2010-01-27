@@ -44,7 +44,7 @@ public class ImplObjComRule extends ApplicationRule {
 		if (run == 0) {
 			side = "co.colLeft";
 		} else {
-			side = "co.right";
+			side = "co.colRight";
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {

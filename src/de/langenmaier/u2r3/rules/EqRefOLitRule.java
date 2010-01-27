@@ -27,21 +27,21 @@ public class EqRefOLitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (colLeft, right, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT object AS colLeft, object AS right,");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT object AS colLeft, object AS colRight,");
 			sql.append(" MIN(id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1");
 		} else {
-			sql.append("(colLeft, right)");
-			sql.append("\n\t SELECT DISTINCT object AS colLeft, object AS right");
+			sql.append("(colLeft, colRight)");
+			sql.append("\n\t SELECT DISTINCT object AS colLeft, object AS colRight");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("dataPropertyAssertion") + " AS top");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT colLeft, right");
+			sql.append("\n\t\t SELECT colLeft, colRight");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.colLeft = top.object AND bottom.right = top.object");
+			sql.append("\n\t\t WHERE bottom.colLeft = top.object AND bottom.colRight = top.object");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t GROUP BY object");

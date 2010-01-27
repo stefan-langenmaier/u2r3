@@ -22,18 +22,18 @@ public class SameAsLitRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" colLeft TEXT," +
-					" right TEXT," +
+					" colRight TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" PRIMARY KEY (id, colLeft, right));" +
+					" PRIMARY KEY (id, colLeft, colRight));" +
 					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
-					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
+					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +53,7 @@ public class SameAsLitRelation extends Relation {
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" colLeft TEXT," +
-					" right TEXT," +
+					" colRight TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
@@ -70,9 +70,9 @@ public class SameAsLitRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, colLeft, right));" +
+					" PRIMARY KEY (id, colLeft, colRight));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right)");
+					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -85,14 +85,14 @@ public class SameAsLitRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT colLeft, right FROM " + getTableName() + " AS bottom WHERE bottom.colLeft = t1.colLeft AND bottom.right = t1.right)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT colLeft, colRight FROM " + getTableName() + " AS bottom WHERE bottom.colLeft = t1.colLeft AND bottom.colRight = t1.colRight)");
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, colLeft, right) " +
-					" SELECT MIN(id), colLeft, right " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, colLeft, colRight) " +
+					" SELECT MIN(id), colLeft, colRight " +
 					" FROM " + delta.getDeltaName() + " " +
-					" GROUP BY colLeft, right");			
+					" GROUP BY colLeft, colRight");			
 			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {

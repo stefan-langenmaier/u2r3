@@ -29,10 +29,10 @@ public class EqRepSLitRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, language, type, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT sa.right, ass.property, ass.object, ass.language, ass.type, MIN(sa.id) AS sourceId1, '" + RelationName.sameAsEnt + "' AS sourceTable1, MIN(ass.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2");
+			sql.append("\n\t SELECT sa.colRight, ass.property, ass.object, ass.language, ass.type, MIN(sa.id) AS sourceId1, '" + RelationName.sameAsEnt + "' AS sourceTable1, MIN(ass.id) AS sourceId2, '" + RelationName.dataPropertyAssertion + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, property, object, language, type)");
-			sql.append("\n\t SELECT DISTINCT sa.right, ass.property, ass.object, ass.language, ass.type");
+			sql.append("\n\t SELECT DISTINCT sa.colRight, ass.property, ass.object, ass.language, ass.type");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("sameAsEnt") + " AS  sa");
@@ -42,10 +42,10 @@ public class EqRepSLitRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT subject, property, object");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = sa.right AND bottom.property = ass.property AND bottom.object=ass.object");
+			sql.append("\n\t\t WHERE bottom.subject = sa.colRight AND bottom.property = ass.property AND bottom.object=ass.object");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY sa.right, ass.property, ass.object");
+		sql.append("\n\t GROUP BY sa.colRight, ass.property, ass.object");
 		return sql.toString();
 	}
 

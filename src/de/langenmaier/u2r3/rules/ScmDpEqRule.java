@@ -27,11 +27,11 @@ public class ScmDpEqRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (colLeft, right, sourceId1, sourceTable1)");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT ca.entity, ca.entity, ");
 			sql.append(" MIN(ca.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
-			sql.append(" (colLeft, right)");
+			sql.append(" (colLeft, colRight)");
 			sql.append("\n\t SELECT DISTINCT ca.entity, ca.entity ");
 		}
 		
@@ -40,9 +40,9 @@ public class ScmDpEqRule extends ApplicationRule {
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT colLeft, right");
+			sql.append("\n\t\t SELECT colLeft, colRight");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.colLeft = ca.entity AND bottom.right = ca.entity) ");
+			sql.append("\n\t\t WHERE bottom.colLeft = ca.entity AND bottom.colRight = ca.entity) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
