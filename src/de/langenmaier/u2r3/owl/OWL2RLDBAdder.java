@@ -333,7 +333,6 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	}
 	
 	/*
-	 * (non-Javadoc)
 	 * annotations are ignored because they are not part of the reasoning
 	 */
 
