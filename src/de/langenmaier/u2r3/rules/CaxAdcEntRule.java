@@ -26,14 +26,14 @@ public class CaxAdcEntRule extends ConsistencyRule {
 	
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON m.class = clsA.entity");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON m.colClass = clsA.entity");
 		sql.append("\n\t INNER JOIN list AS l ON m.list = l.name");
 		
-		sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON l.element = ca1.class");
-		sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON l.element = ca2.class");
+		sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON l.element = ca1.colClass");
+		sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON l.element = ca2.colClass");
 
-		sql.append("\n WHERE clsA.class = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES + "'");
-		sql.append("\n\t AND ca1.entity = ca2.entity AND ca1.class != ca2.class ");
+		sql.append("\n WHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_CLASSES + "'");
+		sql.append("\n\t AND ca1.entity = ca2.entity AND ca1.colClass != ca2.colClass ");
 		
 		return sql.toString();
 	}

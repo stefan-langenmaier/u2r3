@@ -62,7 +62,7 @@ public class PrpFpRule extends ApplicationRule {
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property AND prp1.subject = prp2.subject");
 		}
 		
-		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY + "'");
+		sql.append("\n\t WHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");

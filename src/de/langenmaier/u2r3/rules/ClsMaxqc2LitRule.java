@@ -29,7 +29,7 @@ public class ClsMaxqc2LitRule extends ConsistencyRule {
 		
 		sql.append("SELECT 1 AS res");
 		sql.append("\n FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = mqc.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.colClass = mqc.colClass");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON ca1.entity = prp.subject AND mqc.property = prp.property");
 		sql.append("\n WHERE mqc.value = '0' AND  mqc.total = '" + OWLRDFVocabulary.OWL_THING + "'");	
 

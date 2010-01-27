@@ -28,9 +28,9 @@ public class ClsMaxqc1EntRule extends ConsistencyRule {
 		
 		sql.append("SELECT 1 AS res");
 		sql.append("\n FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = mqc.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.colClass = mqc.colClass");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON ca1.entity = prp.subject AND mqc.property = prp.property");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON ca2.entity = prp.object AND ca2.class = mqc.total");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON ca2.entity = prp.object AND ca2.colClass = mqc.total");
 		sql.append("\n WHERE mqc.value = '0'");	
 
 		return sql.toString();

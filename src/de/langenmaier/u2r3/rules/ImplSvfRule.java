@@ -31,11 +31,11 @@ public class ImplSvfRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1)");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT svf.part, '" +  clazz + "', ");
 			sql.append(" MIN(svf.id) AS sourceId1, '" + RelationName.someValuesFrom + "' AS sourceTable1");
 		} else {
-			sql.append("(entity, class)");
+			sql.append("(entity, colClass)");
 			sql.append("\n\t SELECT DISTINCT svf.part, '" +  clazz + "'");
 		}
 		
@@ -44,9 +44,9 @@ public class ImplSvfRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = svf.part AND bottom.class = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = svf.part AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		

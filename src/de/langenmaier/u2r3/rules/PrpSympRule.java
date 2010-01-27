@@ -44,7 +44,7 @@ public class PrpSympRule extends ApplicationRule {
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON clsA.entity = prp.property");
 
-		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY + "'");
+		sql.append("\n\t WHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");

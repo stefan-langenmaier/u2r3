@@ -44,14 +44,14 @@ public class ClassAssertionEntRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
-					" class TEXT," +
-					" PRIMARY KEY HASH (entity, class));" +
+					" colClass TEXT," +
+					" PRIMARY KEY HASH (entity, colClass));" +
 					" CREATE INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
-					" CREATE INDEX " + tableName + "_class ON " + tableName + "(class);");
+					" CREATE INDEX " + tableName + "_class ON " + tableName + "(colClass);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, class) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, colClass) VALUES (?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +136,7 @@ public class ClassAssertionEntRelation extends Relation {
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
-					" class TEXT," +
+					" colClass TEXT," +
 					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 BIGINT," +
@@ -145,9 +145,9 @@ public class ClassAssertionEntRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY HASH (id, entity, class));" +
+					" PRIMARY KEY HASH (id, entity, colClass));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(class);");
+					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -161,14 +161,14 @@ public class ClassAssertionEntRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT entity, class FROM " + getTableName() + " AS bottom WHERE bottom.entity = t1.entity AND bottom.class = t1.class)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT entity, colClass FROM " + getTableName() + " AS bottom WHERE bottom.entity = t1.entity AND bottom.colClass = t1.colClass)");
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, entity, class) " +
-					" SELECT MIN(id), entity, class " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, entity, colClass) " +
+					" SELECT MIN(id), entity, colClass " +
 					" FROM " + delta.getDeltaName() +
-					" GROUP BY entity, class");
+					" GROUP BY entity, colClass");
 
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
@@ -184,10 +184,10 @@ public class ClassAssertionEntRelation extends Relation {
 						sql.append(" sourceId" + i + ", sourceTable" + i + "");
 						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
 						sql.append("\n\t INNER JOIN (");
-						sql.append("\n\t\t SELECT MIN(id) AS theid, entity, class ");
+						sql.append("\n\t\t SELECT MIN(id) AS theid, entity, colClass ");
 						sql.append("\n\t\t FROM " + delta.getDeltaName());
-						sql.append("\n\t\t GROUP BY entity, class");
-						sql.append("\n\t ) AS b ON b.entity = t.entity AND b.class = t.class");
+						sql.append("\n\t\t GROUP BY entity, colClass");
+						sql.append("\n\t ) AS b ON b.entity = t.entity AND b.colClass = t.colClass");
 						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");
 						
 						relationManager.addHistory(sql.toString());
@@ -220,7 +220,7 @@ public class ClassAssertionEntRelation extends Relation {
 			sql.append("\nWHERE EXISTS (");
 			getSubSQL(sql, naxiom.getIndividual(), tid, "entity");
 			sql.append(") AND EXISTS (");
-			getSubSQL(sql, naxiom.getClassExpression(), tid, "class");
+			getSubSQL(sql, naxiom.getClassExpression(), tid, "colClass");
 			sql.append(")");
 			
 			Statement stmt = conn.createStatement();
@@ -246,7 +246,7 @@ public class ClassAssertionEntRelation extends Relation {
 		if (args.length == 1) {
 			return "SELECT entity FROM classAssertionEnt WHERE entity = '" + args[0] + "'";
 		} else if (args.length == 2) {
-			return "SELECT entity, class FROM classAssertionEnt WHERE entity = '" + args[0] + "' AND class = '" + args[1] + "'";
+			return "SELECT entity, colClass FROM classAssertionEnt WHERE entity = '" + args[0] + "' AND colClass = '" + args[1] + "'";
 		}
 		throw new U2R3NotImplementedException();
 	}
@@ -262,14 +262,14 @@ public class ClassAssertionEntRelation extends Relation {
 			OWLClassNodeSet ret = new OWLClassNodeSet();
 			
 			
-			sql.append("SELECT class");
+			sql.append("SELECT colClass");
 			sql.append("\nFROM " + getTableName());
 			sql.append("\nWHERE entity = '" + namedIndividual.getIRI().toString() + "'");
 			
 			rs = stmt.executeQuery(sql.toString());
 			
 			while(rs.next()) {
-				String iri = rs.getString("class");
+				String iri = rs.getString("colClass");
 				ret.addEntity(dataFactory.getOWLClass(IRI.create(iri)));
 			}
 			return ret;
@@ -292,7 +292,7 @@ public class ClassAssertionEntRelation extends Relation {
 			
 			sql.append("SELECT entity");
 			sql.append("\nFROM " + getTableName());
-			sql.append("\nWHERE class = '" + clazz.getIRI().toString() + "'");
+			sql.append("\nWHERE colClass = '" + clazz.getIRI().toString() + "'");
 			
 			rs = stmt.executeQuery(sql.toString());
 			

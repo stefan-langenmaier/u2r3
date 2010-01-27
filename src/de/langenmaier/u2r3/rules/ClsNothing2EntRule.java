@@ -27,7 +27,7 @@ public class ClsNothing2EntRule extends ConsistencyRule {
 		
 		sql.append("SELECT entity");
 		sql.append("\nFROM " + delta.getDeltaName("classAssertionEnt"));
-		sql.append("\nWHERE class = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
+		sql.append("\nWHERE colClass = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
 		
 
 		return sql.toString();

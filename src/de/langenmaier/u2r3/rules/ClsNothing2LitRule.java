@@ -27,7 +27,7 @@ public class ClsNothing2LitRule extends ConsistencyRule {
 		
 		sql.append("SELECT literal");
 		sql.append("\nFROM " + delta.getDeltaName("classAssertionLit"));
-		sql.append("\nWHERE class = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
+		sql.append("\nWHERE colClass = '" + OWLRDFVocabulary.OWL_NOTHING.getURI().toString() + "'");
 		
 
 		return sql.toString();

@@ -38,13 +38,13 @@ public class ScmHvLitRule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
-			sql.append("\n\t SELECT hv1.class, hv2.class, ");
+			sql.append("\n\t SELECT hv1.colClass, hv2.colClass, ");
 			sql.append(" MIN(hv1.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1, ");
 			sql.append(" MIN(hv2.id) AS sourceId2, '" + RelationName.hasValueLit + "' AS sourceTable2, ");
 			sql.append(" MIN(sp.id) AS sourceId3, '" + RelationName.subProperty + "' AS sourceTable3");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT hv1.class, hv2.class ");
+			sql.append("\n\t SELECT DISTINCT hv1.colClass, hv2.colClass ");
 		}
 		
 		if (run == 0) {
@@ -61,11 +61,11 @@ public class ScmHvLitRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = hv1.class AND bottom.super = hv2.class) ");
+			sql.append("\n\t\t WHERE bottom.sub = hv1.colClass AND bottom.super = hv2.colClass) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY hv1.class, hv2.class");
+			sql.append("\n\t GROUP BY hv1.colClass, hv2.colClass");
 		}
 
 		return sql.toString();

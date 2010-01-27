@@ -53,7 +53,7 @@ public class ClsMaxqc4LitRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = mqc.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.colClass = mqc.colClass");
 		if (run == 0) {
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp1 ON ca1.entity = prp1.subject AND mqc.property = prp1.property");
 			sql.append("\n\t\t INNER JOIN dataPropertyAssertion AS prp2 ON ca1.entity = prp2.subject AND mqc.property = prp2.property");

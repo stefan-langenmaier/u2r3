@@ -23,7 +23,7 @@ public class PrpApRule extends ApplicationRule {
 		String datatype = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getURI().toString();
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
-		sql.append(" (entity, class) VALUES ");
+		sql.append(" (entity, colClass) VALUES ");
 
 		sql.append("\n ('" + OWLRDFVocabulary.OWL_BACKWARD_COMPATIBLE_WITH.getIRI().toString() + "', '" + datatype + "'),");
 		sql.append("\n ('" + OWLRDFVocabulary.RDFS_COMMENT.getIRI().toString() + "', '" + datatype + "'),");

@@ -29,13 +29,13 @@ public class ClsHv2EntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT prp.subject AS entity, hv.class AS class, ");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT prp.subject AS entity, hv.colClass AS colClass, ");
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(prp.id) AS sourceId2, '" + RelationName.objectPropertyAssertion + "' AS sourceTable2 ");
 		} else {
-			sql.append(" (entity, class)");
-			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, hv.class AS class");
+			sql.append(" (entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT prp.subject AS entity, hv.colClass AS colClass");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueEnt") + " AS hv");
@@ -45,12 +45,12 @@ public class ClsHv2EntRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = prp.subject AND bottom.class = hv.class");
+			sql.append("\n\t\t WHERE bottom.entity = prp.subject AND bottom.colClass = hv.colClass");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY prp.subject, hv.class");
+			sql.append("\n\t GROUP BY prp.subject, hv.colClass");
 		}
 
 		return sql.toString();

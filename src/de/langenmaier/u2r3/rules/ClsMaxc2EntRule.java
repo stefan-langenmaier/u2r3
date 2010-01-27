@@ -52,7 +52,7 @@ public class ClsMaxc2EntRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("maxCardinality") + " AS mc");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = mc.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.colClass = mc.colClass");
 		if (run == 0) {
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON ca.entity = prp1.subject AND mc.property = prp1.property");
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON ca.entity = prp2.subject AND mc.property = prp2.property");

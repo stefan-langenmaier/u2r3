@@ -50,13 +50,13 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("\n\t INNER JOIN list AS l");
 		sql.append("\n\t\t ON l.name = hk.list");
 		sql.append("\n\t INNER JOIN classAssertionEnt AS ca1");
-		sql.append("\n\t 	ON ca1.class = hk.class");
+		sql.append("\n\t 	ON ca1.colClass = hk.colClass");
 		sql.append("\n\t INNER JOIN (");
 		addUnion(sql);
 		sql.append("\n\t ) AS pa1");
 		sql.append("\n\t 	ON pa1.subject = ca1.entity AND pa1.property = l.element");
 		sql.append("\n\t INNER JOIN classAssertionEnt AS ca2");
-		sql.append("\n\t 	ON ca2.class = hk.class");
+		sql.append("\n\t 	ON ca2.colClass = hk.colClass");
 		sql.append("\n\t INNER JOIN (");
 		addUnion(sql);
 		sql.append("\n\t ) AS pa2");

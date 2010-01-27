@@ -30,13 +30,13 @@ public class ClsUniRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT clsA.entity, uo.class, ");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT clsA.entity, uo.colClass, ");
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(uo.id) AS sourceId2, '" + RelationName.unionOf + "' AS sourceTable2");
 		} else {
-			sql.append(" (entity, class)");
-			sql.append("\n\t SELECT DISTINCT clsA.entity, uo.class");
+			sql.append(" (entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity, uo.colClass");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("unionOf") + " AS uo");
@@ -46,16 +46,16 @@ public class ClsUniRule extends ApplicationRule {
 		sql.append("\n\t\t\t FROM  list");
 		sql.append("\n\t\t\t GROUP BY name");
 		sql.append("\n\t\t ) AS anzl ON l.name = anzl.name");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA ON l.element = clsA.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA ON l.element = clsA.colClass");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = uo.class");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = uo.colClass");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY clsA.entity, uo.class");
+		sql.append("\n\t GROUP BY clsA.entity, uo.colClass");
 		sql.append("\n\t HAVING COUNT(*) = anzl.anzahl");
 		return sql.toString();
 	}

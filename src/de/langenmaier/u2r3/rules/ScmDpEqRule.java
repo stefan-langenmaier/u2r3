@@ -36,7 +36,7 @@ public class ScmDpEqRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS ca ");
-		sql.append("\n\t WHERE ca.class = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
+		sql.append("\n\t WHERE ca.colClass = '" + OWLRDFVocabulary.OWL_DATA_PROPERTY + "'");
 		
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
