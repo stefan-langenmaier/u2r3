@@ -33,7 +33,7 @@ public class EqDiff2Rule extends ConsistencyRule {
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON clsA.entity = m.class");
 		sql.append("\n\t INNER JOIN list AS l1 ON m.list = l1.name");
 		sql.append("\n\t INNER JOIN list AS l2 ON m.list = l2.name");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("sameAsEnt") + " AS sa ON l1.element = sa.left AND l2.element = sa.right AND l1.name = l2.name AND sa.left != sa.right");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("sameAsEnt") + " AS sa ON l1.element = sa.colLeft AND l2.element = sa.right AND l1.name = l2.name AND sa.colLeft != sa.right");
 		sql.append("\n WHERE clsA.class = '" + OWLRDFVocabulary.OWL_ALL_DIFFERENT.getIRI().toString() + "'");
 
 		return sql.toString();

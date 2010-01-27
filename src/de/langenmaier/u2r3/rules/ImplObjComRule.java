@@ -42,7 +42,7 @@ public class ImplObjComRule extends ApplicationRule {
 		
 		String side;
 		if (run == 0) {
-			side = "co.left";
+			side = "co.colLeft";
 		} else {
 			side = "co.right";
 		}

@@ -36,7 +36,7 @@ public class EqRepPEntRule extends ApplicationRule {
 		}
 
 		sql.append("\n\t FROM " + delta.getDeltaName("sameAsEnt") + " AS  sa");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS ass ON sa.left = ass.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS ass ON sa.colLeft = ass.property");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

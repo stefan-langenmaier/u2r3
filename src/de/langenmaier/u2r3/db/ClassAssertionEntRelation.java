@@ -180,7 +180,7 @@ public class ClassAssertionEntRelation extends Relation {
 					for (int i=1; i<=4; ++i) {
 						//source
 						sql = new StringBuilder();
-						sql.append("SELECT b.theid, '" + RelationName.classAssertionEnt + "' AS table,");
+						sql.append("SELECT b.theid, '" + RelationName.classAssertionEnt + "' AS colTable,");
 						sql.append(" sourceId" + i + ", sourceTable" + i + "");
 						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
 						sql.append("\n\t INNER JOIN (");

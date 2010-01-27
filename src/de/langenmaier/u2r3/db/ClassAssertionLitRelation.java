@@ -128,7 +128,7 @@ public class ClassAssertionLitRelation extends Relation {
 						rows = stmt.executeUpdate(sql);				
 						
 						//subjectSource
-						sql = "SELECT id, '" + RelationName.classAssertionLit + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						sql = "SELECT id, '" + RelationName.classAssertionLit + "' AS colTable, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
 						relationManager.addHistory(sql);
 					}
 

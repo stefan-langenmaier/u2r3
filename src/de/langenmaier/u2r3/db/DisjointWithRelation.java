@@ -22,15 +22,15 @@ public class DisjointWithRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
+					" colLeft TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" PRIMARY KEY (colLeft, right));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, right) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

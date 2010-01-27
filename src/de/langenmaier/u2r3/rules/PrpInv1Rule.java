@@ -41,7 +41,7 @@ public class PrpInv1Rule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("inverseOf") + " AS inv");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON inv.left = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON inv.colLeft = prp.property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

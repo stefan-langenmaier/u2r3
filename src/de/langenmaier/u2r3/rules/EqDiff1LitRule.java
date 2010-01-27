@@ -28,7 +28,7 @@ public class EqDiff1LitRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\n FROM " + delta.getDeltaName("sameAsLit") + " AS sa");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("differentFromLit") + " AS df");
-		sql.append("\n\t\t ON sa.left=df.left AND sa.right = df.right");
+		sql.append("\n\t\t ON sa.colLeft=df.colLeft AND sa.right = df.right");
 		
 		return sql.toString();
 	}

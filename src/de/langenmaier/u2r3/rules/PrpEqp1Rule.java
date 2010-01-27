@@ -41,7 +41,7 @@ public class PrpEqp1Rule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("equivalentProperty") + " AS eqP");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON eqP.left = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON eqP.colLeft = prp.property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

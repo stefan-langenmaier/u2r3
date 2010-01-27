@@ -16,19 +16,19 @@ public class DifferentFromLitRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
+					" colLeft TEXT," +
 					" right TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" PRIMARY KEY (id, left, right));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" PRIMARY KEY (id, colLeft, right));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

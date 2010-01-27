@@ -25,15 +25,15 @@ public class EquivalentClassRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
+					" colLeft TEXT," +
 					" right TEXT," +
-					" PRIMARY KEY (left, right));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
+					" PRIMARY KEY (colLeft, right));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, right) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -76,14 +76,14 @@ public class EquivalentClassRelation extends Relation {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
+					" colLeft TEXT," +
 					" right TEXT," +
 					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
 					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (left, right));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
+					" PRIMARY KEY (colLeft, right));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right);");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -96,13 +96,13 @@ public class EquivalentClassRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT left, right FROM " + getTableName() + " AS bottom WHERE bottom.left = t1.left AND bottom.right = t1.right)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT colLeft, right FROM " + getTableName() + " AS bottom WHERE bottom.colLeft = t1.colLeft AND bottom.right = t1.right)");
 
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) " +
-					" SELECT MIN(id), left, right " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, colLeft, right) " +
+					" SELECT MIN(id), colLeft, right " +
 					" FROM " + delta.getDeltaName() +
-					" GROUP BY left, right");
+					" GROUP BY colLeft, right");
 
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
@@ -114,7 +114,7 @@ public class EquivalentClassRelation extends Relation {
 					for (int i=1; i<=2; ++i) {
 						//source
 						sql = new StringBuilder();
-						sql.append("SELECT id, '" + RelationName.equivalentClass + "' AS table,");
+						sql.append("SELECT id, '" + RelationName.equivalentClass + "' AS colTable,");
 						sql.append(" sourceId" + i + ", sourceTable" + i + "");
 						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
 						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");
@@ -144,7 +144,7 @@ public class EquivalentClassRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		if (args.length == 2) {
-			return "SELECT left, right FROM " + getTableName() + " WHERE left = '" + args[0] + "' AND right = '" + args[1] + "'";
+			return "SELECT colLeft, right FROM " + getTableName() + " WHERE colLeft = '" + args[0] + "' AND right = '" + args[1] + "'";
 		}
 		throw new U2R3NotImplementedException();
 	}

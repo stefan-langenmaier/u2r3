@@ -27,11 +27,11 @@ public class ScmEqc1Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT ec.left, ec.right,");
+			sql.append("\n\t SELECT ec.colLeft, ec.right,");
 			sql.append(" MIN(ec.id) AS sourceId1, '" + RelationName.equivalentClass + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT ec.left, ec.right ");
+			sql.append("\n\t SELECT DISTINCT ec.colLeft, ec.right ");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("equivalentClass") + " AS ec ");
@@ -40,11 +40,11 @@ public class ScmEqc1Rule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = ec.left AND bottom.super = ec.right) ");
+			sql.append("\n\t\t WHERE bottom.sub = ec.colLeft AND bottom.super = ec.right) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ec.left, ec.right");
+			sql.append("\n\t GROUP BY ec.colLeft, ec.right");
 		}
 
 		return sql.toString();

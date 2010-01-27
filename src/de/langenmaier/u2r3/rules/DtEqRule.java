@@ -26,10 +26,10 @@ public class DtEqRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, left_type, right_type, left_language, right_language, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (colLeft, right, left_type, right_type, left_language, right_language, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language, MIN(ca1.id) AS sourceId1, '" + RelationName.classAssertionLit + "' AS sourceTable1, MIN(ca2.id) AS sourceId2, '" + RelationName.classAssertionLit + "' AS sourceTable2");
 		} else {
-			sql.append(" (left, right, left_type, right_type, left_language, right_language)");
+			sql.append(" (colLeft, right, left_type, right_type, left_language, right_language)");
 			sql.append("\n\t SELECT DISTINCT ca1.literal, ca2.literal, ca1.class, ca2.class, ca1.language, ca2.language ");
 		}
 		
@@ -41,8 +41,7 @@ public class DtEqRule extends ApplicationRule {
 			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT left, right");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			//sql.append("\n\t\t WHERE bottom.left = ca1.literal AND bottom.right = ca2.literal AND bottom.left_type = ca1.class AND bottom.right_type = ca2.class AND bottom.left_language = ca1.language AND bottom.right_language = ca2.language) ");
-			sql.append("\n\t\t WHERE isSameLiteral(bottom.left, ca1.literal, bottom.left_type, ca1.class, bottom.left_language, ca1.language) ");
+			sql.append("\n\t\t WHERE isSameLiteral(bottom.colLeft, ca1.literal, bottom.left_type, ca1.class, bottom.left_language, ca1.language) ");
 			sql.append("\n\t\t\t AND isSameLiteral(bottom.right, ca2.literal, bottom.right_type, ca2.class, bottom.right_language, ca2.language)");
 			sql.append("\n\t) ");
 		}
