@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +29,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3NotQueryable;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
@@ -305,6 +308,42 @@ public class ClassAssertionEntRelation extends Relation {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLClassAssertionAxiom) {
+			OWLClassAssertionAxiom nax = (OWLClassAssertionAxiom) ax;
+			String entity = null;
+			String clazz = null;
+			String tableId = TableId.getId();
+			
+			if (nax.getIndividual().isNamed()) {
+				entity = nax.getIndividual().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			if (!nax.getClassExpression().isAnonymous()) {
+				clazz = nax.getClassExpression().asOWLClass().getIRI().toString();
+			}			
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (clazz != null) {
+				sql.append("entity='" + entity + "' AND colClass='" + clazz + "'");
+			} else {
+				sql.append("entity='" + entity + "' ");
+				sql.append(" AND EXISTS "); //property
+				handleSubAxiomLocationImpl(sql, nax.getClassExpression(), tableId, "colClass");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

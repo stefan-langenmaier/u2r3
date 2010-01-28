@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,6 +12,7 @@ import org.semanticweb.owlapi.model.OWLSubClassOfAxiom;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
@@ -181,6 +183,46 @@ public class SubClassRelation extends Relation {
 			return "SELECT sub, super FROM " + getTableName() + " WHERE sub = '" + args[0] + "' AND super = '" + args[1] + "'";
 		}
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLSubClassOfAxiom) {
+			OWLSubClassOfAxiom nax = (OWLSubClassOfAxiom) ax;
+			String subClass = null;
+			String superClass = null;
+			String tableId = TableId.getId();
+			
+			if (!nax.getSubClass().isAnonymous()) {
+				subClass = nax.getSubClass().asOWLClass().getIRI().toString();
+			}
+			
+			if (!nax.getSuperClass().isAnonymous()) {
+				superClass = nax.getSuperClass().asOWLClass().getIRI().toString();
+			}			
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (subClass != null) {
+				sql.append("sub='" + subClass + "' ");
+			} else {
+				sql.append(" EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSubClass(), tableId, "sub");
+			}
+			
+			if (superClass != null) {
+				sql.append(" AND super='" + superClass + "'");
+			} else {
+				sql.append(" AND EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSuperClass(), tableId, "super");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

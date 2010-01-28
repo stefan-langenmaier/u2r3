@@ -1,6 +1,8 @@
 package de.langenmaier.u2r3.exceptions;
 
-public class U2R3RuntimeException extends RuntimeException {
+import org.semanticweb.owlapi.model.OWLRuntimeException;
+
+public class U2R3RuntimeException extends OWLRuntimeException {
 
 	/**
 	 * 

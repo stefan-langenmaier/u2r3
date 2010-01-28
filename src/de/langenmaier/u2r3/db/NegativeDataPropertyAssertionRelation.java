@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -10,6 +11,8 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3NotQueryable;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.DatatypeCheck;
 
 public class NegativeDataPropertyAssertionRelation extends Relation {
@@ -84,6 +87,47 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLNegativeDataPropertyAssertionAxiom) {
+			OWLNegativeDataPropertyAssertionAxiom nax = (OWLNegativeDataPropertyAssertionAxiom) ax;
+			String subject = null;
+			String property = null;
+			String object = null;
+			String language = null;
+			String type = null;
+			
+			if (nax.getSubject().isNamed()) {
+				subject = nax.getSubject().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			property = nax.getProperty().asOWLDataProperty().getIRI().toString();
+			
+			object = nax.getObject().getLiteral();
+			
+			if (nax.getObject().isOWLStringLiteral()) {
+				language = nax.getObject().asOWLStringLiteral().getLang();
+			} else {
+				type = nax.getObject().asOWLTypedLiteral().getDatatype().asOWLDatatype().getIRI().toString();
+			}
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName());
+			sql.append("\nWHERE ");
+			if (language == null) {
+				sql.append("subject='" + subject + "' AND property='" + property + "' AND object='" + object + "' AND type='" + type + "'");
+			} else {
+				sql.append("subject='" + subject + "' AND property='" + property + "' AND object='" + object + "' AND language='" + language + "'");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }
