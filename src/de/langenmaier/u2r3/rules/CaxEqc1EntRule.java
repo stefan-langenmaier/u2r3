@@ -28,26 +28,26 @@ public class CaxEqc1EntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT clsA.entity, ec.right, ");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append("\n\t SELECT clsA.entity, ec.colRight, ");
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1, ");
 			sql.append(" MIN(ec.id) AS sourceId2, '" + RelationName.equivalentClass + "' AS sourceTable2");
 		} else {
-			sql.append(" (entity, class)");
-			sql.append("\n\t SELECT DISTINCT clsA.entity, ec.right");
+			sql.append(" (entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity, ec.colRight");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("equivalentClass") + " AS ec ON clsA.class = ec.left");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("equivalentClass") + " AS ec ON clsA.colClass = ec.colLeft");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = ec.right");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = ec.colRight");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t  GROUP BY clsA.entity, ec.right");
+		sql.append("\n\t  GROUP BY clsA.entity, ec.colRight");
 		return sql.toString();
 	}
 

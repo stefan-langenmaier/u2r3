@@ -43,8 +43,8 @@ public class ClsMaxqc3EntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 	
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5, sourceId6, sourceTable6)");
-			sql.append("\n\t SELECT prp1.object AS left, prp2.object AS right, ");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5, sourceId6, sourceTable6)");
+			sql.append("\n\t SELECT prp1.object AS colLeft, prp2.object AS colRight, ");
 			sql.append(" MIN(mqc.id) AS sourceId1, '" + RelationName.maxQualifiedCardinality + "' AS sourceTable1, ");
 			sql.append(" MIN(ca1.id) AS sourceId2, '" + RelationName.classAssertionEnt + "' AS sourceTable2, ");
 			sql.append(" MIN(prp1.id) AS sourceId3, '" + RelationName.objectPropertyAssertion + "' AS sourceTable3, ");
@@ -52,30 +52,30 @@ public class ClsMaxqc3EntRule extends ApplicationRule {
 			sql.append(" MIN(prp2.id) AS sourceId5, '" + RelationName.objectPropertyAssertion + "' AS sourceTable5, ");
 			sql.append(" MIN(ca3.id) AS sourceId6, '" + RelationName.classAssertionEnt + "' AS sourceTable6");
 		} else {
-			sql.append(" (left, right)");
-			sql.append("\n\t SELECT DISTINCT prp1.object AS left, prp2.object AS right");
+			sql.append(" (colLeft, colRight)");
+			sql.append("\n\t SELECT DISTINCT prp1.object AS colLeft, prp2.object AS colRight");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.class = mqc.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON ca1.colClass = mqc.colClass");
 		if (run == 0) {
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON ca1.entity = prp1.subject AND mqc.property = prp1.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.class = mqc.total");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.colClass = mqc.total");
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp2 ON ca1.entity = prp2.subject AND mqc.property = prp2.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.class = mqc.total");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.colClass = mqc.total");
 		} else if (run == 1) {
 			sql.append("\n\t\t INNER JOIN objectPropertyAssertion AS prp1 ON ca1.entity = prp1.subject AND mqc.property = prp1.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.class = mqc.total");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca2 ON ca2.entity = prp1.object AND ca2.colClass = mqc.total");
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON ca1.entity = prp2.subject AND mqc.property = prp2.property");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.class = mqc.total");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS ca3 ON ca3.entity = prp1.object AND ca3.colClass = mqc.total");
 			}
 		sql.append("\n\t WHERE mqc.value = '1' ");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
-			sql.append("\n\t\t\t SELECT bottom.left");
+			sql.append("\n\t\t\t SELECT bottom.colLeft");
 			sql.append("\n\t\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t\t WHERE bottom.left = prp1.object AND bottom.right = prp2.object");
+			sql.append("\n\t\t\t WHERE bottom.colLeft = prp1.object AND bottom.colRight = prp2.object");
 			sql.append("\n\t\t )");
 		}
 		

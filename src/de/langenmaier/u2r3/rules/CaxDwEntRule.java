@@ -37,11 +37,11 @@ public class CaxDwEntRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("disjointWith") + " AS dw");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON dw.left = ca1.class");
-			sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON dw.right = ca2.class");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON dw.colLeft = ca1.colClass");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON dw.colRight = ca2.colClass");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON dw.left = ca1.class");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON dw.right = ca2.class");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON dw.colLeft = ca1.colClass");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON dw.colRight = ca2.colClass");
 		}
 
 		return sql.toString();

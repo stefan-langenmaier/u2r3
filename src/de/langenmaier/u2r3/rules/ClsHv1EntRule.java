@@ -39,7 +39,7 @@ public class ClsHv1EntRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("hasValueEnt") + " AS hv");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = hv.class");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.colClass = hv.colClass");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");

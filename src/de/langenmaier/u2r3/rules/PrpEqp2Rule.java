@@ -32,27 +32,27 @@ public class PrpEqp2Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (subject, property, object, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT prp.subject AS subject, eqP.left AS property, prp.object AS object, ");
+			sql.append("\n\t SELECT prp.subject AS subject, eqP.colLeft AS property, prp.object AS object, ");
 			sql.append(" MIN(prp.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
 			sql.append(" MIN(eqP.id) AS sourceId2, '" + RelationName.equivalentProperty + "' AS sourceTable2");
 		} else {
 			sql.append("(subject, property, object)");
-			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, eqP.left AS property, prp.object AS object");
+			sql.append("\n\t SELECT DISTINCT prp.subject AS subject, eqP.colLeft AS property, prp.object AS object");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("equivalentProperty") + " AS eqP");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON eqP.right = prp.property");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp ON eqP.colRight = prp.property");
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.subject");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.subject = prp.subject AND bottom.property = eqP.left AND bottom.object = prp.object");
+			sql.append("\n\t\t WHERE bottom.subject = prp.subject AND bottom.property = eqP.colLeft AND bottom.object = prp.object");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY prp.subject, eqP.left, prp.object");
+			sql.append("\n\t GROUP BY prp.subject, eqP.colLeft, prp.object");
 		}
 		return sql.toString();
 	}

@@ -43,14 +43,14 @@ public class PrpFpRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
-			sql.append("\n\t SELECT prp1.object AS left, prp2.object AS right, ");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3)");
+			sql.append("\n\t SELECT prp1.object AS colLeft, prp2.object AS colRight, ");
 			sql.append(" MIN(prp1.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, ");
 			sql.append(" MIN(prp2.id) AS sourceId2, '" + RelationName.objectPropertyAssertion + "' AS sourceTable2, ");
 			sql.append(" MIN(clsA.id) AS sourceId3, '" + RelationName.classAssertionEnt + "' AS sourceTable3");
 		} else {
-			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT prp1.object AS left, prp2.object AS right");
+			sql.append("(colLeft, colRight)");
+			sql.append("\n\t SELECT DISTINCT prp1.object AS colLeft, prp2.object AS colRight");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
@@ -62,13 +62,13 @@ public class PrpFpRule extends ApplicationRule {
 			sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property AND prp1.subject = prp2.subject");
 		}
 		
-		sql.append("\n\t WHERE clsA.class = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY + "'");
+		sql.append("\n\t WHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY + "'");
 
 		if (again) {
 			sql.append("\n\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.left");
+			sql.append("\n\t\t SELECT bottom.colLeft");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = prp1.object AND bottom.right = prp2.object");
+			sql.append("\n\t\t WHERE bottom.colLeft = prp1.object AND bottom.colRight = prp2.object");
 			sql.append("\n\t )");
 		}
 		

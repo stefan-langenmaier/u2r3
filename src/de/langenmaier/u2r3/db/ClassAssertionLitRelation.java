@@ -30,15 +30,15 @@ public class ClassAssertionLitRelation extends Relation {
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" literal TEXT," +
-					" class TEXT," +
+					" colClass TEXT," +
 					" language TEXT," +
-					" PRIMARY KEY (id, literal, class));" +
+					" PRIMARY KEY (id, literal, colClass));" +
 					" CREATE INDEX " + getTableName() + "_literal ON " + getTableName() + "(literal);" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(class);");
+					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, class, language) VALUES (?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, colClass, language) VALUES (?, ?, ?)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -80,7 +80,7 @@ public class ClassAssertionLitRelation extends Relation {
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" literal TEXT," +
-					" class TEXT," +
+					" colClass TEXT," +
 					" language TEXT," +
 					" sourceId1 BIGINT," +
 					" sourceTable1 VARCHAR(100)," +
@@ -90,9 +90,9 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, literal, class));" +
+					" PRIMARY KEY (id, literal, colClass));" +
 					" CREATE HASH INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(class);");
+					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -106,14 +106,14 @@ public class ClassAssertionLitRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT literal, class FROM " + getTableName() + " AS bottom WHERE bottom.literal = t1.literal AND bottom.class = t1.class)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT literal, colClass FROM " + getTableName() + " AS bottom WHERE bottom.literal = t1.literal AND bottom.colClass = t1.colClass)");
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, literal, class) " +
-					" SELECT MIN(id), literal, class " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, literal, colClass) " +
+					" SELECT MIN(id), literal, colClass " +
 					" FROM " + delta.getDeltaName() +
-					" GROUP BY literal, class");
+					" GROUP BY literal, colClass");
 
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
@@ -128,7 +128,7 @@ public class ClassAssertionLitRelation extends Relation {
 						rows = stmt.executeUpdate(sql);				
 						
 						//subjectSource
-						sql = "SELECT id, '" + RelationName.classAssertionLit + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						sql = "SELECT id, '" + RelationName.classAssertionLit + "' AS colTable, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
 						relationManager.addHistory(sql);
 					}
 
@@ -161,7 +161,7 @@ public class ClassAssertionLitRelation extends Relation {
 		if (args.length == 1) {
 			return "SELECT literal FROM classAssertionLit WHERE literal = '" + args[0] + "'";
 		} else {
-			return "SELECT literal, class FROM classAssertionLit WHERE literal = '" + args[0] + "' AND class = '" + args[1] + "'";
+			return "SELECT literal, colClass FROM classAssertionLit WHERE literal = '" + args[0] + "' AND colClass = '" + args[1] + "'";
 		}
 	}
 

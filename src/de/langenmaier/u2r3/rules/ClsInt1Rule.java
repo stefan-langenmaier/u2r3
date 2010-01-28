@@ -29,42 +29,42 @@ public class ClsInt1Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			
-			sql.append("\n\t SELECT dat.entity, dat.class, ");
+			sql.append("\n\t SELECT dat.entity, dat.colClass, ");
 			sql.append(" tca.id AS sourceId1, 'classAssertionEnt' AS sourceTable1, ");
 			sql.append(" dat.sourceId2, dat.sourceTable2");
 			sql.append("\n\t	FROM intersectionOf AS tint");
 			sql.append("\n\t\t INNER JOIN list AS tl ON tint.list = tl.name");
-			sql.append("\n\t\t INNER JOIN classAssertionEnt AS tca ON tca.class = tl.element");
+			sql.append("\n\t\t INNER JOIN classAssertionEnt AS tca ON tca.colClass = tl.element");
 			sql.append("\n\t\t INNER JOIN (");
 			
-			sql.append("\n\t\t SELECT clsA.entity AS entity, int.class AS class,");
+			sql.append("\n\t\t SELECT clsA.entity AS entity, int.colClass AS colClass,");
 			sql.append(" MIN(int.id) AS sourceId2, '" + RelationName.intersectionOf + "' AS sourceTable2");
 
 		} else {
-			sql.append(" (entity, class)");
-			sql.append("\n\t SELECT DISTINCT clsA.entity AS entity, int.class AS class");
+			sql.append(" (entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity AS entity, int.colClass AS colClass");
 		}
 		
 		sql.append("\n\t\t FROM (SELECT name, COUNT(name) AS anzahl FROM list GROUP BY name) AS anzl");
 		sql.append("\n\t\t\t INNER JOIN list AS l ON anzl.name = l.name");
 		//hier darf nicht mit deltas gearbeitet werden, da nur eine der verwendeten zeilen ein delta sein darf
-		sql.append("\n\t\t\t INNER JOIN classAssertionEnt AS clsA ON l.element = clsA.class");
+		sql.append("\n\t\t\t INNER JOIN classAssertionEnt AS clsA ON l.element = clsA.colClass");
 		sql.append("\n\t\t\t INNER JOIN " + delta.getDeltaName("intersectionOf") + " AS int ON int.list = l.name");
 		
 		if (again) {
 			sql.append("\n\t\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t\t SELECT bottom.entity");
 			sql.append("\n\t\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t\t WHERE bottom.entity = clsA.entity AND bottom.class = int.class");
+			sql.append("\n\t\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = int.colClass");
 			sql.append("\n\t\t )");
 		}
-		sql.append("\n\t\t GROUP BY l.name, clsA.entity, int.class");
+		sql.append("\n\t\t GROUP BY l.name, clsA.entity, int.colClass");
 		sql.append("\n\t\t HAVING COUNT(l.name) = anzl.anzahl");
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t) AS dat ON dat.entity = tca.entity AND dat.class = tint.class");
+			sql.append("\n\t) AS dat ON dat.entity = tca.entity AND dat.colClass = tint.colClass");
 		}
 		return sql.toString();
 	}

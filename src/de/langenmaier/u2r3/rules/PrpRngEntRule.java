@@ -30,10 +30,10 @@ public class PrpRngEntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT ass.object, rng.range, MIN(ass.id) AS sourceId1, '" + RelationName.objectPropertyAssertion + "' AS sourceTable1, MIN(rng.id) AS sourceId2, '" + RelationName.propertyDomain + "' AS sourceTable2");
 		} else {
-			sql.append("(entity, class)");
+			sql.append("(entity, colClass)");
 			sql.append("\n\t SELECT DISTINCT ass.object, rng.range");
 		}
 		
@@ -43,9 +43,9 @@ public class PrpRngEntRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = ass.object AND bottom.class = rng.range");
+			sql.append("\n\t\t WHERE bottom.entity = ass.object AND bottom.colClass = rng.range");
 			sql.append("\n\t )");
 		}
 		

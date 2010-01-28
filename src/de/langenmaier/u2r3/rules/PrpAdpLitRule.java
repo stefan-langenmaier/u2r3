@@ -38,7 +38,7 @@ public class PrpAdpLitRule extends ConsistencyRule {
 	
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON m.class = clsA.entity");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("members") + " AS m ON m.colClass = clsA.entity");
 		sql.append("\n\t INNER JOIN list AS l ON m.list = l.name");
 		
 		if (run == 0) {
@@ -48,7 +48,7 @@ public class PrpAdpLitRule extends ConsistencyRule {
 			sql.append("\n\t INNER JOIN dataPropertyAssertion AS prp1 ON l.element = prp1.property");
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp2 ON l.element = prp2.property");
 		}
-		sql.append("\n WHERE clsA.class = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES + "'");
+		sql.append("\n WHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_ALL_DISJOINT_PROPERTIES + "'");
 		sql.append("\n\t AND prp1.subject = prp2.subject AND prp1.object = prp2.object AND prp1.property != prp2.property ");
 		
 		return sql.toString();

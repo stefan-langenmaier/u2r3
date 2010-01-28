@@ -19,19 +19,19 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" class TEXT," +
+					" colClass TEXT," +
 					" property TEXT, " +
 					" total TEXT, " +
 					" value TEXT," +
-					" PRIMARY KEY (class, property, class, value));" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" PRIMARY KEY (colClass, property, total, value));" +
+					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total);" +
 					" CREATE INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, property, total, value) VALUES (?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, property, total, value) VALUES (?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

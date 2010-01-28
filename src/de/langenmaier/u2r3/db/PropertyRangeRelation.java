@@ -126,7 +126,7 @@ public class PropertyRangeRelation extends Relation {
 					for (int i=1; i<=2; ++i) {
 						//source
 						sql = new StringBuilder();
-						sql.append("SELECT id, '" + RelationName.propertyRange + "' AS table,");
+						sql.append("SELECT id, '" + RelationName.propertyRange + "' AS colTable,");
 						sql.append(" sourceId" + i + ", sourceTable" + i + "");
 						sql.append("\n FROM " + delta.getDeltaName() + " AS t");
 						sql.append("\n WHERE sourceId" + i + " IS NOT NULL");

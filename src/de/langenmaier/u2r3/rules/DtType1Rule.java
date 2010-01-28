@@ -24,7 +24,7 @@ public class DtType1Rule extends ApplicationRule {
 		String datatype = OWLRDFVocabulary.OWL_DATATYPE.getURI().toString();
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
-		sql.append(" (entity, class) VALUES ");
+		sql.append(" (entity, colClass) VALUES ");
 
 		sql.append("\n ('" + OWLRDFVocabulary.RDF_PLAIN_LITERAL.getURI().toString() + "', '" + datatype + "'),");
 		sql.append("\n ('" + OWLRDFVocabulary.RDF_XML_LITERAL.getURI().toString() + "', '" + datatype + "'),");

@@ -29,22 +29,22 @@ public class ScmClsEquivalentClassRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT clsA.entity AS left, clsA.entity AS right, ");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT clsA.entity AS colLeft, clsA.entity AS colRight, ");
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable1");
 		} else {
-			sql.append(" (left, right)");
-			sql.append("\n\t SELECT DISTINCT clsA.entity AS left, clsA.entity AS right");
+			sql.append(" (colLeft, colRight)");
+			sql.append("\n\t SELECT DISTINCT clsA.entity AS colLeft, clsA.entity AS colRight");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t WHERE clsA.class = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
+		sql.append("\n\t WHERE clsA.colClass = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");
-			sql.append("\n\t\t SELECT bottom.left");
+			sql.append("\n\t\t SELECT bottom.colLeft");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = clsA.entity AND bottom.right = clsA.entity");
+			sql.append("\n\t\t WHERE bottom.colLeft = clsA.entity AND bottom.colRight = clsA.entity");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t  GROUP BY clsA.entity");

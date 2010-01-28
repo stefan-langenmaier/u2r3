@@ -28,23 +28,23 @@ public class CaxScoLitRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (literal, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (literal, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT clsA.literal, sc.super, ");
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionLit + "' AS sourceTable1, ");
 			sql.append(" MIN(sc.id) AS sourceId2, '" + RelationName.subClass + "' AS sourceTable2");
 		} else {
-			sql.append(" (literal, class)");
+			sql.append(" (literal, colClass)");
 			sql.append("\n\t SELECT DISTINCT clsA.literal, sc.super");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionLit") + " AS clsA");
-		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subClass") + " AS sc ON clsA.class = sc.sub");
+		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("subClass") + " AS sc ON clsA.colClass = sc.sub");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT literal");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.literal = clsA.literal AND bottom.class = sc.super");
+			sql.append("\n\t\t WHERE bottom.literal = clsA.literal AND bottom.colClass = sc.super");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t  GROUP BY clsA.literal, sc.super");

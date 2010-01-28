@@ -37,11 +37,11 @@ public class PrpPdwEntRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\nFROM " + delta.getDeltaName("propertyDisjointWith") + " AS pdw");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON pdw.left = prp1.property");
-			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp2 ON pdw.right = prp2.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp1 ON pdw.colLeft = prp1.property");
+			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp2 ON pdw.colRight = prp2.property");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp1 ON pdw.left = prp1.property");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON pdw.right = prp2.property");
+			sql.append("\n\t INNER JOIN objectPropertyAssertion AS prp1 ON pdw.colLeft = prp1.property");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON pdw.colRight = prp2.property");
 		}
 		sql.append("\n WHERE prp1.subject = prp2.subject AND prp1.object = prp2.object");
 

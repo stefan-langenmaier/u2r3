@@ -29,11 +29,11 @@ public class ImplLitNdpRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (literal, class, language, sourceId1, sourceTable1)");
+			sql.append(" (literal, colClass, language, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT ndpa.object, ndpa.type, ndpa.language,");
 			sql.append(" MIN(ndpa.id) AS sourceId1, '" + RelationName.negativeDataPropertyAssertion + "' AS sourceTable1");
 		} else {
-			sql.append("(literal, class, language)");
+			sql.append("(literal, colClass, language)");
 			sql.append("\n\t SELECT DISTINCT ndpa.object, ndpa.type, ndpa.language");
 		}
 		
@@ -44,7 +44,7 @@ public class ImplLitNdpRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT literal");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE NOT isSameLiteral(bottom.literal, ndpa.object, bottom.class, ndpa.type, bottom.language, ndpa.language)");
+			sql.append("\n\t\t WHERE NOT isSameLiteral(bottom.literal, ndpa.object, bottom.colClass, ndpa.type, bottom.language, ndpa.language)");
 			sql.append("\n\t )");
 		}
 		

@@ -29,20 +29,20 @@ public class EqSymEntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT right, left, id AS sourceId1, '" + RelationName.sameAsEnt + "' AS sourceTable1");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT colRight, colLeft, id AS sourceId1, '" + RelationName.sameAsEnt + "' AS sourceTable1");
 		} else {
-			sql.append("(left, right)");
-			sql.append("\n\t SELECT right, left");
+			sql.append("(colLeft, colRight)");
+			sql.append("\n\t SELECT colRight, colLeft");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("sameAsEnt") + " AS top");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT right, left");
+			sql.append("\n\t\t SELECT colRight, colLeft");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.left = top.left AND bottom.right = top.right");
+			sql.append("\n\t\t WHERE bottom.colLeft = top.colLeft AND bottom.colRight = top.colRight");
 			sql.append("\n\t )");
 		}
 		return sql.toString();

@@ -24,15 +24,15 @@ public class PropertyDisjointWithRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
-					" right TEXT," +
-					" PRIMARY KEY (left, right));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
-					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right);");
+					" colLeft TEXT," +
+					" colRight TEXT," +
+					" PRIMARY KEY (colLeft, colRight));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
+					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();

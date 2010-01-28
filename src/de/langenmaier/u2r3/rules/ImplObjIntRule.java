@@ -31,12 +31,12 @@ public class ImplObjIntRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT io.class, '" +  clazz + "', ");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT io.colClass, '" +  clazz + "', ");
 			sql.append(" MIN(io.id) AS sourceId1, '" + RelationName.intersectionOf + "' AS sourceTable1");
 		} else {
-			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT io.class, '" +  clazz + "'");
+			sql.append("(entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT io.colClass, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS io");
@@ -44,14 +44,14 @@ public class ImplObjIntRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = io.class AND bottom.class = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = io.colClass AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY io.class");
+			sql.append("\n\t GROUP BY io.colClass");
 		}
 		return sql.toString();
 	}

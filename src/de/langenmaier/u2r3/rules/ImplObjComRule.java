@@ -42,17 +42,17 @@ public class ImplObjComRule extends ApplicationRule {
 		
 		String side;
 		if (run == 0) {
-			side = "co.left";
+			side = "co.colLeft";
 		} else {
-			side = "co.right";
+			side = "co.colRight";
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1)");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT " + side + ", '" +  clazz + "', ");
 			sql.append(" MIN(co.id) AS sourceId1, '" + RelationName.complementOf + "' AS sourceTable1");
 		} else {
-			sql.append("(entity, class)");
+			sql.append("(entity, colClass)");
 			sql.append("\n\t SELECT DISTINCT " + side + ", '" +  clazz + "'");
 		}
 		
@@ -61,9 +61,9 @@ public class ImplObjComRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = " + side + " AND bottom.class = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = " + side + " AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		

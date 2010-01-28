@@ -28,7 +28,7 @@ public class EqDiff1EntRule extends ConsistencyRule {
 		sql.append("SELECT '1' AS res");
 		sql.append("\n FROM " + delta.getDeltaName("sameAsEnt") + " AS sa");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("differentFromEnt") + " AS df");
-		sql.append("\n\t\t ON sa.left=df.left AND sa.right = df.right");
+		sql.append("\n\t\t ON sa.colLeft=df.colLeft AND sa.colRight = df.colRight");
 		
 		return sql.toString();
 	}

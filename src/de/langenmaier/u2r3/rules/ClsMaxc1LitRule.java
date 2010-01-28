@@ -28,7 +28,7 @@ public class ClsMaxc1LitRule extends ConsistencyRule {
 		
 		sql.append("SELECT 1 AS res");
 		sql.append("\n FROM " + delta.getDeltaName("maxCardinality") + " AS mc");
-		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.class = mc.class");
+		sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca ON ca.colClass = mc.colClass");
 		sql.append("\n\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON ca.entity = prp.subject AND mc.property = prp.property");
 		sql.append("\n WHERE mc.value = '0'");	
 

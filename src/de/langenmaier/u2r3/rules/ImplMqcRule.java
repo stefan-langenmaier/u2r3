@@ -31,12 +31,12 @@ public class ImplMqcRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT mqc.class, '" +  clazz + "',");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT mqc.colClass, '" +  clazz + "',");
 			sql.append(" MIN(mqc.id) AS sourceId1, '" + RelationName.maxQualifiedCardinality + "' AS sourceTable1");
 		} else {
-			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT mqc.class, '" +  clazz + "'");
+			sql.append("(entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT mqc.colClass, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("maxQualifiedCardinality") + " AS mqc");
@@ -44,14 +44,14 @@ public class ImplMqcRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = mqc.class AND bottom.class = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = mqc.colClass AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY mqc.class");
+			sql.append("\n\t GROUP BY mqc.colClass");
 		}
 		return sql.toString();
 	}

@@ -39,7 +39,7 @@ public class History extends U2R3Component {
 				}
 				createStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 						" id BIGINT NOT NULL," +
-						" table VARCHAR(100) NOT NULL," +
+						" colTable VARCHAR(100) NOT NULL," +
 						" sourceId BIGINT NOT NULL," +
 						" sourceTable VARCHAR(100) NOT NULL," +
 						" PRIMARY KEY (id, sourceId))");
@@ -60,7 +60,7 @@ public class History extends U2R3Component {
 		
 		try {
 			//TODO MERGE INTO sollte eigentlich INSERT INTO sein
-			stmt.execute("MERGE INTO history (id, table, sourceId, sourceTable) " + sql);
+			stmt.execute("MERGE INTO history (id, colTable, sourceId, sourceTable) " + sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,7 +75,7 @@ public class History extends U2R3Component {
 		Statement deleteStatement = null;
 		ResultSet rs = null;
 		String sql;
-		sql = "SELECT id, table FROM " + getTableName() + " WHERE sourceId = '" + sourceId.toString() + "'";
+		sql = "SELECT id, colTable FROM " + getTableName() + " WHERE sourceId = '" + sourceId.toString() + "'";
 		try {
 			stmt = conn.createStatement();
 			deleteStatement = conn.createStatement();
@@ -86,7 +86,7 @@ public class History extends U2R3Component {
 			//remove dependecies
 			while (rs.next()) {
 				Long id = rs.getLong("id");
-				RelationName name = RelationName.valueOf(rs.getString("table"));
+				RelationName name = RelationName.valueOf(rs.getString("colTable"));
 				remove(id, name);
 				
 				//remove history

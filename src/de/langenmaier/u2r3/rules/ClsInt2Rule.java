@@ -28,25 +28,25 @@ public class ClsInt2Rule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1, sourceId2, sourceTable2)");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
 			sql.append("\n\t SELECT clsA.entity, l.element, ");
 			sql.append(" MIN(clsA.id) AS sourceId1, '" + RelationName.classAssertionEnt + "' AS sourceTable2, ");
 			sql.append(" MIN(int.id) AS sourceId2, '" + RelationName.intersectionOf + "' AS sourceTable2");
 		} else {
-			sql.append(" (entity, class)");
+			sql.append(" (entity, colClass)");
 			sql.append("\n\t SELECT DISTINCT clsA.entity, l.element");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("intersectionOf") + " AS int INNER JOIN list AS l");
 		sql.append("\n\t\t ON int.list = l.name");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t\t ON clsA.class = int.class");
+		sql.append("\n\t\t ON clsA.colClass = int.colClass");
 		
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.class = l.element");
+			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = l.element");
 			sql.append("\n\t )");
 		}
 		sql.append("\n\t  GROUP BY clsA.entity, l.element");

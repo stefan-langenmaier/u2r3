@@ -39,7 +39,7 @@ public class ScmClsNothingRule extends ApplicationRule {
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("classAssertionEnt") + " AS clsA");
-		sql.append("\n\t WHERE clsA.class = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
+		sql.append("\n\t WHERE clsA.colClass = '" + OWLXMLVocabulary.CLASS.getURI().toString() + "'");
 		
 		if (again) {
 			sql.append("\n\t\t AND NOT EXISTS (");

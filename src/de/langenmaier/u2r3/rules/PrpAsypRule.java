@@ -45,7 +45,7 @@ public class PrpAsypRule extends ConsistencyRule {
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("objectPropertyAssertion") + " AS prp2 ON clsA.entity = prp2.property");
 		}
 		sql.append("\n\t\t AND prp1.subject = prp2.object AND prp1.object = prp2.subject");
-		sql.append("\nWHERE clsA.class = '" + OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY + "'");
+		sql.append("\nWHERE clsA.colClass = '" + OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY + "'");
 		
 
 		return sql.toString();

@@ -37,11 +37,11 @@ public class ClsComEntRule extends ConsistencyRule {
 		sql.append("SELECT 1 AS res");
 		sql.append("\nFROM " + delta.getDeltaName("complementOf") + " AS co");
 		if (run == 0) {
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON co.left = ca1.class");
-			sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON co.right = ca2.class");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca1 ON co.colLeft = ca1.colClass");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca2 ON co.colRight = ca2.colClass");
 		} else if (run == 1) {
-			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON co.left = ca1.class");
-			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON co.right = ca2.class");
+			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON co.colLeft = ca1.colClass");
+			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON co.colRight = ca2.colClass");
 		}
 
 		return sql.toString();

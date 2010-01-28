@@ -31,12 +31,12 @@ public class ImplObjUniRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, class, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT uo.class, '" +  clazz + "', ");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1)");
+			sql.append("\n\t SELECT uo.colClass, '" +  clazz + "', ");
 			sql.append(" MIN(uo.id) AS sourceId1, '" + RelationName.unionOf + "' AS sourceTable1");
 		} else {
-			sql.append("(entity, class)");
-			sql.append("\n\t SELECT DISTINCT uo.class, '" +  clazz + "'");
+			sql.append("(entity, colClass)");
+			sql.append("\n\t SELECT DISTINCT uo.colClass, '" +  clazz + "'");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("unionOf") + " AS uo");
@@ -44,14 +44,14 @@ public class ImplObjUniRule extends ApplicationRule {
 
 		if (again) {
 			sql.append("\n\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t SELECT entity, class");
+			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = uo.class AND bottom.class = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = uo.colClass AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY uo.class");
+			sql.append("\n\t GROUP BY uo.colClass");
 		}
 		return sql.toString();
 	}

@@ -23,7 +23,7 @@ public class ClsThingRule extends ApplicationRule {
 		String datatype = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
 		
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
-		sql.append(" (entity, class) VALUES ");
+		sql.append(" (entity, colClass) VALUES ");
 
 		sql.append("\n ('" + OWLRDFVocabulary.OWL_THING + "', '" + datatype + "')");
 	

@@ -30,18 +30,18 @@ public class MembersRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" class TEXT," +
+					" colClass TEXT," +
 					" list TEXT," +
-					" PRIMARY KEY (class, list));" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(class);" +
+					" PRIMARY KEY (colClass, list));" +
+					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
 					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (class, list) VALUES (?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, list) VALUES (?, ?)");
 
 			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
-			addTypeStatement = conn.prepareStatement("INSERT INTO classAssertionEnt (entity, class) VALUES (?, ?)");
+			addTypeStatement = conn.prepareStatement("INSERT INTO classAssertionEnt (entity, colClass) VALUES (?, ?)");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

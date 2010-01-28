@@ -27,11 +27,11 @@ public class ScmEqp1Sub1Rule extends ApplicationRule {
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT ep.left, ep.right,");
+			sql.append("\n\t SELECT ep.colLeft, ep.colRight,");
 			sql.append(" MIN(ep.id) AS sourceId1, '" + RelationName.equivalentProperty + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT ep.left, ep.right ");
+			sql.append("\n\t SELECT DISTINCT ep.colLeft, ep.colRight ");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("equivalentProperty") + " AS ep ");
@@ -40,11 +40,11 @@ public class ScmEqp1Sub1Rule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT sub, super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = ep.left AND bottom.super = ep.right) ");
+			sql.append("\n\t\t WHERE bottom.sub = ep.colLeft AND bottom.super = ep.colRight) ");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY ep.left, ep.right");
+			sql.append("\n\t GROUP BY ep.colLeft, ep.colRight");
 		}
 
 		return sql.toString();

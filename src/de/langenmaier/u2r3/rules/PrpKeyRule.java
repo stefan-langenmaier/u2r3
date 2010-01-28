@@ -33,16 +33,16 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (left, right, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
-			sql.append("\n\t SELECT ca1.entity AS left, ca2.entity AS right, ");
+			sql.append(" (colLeft, colRight, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable3, sourceId4, sourceTable4, sourceId5, sourceTable5)");
+			sql.append("\n\t SELECT ca1.entity AS colLeft, ca2.entity AS colRight, ");
 			sql.append(" hk.id AS sourceId1, 'hasKey' AS sourceTable1, ");
 			sql.append(" ca1.id AS sourceId2, 'classAssertionEnt' AS sourceTable2, ");
 			sql.append(" pa1.id AS sourceId3, pa1.type AS sourceTable1, ");
 			sql.append(" ca2.id AS sourceId4, 'classAssertionEnt' AS sourceTable4, ");
 			sql.append(" pa2.id AS sourceId5, pa2.type AS sourceTable5");
 		} else {
-			sql.append("(left, right)");
-			sql.append("\n\t SELECT DISTINCT ca1.entity AS left, ca2.entity AS right");
+			sql.append("(colLeft, colRight)");
+			sql.append("\n\t SELECT DISTINCT ca1.entity AS colLeft, ca2.entity AS colRight");
 		}
 
 		
@@ -50,13 +50,13 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("\n\t INNER JOIN list AS l");
 		sql.append("\n\t\t ON l.name = hk.list");
 		sql.append("\n\t INNER JOIN classAssertionEnt AS ca1");
-		sql.append("\n\t 	ON ca1.class = hk.class");
+		sql.append("\n\t 	ON ca1.colClass = hk.colClass");
 		sql.append("\n\t INNER JOIN (");
 		addUnion(sql);
 		sql.append("\n\t ) AS pa1");
 		sql.append("\n\t 	ON pa1.subject = ca1.entity AND pa1.property = l.element");
 		sql.append("\n\t INNER JOIN classAssertionEnt AS ca2");
-		sql.append("\n\t 	ON ca2.class = hk.class");
+		sql.append("\n\t 	ON ca2.colClass = hk.colClass");
 		sql.append("\n\t INNER JOIN (");
 		addUnion(sql);
 		sql.append("\n\t ) AS pa2");
@@ -72,9 +72,9 @@ public class PrpKeyRule extends ApplicationRule {
 	
 		if (again) {
 			sql.append("\n\t\t WHERE NOT EXISTS (");
-			sql.append("\n\t\t\t SELECT bottom.left");
+			sql.append("\n\t\t\t SELECT bottom.colLeft");
 			sql.append("\n\t\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t\t WHERE bottom.left = ca1.entity AND bottom.right = ca2.entity");
+			sql.append("\n\t\t\t WHERE bottom.colLeft = ca1.entity AND bottom.colRight = ca2.entity");
 			sql.append("\n\t\t )");
 		}
 

@@ -30,11 +30,11 @@ public class ScmUniRule extends ApplicationRule {
 
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
 			sql.append(" (sub, super, sourceId1, sourceTable1)");
-			sql.append("\n\t SELECT l.element, uni.class,");
+			sql.append("\n\t SELECT l.element, uni.colClass,");
 			sql.append(" MIN(uni.id) AS sourceId1, '" + RelationName.unionOf + "' AS sourceTable1");
 		} else {
 			sql.append(" (sub, super)");
-			sql.append("\n\t SELECT DISTINCT l.element, uni.class");
+			sql.append("\n\t SELECT DISTINCT l.element, uni.colClass");
 		}
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("unionOf") + " AS uni");
@@ -44,12 +44,12 @@ public class ScmUniRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.sub, bottom.super");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.sub = l.element AND bottom.super = uni.class");
+			sql.append("\n\t\t WHERE bottom.sub = l.element AND bottom.super = uni.colClass");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY l.element, uni.class");
+			sql.append("\n\t GROUP BY l.element, uni.colClass");
 		}
 
 		return sql.toString();

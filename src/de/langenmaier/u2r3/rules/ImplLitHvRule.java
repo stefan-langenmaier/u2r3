@@ -29,11 +29,11 @@ public class ImplLitHvRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (literal, class, language, sourceId1, sourceTable1)");
+			sql.append(" (literal, colClass, language, sourceId1, sourceTable1)");
 			sql.append("\n\t SELECT hv.value, hv.type, hv.language, ");
 			sql.append(" MIN(hv.id) AS sourceId1, '" + RelationName.hasValueLit + "' AS sourceTable1");
 		} else {
-			sql.append("(literal, class, language)");
+			sql.append("(literal, colClass, language)");
 			sql.append("\n\t SELECT DISTINCT hv.value, hv.type, hv.language");
 		}
 		
@@ -44,7 +44,7 @@ public class ImplLitHvRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT literal");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE NOT isSameLiteral(bottom.literal, hv.value, bottom.class, hv.type, bottom.language, hv.language)");
+			sql.append("\n\t\t WHERE NOT isSameLiteral(bottom.literal, hv.value, bottom.colClass, hv.type, bottom.language, hv.language)");
 			sql.append("\n\t )");
 		}
 		

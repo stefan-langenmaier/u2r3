@@ -21,19 +21,19 @@ public class SameAsLitRelation extends Relation {
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
-					" right TEXT," +
+					" colLeft TEXT," +
+					" colRight TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
 					" right_type TEXT," +
-					" PRIMARY KEY (id, left, right));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(left);" +
-					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(right)");
+					" PRIMARY KEY (id, colLeft, colRight));" +
+					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
+					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight)");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (left, right, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
+			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -52,8 +52,8 @@ public class SameAsLitRelation extends Relation {
 			// bis zu 8 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" left TEXT," +
-					" right TEXT," +
+					" colLeft TEXT," +
+					" colRight TEXT," +
 					" left_language TEXT," +
 					" left_type TEXT," +
 					" right_language TEXT," +
@@ -70,9 +70,9 @@ public class SameAsLitRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, left, right));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(left);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(right)");
+					" PRIMARY KEY (id, colLeft, colRight));" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
+					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -85,14 +85,14 @@ public class SameAsLitRelation extends Relation {
 			long rows;
 			
 			//create compressed/compacted delta
-			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT left, right FROM " + getTableName() + " AS bottom WHERE bottom.left = t1.left AND bottom.right = t1.right)");
+			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT colLeft, colRight FROM " + getTableName() + " AS bottom WHERE bottom.colLeft = t1.colLeft AND bottom.colRight = t1.colRight)");
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, left, right) " +
-					" SELECT MIN(id), left, right " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, colLeft, colRight) " +
+					" SELECT MIN(id), colLeft, colRight " +
 					" FROM " + delta.getDeltaName() + " " +
-					" GROUP BY left, right");			
+					" GROUP BY colLeft, colRight");			
 			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
@@ -107,7 +107,7 @@ public class SameAsLitRelation extends Relation {
 						rows = stmt.executeUpdate(sql);				
 						
 						//source
-						sql = "SELECT id, '" + RelationName.sameAsLit + "' AS table, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
+						sql = "SELECT id, '" + RelationName.sameAsLit + "' AS colTable, sourceId" + i + ", sourceTable" + i + " FROM " + delta.getDeltaName();
 						relationManager.addHistory(sql);
 					}
 				}
@@ -134,7 +134,7 @@ public class SameAsLitRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		if (args.length == 1) {
-			return "SELECT left FROM " + getTableName() + " WHERE left = '" + args[0] + "'";
+			return "SELECT colLeft FROM " + getTableName() + " WHERE colLeft = '" + args[0] + "'";
 		}
 		throw new U2R3NotImplementedException();
 	}
