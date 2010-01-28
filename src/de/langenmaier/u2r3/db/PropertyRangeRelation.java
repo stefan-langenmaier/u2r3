@@ -93,8 +93,8 @@ public class PropertyRangeRelation extends Relation {
 					" sourceId2 BIGINT, " +
 					" sourceTable2 VARCHAR(100), " +
 					" PRIMARY KEY (property, range));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

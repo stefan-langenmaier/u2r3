@@ -91,8 +91,8 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
 					" PRIMARY KEY (id, literal, colClass));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
+					" CREATE INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
+					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

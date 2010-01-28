@@ -66,8 +66,8 @@ public class PropertyDomainRelation extends Relation {
 					" sourceId2 BIGINT, " +
 					" sourceTable2 VARCHAR(100), " +
 					" PRIMARY KEY (property, domain));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

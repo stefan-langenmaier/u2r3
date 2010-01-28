@@ -83,9 +83,9 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
 					" PRIMARY KEY HASH (id, subject, property, object));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
+					" CREATE INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -146,8 +146,8 @@ public class ClassAssertionEntRelation extends Relation {
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
 					" PRIMARY KEY HASH (id, entity, colClass));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
+					" CREATE INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
+					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -82,8 +82,8 @@ public class SubClassRelation extends Relation {
 					" sourceId5 BIGINT," +
 					" sourceTable5 VARCHAR(100)," +
 					" PRIMARY KEY (sub, super));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
+					" CREATE INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
+					" CREATE INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
