@@ -102,15 +102,6 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			change.accept(axiomAdder);
 		}
 	}
-
-	//TODO wird in isEntailed wandern
-	public boolean isEquivalentClass(OWLClassExpression ce1,
-			OWLClassExpression ce2) throws OWLReasonerException {
-		if (!(ce1.isAnonymous() || ce2.isAnonymous())) {
-			return relationManager.getRelation(RelationName.equivalentClass).exists(ce1.asOWLClass().getIRI().toString(), ce2.asOWLClass().getIRI().toString());
-		}
-		throw new U2R3NotImplementedException();
-	}
 	
 	@Override
 	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual, boolean arg1) {
@@ -451,16 +442,16 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			} else if (aType == AxiomType.DATA_PROPERTY_ASSERTION) {
 				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.OBJECT_PROPERTY_ASSERTION) {
-				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
+				stmt = relationManager.getRelation(RelationName.objectPropertyAssertion).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION) {
-				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
+				stmt = relationManager.getRelation(RelationName.negativeObjectPropertyAssertion).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.CLASS_ASSERTION) {
 				stmt = relationManager.getRelation(RelationName.classAssertionEnt).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.SUBCLASS_OF) {
 				stmt = relationManager.getRelation(RelationName.subClass).getAxiomLocation(axiom);
 			// eq-class koennen mehr als zwei sein, komplizierter
-			//} else if (aType == AxiomType.EQUIVALENT_CLASSES) {
-			//	stmt = relationManager.getRelation(RelationName.equivalentClass).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.EQUIVALENT_CLASSES) {
+				stmt = relationManager.getRelation(RelationName.equivalentClass).getAxiomLocation(axiom);
 			} else {
 				throw new U2R3NotImplementedException();
 			}
@@ -490,7 +481,8 @@ public class U2R3Reasoner extends OWLReasonerBase {
 				|| axiomType == AxiomType.DATA_PROPERTY_ASSERTION
 				|| axiomType == AxiomType.OBJECT_PROPERTY_ASSERTION
 				|| axiomType == AxiomType.CLASS_ASSERTION
-				|| axiomType == AxiomType.SUBCLASS_OF) {
+				|| axiomType == AxiomType.SUBCLASS_OF
+				|| axiomType == AxiomType.EQUIVALENT_CLASSES) {
 			return true;
 		}
 		return false;

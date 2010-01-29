@@ -116,7 +116,7 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 			}
 			
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
 			sql.append("\nFROM  " + getTableName());
 			sql.append("\nWHERE ");
 			if (language == null) {

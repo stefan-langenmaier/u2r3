@@ -43,6 +43,8 @@ public class RunAllTestCases {
 			name = f.getName();
 			folder = f.getAbsolutePath();
 			
+			logger.info("Start test case <" + name  + ">");
+			
 			Properties prop = new Properties();
 			prop.loadFromXML(new FileInputStream(folder + "/" + name + ".metadata.properties"));
 			if (prop.getProperty("testcase.type").equals("POSITIVE_ENTAILMENT")) {
