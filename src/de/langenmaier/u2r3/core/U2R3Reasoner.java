@@ -11,7 +11,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -125,25 +124,8 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		return reasonProcessor;
 	}
 
-	//TODO wird von isEntailed ersetzt
-	public boolean hasSame(OWLIndividual ind) throws OWLReasonerException {
-		return relationManager.getRelation(RelationName.sameAsEnt)
-			.exists(ind.asOWLNamedIndividual().getIRI().toString());
-	}
-
 	public NodeIDMapper getNIDMapper() {
 		return nidMapper;
-	}
-
-	//TODO wird von isEntailed ersetzt
-	public boolean isSubPropertyOf(OWLObjectPropertyExpression sub,
-			OWLObjectPropertyExpression sup) throws U2R3ReasonerException {
-		if (!(sub.isAnonymous() || sup.isAnonymous())) {
-			return relationManager.getRelation(RelationName.subProperty)
-				.exists(sub.asOWLObjectProperty().getIRI().toString(), sup.asOWLObjectProperty().getIRI().toString());
-		}
-		return false;
-		
 	}
 
 	//TODO wird von isEntailed ersetzt
@@ -449,8 +431,15 @@ public class U2R3Reasoner extends OWLReasonerBase {
 				stmt = relationManager.getRelation(RelationName.classAssertionEnt).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.SUBCLASS_OF) {
 				stmt = relationManager.getRelation(RelationName.subClass).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.SUB_OBJECT_PROPERTY) {
+				stmt = relationManager.getRelation(RelationName.subProperty).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.SUB_DATA_PROPERTY) {
+				stmt = relationManager.getRelation(RelationName.subProperty).getAxiomLocation(axiom);
+			}  else if (aType == AxiomType.SAME_INDIVIDUAL) {
+				stmt = relationManager.getRelation(RelationName.sameAsEnt).getAxiomLocation(axiom);
+			}
 			// eq-class koennen mehr als zwei sein, komplizierter
-			} else if (aType == AxiomType.EQUIVALENT_CLASSES) {
+			else if (aType == AxiomType.EQUIVALENT_CLASSES) {
 				stmt = relationManager.getRelation(RelationName.equivalentClass).getAxiomLocation(axiom);
 			} else {
 				throw new U2R3NotImplementedException();
@@ -482,7 +471,9 @@ public class U2R3Reasoner extends OWLReasonerBase {
 				|| axiomType == AxiomType.OBJECT_PROPERTY_ASSERTION
 				|| axiomType == AxiomType.CLASS_ASSERTION
 				|| axiomType == AxiomType.SUBCLASS_OF
-				|| axiomType == AxiomType.EQUIVALENT_CLASSES) {
+				|| axiomType == AxiomType.EQUIVALENT_CLASSES
+				|| axiomType == AxiomType.SUB_DATA_PROPERTY
+				|| axiomType == AxiomType.SUB_OBJECT_PROPERTY) {
 			return true;
 		}
 		return false;

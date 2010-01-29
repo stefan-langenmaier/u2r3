@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,8 +12,10 @@ import org.semanticweb.owlapi.model.OWLSubObjectPropertyOfAxiom;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class SubPropertyRelation extends Relation {
@@ -156,6 +159,81 @@ public class SubPropertyRelation extends Relation {
 			return "SELECT sub, super FROM " + getTableName() + " WHERE sub = '" + args[0] + "' AND super = '" + args[1] + "'";
 		}
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLSubObjectPropertyOfAxiom) {
+			OWLSubObjectPropertyOfAxiom nax = (OWLSubObjectPropertyOfAxiom) ax;
+			String subProperty = null;
+			String superProperty = null;
+			String tableId = TableId.getId();
+			
+			if (!nax.getSubProperty().isAnonymous()) {
+				subProperty = nax.getSubProperty().asOWLObjectProperty().getIRI().toString();
+			}
+			
+			if (!nax.getSuperProperty().isAnonymous()) {
+				superProperty = nax.getSuperProperty().asOWLObjectProperty().getIRI().toString();
+			}			
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (subProperty != null) {
+				sql.append("sub='" + subProperty + "' ");
+			} else {
+				sql.append(" EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSubProperty(), tableId, "sub");
+			}
+			
+			if (superProperty != null) {
+				sql.append(" AND super='" + superProperty + "'");
+			} else {
+				sql.append(" AND EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSuperProperty(), tableId, "super");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		if (ax instanceof OWLSubDataPropertyOfAxiom) {
+			OWLSubDataPropertyOfAxiom nax = (OWLSubDataPropertyOfAxiom) ax;
+			String subProperty = null;
+			String superProperty = null;
+			String tableId = TableId.getId();
+			
+			if (!nax.getSubProperty().isAnonymous()) {
+				subProperty = nax.getSubProperty().asOWLDataProperty().getIRI().toString();
+			}
+			
+			if (!nax.getSuperProperty().isAnonymous()) {
+				superProperty = nax.getSuperProperty().asOWLDataProperty().getIRI().toString();
+			}			
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (subProperty != null) {
+				sql.append("sub='" + subProperty + "' ");
+			} else {
+				sql.append(" EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSubProperty(), tableId, "sub");
+			}
+			
+			if (superProperty != null) {
+				sql.append(" AND super='" + superProperty + "'");
+			} else {
+				sql.append(" AND EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getSuperProperty(), tableId, "super");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

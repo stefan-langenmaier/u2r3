@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLEquivalentObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalDataPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLHasKeyAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLInverseFunctionalObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLIrreflexiveObjectPropertyAxiom;
@@ -217,20 +216,14 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLSubObjectPropertyOfAxiom axiom) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + axiom.toString());
-			
-			if (!(axiom.getSubProperty().isAnonymous() || axiom.getSuperProperty().isAnonymous())) {
-				if(!reasoner.isSubPropertyOf(axiom.getSubProperty(), axiom.getSuperProperty())) {
-					correct = false;
-				}
-			}
-			
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + axiom.toString());
+		
+		if(!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		
+		used = true;
 	}
 
 	@Override
@@ -325,20 +318,14 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLSameIndividualAxiom axiom) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + axiom.toString());
-			logger.trace("Is axiom defined?");
-			for (OWLIndividual ind : axiom.getIndividuals()) {
-				if(!((U2R3Reasoner) reasoner).hasSame(ind)) {
-					correct = false;
-				}
-			}
-			
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + axiom.toString());
+		logger.trace("Is axiom defined?");
+		if(!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		
+		used = true;
 	}
 
 	@Override
