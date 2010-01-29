@@ -21,6 +21,6 @@ public class U2R3Component {
 		ruleManager = reasoner.getRuleManager();
 		reasonProcessor = reasoner.getReasonProcessor();
 		nidMapper = reasoner.getNIDMapper();
-		dataFactory = reasoner.getDataFactory();
+		dataFactory = reasoner.getOWLDataFactory();
 	}
 }

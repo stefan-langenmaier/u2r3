@@ -34,6 +34,7 @@ import org.semanticweb.owlapi.reasoner.TimeOutException;
 import org.semanticweb.owlapi.reasoner.UnsupportedEntailmentTypeException;
 import org.semanticweb.owlapi.reasoner.impl.OWLReasonerBase;
 import org.semanticweb.owlapi.util.Version;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.db.ClassAssertionEntRelation;
 import de.langenmaier.u2r3.db.DataPropertyAssertionRelation;
@@ -133,19 +134,17 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		return reasonProcessor;
 	}
 
+	//TODO wird von isEntailed ersetzt
 	public boolean hasSame(OWLIndividual ind) throws OWLReasonerException {
 		return relationManager.getRelation(RelationName.sameAsEnt)
 			.exists(ind.asOWLNamedIndividual().getIRI().toString());
-	}
-	
-	public OWLDataFactory getDataFactory() {
-		return getOWLDataFactory();
 	}
 
 	public NodeIDMapper getNIDMapper() {
 		return nidMapper;
 	}
 
+	//TODO wird von isEntailed ersetzt
 	public boolean isSubPropertyOf(OWLObjectPropertyExpression sub,
 			OWLObjectPropertyExpression sup) throws U2R3ReasonerException {
 		if (!(sub.isAnonymous() || sup.isAnonymous())) {
@@ -156,6 +155,7 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		
 	}
 
+	//TODO wird von isEntailed ersetzt
 	public boolean hasObjectPropertyDomain(
 			OWLObjectProperty prop, OWLClass domain) throws U2R3ReasonerException {
 		if (!(prop.isAnonymous() || domain.isAnonymous())) {
@@ -165,12 +165,14 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		return false;
 	}
 	
+	//TODO wird von isEntailed ersetzt
 	public boolean hasObjectPropertyRange(
 			OWLObjectProperty prop, OWLClass range) throws U2R3ReasonerException {
 		return relationManager.getRelation(RelationName.propertyRange)
 			.exists(prop.getIRI().toString(), range.getIRI().toString());
 	}
 
+	//TODO wird von isEntailed ersetzt
 	public boolean isEquivalentProperties(OWLObjectPropertyExpression pe1,
 			OWLObjectPropertyExpression pe2) throws U2R3ReasonerException {
 		if (!(pe1.isAnonymous() || pe2.isAnonymous())) {
@@ -179,28 +181,28 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		throw new U2R3NotImplementedException();
 	}
 	
+	//TODO wird von isEntailed ersetzt
 	public boolean isDifferentFrom(OWLLiteral l1, OWLLiteral l2) {
 		return l1.equals(l2);
 	}
 
 
-
 	@Override
 	public Node<OWLClass> getBottomClassNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentClasses(df.getOWLClass(OWLRDFVocabulary.OWL_NOTHING.getIRI()));
 	}
 
 	@Override
 	public Node<OWLDataProperty> getBottomDataPropertyNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentDataProperties(df.getOWLDataProperty(OWLRDFVocabulary.OWL_BOTTOM_DATA_PROPERTY.getIRI()));
 	}
 
 	@Override
 	public Node<OWLObjectProperty> getBottomObjectPropertyNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentObjectProperties(df.getOWLObjectProperty(OWLRDFVocabulary.OWL_BOTTOM_OBJECT_PROPERTY.getIRI()));
 	}
 
 	@Override
@@ -337,14 +339,12 @@ public class U2R3Reasoner extends OWLReasonerBase {
 
 	@Override
 	public String getReasonerName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "u2r3";
 	}
 
 	@Override
 	public Version getReasonerVersion() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Version(0, 0, 0, 380);
 	}
 
 	@Override
@@ -408,20 +408,21 @@ public class U2R3Reasoner extends OWLReasonerBase {
 
 	@Override
 	public Node<OWLClass> getTopClassNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentClasses(df.getOWLClass(OWLRDFVocabulary.OWL_THING.getIRI()));
 	}
 
 	@Override
 	public Node<OWLDataProperty> getTopDataPropertyNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentDataProperties(df.getOWLDataProperty(OWLRDFVocabulary.OWL_TOP_DATA_PROPERTY.getIRI()));
 	}
 
 	@Override
 	public Node<OWLObjectProperty> getTopObjectPropertyNode() {
-		// TODO Auto-generated method stub
-		return null;
+		OWLDataFactory df = getOWLDataFactory();
+		return getEquivalentObjectProperties(df.getOWLObjectProperty(OWLRDFVocabulary.OWL_TOP_OBJECT_PROPERTY.getIRI()));
+
 	}
 
 	@Override
@@ -513,8 +514,7 @@ public class U2R3Reasoner extends OWLReasonerBase {
 	@Override
 	public Node<OWLClass> getUnsatisfiableClasses()
 			throws ReasonerInterruptedException, TimeOutException {
-		// TODO Auto-generated method stub
-		return null;
+		return getBottomClassNode();
 	}
 
 	@Override

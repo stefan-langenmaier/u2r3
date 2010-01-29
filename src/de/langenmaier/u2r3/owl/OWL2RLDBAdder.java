@@ -53,7 +53,7 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	
 	public OWL2RLDBAdder(U2R3Reasoner reasoner) {
 		super(reasoner);
-		 df = reasoner.getDataFactory();
+		 df = reasoner.getOWLDataFactory();
 	}
 
 	static Logger logger = Logger.getLogger(OWL2RLDBAdder.class);

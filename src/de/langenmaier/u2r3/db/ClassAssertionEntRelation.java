@@ -337,7 +337,7 @@ public class ClassAssertionEntRelation extends Relation {
 				sql.append("entity='" + entity + "' AND colClass='" + clazz + "'");
 			} else {
 				sql.append("entity='" + entity + "' ");
-				sql.append(" AND EXISTS "); //property
+				sql.append(" AND EXISTS ");
 				handleSubAxiomLocationImpl(sql, nax.getClassExpression(), tableId, "colClass");
 			}
 			PreparedStatement stmt = conn.prepareStatement(sql.toString());
