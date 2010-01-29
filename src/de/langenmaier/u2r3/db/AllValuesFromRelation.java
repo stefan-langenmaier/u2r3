@@ -25,7 +25,7 @@ public class AllValuesFromRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" part TEXT," +
 					" property TEXT, " +
-					" total TEXT); " +
+					" total TEXT, " +
 					" PRIMARY KEY (id, part, property, total));" +
 					" CREATE INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
