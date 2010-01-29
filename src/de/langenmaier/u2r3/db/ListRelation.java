@@ -17,7 +17,7 @@ public class ListRelation extends Relation {
 			tableName = "list";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" name TEXT," +
 					" element TEXT," +
 					" PRIMARY KEY (name, element));" +

@@ -37,7 +37,7 @@ import de.langenmaier.u2r3.util.Settings.DeltaIteration;
  * @author stefan
  *
  */
-public abstract class Relation extends U2R3Component {
+public abstract class Relation extends U2R3Component implements Query {
 	static Logger logger = Logger.getLogger(Relation.class);
 	
 	protected enum AdditionMode {ADD, NOADD};
@@ -178,9 +178,10 @@ public abstract class Relation extends U2R3Component {
 	
 	protected void dropDelta(int id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.warn("Delta '" + getDeltaName(id) + "' konnte nicht geloescht werden.");
+			//e.printStackTrace();
 		}
 	}
 	
@@ -428,6 +429,62 @@ public abstract class Relation extends U2R3Component {
 	}
 	
 	protected void removeAnonymousIndividual(OWLIndividual subject) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	/* ***********************************************************************
+	 *                             Query Interface                           *
+	 *************************************************************************/
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLDataPropertyExpression pe, String tid, String col) {
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLIndividual ind, String tid, String col) {
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
+		if (pe instanceof OWLObjectInverseOf) {
+			sql.append("(");
+			relationManager.getRelation(RelationName.inverseOf).getSubAxiomLocationImpl(sql, pe, tid, col);
+			sql.append(")");
+		} else {
+			throw new U2R3NotImplementedException();
+		}
+	}
+
+	@Override
+	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLDataPropertyExpression pe, String tid, String col) {
+		//Sollte nie passieren
+		throw new U2R3NotImplementedException();
+	}
+
+	@Override
+	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLIndividual ind, String tid, String col) {
+		//Sollte nie passieren
 		throw new U2R3NotImplementedException();
 	}
 }

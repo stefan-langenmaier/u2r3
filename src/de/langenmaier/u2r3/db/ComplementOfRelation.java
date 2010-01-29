@@ -18,7 +18,7 @@ public class ComplementOfRelation extends Relation {
 			tableName = "complementOf";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" PRIMARY KEY (colLeft, colRight));" +

@@ -43,7 +43,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n FROM (");
 		sql.append("\n\t SELECT lname, anz FROM (");
 		addView(sql);
-		sql.append("\n\t )");		
+		sql.append("\n\t ) AS view1 ");		
 		sql.append("\n\t 		GROUP BY lname");		
 		sql.append("\n\t 		HAVING COUNT(lname) = anz");		
 		sql.append("\n\t 	) AS thel");
@@ -51,7 +51,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t 		SELECT lname, start");
 		sql.append("\n\t 		FROM (");
 		addView(sql);
-		sql.append("\n\t 			)");
+		sql.append("\n\t 			 ) AS view2 ");
 		sql.append("\n\t 		WHERE vorgaenger IS NULL");
 		sql.append("\n\t 	) AS start");
 		sql.append("\n\t 		ON start.lname = thel.lname");
@@ -59,7 +59,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t 		SELECT lname, ende");
 		sql.append("\n\t 		FROM (");
 		addView(sql);
-		sql.append("\n\t 			)");
+		sql.append("\n\t 			 ) AS view3 ");
 		sql.append("\n\t 		WHERE nachfolger IS NULL");
 		sql.append("\n\t 	) AS ende");
 		sql.append("\n\t 		ON ende.lname = thel.lname");
@@ -67,7 +67,7 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t 		SELECT lname, opaid");
 		sql.append("\n\t 		FROM (");
 		addView(sql);
-		sql.append("\n\t 			)");
+		sql.append("\n\t 			 ) AS view4 ");
 		sql.append("\n\t 	) AS ref");
 		sql.append("\n\t 		ON ref.lname = thel.lname");
 		sql.append("\n\t 	INNER JOIN propertyChain AS pc");

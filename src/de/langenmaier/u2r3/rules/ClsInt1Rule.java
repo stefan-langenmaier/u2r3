@@ -60,7 +60,7 @@ public class ClsInt1Rule extends ApplicationRule {
 			sql.append("\n\t\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = int.colClass");
 			sql.append("\n\t\t )");
 		}
-		sql.append("\n\t\t GROUP BY l.name, clsA.entity, int.colClass");
+		sql.append("\n\t\t GROUP BY l.name, clsA.entity, int.colClass, anzl.anzahl");
 		sql.append("\n\t\t HAVING COUNT(l.name) = anzl.anzahl");
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {

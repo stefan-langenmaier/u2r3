@@ -20,7 +20,7 @@ public class SameAsLitRelation extends Relation {
 			tableName = "sameAsLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" left_language TEXT," +
@@ -51,7 +51,7 @@ public class SameAsLitRelation extends Relation {
 			dropDelta(id);
 			// bis zu 8 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" left_language TEXT," +
@@ -71,8 +71,8 @@ public class SameAsLitRelation extends Relation {
 					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
 					" PRIMARY KEY (id, colLeft, colRight));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
+					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
+					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

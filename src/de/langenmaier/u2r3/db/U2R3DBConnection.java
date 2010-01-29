@@ -18,7 +18,7 @@ public class U2R3DBConnection {
 	
 	private U2R3DBConnection(DatabaseMode databaseMode) {
 		try {
-			Class.forName("org.h2.Driver");
+			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -28,7 +28,7 @@ public class U2R3DBConnection {
 			} else if (databaseMode == DatabaseMode.IN_MEMORY) {
 				theDBConnection = DriverManager.getConnection("jdbc:h2:mem:", "sa", "");
 			} else if (databaseMode == DatabaseMode.STANDALONE){
-				theDBConnection = DriverManager.getConnection("jdbc:h2:tcp://localhost/~/u2r3", "sa", "");
+				theDBConnection = DriverManager.getConnection("jdbc:postgresql:u2r3", "u2r3", "u2r3");
 			}
 			
 		} catch (SQLException e) {

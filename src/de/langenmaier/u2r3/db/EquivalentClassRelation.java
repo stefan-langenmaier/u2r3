@@ -24,7 +24,7 @@ public class EquivalentClassRelation extends Relation {
 			tableName = "equivalentClass";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" PRIMARY KEY (colLeft, colRight));" +
@@ -75,7 +75,7 @@ public class EquivalentClassRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" sourceId1 BIGINT," +
@@ -83,8 +83,8 @@ public class EquivalentClassRelation extends Relation {
 					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
 					" PRIMARY KEY (colLeft, colRight));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight);");
+					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
+					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

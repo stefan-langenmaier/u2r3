@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,8 @@ import org.semanticweb.owlapi.reasoner.impl.OWLNamedIndividualNodeSet;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3NotQueryable;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
@@ -30,7 +33,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			tableName = "objectPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -72,7 +75,7 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			dropDelta(id);
 			//max 3 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -82,10 +85,10 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" sourceTable2 VARCHAR(100)," +
 					" sourceId3 BIGINT," +
 					" sourceTable3 VARCHAR(100)," +
-					" PRIMARY KEY HASH (id, subject, property, object));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
+					" PRIMARY KEY (id, subject, property, object));" +
+					" CREATE INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -220,6 +223,49 @@ public class ObjectPropertyAssertionRelation extends Relation {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLObjectPropertyAssertionAxiom) {
+			OWLObjectPropertyAssertionAxiom nax = (OWLObjectPropertyAssertionAxiom) ax;
+			String subject = null;
+			String property = null;
+			String object = null;
+			String tableId = TableId.getId();
+			
+			if (nax.getSubject().isNamed()) {
+				subject = nax.getSubject().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			if (!nax.getProperty().isAnonymous()) {
+				property = nax.getProperty().asOWLObjectProperty().getIRI().toString();
+			}			
+			
+			if (nax.getObject().isNamed()) {
+				object = nax.getObject().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (property != null) {
+				sql.append("subject='" + subject + "' AND property='" + property + "' AND object='" + object + "'");
+			} else {
+				sql.append("subject='" + subject + "' ");
+				sql.append(" AND EXISTS "); //property
+				handleSubAxiomLocationImpl(sql, nax.getProperty(), tableId, "property");
+				sql.append(" AND object='" + object + "'");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

@@ -24,7 +24,7 @@ public class SubPropertyRelation extends Relation {
 			tableName = "subProperty";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" PRIMARY KEY (sub, super));" +
@@ -83,7 +83,7 @@ public class SubPropertyRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" sub TEXT," +
 					" super TEXT," +
 					" sourceId1 BIGINT," +
@@ -91,8 +91,8 @@ public class SubPropertyRelation extends Relation {
 					" sourceId2 BIGINT," +
 					" sourceTable2 VARCHAR(100)," +
 					" PRIMARY KEY (sub, super));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
+					" CREATE INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
+					" CREATE INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

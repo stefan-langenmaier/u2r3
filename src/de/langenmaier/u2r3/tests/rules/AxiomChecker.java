@@ -83,20 +83,13 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLSubClassOfAxiom axiom) {
-		try {
-			used = false;
-			
-			if (!(axiom.getSubClass().isAnonymous() || axiom.getSuperClass().isAnonymous())) {
-				if (!reasoner.isSubClassOf(axiom.getSubClass(), axiom.getSuperClass())) {
-					correct = false;
-				}
-			} else {
-				correct = true;
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		
+		if (!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+
+		used = true;
 	}
 
 	@Override
@@ -206,20 +199,15 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLObjectPropertyAssertionAxiom axiom) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + axiom.toString());
-			logger.trace("Is axiom defined?");
-			
-			if (!(axiom.getSubject().isAnonymous() || axiom.getObject().isAnonymous())) {
-				if(!reasoner.hasObjectPropertyRelationship(axiom.getSubject().asOWLNamedIndividual(), axiom.getProperty(), axiom.getObject().asOWLNamedIndividual())) {
-					correct = false;
-				}
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + axiom.toString());
+		logger.trace("Is axiom defined?");
+		
+		if (!reasoner.isEntailed(axiom)) {
+			correct = false;
+
 		}
+		used = true;
 	}
 
 	@Override
@@ -278,22 +266,14 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLClassAssertionAxiom arg0) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + arg0.toString());
-			logger.trace("Is axiom defined?");
-			if(!reasoner.isEntailed(arg0)) {
-				correct = false;
-			}
-			logger.trace("Has axiom the type");
-			if(!reasoner.hasType(arg0.getIndividual().asOWLNamedIndividual(), arg0.getClassExpression(), true)) {
-				correct = false;
-			}
-			
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + arg0.toString());
+		logger.trace("Is axiom defined?");
+		if(!reasoner.isEntailed(arg0)) {
+			correct = false;
 		}
+		
+		used = true;
 	}
 
 	@Override
@@ -319,23 +299,14 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLDataPropertyAssertionAxiom axiom) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + axiom.toString());
-			logger.trace("Is axiom defined?");
-			
-			if (!(axiom.getSubject().isAnonymous())) {
-				if(!reasoner.hasDataPropertyRelationship(axiom.getSubject().asOWLNamedIndividual(), axiom.getProperty(), axiom.getObject())) {
-					correct = false;
-				}
-				if (axiom.getObject().isOWLTypedLiteral()) {
-					reasoner.hasType(axiom.getObject(), axiom.getObject().asOWLStringLiteral().getDatatype());
-				}
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + axiom.toString());
+		logger.trace("Is axiom defined?");
+		
+		if (!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		used = true;
 	}
 
 	@Override

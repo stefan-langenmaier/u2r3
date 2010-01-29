@@ -7,10 +7,12 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLInverseObjectPropertiesAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
+import de.langenmaier.u2r3.util.TableId;
 
 public class InverseOfRelation extends Relation {
 	static Logger logger = Logger.getLogger(InverseOfRelation.class);
@@ -21,7 +23,7 @@ public class InverseOfRelation extends Relation {
 			tableName = "inverseOf";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" PRIMARY KEY (colLeft, colRight));" +
@@ -101,6 +103,21 @@ public class InverseOfRelation extends Relation {
 
 	@Override
 	protected String existsImpl(String... args) {
+		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
+		if (pe instanceof OWLObjectInverseOf) {
+			OWLObjectInverseOf npe = (OWLObjectInverseOf) pe;
+			String left = tid + "." + col;
+			String right = npe.getNamedProperty().getIRI().toString();
+			String ntid = TableId.getId();
+
+			sql.append("SELECT 1");
+			sql.append("\n FROM " + getTableName() + " AS " + ntid);
+			sql.append("\nWHERE " + ntid + ".colLeft='" + left + "' AND " + ntid + ".colRight='" + right + "'");
+		}
 		throw new U2R3NotImplementedException();
 	}
 

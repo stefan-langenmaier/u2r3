@@ -22,10 +22,18 @@ public class DBSetup {
 	
 	public static void setup() {
 		try {
-			dropStatement = conn.prepareStatement("DROP ALIAS isSameLiteral IF EXISTS");
-			dropStatement.execute();
+//			dropStatement = conn.prepareStatement("DROP ALIAS isSameLiteral IF EXISTS");
+//			dropStatement.execute();
+//		
+//			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
+//			createStatement.execute();
+			
+//			dropStatement = conn.prepareStatement("DROP FUNCTION isSameLiteral IF EXISTS");
+//			dropStatement.execute();
 		
-			createStatement = conn.prepareStatement("CREATE ALIAS isSameLiteral FOR \"de.langenmaier.u2r3.util.DatatypeCheck.isSameLiteral\"");
+			createStatement = conn.prepareStatement("CREATE OR REPLACE FUNCTION isSameLiteral(text, text, text, text, text, text) RETURNS boolean AS $$" +
+					"\n SELECT $1=$2 AND $3=$4 AND $5=$6;" +
+					"\n$$ LANGUAGE SQL;");
 			createStatement.execute();
 
 			/*

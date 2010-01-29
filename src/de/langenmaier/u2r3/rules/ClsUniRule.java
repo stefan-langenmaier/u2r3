@@ -55,7 +55,7 @@ public class ClsUniRule extends ApplicationRule {
 			sql.append("\n\t\t WHERE bottom.entity = clsA.entity AND bottom.colClass = uo.colClass");
 			sql.append("\n\t )");
 		}
-		sql.append("\n\t GROUP BY clsA.entity, uo.colClass");
+		sql.append("\n\t GROUP BY clsA.entity, uo.colClass, anzl.anzahl");
 		sql.append("\n\t HAVING COUNT(*) = anzl.anzahl");
 		return sql.toString();
 	}

@@ -24,7 +24,7 @@ public class PropertyDomainRelation extends Relation {
 			tableName = "propertyDomain";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" property TEXT," +
 					" domain TEXT," +
 					" PRIMARY KEY (property, domain));" +
@@ -58,7 +58,7 @@ public class PropertyDomainRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" property TEXT," +
 					" domain TEXT," +
 					" sourceId1 BIGINT, " +
@@ -66,8 +66,8 @@ public class PropertyDomainRelation extends Relation {
 					" sourceId2 BIGINT, " +
 					" sourceTable2 VARCHAR(100), " +
 					" PRIMARY KEY (property, domain));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -22,7 +22,7 @@ public class SomeValuesFromRelation extends Relation {
 			tableName = "someValuesFrom";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" part TEXT," +
 					" property TEXT," +
 					" total TEXT," +

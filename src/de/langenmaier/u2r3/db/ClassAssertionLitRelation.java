@@ -28,7 +28,7 @@ public class ClassAssertionLitRelation extends Relation {
 			tableName = "classAssertionLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" literal TEXT," +
 					" colClass TEXT," +
 					" language TEXT," +
@@ -78,7 +78,7 @@ public class ClassAssertionLitRelation extends Relation {
 			dropDelta(id);
 			//max 4 quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" literal TEXT," +
 					" colClass TEXT," +
 					" language TEXT," +
@@ -91,8 +91,8 @@ public class ClassAssertionLitRelation extends Relation {
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
 					" PRIMARY KEY (id, literal, colClass));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
+					" CREATE INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
+					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

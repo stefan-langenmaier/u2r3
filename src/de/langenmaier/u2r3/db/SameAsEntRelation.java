@@ -22,7 +22,7 @@ public class SameAsEntRelation extends Relation {
 			tableName = "sameAsEnt";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" PRIMARY KEY (colLeft, colRight));" +
@@ -75,7 +75,7 @@ public class SameAsEntRelation extends Relation {
 			dropDelta(id);
 			// bis zu 6 Quellen
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colLeft TEXT," +
 					" colRight TEXT," +
 					" sourceId1 BIGINT," +
@@ -90,9 +90,9 @@ public class SameAsEntRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY HASH (id, colLeft, colRight));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
+					" PRIMARY KEY (id, colLeft, colRight));" +
+					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
+					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

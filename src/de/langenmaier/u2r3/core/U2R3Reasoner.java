@@ -1,5 +1,7 @@
 package de.langenmaier.u2r3.core;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Set;
 
 import org.semanticweb.owlapi.model.AxiomType;
@@ -9,7 +11,6 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
-import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLLiteral;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -109,61 +110,12 @@ public class U2R3Reasoner extends OWLReasonerBase {
 		}
 		throw new U2R3NotImplementedException();
 	}
-
-	//TODO wird in isEntailed wandern
-	public boolean isSubClassOf(OWLClassExpression sub, OWLClassExpression sup)
-			throws OWLReasonerException {
-		if (!(sup.isAnonymous() || sub.isAnonymous())) {
-			return relationManager.getRelation(RelationName.subClass).exists(sub.asOWLClass().getIRI().toString(), sup.asOWLClass().getIRI().toString());
-		}
-		throw new U2R3NotImplementedException();
-
-	}
 	
 	@Override
 	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual, boolean arg1) {
 		ClassAssertionEntRelation ca = (ClassAssertionEntRelation) relationManager.getRelation(RelationName.classAssertionEnt);
 		return ca.getTypes(namedIndividual);
-	}
-
-	//TODO wird in isEntailed wandern
-	public boolean hasDataPropertyRelationship(OWLNamedIndividual arg0,
-			OWLDataPropertyExpression arg1, OWLLiteral arg2)
-			throws OWLReasonerException {
-		String subject = arg0.getIRI().toString();
-		String property = arg1.asOWLDataProperty().getIRI().toString();
-		String object = arg2.getLiteral();
-		if (!arg2.isOWLTypedLiteral()) {
-			String lang = arg2.getLang();
-			return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object, lang);
-		}
-		return relationManager.getRelation(RelationName.dataPropertyAssertion).exists(subject, property, object);
-	}
-
-	//TODO wird in isEntailed wandern
-	public boolean hasObjectPropertyRelationship(OWLNamedIndividual arg0,
-			OWLObjectPropertyExpression arg1, OWLNamedIndividual arg2)
-			throws OWLReasonerException {
-		String subject = arg0.getIRI().toString();
-		String property = arg1.asOWLObjectProperty().getIRI().toString();
-		String object = arg2.getIRI().toString();
-		return relationManager.getRelation(RelationName.objectPropertyAssertion).exists(subject, property, object);
-	}
-
-	//TODO wird in isEntailed wandern
-	public boolean hasType(OWLNamedIndividual arg0, OWLClassExpression arg1,
-			boolean arg2) throws OWLReasonerException {
-		String clazz = arg0.getIRI().toString();
-		String type = arg1.asOWLClass().getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-	}
-	
-	//TODO wird in isEntailed wandern
-	public boolean hasType(OWLLiteral arg0, OWLDatatype arg1) throws OWLReasonerException {
-		String literal = arg0.getLiteral();
-		String clazz = arg1.getIRI().toString();
-		return relationManager.getRelation(RelationName.classAssertionLit).exists(literal, clazz);
-	}
+	}	
 
 	public Settings getSettings() {
 		return settings;
@@ -489,27 +441,34 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			throws ReasonerInterruptedException,
 			UnsupportedEntailmentTypeException, TimeOutException,
 			AxiomNotInProfileException, FreshEntitiesException {
-		//XXX axiom statt entity
-		/*String clazz = axiom.getIRI().toString();
-		String type;
-		if (entity.getEntityType() == EntityType.ANNOTATION_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.OBJECT_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.DATA_PROPERTY) {
-			type = OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.NAMED_INDIVIDUAL) {
-			type = OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.CLASS) {
-			type = OWLRDFVocabulary.OWL_CLASS.getIRI().toString();
-		} else if (entity.getEntityType() == EntityType.DATATYPE) {
-			type = OWLRDFVocabulary.OWL_DATATYPE.getIRI().toString();
-		} else {
-			throw new U2R3NotImplementedException();
+		try {
+			AxiomType<?> aType = axiom.getAxiomType();
+			PreparedStatement stmt = null;
+			
+			if (aType == AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION) {
+				stmt = relationManager.getRelation(RelationName.negativeDataPropertyAssertion).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.DATA_PROPERTY_ASSERTION) {
+				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.OBJECT_PROPERTY_ASSERTION) {
+				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION) {
+				stmt = relationManager.getRelation(RelationName.dataPropertyAssertion).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.CLASS_ASSERTION) {
+				stmt = relationManager.getRelation(RelationName.classAssertionEnt).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.SUBCLASS_OF) {
+				stmt = relationManager.getRelation(RelationName.subClass).getAxiomLocation(axiom);
+			// eq-class koennen mehr als zwei sein, komplizierter
+			//} else if (aType == AxiomType.EQUIVALENT_CLASSES) {
+			//	stmt = relationManager.getRelation(RelationName.equivalentClass).getAxiomLocation(axiom);
+			} else {
+				throw new U2R3NotImplementedException();
+			}
+			
+			return stmt.execute();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			throw new UnsupportedEntailmentTypeException(axiom);
 		}
-		return relationManager.getRelation(RelationName.classAssertionEnt).exists(clazz, type);
-		*/
-		return false;
 	}
 
 	@Override
@@ -517,13 +476,23 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			throws ReasonerInterruptedException,
 			UnsupportedEntailmentTypeException, TimeOutException,
 			AxiomNotInProfileException, FreshEntitiesException {
-		// TODO Auto-generated method stub
-		return false;
+		for(OWLAxiom ax : axioms) {
+			if (!isEntailed(ax)) return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean isEntailmentCheckingSupported(AxiomType<?> axiomType) {
-		return true;
+		if (axiomType == AxiomType.NEGATIVE_DATA_PROPERTY_ASSERTION
+				|| axiomType == AxiomType.NEGATIVE_OBJECT_PROPERTY_ASSERTION
+				|| axiomType == AxiomType.DATA_PROPERTY_ASSERTION
+				|| axiomType == AxiomType.OBJECT_PROPERTY_ASSERTION
+				|| axiomType == AxiomType.CLASS_ASSERTION
+				|| axiomType == AxiomType.SUBCLASS_OF) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
@@ -8,6 +9,9 @@ import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3NotQueryable;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
+import de.langenmaier.u2r3.util.TableId;
 
 public class NegativeObjectPropertyAssertionRelation extends Relation {
 	static Logger logger = Logger.getLogger(NegativeObjectPropertyAssertionRelation.class);
@@ -18,7 +22,7 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 			tableName = "negativeObjectPropertyAssertion";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" subject TEXT," +
 					" property TEXT," +
 					" object TEXT," +
@@ -73,6 +77,49 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 	@Override
 	protected String existsImpl(String... args) {
 		throw new U2R3NotImplementedException();
+	}
+	
+	@Override
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom) {
+			OWLNegativeObjectPropertyAssertionAxiom nax = (OWLNegativeObjectPropertyAssertionAxiom) ax;
+			String subject = null;
+			String property = null;
+			String object = null;
+			String tableId = TableId.getId();
+			
+			if (nax.getSubject().isNamed()) {
+				subject = nax.getSubject().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			if (!nax.getProperty().isAnonymous()) {
+				property = nax.getProperty().asOWLObjectProperty().getIRI().toString();
+			}			
+			
+			if (nax.getObject().isNamed()) {
+				object = nax.getObject().asOWLNamedIndividual().getIRI().toString();
+			} else {
+				throw new U2R3NotQueryable();
+			}
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT uid, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (property != null) {
+				sql.append("subject='" + subject + "' AND property='" + property + "' AND object='" + object + "'");
+			} else {
+				sql.append("subject='" + subject + "' ");
+				sql.append(" AND EXISTS "); //property
+				handleSubAxiomLocationImpl(sql, nax.getProperty(), tableId, "property");
+				sql.append(" AND object='" + object + "'");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

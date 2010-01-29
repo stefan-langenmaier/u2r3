@@ -106,7 +106,7 @@ public class PrpKeyRule extends ApplicationRule {
 		sql.append("\n\t 			FROM dataPropertyAssertion");
 		sql.append("\n\t 		) AS pay");
 		sql.append("\n\t 			ON sl.element = pay.property AND pax.property = pay.property AND pax.object = pay.object");
-		sql.append("\n\t 	GROUP BY pax.subject, sl.name");
+		sql.append("\n\t 	GROUP BY pax.subject, sl.name, anzl.anz");
 		sql.append("\n\t 	HAVING COUNT(sl.name) = 2*anz");
 	}
 

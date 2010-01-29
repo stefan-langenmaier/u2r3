@@ -23,7 +23,7 @@ public class HasValueLitRelation extends Relation {
 			tableName = "hasValueLit";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" colClass TEXT," +
 					" property TEXT, " +
 					" value TEXT," +

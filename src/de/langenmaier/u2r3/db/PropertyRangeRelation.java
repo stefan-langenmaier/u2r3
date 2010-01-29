@@ -24,7 +24,7 @@ public class PropertyRangeRelation extends Relation {
 			tableName = "propertyRange";
 			
 			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" property TEXT," +
 					" range TEXT," +
 					" PRIMARY KEY (property, range));" +
@@ -85,7 +85,7 @@ public class PropertyRangeRelation extends Relation {
 		try {
 			dropDelta(id);
 			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+					" id BIGINT DEFAULT nextval('uid') NOT NULL," +
 					" property TEXT," +
 					" range TEXT," +
 					" sourceId1 BIGINT, " +
@@ -93,8 +93,8 @@ public class PropertyRangeRelation extends Relation {
 					" sourceId2 BIGINT, " +
 					" sourceTable2 VARCHAR(100), " +
 					" PRIMARY KEY (property, range));" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE HASH INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
+					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
+					" CREATE INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
