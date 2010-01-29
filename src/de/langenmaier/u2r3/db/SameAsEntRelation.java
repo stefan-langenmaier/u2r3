@@ -90,7 +90,7 @@ public class SameAsEntRelation extends Relation {
 					" sourceTable5 VARCHAR(100)," +
 					" sourceId6 BIGINT," +
 					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY HASH (id, colLeft, colRight));" +
+					" PRIMARY KEY (id, colLeft, colRight));" +
 					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
 					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
 		} catch (SQLException e) {

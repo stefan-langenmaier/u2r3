@@ -178,9 +178,10 @@ public abstract class Relation extends U2R3Component implements Query {
 	
 	protected void dropDelta(int id) {
 		try {
-			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id) + " IF EXISTS");
+			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.warn("Delta '" + getDeltaName(id) + "' konnte nicht geloescht werden.");
+			//e.printStackTrace();
 		}
 	}
 	

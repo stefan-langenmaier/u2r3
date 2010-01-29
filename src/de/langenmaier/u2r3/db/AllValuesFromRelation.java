@@ -26,7 +26,7 @@ public class AllValuesFromRelation extends Relation {
 					" part TEXT," +
 					" property TEXT, " +
 					" total TEXT); " +
-					//" PRIMARY KEY (id, part, property, total));" +
+					" PRIMARY KEY (id, part, property, total));" +
 					" CREATE INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total);");

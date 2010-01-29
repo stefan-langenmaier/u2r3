@@ -101,10 +101,9 @@ public class SubClassRelation extends Relation {
 			
 			
 			//put delta in main table
-			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, sub, super) SELECT id, sub,  super FROM ( " +
+			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, sub, super) " +
 					" SELECT id, sub, super " +
-					" FROM " + delta.getDeltaName() + " " +
-					")");
+					" FROM " + delta.getDeltaName());
 
 			
 			

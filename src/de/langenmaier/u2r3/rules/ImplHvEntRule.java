@@ -46,12 +46,12 @@ public class ImplHvEntRule extends ApplicationRule {
 			sql.append("\n\t WHERE NOT EXISTS (");
 			sql.append("\n\t\t SELECT entity, colClass");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
-			sql.append("\n\t\t WHERE bottom.entity = hv.class AND bottom.colClass = '" +  clazz + "'");
+			sql.append("\n\t\t WHERE bottom.entity = hv.colClass AND bottom.colClass = '" +  clazz + "'");
 			sql.append("\n\t )");
 		}
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append("\n\t GROUP BY hv.class");
+			sql.append("\n\t GROUP BY hv.colClass");
 		}
 		return sql.toString();
 	}

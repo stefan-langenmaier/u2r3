@@ -48,7 +48,7 @@ public class ClassAssertionEntRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" entity TEXT," +
 					" colClass TEXT," +
-					" PRIMARY KEY HASH (entity, colClass));" +
+					" PRIMARY KEY (entity, colClass));" +
 					" CREATE INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
 					" CREATE INDEX " + tableName + "_class ON " + tableName + "(colClass);");
 			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
@@ -148,7 +148,7 @@ public class ClassAssertionEntRelation extends Relation {
 					" sourceTable3 VARCHAR(100)," +
 					" sourceId4 BIGINT," +
 					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY HASH (id, entity, colClass));" +
+					" PRIMARY KEY (id, entity, colClass));" +
 					" CREATE INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
 					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
 		} catch (SQLException e) {
