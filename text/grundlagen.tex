@@ -9,33 +9,59 @@ Die Wissensrepräsentation ist zentraler Bestandteil eine KI-Systems. Eine Wisse
 
 Eine Wissensrepräsentation kann für verschiedene Anwendungsgebiete ausgelegt sein, daher gibt es einige allgemeine Kriterien, um solche Sprachen einzuordnen.
 
-== Bergriffserkläung ==
- * Korrektheit
+Die wichtigsten Begriffe zur Einordnung dabei sind:
+\begin{itemize}
+  \item Korrektheit
 Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus einer Wissenrepräsentation zu ziehen. Falsche Schlüsse beziehen sich dabei auf die Semantik des Verfahrens.
- * Vollständigkeit
+ \item Vollständigkeit
 Ein Verfahren ist vollständig wenn alle korrekten Schlüsse folgerbar sind.
- * Entscheidbarkeit
+ \item Entscheidbarkeit
 Ein Verfahren ist entscheidbar, wenn immer der Algorithmus für das Schlussfolgern immer existiert.
- * Adäquatheit
+ \item Adäquatheit
 Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen auf eine einfache und verständliche Art möglich ist.
- * Komplexität
+ \item Komplexität
 Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
+\end{itemize}
 
 
-== OWL2 RL Eigenschaften ==
+\subsection{OWL2 RL Eigenschaften}
+Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Effizient ist dabei sehr theoretisch zu verstehen. Solange die Ableitungsfunktion in polynomieller Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
 
-Under a monotonic logic, when new explicit facts (statements) are added to the KB (repository), this can cause that new implicit facts can extend its inferred closure, but in no case facts which were part of the inferred closure before, should be removed. In other words addition of new facts can only monotonically extend the inferred closure. [ref]
+Damit fällt OWL2 RL auch in die Kategorie der monotonen Sprachen, das bedeutet wenn neue expliziten Fakten zur Wissensbasis hinzugefügt werden, diese neue implizite Fakten zur Wissenbasis hinzufügen. Aber unter keine Umständen können die expliziten Fakten das Entfernen von bereits abgeleiten Fakten verursachen. Damit kann das Hinzufügen von neuen Fakten die abgeleitete Wissenbasis nur monoton erweitern. [ref englischer Text aus dem Wiki]
 
-Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
+Um einige geschwünschte Eigenschaften für die Sprache zu erhalten ist es dabei nötig nicht nur die verwendeten Konstrukte einzuschränken, sondern auch die Syntax. Daazu wird in OWL2 RL eine Grammatik vorgegeben, an welcher Stelle welche Konstrukte verwendet werden dürfen.
 
 Sofern sich eine Ontologie an die syntaktischen Rahmenbedigungen des Sprachfragments hält und ein Schlussfoglerer entsprechend der angebenen Regelsemantik implementiert ist, können sich daraus einige positive Kriterien ableiten lassen. So ist dann garantiert, das alle und nur gültige Ergebnisse vom Schlussfolgerer geliefert werden. Das Verfahren für die Wissensrepräsentation ist damit korrekt und vollständig. (siehe Beweis)
-Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntaktisch konformen Ontologien zu schlussfolgern. Es ist dann zwar nicht mehr möglich alle Ergebnisse zu ermitteln, aber es werden zumindest weiterhin nur gültige Ergebnisse abgeleitet.
+Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntaktisch konformen Ontologien zu schlussfolgern. Es ist dann zwar nicht mehr möglich alle Ergebnisse zu ermitteln, aber es werden zumindest weiterhin nur gültige Ergebnisse abgeleitet. [ref wc3]
 
 Eine vollständige Beschreibung für die syntaktisch Einschränkung dieser Sprache findet man im Anhang und in der Referenz [ref].
 
-Natürlich ist das Sprachfragemnt OWL2 RL entscheidbar und zwar in polynomieller Zeit entscheidbar. In der Profilbeschreibung wird dabei feiner unterschieden.
+\subsection{Sprachkomplexitäten}
+Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
 
+\subsubsection{Attributive Language}
+Die attributive language ist die grundlegende Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
 
+$\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | BOTTOM | NEG A | C intersection D | $\forall$r.C | $\exists$r
+
+Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema wird aber von vielen Programmen wie z.B. Protégé verwendet.
+
+Bei diesem Namenschema werden an die Buchstaben AL noch weitere Kürzel angehängt die für die zusätzlichen Operatoren stehen.
+\begin{itemize}
+  \item $\mathcal{C}$ für volle Negation (Complement)
+  \item (D) für konkrete Domänen\newline
+Damit ist der Einsatz von Literalen möglich, z.B. in datatype properties, data values oder data types.
+  \item $\mathcal{U}$ Konzeptvereinigung (Union)
+  \item $\mathcal{E}$ Existenzquantoren für komplexe Ausdrücke (Exists)\newline
+Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
+  \item $\mathcal{N}$ Functional properties. TODO
+  \item $\mathcal{I}$ Inverse Eigenschaften (Inverse)
+  \item $\mathcal{O}$ Aufzählungen von object values (Nominals)
+  \item $\mathcal{H}$ Hierarchie von Eigenschaften (Role hierarchy)
+  \item $\mathcal{F}$ Functional properties. TODO
+\end{itemize} [ref wikipedia]
+
+\subsubsection{Komplexität in Form der attributive language}
  * U2R2 ist ein Reasoner im SHIF-Fragment (woher weiß ich das Referenz dringend)
  * OWL liegt in SHOIN (Referenz)
  * OWL2 basiert auf SROIQ (Krötzsch2008)
@@ -48,33 +74,13 @@ TABELLE der Komplexitäten TABELLE
 % http://www.cs.manchester.ac.uk/~ezolin/dl/
 
 % http://www.w3.org/TR/owl2-profiles/#Computational_Properties
- 
-= Attributive Language =
 
-Die attributive language ist die grundlegende Beschreibungssprache. Sie wird mit AL abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
+Natürlich ist das Sprachfragemnt OWL2 RL entscheidbar und zwar in polynomieller Zeit entscheidbar. In der Profilbeschreibung wird dabei feiner unterschieden.
 
-AL: C,D --> A | $\top$ | BOTTOM | ~A | C int D | forall r.C | some r
-
-Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema wird aber von vielen Programmen wie z.B. Protege verwendet.
-
-Bei diesem Namenschema werden an die Buchstaben AL noch weitere Kürzel angehängt die für die zusätzlichen Operatoren stehen.
-
- * C für volle Negation (Complement)
- * (D) für konkrete Domäne  	Use of datatype properties, data values or data types.
- * U Concept union.
- * E Full existential qualification (Existential restrictions that have fillers other than owl:thing)
- * N Functional properties.
- * I Inverse properties.
- * O Nominals. (Enumerated classes of object value restrictions - owl:oneOf, owl:hasValue).
- * H Role hierarchy (subproperties - rdfs:subPropertyOf).
- * F Functional properties.
-
-== Komplexität in Form attributive language ==
-
-== Zusammenhang mit einem Schlussfolgerer ==
-
+\subsection{Zusammenhang mit einem Schlussfolgerer}
+%besser in Konzeption oder Realisierung
 Die Wissensrepräsentation hängt nicht direkt mit dem Schlussfolger zusammen, wenn man allerdings über die gewünschte Wissensrepräsentation bescheid weiß, ist es möglich den Schlussfolger daraufhin zu trimmen. Im Falle dieser Arbeit wird mit einer Wissensrepräsentation gearbeitet -- OWL2 RL -- und der Schlussfolgerer ist daraufhin optimiert, die in der Sprache repräsentierten Kriterien, wie Entscheidbarkeit und Komplexität zu erreichen.
-Das bedeutet  zum einen einfach, das wenn die Sprache entscheidbar ist, also es einen immer einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese  beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
+Das bedeutet zum einen einfach, das wenn die Sprache entscheidbar ist, also es einen immer einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
 Die Komplexität einer Sprache gibt nur einen theoretischen Wert an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nah an der Definition der Sprache umgesetzt werden und somit auch nah an der theoretischen Komplexität bleiben.
 Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete Rolle.
 
@@ -108,11 +114,20 @@ gefunden in  http://www.w3.org/TR/2009/REC-owl2-overview-20091027/
 
 \section{U2R2}
 
+\section{Aktueller Stand auf dem Onto-Gebiet}
+Nicht nur die aktuelle Veröffentlichung der OWL2 Spezifikation zeugt davon das im Moment die Entwicklung im Ontologie-Bereich der künstlichen Intelligenz in vollem Gange ist. Auch auf der Seite des W3C für Semantic Web findet man eine große Anzahl an Projekten die auf dieser Basis arbeiten.
+Darunter sind z.B.:
+\begin{itemize}
+  \item AUFZÄHLUNG USE CASES
+\end{itemize}
+Diese verschiedenen Bereiche zeigen auf das Ontologien einerseits unterschiedliche Bereiche verbinden aber auch ihrer Wichtigkeit.
+
+OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL ist auch schon in Planung [ref OWL3 Suggestions] und es werden verschieden Konferenzen zu diesem Thema abgehalten.
+\begin{itemize}
+  \item AUFZÄHLUNG VON KONFERENZEN
+\end{itemize}
+
 \begin{verbatim}
-    * Überblick: Wie sieht der aktuelle Stand auf dem Onto-Gebiet/Semantic Web aus?
-    * Wieso sind Ontos wichtig?
-    * Was ist der Unterschied zwischen Ontologien und Datenbanken? 
-    
     * Was ist OWL im Hinblick auf Ontologien?
          o Wo ist das OWL2 RL Fragment einzuordnen?
           o Wie ist OWL2 aufgebaut?
@@ -131,7 +146,4 @@ gefunden in  http://www.w3.org/TR/2009/REC-owl2-overview-20091027/
     * Wie ordnet sich U2R2 ein? Was ist der Reasoner Ansatz/ die Reasoner Strategie?
     * Wie war dieser Reasoner aufgebaut und konzipiert?
     * Was waren die Fähigkeiten von U2R2?
-    * Was ist das MEMA-Prinzip?
-    
-    
 \end{verbatim}
