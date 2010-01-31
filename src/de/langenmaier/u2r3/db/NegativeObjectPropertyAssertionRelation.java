@@ -75,11 +75,6 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
 		if (ax instanceof OWLNegativeObjectPropertyAssertionAxiom) {
 			OWLNegativeObjectPropertyAssertionAxiom nax = (OWLNegativeObjectPropertyAssertionAxiom) ax;

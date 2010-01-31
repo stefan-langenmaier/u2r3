@@ -83,11 +83,6 @@ public class UnionOfRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		throw new U2R3NotImplementedException();
 	}

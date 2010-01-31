@@ -162,14 +162,6 @@ public class SameAsEntRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 1) {
-			return "SELECT colLeft FROM " + getTableName() + " WHERE colLeft = '" + args[0] + "'";
-		}
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
 		if (ax instanceof OWLSameIndividualAxiom) {
 			OWLSameIndividualAxiom nax = (OWLSameIndividualAxiom) ax;

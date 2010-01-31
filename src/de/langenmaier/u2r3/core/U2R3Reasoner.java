@@ -42,7 +42,6 @@ import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3NotInProfileException;
-import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
 import de.langenmaier.u2r3.owl.OWL2RLDBRemover;
 import de.langenmaier.u2r3.rules.RuleManager;
@@ -127,38 +126,6 @@ public class U2R3Reasoner extends OWLReasonerBase {
 	public NodeIDMapper getNIDMapper() {
 		return nidMapper;
 	}
-
-	//TODO wird von isEntailed ersetzt
-	public boolean hasObjectPropertyDomain(
-			OWLObjectProperty prop, OWLClass domain) throws U2R3ReasonerException {
-		if (!(prop.isAnonymous() || domain.isAnonymous())) {
-			return relationManager.getRelation(RelationName.propertyDomain)
-				.exists(prop.getIRI().toString(), domain.getIRI().toString());
-		}
-		return false;
-	}
-	
-	//TODO wird von isEntailed ersetzt
-	public boolean hasObjectPropertyRange(
-			OWLObjectProperty prop, OWLClass range) throws U2R3ReasonerException {
-		return relationManager.getRelation(RelationName.propertyRange)
-			.exists(prop.getIRI().toString(), range.getIRI().toString());
-	}
-
-	//TODO wird von isEntailed ersetzt
-	public boolean isEquivalentProperties(OWLObjectPropertyExpression pe1,
-			OWLObjectPropertyExpression pe2) throws U2R3ReasonerException {
-		if (!(pe1.isAnonymous() || pe2.isAnonymous())) {
-			return relationManager.getRelation(RelationName.equivalentProperty).exists(pe1.asOWLObjectProperty().getIRI().toString(), pe2.asOWLObjectProperty().getIRI().toString());
-		}
-		throw new U2R3NotImplementedException();
-	}
-	
-	//TODO wird von isEntailed ersetzt
-	public boolean isDifferentFrom(OWLLiteral l1, OWLLiteral l2) {
-		return l1.equals(l2);
-	}
-
 
 	@Override
 	public Node<OWLClass> getBottomClassNode() {
@@ -435,12 +402,20 @@ public class U2R3Reasoner extends OWLReasonerBase {
 				stmt = relationManager.getRelation(RelationName.subProperty).getAxiomLocation(axiom);
 			} else if (aType == AxiomType.SUB_DATA_PROPERTY) {
 				stmt = relationManager.getRelation(RelationName.subProperty).getAxiomLocation(axiom);
-			}  else if (aType == AxiomType.SAME_INDIVIDUAL) {
+			} else if (aType == AxiomType.SAME_INDIVIDUAL) {
 				stmt = relationManager.getRelation(RelationName.sameAsEnt).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.OBJECT_PROPERTY_DOMAIN) {
+				stmt = relationManager.getRelation(RelationName.propertyDomain).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.OBJECT_PROPERTY_RANGE) {
+				stmt = relationManager.getRelation(RelationName.propertyRange).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.DIFFERENT_INDIVIDUALS) {
+				stmt = relationManager.getRelation(RelationName.differentFromEnt).getAxiomLocation(axiom);
 			}
 			// eq-class koennen mehr als zwei sein, komplizierter
 			else if (aType == AxiomType.EQUIVALENT_CLASSES) {
 				stmt = relationManager.getRelation(RelationName.equivalentClass).getAxiomLocation(axiom);
+			} else if (aType == AxiomType.EQUIVALENT_OBJECT_PROPERTIES) {
+				stmt = relationManager.getRelation(RelationName.equivalentProperty).getAxiomLocation(axiom);
 			} else {
 				throw new U2R3NotImplementedException();
 			}
@@ -473,7 +448,10 @@ public class U2R3Reasoner extends OWLReasonerBase {
 				|| axiomType == AxiomType.SUBCLASS_OF
 				|| axiomType == AxiomType.EQUIVALENT_CLASSES
 				|| axiomType == AxiomType.SUB_DATA_PROPERTY
-				|| axiomType == AxiomType.SUB_OBJECT_PROPERTY) {
+				|| axiomType == AxiomType.SUB_OBJECT_PROPERTY
+				|| axiomType == AxiomType.OBJECT_PROPERTY_DOMAIN
+				|| axiomType == AxiomType.OBJECT_PROPERTY_RANGE
+				|| axiomType == AxiomType.EQUIVALENT_OBJECT_PROPERTIES) {
 			return true;
 		}
 		return false;

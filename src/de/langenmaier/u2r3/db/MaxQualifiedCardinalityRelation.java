@@ -62,11 +62,6 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public void add(OWLObject ce) {
 		try {
 			addStatement.setString(1, nidMapper.get(ce).toString());

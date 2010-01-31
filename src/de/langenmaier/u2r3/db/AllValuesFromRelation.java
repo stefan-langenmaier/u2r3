@@ -64,11 +64,6 @@ public class AllValuesFromRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public void add(OWLObject ce) {
 		try {
 			if (ce instanceof  OWLObjectAllValuesFrom) {

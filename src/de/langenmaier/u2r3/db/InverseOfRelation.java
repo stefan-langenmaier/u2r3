@@ -102,11 +102,6 @@ public class InverseOfRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public void getSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
 		if (pe instanceof OWLObjectInverseOf) {
 			OWLObjectInverseOf npe = (OWLObjectInverseOf) pe;

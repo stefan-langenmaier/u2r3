@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -11,8 +12,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class PropertyDomainRelation extends Relation {
@@ -126,11 +129,43 @@ public class PropertyDomainRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 2) {
-			return "SELECT property, domain FROM " + getTableName() + " WHERE property = '" + args[0] + "' AND domain = '" + args[1] + "'";
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLObjectPropertyDomainAxiom) {
+			OWLObjectPropertyDomainAxiom nax = (OWLObjectPropertyDomainAxiom) ax;
+			String property = null;
+			String domain = null;
+			String tableId = TableId.getId();
+			
+			if (!nax.getProperty().isAnonymous()) {
+				property = nax.getProperty().asOWLObjectProperty().getIRI().toString();
+			}
+			
+			if (!nax.getDomain().isAnonymous()) {
+				domain = nax.getDomain().asOWLClass().getIRI().toString();
+			}
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (property != null) {
+				sql.append("property='" + property + "' ");
+			} else {
+				sql.append(" EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getProperty(), tableId, "property");
+			}
+			
+			if (domain != null) {
+				sql.append(" AND domain='" + domain + "'");
+			} else {
+				sql.append(" AND EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getDomain(), tableId, "domain");
+			}
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
 		}
-		throw new U2R3NotImplementedException();
+		throw new U2R3RuntimeException();
 	}
 
 }

@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -13,8 +14,10 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
+import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
 public class EquivalentPropertyRelation extends Relation {
@@ -168,11 +171,64 @@ public class EquivalentPropertyRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 2) {
-			return "SELECT colLeft, colRight FROM " + getTableName() + " WHERE colLeft = '" + args[0] + "' AND colRight = '" + args[1] + "'";
+	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		if (ax instanceof OWLEquivalentObjectPropertiesAxiom) {
+			OWLEquivalentObjectPropertiesAxiom nax = (OWLEquivalentObjectPropertiesAxiom) ax;
+			String left = null;
+			String right = null;
+			boolean first = true;
+			String tableId = TableId.getId();	
+			
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			
+			for(OWLObjectPropertyExpression leftProperty : nax.getProperties()) {
+				for(OWLObjectPropertyExpression rightProperty : nax.getPropertiesMinus(leftProperty)) {
+					if (!leftProperty.isAnonymous()) {
+						left = leftProperty.asOWLObjectProperty().getIRI().toString();
+					} else {
+						left = null;
+					}
+					
+					if (!rightProperty.isAnonymous()) {
+						right = rightProperty.asOWLObjectProperty().getIRI().toString();
+					} else {
+						right = null;
+					}
+					
+					if (first) {
+						first = false;
+					} else {
+						sql.append(" AND "); //XXX
+					}
+					
+					sql.append("(");
+					
+					if (left != null) {
+						sql.append("colLeft='" + left + "'");
+					} else {
+						sql.append("EXISTS ");
+						handleSubAxiomLocationImpl(sql, leftProperty, tableId, "colLeft");
+					}
+					sql.append(" AND ");
+					if (right != null) {
+						sql.append("colRight='" + right + "'");
+					} else {
+						sql.append("EXISTS ");
+						handleSubAxiomLocationImpl(sql, rightProperty, tableId, "colRight");
+					}
+					
+					sql.append(")");
+				}
+			}
+
+			PreparedStatement stmt = conn.prepareStatement(sql.toString());
+			return stmt;
 		}
-		throw new U2R3NotImplementedException();
+		throw new U2R3RuntimeException();
 	}
 
 

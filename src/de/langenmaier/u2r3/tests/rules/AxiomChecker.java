@@ -31,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLNegativeDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLNegativeObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
-import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
 import org.semanticweb.owlapi.model.OWLObjectPropertyRangeAxiom;
 import org.semanticweb.owlapi.model.OWLReflexiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLSameIndividualAxiom;
@@ -43,7 +42,6 @@ import org.semanticweb.owlapi.model.OWLSubPropertyChainOfAxiom;
 import org.semanticweb.owlapi.model.OWLSymmetricObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.OWLTransitiveObjectPropertyAxiom;
 import org.semanticweb.owlapi.model.SWRLRule;
-import org.semanticweb.owlapi.reasoner.OWLReasonerException;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.owl.OWL2RLDBAdder;
@@ -122,39 +120,23 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLObjectPropertyDomainAxiom axiom) {
-		try {
-			used = false;
-			
-			if (!(axiom.getProperty().isAnonymous() || axiom.getDomain().isAnonymous())) {
-				if(!reasoner.hasObjectPropertyDomain(axiom.getProperty().asOWLObjectProperty(), axiom.getDomain().asOWLClass())) {
-					correct = false;
-				}
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		
+		if(!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		used = true;
 	}
 
 	@Override
 	public void visit(OWLEquivalentObjectPropertiesAxiom axiom) {
-		try {
-			used = false;
-			logger.trace("Testing for axiom:" + axiom.toString());
-			for (OWLObjectPropertyExpression pe1 : axiom.getProperties()) {
-				for (OWLObjectPropertyExpression pe2 : axiom.getProperties()) {
-					if (!pe1.equals(pe2)) {
-						if (!reasoner.isEquivalentProperties(pe1, pe2)) {
-							correct = false;
-						}
-					}
-				}
-			}
-
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		logger.trace("Testing for axiom:" + axiom.toString());
+		
+		if (!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		used = true;
 	}
 
 	@Override
@@ -181,18 +163,12 @@ public class AxiomChecker extends U2R3Component implements
 
 	@Override
 	public void visit(OWLObjectPropertyRangeAxiom axiom) {
-		try {
-			used = false;
-			
-			if (!(axiom.getProperty().isAnonymous() || axiom.getRange().isAnonymous())) {
-				if(!reasoner.hasObjectPropertyRange(axiom.getProperty().asOWLObjectProperty(), axiom.getRange().asOWLClass())) {
-					correct = false;
-				}
-			}
-			used = true;
-		} catch (OWLReasonerException e) {
-			e.printStackTrace();
+		used = false;
+		
+		if(!reasoner.isEntailed(axiom)) {
+			correct = false;
 		}
+		used = true;
 	}
 
 	@Override

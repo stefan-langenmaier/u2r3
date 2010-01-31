@@ -96,11 +96,6 @@ public class IntersectionOfRelation extends Relation {
 			throws SQLException {
 		throw new U2R3NotImplementedException();
 	}
-
-	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
 	
 	@Override
 	protected void remove(OWLObject o) {

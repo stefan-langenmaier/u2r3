@@ -155,14 +155,4 @@ public class ClassAssertionLitRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
-
-	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 1) {
-			return "SELECT literal FROM classAssertionLit WHERE literal = '" + args[0] + "'";
-		} else {
-			return "SELECT literal, colClass FROM classAssertionLit WHERE literal = '" + args[0] + "' AND colClass = '" + args[1] + "'";
-		}
-	}
-
 }

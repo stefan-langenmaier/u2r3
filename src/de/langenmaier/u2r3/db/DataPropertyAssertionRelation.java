@@ -157,16 +157,6 @@ public class DataPropertyAssertionRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
-	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 3) {
-			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "'";
-		} else if (args.length == 4) {
-			return "SELECT '1' FROM " + getTableName() + " WHERE subject = '" + args[0] + "' AND property = '" + args[1] + "' AND object ='" + args[2] + "' AND (language = '" + args[3] + "' OR language IS NULL)";
-		}
-		throw new U2R3NotImplementedException();
-	}
-
 	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ni,
 			OWLDataProperty dp) {
 		try {

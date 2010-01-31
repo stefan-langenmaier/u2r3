@@ -24,7 +24,6 @@ import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
-import de.langenmaier.u2r3.exceptions.U2R3ReasonerException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.TableId;
@@ -98,7 +97,11 @@ public abstract class Relation extends U2R3Component implements Query {
 	}
 	
 	
-	
+	/**
+	 * TODO ABSTRACT
+	 * Methode die Unterkonstrukte hinzufügt
+	 * @param o
+	 */
 	public void add(OWLObject o) {
 		throw new U2R3NotImplementedException();
 	}
@@ -125,7 +128,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	
 	/**
 	 * Removes a "sub" object from an axiom. This works recursive and deletes
-	 * all of the reasoning hisotry.
+	 * all of the reasoning history.
 	 * @param o
 	 */
 	protected void remove(OWLObject o) {
@@ -167,6 +170,11 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	
+	/**
+	 * TODO in INTERACE
+	 * Creates the delta of an relation for reasoning
+	 * @param id
+	 */
 	public abstract void createDeltaImpl(int id);
 	
 	private void createDelta(int id) {
@@ -252,19 +260,11 @@ public abstract class Relation extends U2R3Component implements Query {
 		dropDelta(delta);
 		deltas.remove(delta);
 	}
-	protected abstract String existsImpl(String... args);
 	
-	public boolean exists(String... args) throws U2R3ReasonerException {
-		try {
-			Statement stmt = conn.createStatement();
-			String sql = existsImpl(args);
-			
-			return stmt.executeQuery(sql).next();
-		} catch (SQLException e) {
-			throw new U2R3ReasonerException(e);
-		}
-	}
-	
+	/**
+	 * TODO INTERFACE ADDABLE
+	 * @param ce
+	 */
 	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
 		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 			relationManager.getRelation(RelationName.complementOf).add(ce);
@@ -461,12 +461,12 @@ public abstract class Relation extends U2R3Component implements Query {
 	}
 
 	@Override
-	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+	public final void handleSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
 		throw new U2R3NotImplementedException();
 	}
 
 	@Override
-	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
+	public final void handleSubAxiomLocationImpl(StringBuilder sql, OWLObjectPropertyExpression pe, String tid, String col) {
 		if (pe instanceof OWLObjectInverseOf) {
 			sql.append("(");
 			relationManager.getRelation(RelationName.inverseOf).getSubAxiomLocationImpl(sql, pe, tid, col);
@@ -477,13 +477,13 @@ public abstract class Relation extends U2R3Component implements Query {
 	}
 
 	@Override
-	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLDataPropertyExpression pe, String tid, String col) {
+	public final void handleSubAxiomLocationImpl(StringBuilder sql, OWLDataPropertyExpression pe, String tid, String col) {
 		//Sollte nie passieren
 		throw new U2R3NotImplementedException();
 	}
 
 	@Override
-	public void handleSubAxiomLocationImpl(StringBuilder sql, OWLIndividual ind, String tid, String col) {
+	public final void handleSubAxiomLocationImpl(StringBuilder sql, OWLIndividual ind, String tid, String col) {
 		//Sollte nie passieren
 		throw new U2R3NotImplementedException();
 	}

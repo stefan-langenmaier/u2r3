@@ -206,9 +206,4 @@ public class MembersRelation extends Relation {
 		throw new U2R3NotImplementedException();
 	}
 
-	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-
 }

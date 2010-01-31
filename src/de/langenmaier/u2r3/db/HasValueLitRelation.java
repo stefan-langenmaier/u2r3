@@ -104,10 +104,5 @@ public class HasValueLitRelation extends Relation {
 			e.printStackTrace();
 		}
 	}
-	
-	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
 
 }

@@ -57,11 +57,6 @@ public class ComplementOfRelation extends Relation {
 	}
 
 	@Override
-	protected String existsImpl(String... args) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	@Override
 	public void add(OWLObject ce) {
 		if (ce instanceof OWLObjectComplementOf) {
 			OWLObjectComplementOf oco = (OWLObjectComplementOf) ce;

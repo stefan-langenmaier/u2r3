@@ -244,17 +244,6 @@ public class ClassAssertionEntRelation extends Relation {
 	}
 
 
-	@Override
-	protected String existsImpl(String... args) {
-		if (args.length == 1) {
-			return "SELECT entity FROM classAssertionEnt WHERE entity = '" + args[0] + "'";
-		} else if (args.length == 2) {
-			return "SELECT entity, colClass FROM classAssertionEnt WHERE entity = '" + args[0] + "' AND colClass = '" + args[1] + "'";
-		}
-		throw new U2R3NotImplementedException();
-	}
-
-
 	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual) {
 		try {
 			StringBuilder sql = new StringBuilder();
