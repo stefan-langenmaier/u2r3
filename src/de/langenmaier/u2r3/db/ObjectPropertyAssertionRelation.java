@@ -41,7 +41,6 @@ public class ObjectPropertyAssertionRelation extends MergeableRelation {
 					" CREATE INDEX " + tableName + "_subject ON " + tableName + "(subject);" +
 					" CREATE INDEX " + tableName + "_property ON " + tableName + "(property);" +
 					" CREATE INDEX " + tableName + "_object ON " + tableName + "(object);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object) VALUES (?, ?, ?)");

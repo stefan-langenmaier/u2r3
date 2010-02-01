@@ -33,7 +33,6 @@ public class PropertyRangeRelation extends MergeableRelation {
 					" PRIMARY KEY (property, range));" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_range ON " + getTableName() + "(range);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");

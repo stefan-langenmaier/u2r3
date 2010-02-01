@@ -21,7 +21,6 @@ public class ListRelation extends Relation {
 					" PRIMARY KEY (name, element));" +
 					" CREATE INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
 					" CREATE INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, element) VALUES (?, ?)");

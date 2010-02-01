@@ -70,6 +70,7 @@ public class DeltaRelation {
 			MergeableRelation mrelation = (MergeableRelation) relation;
 			return mrelation.getDeltaName(delta, table);
 		} else {
+			if (!table.equals(relation.getTableName())) return table;
 			return relation.getTableName();
 		}
 	}

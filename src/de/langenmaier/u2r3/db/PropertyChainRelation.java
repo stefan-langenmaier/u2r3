@@ -24,7 +24,6 @@ public class PropertyChainRelation extends Relation {
 					" PRIMARY KEY (property, list));" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, list) VALUES (?, ?)");

@@ -29,7 +29,6 @@ public class InverseOfRelation extends Relation {
 					" PRIMARY KEY (colLeft, colRight));" +
 					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");

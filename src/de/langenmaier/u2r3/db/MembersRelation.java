@@ -35,7 +35,6 @@ public class MembersRelation extends Relation {
 					" PRIMARY KEY (colClass, list));" +
 					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
 					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, list) VALUES (?, ?)");

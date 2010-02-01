@@ -33,7 +33,6 @@ public class NegativeDataPropertyAssertionRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_subject ON " + getTableName() + "(subject);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_object ON " + getTableName() + "(object);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object, language, type) VALUES (?, ?, ?, ?, ?)");

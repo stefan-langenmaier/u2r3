@@ -28,7 +28,6 @@ public class DifferentFromEntRelation extends Relation {
 					" PRIMARY KEY (id));" +
 					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
@@ -117,7 +116,7 @@ public class DifferentFromEntRelation extends Relation {
 				sql.append("\nFROM  " + getTableName() + " AS " + tableId);
 				sql.append("\nWHERE ");
 				if (left != null) {
-					sql.append("leftCol='" + left + "' ");
+					sql.append("colLeft='" + left + "' ");
 				} else {
 					sql.append(" EXISTS ");
 					handleSubAxiomLocationImpl(sql, nax.getIndividualsAsList().get(0), tableId, "colLeft");

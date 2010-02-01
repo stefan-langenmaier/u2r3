@@ -33,7 +33,6 @@ public class SubClassRelation extends MergeableRelation {
 					" PRIMARY KEY (sub, super));" +
 					" CREATE INDEX " + getTableName() + "_sub ON " + getTableName() + "(sub);" +
 					" CREATE INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName() );
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (sub, super) VALUES (?, ?)");

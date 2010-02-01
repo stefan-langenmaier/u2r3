@@ -29,7 +29,6 @@ public class SomeValuesFromRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total)");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, property, total) VALUES (?, ?, ?)");

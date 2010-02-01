@@ -143,8 +143,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	protected void create() {
 		if (settings.startClean()) {
 			try {
-				//TODO kann aus allen Relationen rausgenommen werden
-				//dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
+				dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 				dropMainStatement.execute();
 			} catch (SQLException e) {
 				logger.warn("Relation '" + getTableName() + "' has NOT been deleted");

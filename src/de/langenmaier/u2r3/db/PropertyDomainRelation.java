@@ -32,7 +32,6 @@ public class PropertyDomainRelation extends MergeableRelation {
 					" PRIMARY KEY (property, domain));" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_domain ON " + getTableName() + "(domain);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, domain) VALUES (?, ?)");

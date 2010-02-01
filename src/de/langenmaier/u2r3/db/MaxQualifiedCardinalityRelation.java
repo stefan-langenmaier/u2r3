@@ -27,7 +27,6 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total);" +
 					" CREATE INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, property, total, value) VALUES (?, ?, ?, ?)");

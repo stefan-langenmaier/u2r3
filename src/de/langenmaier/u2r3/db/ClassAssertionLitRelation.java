@@ -35,7 +35,6 @@ public class ClassAssertionLitRelation extends MergeableRelation {
 					" PRIMARY KEY (id, literal, colClass));" +
 					" CREATE INDEX " + getTableName() + "_literal ON " + getTableName() + "(literal);" +
 					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, colClass, language) VALUES (?, ?, ?)");

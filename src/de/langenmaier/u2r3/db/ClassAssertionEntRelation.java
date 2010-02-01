@@ -51,7 +51,6 @@ public class ClassAssertionEntRelation extends MergeableRelation {
 					" PRIMARY KEY (entity, colClass));" +
 					" CREATE INDEX " + tableName + "_entity ON " + tableName + "(entity);" +
 					" CREATE INDEX " + tableName + "_class ON " + tableName + "(colClass);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 			
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, colClass) VALUES (?, ?)");

@@ -32,7 +32,6 @@ public class HasValueLitRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
 					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
 					" CREATE INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
-			dropMainStatement = conn.prepareStatement("DROP TABLE " + getTableName());
 
 			create();
 			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, property, value, language, type) VALUES (?, ?, ?, ?, ?)");
