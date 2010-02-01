@@ -45,8 +45,13 @@ public class DeltaRelation {
 		return relation;
 	}
 	
-	public String getDeltaName () {
-		return getDeltaName(delta, relation.getTableName());
+	public String getDeltaName() {
+		if (relation instanceof MergeableRelation) {
+			MergeableRelation mrelation = (MergeableRelation) relation;
+			return mrelation.getDeltaName(delta);
+		} else {
+			return relation.getTableName();
+		}
 	}
 	
 	public String getTableName () {
@@ -61,16 +66,21 @@ public class DeltaRelation {
 	}
 
 	public String getDeltaName(String table) {
-		return getDeltaName(delta, table);
-	}
-	
-	public String getDeltaName(int delta, String table) {
-		if (!table.equals(relation.getTableName())) return table;
-		if (delta == DeltaRelation.NO_DELTA) {
-			return getTableName();
+		if (relation instanceof MergeableRelation) {
+			MergeableRelation mrelation = (MergeableRelation) relation;
+			return mrelation.getDeltaName(delta, table);
+		} else {
+			return relation.getTableName();
 		}
-		return getTableName() + "_d" + delta;
 	}
+//	
+//	public String getDeltaName(int delta, String table) {
+//		if (!table.equals(relation.getTableName())) return table;
+//		if (delta == DeltaRelation.NO_DELTA) {
+//			return getTableName();
+//		}
+//		return getTableName() + "_d" + delta;
+//	}
 	
 	public void merge(DeltaRelation delta) {
 		if (relation instanceof MergeableRelation) {
@@ -85,5 +95,6 @@ public class DeltaRelation {
 			mrelation.makeDirty();
 		}
 	}
+
 
 }
