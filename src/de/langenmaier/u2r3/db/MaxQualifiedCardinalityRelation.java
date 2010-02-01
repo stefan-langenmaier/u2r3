@@ -2,7 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 
@@ -38,29 +37,6 @@ public class MaxQualifiedCardinalityRelation extends Relation {
 		}
 	}
 	
-	@Override
-	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void merge(DeltaRelation delta) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		
-		throw new U2R3NotImplementedException();
-	}
-
 	@Override
 	public void add(OWLObject ce) {
 		try {

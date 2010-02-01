@@ -23,6 +23,10 @@ public class DeltaRelation {
 		return false;
 	}
 	
+	public static DeltaRelation getNoDelta(Relation relation) {
+		return new DeltaRelation(relation, NO_DELTA);
+	}
+	
 	@Override
 	public int hashCode() {
 		return relation.hashCode() ^ (int) delta;
@@ -42,7 +46,7 @@ public class DeltaRelation {
 	}
 	
 	public String getDeltaName () {
-		return relation.getDeltaName(delta);
+		return getDeltaName(delta, relation.getTableName());
 	}
 	
 	public String getTableName () {
@@ -50,11 +54,36 @@ public class DeltaRelation {
 	}
 
 	public void dispose() {
-		relation.removeDeltaRelation(delta);
+		if (relation instanceof MergeableRelation) {
+			MergeableRelation mrelation = (MergeableRelation) relation;
+			mrelation.removeDeltaRelation(delta);
+		}
 	}
 
 	public String getDeltaName(String table) {
-		return relation.getDeltaName(delta, table);
+		return getDeltaName(delta, table);
+	}
+	
+	public String getDeltaName(int delta, String table) {
+		if (!table.equals(relation.getTableName())) return table;
+		if (delta == DeltaRelation.NO_DELTA) {
+			return getTableName();
+		}
+		return getTableName() + "_d" + delta;
+	}
+	
+	public void merge(DeltaRelation delta) {
+		if (relation instanceof MergeableRelation) {
+			MergeableRelation mrelation = (MergeableRelation) relation;
+			mrelation.merge(delta);
+		}
+	}
+	
+	public void makeDirty() {
+		if (relation instanceof MergeableRelation) {
+			MergeableRelation mrelation = (MergeableRelation) relation;
+			mrelation.makeDirty();
+		}
 	}
 
 }

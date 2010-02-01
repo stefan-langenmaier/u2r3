@@ -13,11 +13,13 @@ public class RuleAction implements Comparable<RuleAction>{
 	private DeltaRelation delta = null;
 	private double weight = 0;
 
-	/*public RuleAction(Rule r) {
-		rule = r;
-		delta = null; //NICHT OKAY es muss klar sein auf welche Relation es zumindest geht
-	}*/
-
+	/**
+	 * Es wird die Regel r mit ausgelöst, dabei ist delta 
+	 * die Relation in die geschrieben wird. Es ist nötig das diese
+	 * hier angegeben wird.
+	 * @param r
+	 * @param delta
+	 */
 	public RuleAction(Rule r, DeltaRelation delta) {
 		rule = r;
 		this.delta = delta;

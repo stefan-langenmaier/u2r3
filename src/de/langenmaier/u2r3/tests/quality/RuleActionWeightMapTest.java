@@ -23,7 +23,7 @@ public class RuleActionWeightMapTest extends TestCase {
 		RelationManager relationManager = reasoner.getRelationManager();
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent),
-				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA));
+				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA));
 		wp.put(ra);
 		System.out.println(wp);System.out.println(wp.get(ra));
 		
@@ -35,7 +35,7 @@ public class RuleActionWeightMapTest extends TestCase {
 		assertEquals(0.0d+1, wp.get(ra));
 		
 		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent),
-				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		wp.put(ra2);
 		System.out.println(wp);System.out.println(wp.get(ra2));
 		

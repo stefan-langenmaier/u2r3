@@ -3,8 +3,6 @@ package de.langenmaier.u2r3.db;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import org.apache.log4j.Logger;
@@ -28,7 +26,6 @@ import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.U2R3Component;
-import de.langenmaier.u2r3.util.Settings.DeltaIteration;
 
 /**
  * Contains the default methods that a relation should contain and tries
@@ -45,14 +42,8 @@ public abstract class Relation extends U2R3Component implements Query {
 	protected PreparedStatement addStatement;
 	protected PreparedStatement createMainStatement;
 	protected PreparedStatement dropMainStatement;
-	protected Statement createDeltaStatement;
-	protected Statement dropDeltaStatement;
 	protected PreparedStatement addListStatement;
 
-	
-	private int nextDelta = 0;
-	private HashMap<Integer, DeltaRelation> deltas = new HashMap<Integer, DeltaRelation>();
-	
 	protected String tableName;
 	
 	//rules that should be triggered when something is added to the relation
@@ -66,12 +57,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	protected Relation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		conn = U2R3DBConnection.getConnection();
-		try {
-			createDeltaStatement = conn.createStatement();
-			dropDeltaStatement = conn.createStatement();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 	/**
@@ -82,7 +68,9 @@ public abstract class Relation extends U2R3Component implements Query {
 	 * @return true the statement needs to be executed otherwise not
 	 * @throws SQLException
 	 */
-	public abstract AdditionMode addImpl(OWLAxiom axiom) throws SQLException;
+	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
+		throw new U2R3NotImplementedException();
+	}
 	
 	public void add(OWLAxiom axiom) {
 		try {
@@ -98,7 +86,6 @@ public abstract class Relation extends U2R3Component implements Query {
 	
 	
 	/**
-	 * TODO ABSTRACT
 	 * Methode die Unterkonstrukte hinzufügt
 	 * @param o
 	 */
@@ -112,7 +99,9 @@ public abstract class Relation extends U2R3Component implements Query {
 	 * @param axiom
 	 * @throws SQLException
 	 */
-	public abstract void removeImpl(OWLAxiom axiom) throws SQLException;
+	public void removeImpl(OWLAxiom axiom) throws SQLException {
+		throw new U2R3NotImplementedException();
+	}
 	
 	public void remove(OWLAxiom axiom) {
 		try {
@@ -170,99 +159,13 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	
-	/**
-	 * TODO in INTERACE
-	 * Creates the delta of an relation for reasoning
-	 * @param id
-	 */
-	public abstract void createDeltaImpl(int id);
-	
-	private void createDelta(int id) {
-			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
-				++nextDelta;
-			}
-			createDeltaImpl(id);
-	}
-	
-	protected void dropDelta(int id) {
-		try {
-			dropDeltaStatement.execute("DROP TABLE " + getDeltaName(id));
-		} catch (SQLException e) {
-			logger.warn("Delta '" + getDeltaName(id) + "' konnte nicht geloescht werden.");
-			//e.printStackTrace();
-		}
-	}
-	
-	protected synchronized int getNewDelta() {
-		return nextDelta;
-	}
-	
-	protected synchronized int getDelta() {
-		return nextDelta-1;
-	}
-
-	/**
-	 * Should only be used in the collective Mode
-	 */
-	public void makeDirty() {
-		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
-			throw new RuntimeException("this is not allowed in immediate mode");
-		}
-		isDirty = true;
-		
-	}
-	
-	/**
-	 * The delta Relation is merged to the main relation
-	 * @param delta
-	 */
-	public abstract void merge(DeltaRelation delta);
-		
-	public boolean isDirty() {
-		return isDirty;
-	}
-
-	/**
-	 * Merges the current delta to the main relation
-	 */
-	public void merge() {
-		merge(deltas.get(getNewDelta()));
-		if (getDelta() != DeltaRelation.NO_DELTA) {
-			dropDelta(getDelta());
-		}
-		++nextDelta;
-	}
 
 	protected String getTableName() {
 		return tableName;
 	}
-	
-	protected String getDeltaName(int delta) {
-		return getDeltaName(delta, tableName);
-	}
-	
-	public DeltaRelation createDeltaRelation(int delta) {
-		if (!deltas.containsKey(delta)) {
-			if (delta != DeltaRelation.NO_DELTA) {
-				createDelta(delta);
-			}
-			deltas.put(delta, new DeltaRelation(this, delta));
-		}
-		DeltaRelation deltaRelation = deltas.get(delta);
-		return deltaRelation;
-	}
-	
-	public DeltaRelation createNewDeltaRelation() {
-		return createDeltaRelation(getNewDelta());
-	}
 
-	public void removeDeltaRelation(int delta) {
-		dropDelta(delta);
-		deltas.remove(delta);
-	}
 	
 	/**
-	 * TODO INTERFACE ADDABLE
 	 * @param ce
 	 */
 	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
@@ -402,13 +305,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	}
 
 
-	public String getDeltaName(int delta, String table) {
-		if (!table.equals(tableName)) return table;
-		if (delta == DeltaRelation.NO_DELTA) {
-			return getTableName();
-		}
-		return getTableName() + "_d" + delta;
-	}
+
 	
 	protected void removeAnonymousClassExpression(OWLClassExpression ce) {
 		if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
@@ -437,6 +334,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	 *************************************************************************/
 	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
+		System.out.println(ax);
 		throw new U2R3NotImplementedException();
 	}
 	

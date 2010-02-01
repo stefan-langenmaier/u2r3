@@ -20,7 +20,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EquivalentPropertyRelation extends Relation {
+public class EquivalentPropertyRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(EquivalentPropertyRelation.class);
 	
 	protected EquivalentPropertyRelation(U2R3Reasoner reasoner) {
@@ -162,12 +162,6 @@ public class EquivalentPropertyRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	@Override

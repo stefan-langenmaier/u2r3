@@ -29,7 +29,7 @@ public class RunAllTestCases {
 		String folder = null; // = "file:///home/stefan/workspace/u2r3/ontologien/tests/fzi/owl2rl/";
 		String name;
 		
-		File dir = new File("/home/stefan/.workspace/u2r2/ontologien/tests/fzi/owl2rl/");
+		File dir = new File("/home/sl17/workspace/u2r2/ontologien/tests/fzi/owl2rl/");
 	
 		// This filter only returns directories
 		FileFilter fileFilter = new FileFilter() {

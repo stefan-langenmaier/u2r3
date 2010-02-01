@@ -60,15 +60,6 @@ public class InverseOfRelation extends Relation {
 			throw new U2R3NotImplementedException();
 		}
 	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	public void merge(DeltaRelation delta) {
-		throw new U2R3NotImplementedException();
-	}
 	
 	@Override
 	public void add(OWLObject ce) {
@@ -93,12 +84,6 @@ public class InverseOfRelation extends Relation {
 		} else {
 			throw new U2R3NotImplementedException();
 		}
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	@Override

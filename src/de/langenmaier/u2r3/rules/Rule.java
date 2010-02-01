@@ -45,7 +45,7 @@ public abstract class Rule extends U2R3Component{
 		DeltaRelation newDelta = null;
 		
 		if (targetRelation != null) {
-			newDelta = relationManager.getRelation(targetRelation).createNewDeltaRelation();
+			newDelta = relationManager.getMergeableRelation(targetRelation).createNewDeltaRelation();
 		}
 		
 		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
@@ -59,9 +59,9 @@ public abstract class Rule extends U2R3Component{
 		if (rows > 0) {
 			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				logger.debug("Applying Rule (" + toString()  + ") created data");
-				newDelta.getRelation().merge(newDelta);
+				newDelta.merge(newDelta);
 			} else if (settings.getDeltaIteration() == DeltaIteration.COLLECTIVE) {
-				newDelta.getRelation().makeDirty();
+				newDelta.makeDirty();
 			}
 			
 		} else {

@@ -3,13 +3,11 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectOneOf;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 
 public class OneOfRelation extends Relation {
@@ -38,12 +36,6 @@ public class OneOfRelation extends Relation {
 	}
 	
 	@Override
-	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-
-	}
-	
-	@Override
 	public void add(OWLObject ce) {
 		OWLObjectOneOf oo = (OWLObjectOneOf) ce;
 		try {
@@ -66,23 +58,6 @@ public class OneOfRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void merge(DeltaRelation delta) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		
-		throw new U2R3NotImplementedException();
 	}
 
 }

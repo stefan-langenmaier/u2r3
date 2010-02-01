@@ -36,7 +36,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ClassAssertionEntRelation extends Relation {
+public class ClassAssertionEntRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(ClassAssertionEntRelation.class);
 	
 	protected ClassAssertionEntRelation(U2R3Reasoner reasoner) {

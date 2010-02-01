@@ -93,23 +93,6 @@ public class DifferentFromEntRelation extends Relation {
 			throw new U2R3NotImplementedException();
 		}
 	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void merge(DeltaRelation delta) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		
-		throw new U2R3NotImplementedException();
-	}
 	
 	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {

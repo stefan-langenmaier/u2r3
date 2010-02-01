@@ -11,14 +11,13 @@ import org.semanticweb.owlapi.model.OWLObjectPropertyDomainAxiom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PropertyDomainRelation extends Relation {
+public class PropertyDomainRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(PropertyDomainRelation.class);
 	
 	protected PropertyDomainRelation(U2R3Reasoner reasoner) {
@@ -120,12 +119,6 @@ public class PropertyDomainRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	@Override

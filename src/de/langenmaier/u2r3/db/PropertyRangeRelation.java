@@ -18,7 +18,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class PropertyRangeRelation extends Relation {
+public class PropertyRangeRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(PropertyRangeRelation.class);
 	
 	protected PropertyRangeRelation(U2R3Reasoner reasoner) {
@@ -148,12 +148,6 @@ public class PropertyRangeRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	@Override

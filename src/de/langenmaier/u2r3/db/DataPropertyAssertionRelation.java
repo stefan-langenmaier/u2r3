@@ -19,7 +19,6 @@ import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.exceptions.U2R3NotQueryable;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
@@ -27,7 +26,7 @@ import de.langenmaier.u2r3.util.DatatypeCheck;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class DataPropertyAssertionRelation extends Relation {
+public class DataPropertyAssertionRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(DataPropertyAssertionRelation.class);
 	
 	protected DataPropertyAssertionRelation(U2R3Reasoner reasoner) {
@@ -150,12 +149,6 @@ public class DataPropertyAssertionRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	public Set<OWLLiteral> getDataPropertyValues(OWLNamedIndividual ni,

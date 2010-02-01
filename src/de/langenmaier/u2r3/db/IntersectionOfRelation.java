@@ -6,7 +6,6 @@ import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.NodeID;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
@@ -43,11 +42,6 @@ public class IntersectionOfRelation extends Relation {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
-	}
 	
 	@Override
 	public void add(OWLObject ce) {
@@ -78,23 +72,6 @@ public class IntersectionOfRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		throw new U2R3NotImplementedException();
-	}
-
-	@Override
-	public void merge(DeltaRelation delta) {
-		throw new U2R3NotImplementedException();
-
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 	
 	@Override

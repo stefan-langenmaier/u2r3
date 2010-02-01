@@ -3,16 +3,13 @@ package de.langenmaier.u2r3.db;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.semanticweb.owlapi.model.OWLAxiom;
-
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class SameAsLitRelation extends Relation {
+public class SameAsLitRelation extends MergeableRelation {
 	
 	protected SameAsLitRelation(U2R3Reasoner reasoner) {
 		super(reasoner);
@@ -38,11 +35,6 @@ public class SameAsLitRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		throw new U2R3NotImplementedException();
 	}
 
 	@Override
@@ -122,13 +114,6 @@ public class SameAsLitRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		
-		throw new U2R3NotImplementedException();
 	}
 
 }

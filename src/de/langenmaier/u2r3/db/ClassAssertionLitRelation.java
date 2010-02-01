@@ -19,7 +19,7 @@ import de.langenmaier.u2r3.util.DatatypeCheck;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class ClassAssertionLitRelation extends Relation {
+public class ClassAssertionLitRelation extends MergeableRelation {
 	static Logger logger = Logger.getLogger(ClassAssertionLitRelation.class);
 	
 	protected ClassAssertionLitRelation(U2R3Reasoner reasoner) {
