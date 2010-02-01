@@ -99,14 +99,11 @@ public class SubClassRelation extends Relation {
 			//create compressed/compacted delta
 			rows = stmt.executeUpdate("DELETE FROM " + delta.getDeltaName() + " AS t1 WHERE EXISTS (SELECT sub, super FROM " + getTableName() + " AS bottom WHERE bottom.sub = t1.sub AND bottom.super = t1.super)");
 			
-			
 			//put delta in main table
 			rows = stmt.executeUpdate("INSERT INTO " + getTableName() + " (id, sub, super) " +
 					" SELECT id, sub, super " +
 					" FROM " + delta.getDeltaName());
 
-			
-			
 			//if here rows are added to the main table then, genuine facts have been added
 			if (rows > 0) {
 				

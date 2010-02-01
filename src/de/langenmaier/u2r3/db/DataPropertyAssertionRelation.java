@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
@@ -177,11 +178,11 @@ public class DataPropertyAssertionRelation extends Relation {
 			while(rs.next()) {
 				String lit = rs.getString("object");
 				String type = rs.getString("type");
-				//TODO Sprache oder Typ erzeugen
 				if (type == null) {
-					ret.add(dataFactory.getOWLStringLiteral(lit));
+					String language = rs.getString("language");
+					ret.add(dataFactory.getOWLStringLiteral(lit,language));
 				} else {
-					ret.add(dataFactory.getOWLTypedLiteral(lit));
+					ret.add(dataFactory.getOWLTypedLiteral(lit,dataFactory.getOWLDatatype(IRI.create(type))));
 				}
 				
 			}
