@@ -296,6 +296,42 @@
 			\textbf{\underline{object}}: IND
 	};
 	
+\end{tikzpicture}
 
+
+\begin{tikzpicture}[node distance=6cm]
+	\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2]{
+			\textbf{differentFromEnt}
+		\nodepart{second}
+			id: INT\newline
+			\textbf{\underline{left}}: IND\newline
+			\textbf{\underline{right}}: IND
+	};
+	\node (differentFromLit) [relation, rectangle split, rectangle split parts=2, left of= differentFromEnt]{
+			\textbf{differentFromLit}
+		\nodepart{second}
+			id: INT\newline
+			\textbf{\underline{left}}: IND\newline
+			\textbf{\underline{right}}: IND\newline
+			left\_language: LANGUAGE\newline
+			left\_type: CLASS\newline
+			right\_language: LANGUAGE\newline
+			right\_type: CLASS
+	};
+	
+	\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below of= differentFromEnt]{
+			\textbf{disjointWith}
+		\nodepart{second}
+			id: INT\newline
+			\textbf{\underline{left}}: CLASS\newline
+			\textbf{\underline{right}}: CLASS
+	};
+	\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, left of= disjointWith]{
+			\textbf{propertyDisjointWith}
+		\nodepart{second}
+			id: INT\newline
+			\textbf{\underline{left}}: PROPERTY\newline
+			\textbf{\underline{right}}: PROPERTY
+	};
 
 \end{tikzpicture}
