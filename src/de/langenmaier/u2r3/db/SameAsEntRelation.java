@@ -161,15 +161,18 @@ public class SameAsEntRelation extends MergeableRelation {
 			String right = null;
 			String tableId = TableId.getId();
 			
-			if (nax.getIndividuals().size() == 2) {
+			if (nax.getIndividuals().size() <= 2) {
 				if (!nax.getIndividualsAsList().get(0).isAnonymous()) {
 					left = nax.getIndividualsAsList().get(0).asOWLNamedIndividual().getIRI().toString();
 				}
 				
-				if (!nax.getIndividualsAsList().get(1).isAnonymous()) {
-					right = nax.getIndividualsAsList().get(1).asOWLNamedIndividual().getIRI().toString();
-				}		
-				
+				if (nax.getIndividuals().size() == 1) {
+					right = left;
+				} else {
+					if (!nax.getIndividualsAsList().get(1).isAnonymous()) {
+						right = nax.getIndividualsAsList().get(1).asOWLNamedIndividual().getIRI().toString();
+					}		
+				}
 				
 				StringBuilder sql = new StringBuilder();
 				sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
