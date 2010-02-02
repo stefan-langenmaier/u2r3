@@ -82,7 +82,7 @@ public class EditOntology {
 			logger.info("reclassified");
 			
 			OWLOntology ontAdd;
-			ontAdd = manager.loadOntology(IRI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl-t1-r-removed.owl"));
+			ontAdd = manager.loadOntology(IRI.create("file:///home/sl17/workspace/u2r2/ontologien/owl2rl/owl2rl-t1-r-removed.owl"));
 			
 			logger.info("Loaded " + ontAdd.getOntologyID());
 			

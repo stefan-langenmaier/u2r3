@@ -147,11 +147,4 @@ public class ClassAssertionLitRelation extends MergeableRelation {
 		}
 	}
 
-
-	@Override
-	public void removeImpl(OWLAxiom axiom)
-			throws SQLException {
-		throw new U2R3NotImplementedException();
-	}
-
 }

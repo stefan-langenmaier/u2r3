@@ -54,7 +54,7 @@ public class UnionOfRelation extends Relation {
 				
 				addListStatement.execute();
 				if (nce.isAnonymous()) {
-					handleAnonymousClassExpression(nce);
+					handleAddAnonymousClassExpression(nce);
 				}
 			}
 		} catch (SQLException e) {

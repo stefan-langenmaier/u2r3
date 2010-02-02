@@ -47,13 +47,13 @@ public class SubPropertyRelation extends MergeableRelation {
 			OWLSubObjectPropertyOfAxiom naxiom = (OWLSubObjectPropertyOfAxiom) axiom;
 			if (naxiom.getSubProperty().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
-				handleAnonymousObjectPropertyExpression(naxiom.getSubProperty());
+				handleAddAnonymousObjectPropertyExpression(naxiom.getSubProperty());
 			} else {
 				addStatement.setString(1, naxiom.getSubProperty().asOWLObjectProperty().getIRI().toString());
 			}
 			if (naxiom.getSuperProperty().isAnonymous()) {
 				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
-				handleAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
+				handleAddAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
 			} else {
 				addStatement.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
 			}
@@ -63,13 +63,13 @@ public class SubPropertyRelation extends MergeableRelation {
 			OWLSubDataPropertyOfAxiom naxiom = (OWLSubDataPropertyOfAxiom) axiom;
 			if (naxiom.getSubProperty().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
-				handleAnonymousDataPropertyExpression(naxiom.getSubProperty());
+				handleAddAnonymousDataPropertyExpression(naxiom.getSubProperty());
 			} else {
 				addStatement.setString(1, naxiom.getSubProperty().asOWLDataProperty().getIRI().toString());
 			}
 			if (naxiom.getSuperProperty().isAnonymous()) {
 				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
-				handleAnonymousDataPropertyExpression(naxiom.getSuperProperty());
+				handleAddAnonymousDataPropertyExpression(naxiom.getSuperProperty());
 			} else {
 				addStatement.setString(2, naxiom.getSuperProperty().asOWLDataProperty().getIRI().toString());
 			}

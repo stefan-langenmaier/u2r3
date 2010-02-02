@@ -60,7 +60,7 @@ public class PropertyChainRelation extends Relation {
 				addListStatement.execute();
 				
 				if (npe.isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(npe);
+					handleAddAnonymousObjectPropertyExpression(npe);
 				}
 			}
 		} catch (SQLException e) {

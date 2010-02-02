@@ -107,7 +107,7 @@ public class MembersRelation extends Relation {
 			
 			for (OWLClassExpression ce : naxiom.getClassExpressions()) {
 				if (ce.isAnonymous()) {
-					handleAnonymousClassExpression(ce);
+					handleAddAnonymousClassExpression(ce);
 				}
 			}
 			
@@ -142,7 +142,7 @@ public class MembersRelation extends Relation {
 			
 			for (OWLDataPropertyExpression dpe : naxiom.getProperties()) {
 				if (dpe.isAnonymous()) {
-					handleAnonymousDataPropertyExpression(dpe);
+					handleAddAnonymousDataPropertyExpression(dpe);
 				}
 			}
 			
@@ -177,7 +177,7 @@ public class MembersRelation extends Relation {
 			
 			for (OWLObjectPropertyExpression dpe : naxiom.getProperties()) {
 				if (dpe.isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(dpe);
+					handleAddAnonymousObjectPropertyExpression(dpe);
 				}
 			}
 			

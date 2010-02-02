@@ -53,7 +53,7 @@ public class MaxCardinalityRelation extends Relation {
 				addStatement.execute();
 				
 				if (mc.getProperty().isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(mc.getProperty());
+					handleAddAnonymousObjectPropertyExpression(mc.getProperty());
 				} 
 			} else {
 				throw new U2R3NotImplementedException();

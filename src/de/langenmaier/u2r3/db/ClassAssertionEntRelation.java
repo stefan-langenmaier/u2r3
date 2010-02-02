@@ -214,34 +214,17 @@ public class ClassAssertionEntRelation extends MergeableRelation {
 			throws SQLException {
 		if (axiom instanceof OWLClassAssertionAxiom) {
 			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
-			String tid = TableId.getId();
-			
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT id");
-			sql.append("\nFROM " + getTableName() + " AS " + tid);
-			sql.append("\nWHERE EXISTS (");
-			getSubSQL(sql, naxiom.getIndividual(), tid, "entity");
-			sql.append(") AND EXISTS (");
-			getSubSQL(sql, naxiom.getClassExpression(), tid, "colClass");
-			sql.append(")");
-			
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql.toString());
-			
-			if (rs.next()) {
-				relationManager.remove(rs.getLong("id"), RelationName.classAssertionEnt);
-				
-				if (naxiom.getIndividual().isAnonymous()) {
-					removeAnonymousIndividual(naxiom.getIndividual());
-				}
-				
-				if (naxiom.getClassExpression().isAnonymous()) {
-					removeAnonymousClassExpression(naxiom.getClassExpression());
-				}
+
+			if (naxiom.getIndividual().isAnonymous()) {
+				removeObject(naxiom.getIndividual());
 			}
+			
+			if (naxiom.getClassExpression().isAnonymous()) {
+				removeObject(naxiom.getClassExpression());
+			}
+			
 		}
 	}
-
 
 	public NodeSet<OWLClass> getTypes(OWLNamedIndividual namedIndividual) {
 		try {

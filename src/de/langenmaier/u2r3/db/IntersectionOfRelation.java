@@ -1,8 +1,6 @@
 package de.langenmaier.u2r3.db;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.NodeID;
@@ -11,8 +9,7 @@ import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
-import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.TableId;
 
@@ -62,7 +59,7 @@ public class IntersectionOfRelation extends Relation {
 				addListStatement.execute();
 				
 				if (nce.isAnonymous()) {
-					handleAnonymousClassExpression(nce);
+					handleAddAnonymousClassExpression(nce);
 				}
 			}
 			
@@ -74,50 +71,60 @@ public class IntersectionOfRelation extends Relation {
 	}
 	
 	@Override
-	protected void remove(OWLObject o) {
+	protected void removeImpl(OWLObject o) {
 		try {
 			if (o instanceof OWLObjectIntersectionOf) {
 				OWLObjectIntersectionOf oi = (OWLObjectIntersectionOf) o;
 				
-				String tid = TableId.getId();
-				String ltid;
-				
-				StringBuilder sql = new StringBuilder();
-				sql.append("SELECT id");
-				sql.append("\n FROM intersectionOf AS " + tid);
-				sql.append("\nWHERE 1=1" );
 				for(OWLClassExpression ce : oi.getOperands()) {
-					ltid = TableId.getId();
-					sql.append(" AND ");
-					sql.append(" EXISTS (");
-					sql.append("\nSELECT element");
-					sql.append("\nFROM list AS " + ltid);
-					sql.append("\nWHERE " + ltid +".name = " + tid + ".list");
-					sql.append(" AND EXISTS (");
-					getSubSQL(sql, ce, ltid, "element");
-					sql.append("))"); 
-				}
-				
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql.toString());
-				
-				if (rs.next()) {
-					relationManager.remove(rs.getLong("id"), RelationName.intersectionOf);
-					
-					for(OWLClassExpression ce : oi.getOperands()) {
-						if (ce.isAnonymous()) {
-							removeAnonymousClassExpression(ce);
-						}
+					if (ce.isAnonymous()) {
+						removeObject(ce);
 					}
-					
 				}
-			} else {
-				throw new U2R3NotImplementedException();
 			}
+
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+		if (ce instanceof OWLObjectIntersectionOf) {
+			OWLObjectIntersectionOf nax = (OWLObjectIntersectionOf) ce;
+
+			String tableId = TableId.getId();
+			String ltid;
+			
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			if (tid == null) {
+				sql.append("\nWHERE 1=1"); //tid
+			} else {
+				sql.append("\nWHERE " + tableId + ".colClass = " + tid +"." + col); //tid
+			}
+			
+			for(OWLClassExpression element : nax.getOperands()) {
+				ltid = TableId.getId();
+				sql.append(" AND ");
+				sql.append(" EXISTS (");
+				sql.append("\nSELECT element");
+				sql.append("\nFROM list AS " + ltid);
+				sql.append("\nWHERE " + ltid +".name = " + tableId + ".list");
+				
+				if (!element.isAnonymous()) {
+					sql.append(" AND element='' ");
+				} else {
+					sql.append(" AND EXISTS ");
+					getSubAxiomLocationImpl(sql, element, ltid, "element");
+				}
+				
+				sql.append(")"); 
+			}
+			return;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

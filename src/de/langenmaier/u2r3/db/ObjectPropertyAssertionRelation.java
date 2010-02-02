@@ -149,39 +149,20 @@ public class ObjectPropertyAssertionRelation extends MergeableRelation {
 			throws SQLException {
 		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
-			
-			String tid = TableId.getId();
-			
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT id");
-			sql.append("\nFROM " + getTableName() + " AS " + tid);
-			sql.append("\nWHERE EXISTS (");
-			getSubSQL(sql, naxiom.getSubject(), tid, "subject");
-			sql.append(") AND EXISTS (");
-			getSubSQL(sql, naxiom.getProperty(), tid, "property");
-			sql.append(") AND EXISTS (");
-			getSubSQL(sql, naxiom.getObject(), tid, "object");
-			sql.append(")");
-			
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql.toString());
-			
-			if (rs.next()) {
-				relationManager.remove(rs.getLong("id"), RelationName.objectPropertyAssertion);
-				
-				if (naxiom.getSubject().isAnonymous()) {
-					removeAnonymousIndividual(naxiom.getSubject());
-				}
-				
-				if (naxiom.getProperty().isAnonymous()) {
-					removeAnonymousPropertyExpression(naxiom.getProperty());
-				}
-				
-				if (naxiom.getObject().isAnonymous()) {
-					removeAnonymousIndividual(naxiom.getObject());
-				}
-				
+
+			if (naxiom.getSubject().isAnonymous()) {
+				removeObject(naxiom.getSubject());
 			}
+			
+			if (naxiom.getProperty().isAnonymous()) {
+				removeObject(naxiom.getProperty());
+			}
+			
+			if (naxiom.getObject().isAnonymous()) {
+				removeObject(naxiom.getObject());
+			}
+			
+		
 		} else {
 			throw new U2R3NotImplementedException();
 		}

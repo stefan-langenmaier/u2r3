@@ -1,18 +1,16 @@
 package de.langenmaier.u2r3.db;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.TableId;
-import de.langenmaier.u2r3.db.Relation;
 
 public class AllValuesFromRelation extends Relation {
 	
@@ -63,10 +61,10 @@ public class AllValuesFromRelation extends Relation {
 				
 				//WATCHOUT recursive calls
 				if (avf.getProperty().isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(avf.getProperty());
+					handleAddAnonymousObjectPropertyExpression(avf.getProperty());
 				}
 				if (avf.getFiller().isAnonymous()) {
-					handleAnonymousClassExpression(avf.getFiller());
+					handleAddAnonymousClassExpression(avf.getFiller());
 				}
 			} else {
 				throw new U2R3NotImplementedException();
@@ -77,38 +75,19 @@ public class AllValuesFromRelation extends Relation {
 	}
 	
 	@Override
-	protected void remove(OWLObject o) {
+	protected void removeImpl(OWLObject o) {
 		try {
 			if (o instanceof OWLObjectAllValuesFrom) {
 				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) o;
 				
-				String tid = TableId.getId();
-				
-				StringBuilder sql = new StringBuilder();
-				sql.append("SELECT id");
-				sql.append("\n FROM allValuesFrom AS " + tid);
-				sql.append("\nWHERE EXISTS (");
-				getSubSQL(sql, avf.getProperty(), tid, "property");
-				sql.append(") AND EXISTS (");
-				getSubSQL(sql, avf.getFiller(), tid, "total");
-				sql.append(")");
-				
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql.toString());
-				
-				if (rs.next()) {
-					relationManager.remove(rs.getLong("id"), RelationName.allValuesFrom);
-
-					if (avf.getProperty().isAnonymous()) {
-						removeAnonymousPropertyExpression(avf.getProperty());
-					}
-					
-					if (avf.getFiller().isAnonymous()) {
-						removeAnonymousClassExpression(avf.getFiller());
-					}
-					
-					
+				if (avf.getProperty().isAnonymous()) {
+					removeObject(avf.getProperty());
 				}
+				
+				if (avf.getFiller().isAnonymous()) {
+					removeObject(avf.getFiller());
+				}
+
 			} else {
 				throw new U2R3NotImplementedException();
 			}
@@ -116,6 +95,45 @@ public class AllValuesFromRelation extends Relation {
 			ex.printStackTrace();
 		}
 		
+	}
+	
+	@Override
+	public void getSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
+		if (ce instanceof OWLObjectAllValuesFrom) {
+			OWLObjectAllValuesFrom nax = (OWLObjectAllValuesFrom) ce;
+			String property = null;
+			String filler = null;
+			String tableId = TableId.getId();
+			
+			if (nax.getProperty().isAnonymous()) {
+				property = nax.getProperty().asOWLObjectProperty().getIRI().toString();
+			}
+			
+			if (!nax.getFiller().isAnonymous()) {
+				filler = nax.getFiller().asOWLClass().getIRI().toString();
+			}			
+			
+			
+			sql.append("SELECT id, '" + getTableName() + "' AS colTable ");
+			sql.append("\nFROM  " + getTableName() + " AS " + tableId);
+			sql.append("\nWHERE ");
+			if (property != null) {
+				sql.append("property='" + property + "' ");
+			} else {
+				sql.append("EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getProperty(), tableId, "property");
+			}
+			
+			if (property != null) {
+				sql.append(" AND total='" + filler + "' ");
+			} else {
+				sql.append(" EXISTS ");
+				handleSubAxiomLocationImpl(sql, nax.getFiller(), tableId, "total");
+			}
+
+			return;
+		}
+		throw new U2R3RuntimeException();
 	}
 
 }

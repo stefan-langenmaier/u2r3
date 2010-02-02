@@ -59,11 +59,11 @@ public class DisjointWithRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (ce1.isAnonymous()) {
-					handleAnonymousClassExpression(ce1);
+					handleAddAnonymousClassExpression(ce1);
 				}
 				
 				if (ce2.isAnonymous()) {
-					handleAnonymousClassExpression(ce2);
+					handleAddAnonymousClassExpression(ce2);
 				}
 				
 				return AdditionMode.NOADD;

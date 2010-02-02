@@ -2,7 +2,9 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 
 import org.apache.log4j.Logger;
@@ -12,19 +14,15 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
-import org.semanticweb.owlapi.model.OWLObjectAllValuesFrom;
-import org.semanticweb.owlapi.model.OWLObjectIntersectionOf;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
 import org.semanticweb.owlapi.model.OWLObjectMaxCardinality;
 import org.semanticweb.owlapi.model.OWLObjectPropertyExpression;
-import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3NotImplementedException;
 import de.langenmaier.u2r3.rules.Rule;
 import de.langenmaier.u2r3.util.AdditionReason;
-import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.U2R3Component;
 
 /**
@@ -94,8 +92,8 @@ public abstract class Relation extends U2R3Component implements Query {
 	}
 	
 	/**
-	 * Has to be implemented by every relation. It starts to remove an axiom 
-	 * and all of its sub expressions including the reasoning history from the db.
+	 * Has to be implemented by every relation. The axiom is already removed
+	 * but it has to remove recursive all of the complex parts of the axiom.
 	 * @param axiom
 	 * @throws SQLException
 	 */
@@ -107,6 +105,12 @@ public abstract class Relation extends U2R3Component implements Query {
 		try {
 			reasonProcessor.pause();
 			
+			ResultSet rs = getAxiomLocation(axiom).executeQuery();
+			
+			if (rs.next()) {
+				relationManager.remove(rs.getLong("id"), RelationName.valueOf(rs.getString("colTable")));
+			}
+			
 			removeImpl(axiom);
 			
 			reasonProcessor.resume();
@@ -115,12 +119,56 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	
+	protected void removeObject(OWLClassExpression classExpression) throws SQLException {
+		ResultSet rs;
+		Statement stmt = conn.createStatement();
+		StringBuilder sql = new StringBuilder();
+		
+		handleSubAxiomLocationImpl(sql, classExpression, null, null);
+		rs = stmt.executeQuery(sql.toString());
+		
+		if (rs.next()) {
+			relationManager.remove(rs.getLong("id"), RelationName.valueOf(rs.getString("colTable")));
+		}
+	}
+
+
+	protected void removeObject(OWLIndividual individual) throws SQLException {
+		ResultSet rs;
+		Statement stmt = conn.createStatement();
+		StringBuilder sql = new StringBuilder();
+		
+		handleSubAxiomLocationImpl(sql, individual, null, null);
+		rs = stmt.executeQuery(sql.toString());
+		
+		if (rs.next()) {
+			relationManager.remove(rs.getLong("id"), RelationName.valueOf(rs.getString("colTable")));
+		}
+		
+		removeImpl(individual);
+	}
+	
+	protected void removeObject(OWLObjectPropertyExpression pe) throws SQLException {
+		ResultSet rs;
+		Statement stmt = conn.createStatement();
+		StringBuilder sql = new StringBuilder();
+		
+		handleSubAxiomLocationImpl(sql, pe, null, null);
+		rs = stmt.executeQuery(sql.toString());
+		
+		if (rs.next()) {
+			relationManager.remove(rs.getLong("id"), RelationName.valueOf(rs.getString("colTable")));
+		}
+		
+		removeImpl(pe);
+	}
+	
 	/**
 	 * Removes a "sub" object from an axiom. This works recursive and deletes
 	 * all of the reasoning history.
 	 * @param o
 	 */
-	protected void remove(OWLObject o) {
+	protected void removeImpl(OWLObject o) {
 		throw new U2R3NotImplementedException();
 	}
 	
@@ -158,7 +206,6 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	
-
 	protected String getTableName() {
 		return tableName;
 	}
@@ -167,7 +214,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	/**
 	 * @param ce
 	 */
-	protected void handleAnonymousClassExpression(OWLClassExpression ce) {
+	protected void handleAddAnonymousClassExpression(OWLClassExpression ce) {
 		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
 			relationManager.getRelation(RelationName.complementOf).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
@@ -197,7 +244,7 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	
-	protected void handleAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
+	protected void handleAddAnonymousObjectPropertyExpression(OWLObjectPropertyExpression pe) {
 		//Dürfen laut Grammatik nur für InverseObjectProperty aufgerufen werden
 		//ObjectPropertyExpression := ObjectProperty | InverseObjectProperty
 		if (pe instanceof OWLObjectInverseOf) {
@@ -208,123 +255,15 @@ public abstract class Relation extends U2R3Component implements Query {
 		
 	}
 	
-	protected void handleAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {
+	protected void handleAddAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {
 		//Dürfen laut Grammatik auch niemals aufgerufen werden
 		//DataPropertyExpression := DataProperty
 		throw new U2R3NotImplementedException();
 	}
 	
-	protected void handleAnonymousIndividual(OWLIndividual ind) {
+	protected void handleAddAnonymousIndividual(OWLIndividual ind) {
 		//Dürfen laut Grammatik auch niemals aufgerufen werden
 		//AnonymousIndividual := nodeID
-		throw new U2R3NotImplementedException();
-	}
-	
-	protected void getSubSQL(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
-		if (ce.isAnonymous()) {
-			String ntid = TableId.getId();
-			if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
-				OWLObjectIntersectionOf oi = (OWLObjectIntersectionOf) ce;
-				//ntid = TableId.getId();
-				String ltid;
-				
-				sql.append("SELECT class");
-				sql.append("\n FROM intersectionOf AS " + ntid);
-				sql.append("\nWHERE " + ntid + ".class = " + tid +"." + col);
-				for(OWLClassExpression sce : oi.getOperands()) {
-					ltid = TableId.getId();
-					sql.append(" AND ");
-					sql.append(" EXISTS (");
-					sql.append("\nSELECT element");
-					sql.append("\nFROM list AS " + ltid);
-					sql.append("\nWHERE " + ltid +".name = " + ntid + ".list");
-					sql.append(" AND EXISTS (");
-					getSubSQL(sql, sce, ltid, "element");
-					sql.append("))"); 
-				}
-			} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
-				OWLObjectSomeValuesFrom svf = (OWLObjectSomeValuesFrom) ce;
-				sql.append("SELECT part");
-				sql.append("\n FROM someValuesFrom AS " + ntid);
-				sql.append("\nWHERE EXISTS (");
-				getSubSQL(sql, svf.getProperty(), ntid, "property");
-				sql.append(") AND EXISTS (");
-				getSubSQL(sql, svf.getFiller(), ntid, "total");
-				sql.append(")");
-			} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
-				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
-				sql.append("SELECT part");
-				sql.append("\n FROM allValuesFrom AS " + ntid);
-				sql.append("\nWHERE EXISTS (");
-				getSubSQL(sql, avf.getProperty(), ntid, "property");
-				sql.append(") AND EXISTS (");
-				getSubSQL(sql, avf.getFiller(), ntid, "total");
-				sql.append(")");
-			} else {
-				sql.append("\nXXXXXXX\nTODO CE:" + ce.getClassExpressionType() + "\n");
-				throw new U2R3NotImplementedException();
-			}
-		} else {
-			sql.append("SELECT '");
-			sql.append(ce.asOWLClass().getIRI().toString());
-			sql.append("'");
-			sql.append("\n WHERE '");
-			sql.append(ce.asOWLClass().getIRI().toString());
-			sql.append("' = ");
-			sql.append(tid + "." + col);
-		}
-	}
-
-
-	protected void getSubSQL(StringBuilder sql,
-			OWLObjectPropertyExpression property, String tid, String col) {
-		if (property.isAnonymous()) {
-			sql.append("\nXXXXXXX\nTODO CE:" + property.toString() + "\n");
-			throw new U2R3NotImplementedException();
-		} else {
-			sql.append("SELECT '" + property.asOWLObjectProperty().getIRI().toString() + "'");
-			sql.append("\n WHERE '");
-			sql.append(property.asOWLObjectProperty().getIRI().toString());
-			sql.append("' = ");
-			sql.append(tid + "." + col);
-		}
-		
-	}
-
-	protected void getSubSQL(StringBuilder sql, OWLIndividual individual, String tid, String col) {
-		if (individual.isAnonymous()) {
-			sql.append("SELECT '" + individual.asOWLAnonymousIndividual().getID().toString() + "'");
-		} else {
-			sql.append("SELECT '" + individual.asOWLNamedIndividual().getIRI().toString() + "'");
-			sql.append("\n WHERE '");
-			sql.append(individual.asOWLNamedIndividual().getIRI().toString());
-			sql.append("' = ");
-			sql.append(tid + "." + col);
-		}
-	}
-
-
-
-	
-	protected void removeAnonymousClassExpression(OWLClassExpression ce) {
-		if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
-			relationManager.getRelation(RelationName.intersectionOf).remove(ce);
-		} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
-			relationManager.getRelation(RelationName.someValuesFrom).remove(ce);
-		} else if(ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
-			relationManager.getRelation(RelationName.allValuesFrom).remove(ce);
-		} else {
-			System.out.println(ce.getClassExpressionType());
-			throw new U2R3NotImplementedException();
-		}
-		
-	}
-	
-	protected void removeAnonymousPropertyExpression(OWLObjectPropertyExpression property) {
-		throw new U2R3NotImplementedException();
-	}
-	
-	protected void removeAnonymousIndividual(OWLIndividual subject) {
 		throw new U2R3NotImplementedException();
 	}
 	
@@ -333,7 +272,6 @@ public abstract class Relation extends U2R3Component implements Query {
 	 *************************************************************************/
 	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
-		System.out.println(ax);
 		throw new U2R3NotImplementedException();
 	}
 	
@@ -349,17 +287,31 @@ public abstract class Relation extends U2R3Component implements Query {
 
 	@Override
 	public void getSubAxiomLocationImpl(StringBuilder sql, OWLDataPropertyExpression pe, String tid, String col) {
+		//Sollte nie passieren
 		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public void getSubAxiomLocationImpl(StringBuilder sql, OWLIndividual ind, String tid, String col) {
+		//Sollte nie passieren
 		throw new U2R3NotImplementedException();
 	}
 
 	@Override
 	public final void handleSubAxiomLocationImpl(StringBuilder sql, OWLClassExpression ce, String tid, String col) {
-		throw new U2R3NotImplementedException();
+		sql.append("(");
+		
+		if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_INTERSETION_OF) {
+			relationManager.getRelation(RelationName.intersectionOf).getSubAxiomLocationImpl(sql, ce, tid, col);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_SOME_VALUES_FROM) {
+			relationManager.getRelation(RelationName.someValuesFrom).getSubAxiomLocationImpl(sql, ce, tid, col);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
+			relationManager.getRelation(RelationName.allValuesFrom).getSubAxiomLocationImpl(sql, ce, tid, col);
+		} else {
+			throw new U2R3NotImplementedException();
+		}
+		
+		sql.append(")");
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class EquivalentPropertyRelation extends MergeableRelation {
 					}
 				}
 				if (pe1.isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(pe1);
+					handleAddAnonymousObjectPropertyExpression(pe1);
 				}
 			}
 			return AdditionMode.NOADD;
@@ -89,7 +89,7 @@ public class EquivalentPropertyRelation extends MergeableRelation {
 					}
 				}
 				if (pe1.isAnonymous()) {
-					handleAnonymousDataPropertyExpression(pe1);
+					handleAddAnonymousDataPropertyExpression(pe1);
 				}
 			}
 			return AdditionMode.NOADD;

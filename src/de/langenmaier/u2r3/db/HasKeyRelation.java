@@ -42,7 +42,7 @@ public class HasKeyRelation extends Relation {
 			NodeID nid = NodeID.getNodeID();
 			if (naxiom.getClassExpression().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(naxiom.getClassExpression()).toString());
-				handleAnonymousClassExpression(naxiom.getClassExpression());
+				handleAddAnonymousClassExpression(naxiom.getClassExpression());
 			} else {
 				addStatement.setString(1, naxiom.getClassExpression().asOWLClass().getIRI().toString());
 			}
@@ -53,7 +53,7 @@ public class HasKeyRelation extends Relation {
 				addListStatement.setString(1, nid.toString());
 				if (pe.isAnonymous()) {
 					addListStatement.setString(2, nidMapper.get(pe).toString());
-					handleAnonymousObjectPropertyExpression(pe);
+					handleAddAnonymousObjectPropertyExpression(pe);
 				} else {
 					addListStatement.setString(2, pe.asOWLObjectProperty().getIRI().toString());
 				}
@@ -65,7 +65,7 @@ public class HasKeyRelation extends Relation {
 				addListStatement.setString(1, nid.toString());
 				if (pe.isAnonymous()) {
 					addListStatement.setString(2, nidMapper.get(pe).toString());
-					handleAnonymousDataPropertyExpression(pe);
+					handleAddAnonymousDataPropertyExpression(pe);
 				} else {
 					addListStatement.setString(2, pe.asOWLDataProperty().getIRI().toString());
 				}

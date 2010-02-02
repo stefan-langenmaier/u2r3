@@ -70,10 +70,10 @@ public class PropertyRangeRelation extends MergeableRelation {
 			reasonProcessor.add(new AdditionReason(this));
 			
 			if (naxiom.getProperty().isAnonymous()) {
-				handleAnonymousObjectPropertyExpression(naxiom.getProperty());
+				handleAddAnonymousObjectPropertyExpression(naxiom.getProperty());
 			}
 			if (naxiom.getRange().isAnonymous()) {
-				handleAnonymousClassExpression(naxiom.getRange());
+				handleAddAnonymousClassExpression(naxiom.getRange());
 			}
 			
 		} else {

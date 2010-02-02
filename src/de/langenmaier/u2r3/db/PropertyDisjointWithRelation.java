@@ -61,11 +61,11 @@ public class PropertyDisjointWithRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (pe1.isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(pe1);
+					handleAddAnonymousObjectPropertyExpression(pe1);
 				}
 				
 				if (pe2.isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(pe2);
+					handleAddAnonymousObjectPropertyExpression(pe2);
 				}
 				
 				return AdditionMode.NOADD;
@@ -93,11 +93,11 @@ public class PropertyDisjointWithRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (pe1.isAnonymous()) {
-					handleAnonymousDataPropertyExpression(pe1);
+					handleAddAnonymousDataPropertyExpression(pe1);
 				}
 				
 				if (pe2.isAnonymous()) {
-					handleAnonymousDataPropertyExpression(pe2);
+					handleAddAnonymousDataPropertyExpression(pe2);
 				}
 				
 				return AdditionMode.NOADD;

@@ -63,7 +63,7 @@ public class EquivalentClassRelation extends MergeableRelation {
 					}
 				}
 				if (ce1.isAnonymous()) {
-					handleAnonymousClassExpression(ce1);
+					handleAddAnonymousClassExpression(ce1);
 				}
 			}
 			return AdditionMode.NOADD;

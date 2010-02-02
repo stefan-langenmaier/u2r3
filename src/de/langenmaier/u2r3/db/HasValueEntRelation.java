@@ -57,7 +57,7 @@ public class HasValueEntRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (hv.getProperty().isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(hv.getProperty());
+					handleAddAnonymousObjectPropertyExpression(hv.getProperty());
 				}
 			} else {
 				throw new U2R3NotImplementedException();

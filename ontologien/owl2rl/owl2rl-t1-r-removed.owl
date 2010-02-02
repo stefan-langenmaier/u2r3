@@ -9,13 +9,13 @@
 ]>
 
 
-<rdf:RDF xmlns="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#"
-     xml:base="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl"
+<rdf:RDF xmlns="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#"
+     xml:base="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <owl:Ontology rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl">
+    <owl:Ontology rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl">
         <owl:versionInfo>19.11.2009, version 0.1</owl:versionInfo>
         <rdfs:comment>OWL 2 RL (DLP) test ontology, Thorsten Liebig</rdfs:comment>
     </owl:Ontology>
@@ -46,15 +46,15 @@
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#p -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#p -->
 
-    <owl:ObjectProperty rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#p"/>
+    <owl:ObjectProperty rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#p"/>
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#r -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#r -->
 
-    <owl:ObjectProperty rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#r"/>
+    <owl:ObjectProperty rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#r"/>
     
 
 
@@ -69,27 +69,27 @@
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#A -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#A -->
 
-    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#A"/>
+    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#A"/>
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#B -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#B -->
 
-    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#B"/>
+    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#B"/>
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#C -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#C -->
 
-    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#C"/>
+    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#C"/>
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#D -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#D -->
 
-    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#D"/>
+    <owl:Class rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#D"/>
     
 
 
@@ -104,17 +104,17 @@
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#i -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#i -->
 
-    <owl:NamedIndividual rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#i">
-        <r rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#j"/>
+    <owl:NamedIndividual rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#i">
+        <r rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#j"/>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#j -->
+    <!-- http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#j -->
 
-    <owl:NamedIndividual rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#j"/>
+    <owl:NamedIndividual rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#j"/>
     
 
 
@@ -130,19 +130,19 @@
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#B"/>
+                    <rdf:Description rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#B"/>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#p"/>
-                        <owl:allValuesFrom rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#D"/>
+                        <owl:onProperty rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#p"/>
+                        <owl:allValuesFrom rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#D"/>
                     </owl:Restriction>
                 </owl:intersectionOf>
             </owl:Class>
         </rdfs:subClassOf>
         <owl:intersectionOf rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#A"/>
+            <rdf:Description rdf:about="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#A"/>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#r"/>
-                <owl:someValuesFrom rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1.owl#C"/>
+                <owl:onProperty rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#r"/>
+                <owl:someValuesFrom rdf:resource="http://www.informatik.uni-ulm.de/ki/Liebig/owl/owl2rl-t1-r-removed.owl#C"/>
             </owl:Restriction>
         </owl:intersectionOf>
     </owl:Class>

@@ -47,7 +47,7 @@ public class ComplementOfRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (oco.getOperand().isAnonymous()) {
-					handleAnonymousClassExpression(oco.getOperand());
+					handleAddAnonymousClassExpression(oco.getOperand());
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

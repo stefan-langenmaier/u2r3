@@ -1,7 +1,6 @@
 package de.langenmaier.u2r3.db;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -47,13 +46,13 @@ public class SubClassRelation extends MergeableRelation {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			if (naxiom.getSubClass().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(naxiom.getSubClass()).toString());
-				handleAnonymousClassExpression(naxiom.getSubClass());
+				handleAddAnonymousClassExpression(naxiom.getSubClass());
 			} else {
 				addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
 			}
 			if (naxiom.getSuperClass().isAnonymous()) {
 				addStatement.setString(2, nidMapper.get(naxiom.getSuperClass()).toString());
-				handleAnonymousClassExpression(naxiom.getSuperClass());
+				handleAddAnonymousClassExpression(naxiom.getSuperClass());
 			} else {
 				addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
 			}
@@ -140,32 +139,14 @@ public class SubClassRelation extends MergeableRelation {
 		if (axiom instanceof OWLSubClassOfAxiom) {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			
-			String tid = TableId.getId();
-			
-			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT id");
-			sql.append("\nFROM " + getTableName() + " AS " + tid);
-			sql.append("\nWHERE EXISTS (");
-			getSubSQL(sql, naxiom.getSubClass(), tid, "sub");
-			sql.append(") AND super = (");
-			getSubSQL(sql, naxiom.getSuperClass(), tid, "super");
-			sql.append(")");
-			
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql.toString());
-			
-			if (rs.next()) {
-				relationManager.remove(rs.getLong("id"), RelationName.subClass);
-				
-				if (naxiom.getSubClass().isAnonymous()) {
-					removeAnonymousClassExpression(naxiom.getSubClass());
-				}
-				
-				if (naxiom.getSuperClass().isAnonymous()) {
-					removeAnonymousClassExpression(naxiom.getSuperClass());
-				}
-				
+			if (naxiom.getSubClass().isAnonymous()) {
+				removeObject(naxiom.getSubClass());
 			}
+			
+			if (naxiom.getSuperClass().isAnonymous()) {
+				removeObject(naxiom.getSuperClass());
+			}
+		
 		} else {
 			throw new U2R3NotImplementedException();
 		}

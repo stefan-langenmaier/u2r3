@@ -43,13 +43,13 @@ public class InverseOfRelation extends Relation {
 			OWLInverseObjectPropertiesAxiom naxiom = (OWLInverseObjectPropertiesAxiom) axiom;
 			if (naxiom.getFirstProperty().isAnonymous()) {
 				addStatement.setString(1, nidMapper.get(naxiom.getFirstProperty()).toString());
-				handleAnonymousObjectPropertyExpression(naxiom.getFirstProperty());
+				handleAddAnonymousObjectPropertyExpression(naxiom.getFirstProperty());
 			} else {
 				addStatement.setString(1, naxiom.getFirstProperty().asOWLObjectProperty().getIRI().toString());
 			}
 			if (naxiom.getSecondProperty().isAnonymous()) {
 				addStatement.setString(2, nidMapper.get(naxiom.getSecondProperty()).toString());
-				handleAnonymousObjectPropertyExpression(naxiom.getSecondProperty());
+				handleAddAnonymousObjectPropertyExpression(naxiom.getSecondProperty());
 			} else {
 				addStatement.setString(2, naxiom.getSecondProperty().asOWLObjectProperty().getIRI().toString());
 			}
@@ -75,7 +75,7 @@ public class InverseOfRelation extends Relation {
 				reasonProcessor.add(new AdditionReason(this));
 				
 				if (io.getInverse().isAnonymous()) {
-					handleAnonymousObjectPropertyExpression(io.getInverse());
+					handleAddAnonymousObjectPropertyExpression(io.getInverse());
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
