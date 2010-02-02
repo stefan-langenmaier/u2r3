@@ -1,0 +1,1668 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:dct="http://purl.org/dc/terms/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:ov="http://open.vocab.org/terms/">
+
+  <rdf:Description rdf:about="http://productdb.org/cars.rdf">
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+    <foaf:primaryTopic rdf:resource="http://productdb.org/cars"/>
+    <dct:hasFormat rdf:resource="http://productdb.org/cars.html"/>
+    <dct:hasFormat rdf:resource="http://productdb.org/cars.json"/>
+    <dct:hasFormat rdf:resource="http://productdb.org/cars.turtle"/>
+    <foaf:topic rdf:resource="http://productdb.org/cars"/>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/cars.html">
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+    <dc:format>text/html</dc:format>
+    <rdfs:label>HTML</rdfs:label>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/cars.json">
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+    <dc:format>application/json</dc:format>
+    <rdfs:label>JSON</rdfs:label>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/cars.turtle">
+    <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Text"/>
+    <rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+    <dc:format>text/plain</dc:format>
+    <rdfs:label>Turtle</rdfs:label>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-tsx">
+    <rdfs:comment>With its sleek, sporty styling, the new 2005 Acura TSX is highly contemporary, yet a timeless masterwork, designed to endure well into the future. Its 200-hp i-VTEC&amp;#174; engine accelerates smoothly in any gear and engine speed through either a close-ratio 6-speed manual or a 5-speed Sequential SportShift with Grade Logic Control automatic transmission. Its outstanding handling and agility is due partly to the engine's lightweight materials. There is also an abundance of luxury amenities and innovative safety features that add to this dynamic sports car's remarkable performance, craftsmanship and style.</rdfs:comment>
+    <skos:prefLabel>2006 Acura TSX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-a4">
+    <rdfs:comment>Audi is preparing a major mid-cycle freshening of its A4 sedan and wagon, prior to a full ground-up redesign thats planned for 2008. The face-lifted A4 debuts this fall in Europe and should arrive in U.S. dealerships next spring, probably as a 2006 model.</rdfs:comment>
+    <skos:prefLabel>2006 Audi A4</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-corolla">
+    <rdfs:comment>The 2007 Toyota Corolla is built off of the ninth generation Corolla frame which was introduced in 2003. A 10th generation model is available in Japan, and Toyota will introduce a new redesigned Corolla for the 2009 year. Starting life as an entry level subcompact, the Corolla has moved up in the world with the Honda Civic and Nissan Sentra to make room for the Toyota Yaris. The XRS sport tuned model which featured a more powerful engine is no longer available for the 2007 year.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Corolla</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-tl">
+    <rdfs:comment>Few sedans combine innovative technology and high performance with such landmark precision as the 2005 Acura TL. The 270-horsepower, 3.2-liter TL is an advanced study in both, from its powerful 24-valve, VTEC&amp;#174; engine and 4-wheel independent double-wishbone suspension system, to an impressive console of sophisticated amenities, including Bluetooth? wireless cell phone technology and Acura/ELS? Premium 8-speaker Surround-Sound System with DVD-Audio. As with all Acura models, luxury and performance add up to miles of extreme exhilaration in the 2005 TL.</rdfs:comment>
+    <skos:prefLabel>2006 Acura TL</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-rav4">
+    <rdfs:comment>The third-generation 2006 Toyota RAV4 will grow significantly in all dimensions compared to its predecessors, with 14 additional inches of length and a larger interior with available third-row seating. Starting to finally look like an SUV, the RAV4 will feature a wider track, the choice of either two- or four-wheel drive, a revised cabin with all-new gauges, and most importantly, a vastly improved powertrain in the form of a 3.5-liter, 268-horsepower V6. The vehicle will also come equipped with the Toyota Star Safety System, which includes enhanced Vehicle Stability Control, Traction Control, Brake Assist, and ABS with Electronic Brakeforce Distribution. Optional safety features will include driver- and front-passenger front-seat-mounted side airbags, as well as front- and second-row roll-sensing side curtain airbags.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota RAV4</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-s60">
+    <rdfs:comment>The 2006 Volvo S60 is a 4-door, 5-passenger luxury sedan, or luxury sports sedan, available in 4 trims, ranging from the 2.5T to the R. Upon introduction, the 2.5T is equipped with a standard 2.5-liter, I5, 208-horsepower, turbo engine that achieves 21-mpg in the city and 30-mpg on the highway. A 5-speed automatic transmission is standard. The R is equipped with a standard 2.5-liter, I5, 300-horsepower, turbo engine that achieves 18-mpg in the city and 24-mpg on the highway. A 6-speed manual transmission with overdrive is standard, and a 6-speed automatic transmission is optional.</rdfs:comment>
+    <skos:prefLabel>2006 Volvo S60</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-matrix">
+    <rdfs:comment>Ordinarily, a single vehicle isnt right for every task. But with five doors, loads of cargo space, multiple interior configurations and available full-time 4WD [2], the 2006 Matrix is whatever you want it to be. Factor in the XRs available integrated fog lamps and front and rear underbody spoilers and you get even more variations. But dont worry. You wont have to get a bigger garage.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Matrix</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-raider">
+    <rdfs:comment>Mitsubishi will be releasing its first pickup, developed in collaboration with DaimlerChrysler, for the 2006 model year. Based on the Dodge Dakota platform, the Raider represents part of the company's attempt to reestablish its brand identity in the U.S. after a year of slumping sales. The name &quot;Raider&quot; was originally used on a Dodge SUV that shared its construction with the Mitsubishi Montero. The base models will most likely be powered by the Dakota's 3.7-liter V6, which is capable of 210 horsepower. High-end versions of the Raider are expected to house a 4.7-liter V8, which yields 230 hp and 290 pound-feet of torque. This particular engine will be mated with a five-speed automatic which allows for paddle shifting via the steering wheel. The Raider will be available in both extended-cab and four-door versions, with the choice of two- or four-wheel drive.</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Raider</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mazda-tribute">
+    <rdfs:comment>On-road. Off-road. Smooth terrain. Rough terrain. Flat, steep, rocky, soft... wherever you take the Mazda Tribute, one thing is certain ? you?ll have fun driving there. Equipped with a high-performing, lightweight engine and a four-wheel independent suspension that?s tuned for superior handling dynamics, the Mazda Tribute is ready for your greatest adventures... including that road trip to the in-law?s house.</rdfs:comment>
+    <skos:prefLabel>2006 Mazda Tribute</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-focus">
+    <rdfs:comment>A new Street Appearance Package for the ZX3, ZX4, and ZX5 lends a customized appearance to the 2006 Ford Focus with unique front and rear fascias and a chrome exhaust tip. A CD/MP3 player is standard on all models, and alloy wheels are now a stand-alone option for S and SE trim levels. Order the in-dash, six-disc CD changer and get auxiliary steering wheel controls. Finally, new colors include Dark Red Toreador metallic, Pueblo Gold metallic, and Screaming Yellow clearcoat.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Focus</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2005-acura-rl">
+    <rdfs:comment>The 2005 Acura RL is a powerful and graceful vehicle that provides for a smooth ride, luxury amenities, and a wide variety of gadgets.</rdfs:comment>
+    <skos:prefLabel>2005 Acura RL</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-lancer-evolution">
+    <rdfs:comment>Comes standard with: a factory performance-tuned (2.0-liter, MIVEC DOHC, 16-valve, turbocharged and intercooled) engine with 286 horsepower and 289 lb-ft of torque, front-mounted air-to-air intercooler, close-ratio five-speed manual transmission with aluminum shift knob* and Teflon-coated cables, full-time AWD with an electronic Active Center Differential (with three driver-selectable modestarmac, snow and gravel), aluminum body panels (roof, front fenders and hood), rear-end strut bar, turbo boost gauge kit*, four-wheel ventilated Brembo&amp;#174; disc brakes, 17&quot; x 8&quot; double-five spoke Enkei&amp;#174; aluminum alloy wheels, speed-rated Yokohama P235/45 Advan&amp;#174; (high-grip, soft-compound) radial tires, front Recaro&amp;#174; bucket seats with premium Alcantara&amp;#174; fabric, leather-wrapped Momo&amp;#174; three-spoke steering wheel and more.</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Lancer Evolution</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volkswagen-gti">
+    <rdfs:comment>For power, the GTI has a 2.0-litre (1,984 cc, to be precise) turbocharged four cylinder developing 200 horsepower. According to VW, this is one of few engines built anywhere that uses a powerful combination of homogenous direct fuel injection and exhaust turbo with intercooler. The result is an exceptionally satisfying powerplant with lots of torque and (being lag-free) plenty of almost instant response.</rdfs:comment>
+    <skos:prefLabel>2006 Volkswagen GTI</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-civic-coupe">
+    <rdfs:comment>The coupe is the smaller 2-door model of Honda's ultra-popular Civic line of cars. Internally, the coupe is no different than the Sedan model, featuring the same engine and features, the difference is all on the outside, and less storage capacity for people in the back seat as well as a smaller trunk. The 2007 model stays in the eighth generation of Civics which follows the bold and futuristic styling that has garnered mixed reactions.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Civic Coupe</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-q7">
+    <rdfs:comment>Power will come from the same 4.2-liter V8 found in the Audi A6/A8 sedans, and the interior will include three rows of seating and an optional full-length glass moon roof. Expect pricing for 4.2-liter models in the $60,000 range.</rdfs:comment>
+    <skos:prefLabel>2006 Audi Q7</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-freestar">
+    <rdfs:comment>The Freestar returns for 2006 available in four trims: SE, SEL, Limited, and Cargo van models. There are two engines available on the Freestar. The SE and Cargo Van's receive a 3.9L V6 with 193 horsepower and 240 lbs-ft of torque while the SEL and Limited are equipped with a 4.2L V6 producing 201 horsepower and 263 lbs-ft of torque. The 4.2L V6 is the largest engine currently available in a minivan. Another versatile feature is the third row bench seat that folds-away into the floor, leaving a flat cargo compartment. Safety features include the optional three-row front-to-back head protection air bags and standard front and rear disc brakes with ABS. A DVD entertainment system, power adjustable pedals, and AdvanceTrac stability control are also available.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Freestar</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chrysler-town-country">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chrysler Town &amp;amp; Country</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-srt4">
+    <rdfs:comment>The 2005 Dodge SRT-4 is a 4-door, 5-passenger sports sedan, available in one trim only, the Base. Upon introduction, the SRT-4 is equipped with a standard 2.4-liter, I4, 230-horsepower, turbo engine that achieves 22-mpg in the city and 30-mpg on the highway. A 5-speed manual transmission with overdrive is standard. The 2005 Dodge SRT-4 is a carryover from 2004.</rdfs:comment>
+    <skos:prefLabel>2006 Dodge SRT4</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-mazda-3-sedan">
+    <rdfs:comment>The Mazda3 was first introduced in 2004 and quickly received critical and commercial success. For 2007 the Mazda3 has undergone minor improvements and upgrades, mainly on the interior with more features coming standard. The biggest change is the introduction of a performance oriented model named the Mazdaspeed3. What's special about the Mazda3 is its global design process with a body developed by Volvo, electronics from Ford, with engine design/production and overall tuning happening at Mazda in Japan. There are two main models, the 4-door sedan and 5-door wagon. The sedan is further divided into an entry level called I and sportier versions coming under the S name. Mazda positions the 3 to compete in the compact commuter car segment which contains the Honda Civic and Nissan Sentra.</rdfs:comment>
+    <skos:prefLabel>2007 Mazda 3 Sedan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-colorado">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Colorado</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-stratus">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Stratus</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-mitsubishi-outlander">
+    <rdfs:comment>The newly redesigned Mitsubishi Outlander makes its debut in 2007. The most significant improvements over previous years are improved styling, the upgrade to a 3.0 L V6 engine capable of delivering 220 hp, and a 6-speed Sportronic automatic transmission. The previous generation was a 4-speed, with a 4 cylinder engine delivering 160 hp. Drawing inspiration from Mitsubishi's rally car expertise, the Outlander features AWD, a powerful engine, paddle shifting (XLS only), and MIVEC valve timing. (Read more about the Mitsubishi Pajero, their most successful rally car)</rdfs:comment>
+    <skos:prefLabel>2007 Mitsubishi Outlander</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-cls-class">
+    <rdfs:comment>Although the CLS sedan hasn't even hit showrooms yet, Mercedes is already working on a high-performance AMG version to bolster the lineup. It will likely use the same supercharged 5.5-liter V8 found in the current E55 super sedan. With nearly 500 horsepower, the CLS55 should be good for zero to 60 in less than six seconds.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz CLS Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ferrari-f430">
+    <rdfs:comment>The F430 signals the arrival of a brand new generation of Ferrari 8-cylinder models. This new car takes Ferrari?s extraordinary achievements with aluminium technology, begun with the 360 Modena, to a whole new level, and offers a series of extremely significant innovations directly derived from the Ferrari Formula 1 single-seaters. Two of these innovations are world firsts for production cars: the electronic differential (E-Diff) and the steering wheel-mounted switch (better known to the Formula 1 Scuderia?s drivers as &quot;manettino&quot;), which manages the integrated systems governing vehicle dynamics.</rdfs:comment>
+    <skos:prefLabel>2006 Ferrari F430</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-montana">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac Montana</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-lexus-gx">
+    <rdfs:comment>The Lexus GX 470 is an authentic, mid-size SUV, with serious off-road capability based on traditional truck engineering: body-on-frame construction, a rugged four-wheel-drive system, and a live rear axle. But it's also a Lexus: roomy and quiet inside, with a luxurious cabin swathed in leather and bird's-eye maple. Its 4.7-liter overhead-cam V8 and smoothly responsive five-speed automatic transmission provide ample power and performance, whether towing, trail-bashing, or carving corners on a coastal highway. The switchgear is a study in ergonomic excellence, and all controls are right where you expect them to be.</rdfs:comment>
+    <skos:prefLabel>2006 Lexus GX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-hyundai-sonata">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2008 Hyundai Sonata</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-deville">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac DeVille</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-subaru-outback">
+    <rdfs:comment>The Subaru Outback combines the rugged versatility of an SUV with the performance you expect from a sports car to deliver a driving experience like no other. No matter the weather or the road, you'll experience unsurpassed traction and handling with the Subaru Outback.</rdfs:comment>
+    <skos:prefLabel>2006 Subaru Outback</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-tundra">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Tundra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-sts">
+    <rdfs:comment>Cadillac has made it clear that it intends to give the V-Series treatment to more than just the CTS, so it wasn't much of a surprise when heavily modified prototypes of the STS were photographed making the rounds at Germany's Nurburgring test track. Power is expected to come from a supercharged version of Cadillac's 4.6-liter Northstar V8 putting the STS-V in the 400-500-horsepower range. And don't be surprised if it shows up with a six-speed manual transmission either as Cadillac fully intends for this car to be a true competitor to BMW's M5 super sedan.</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac STS</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-sierra">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Sierra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chrysler-pacifica">
+    <rdfs:comment>Pacifica is specially tuned to deliver agile sport sedan cornering and handling, making it fun to drive. Its sophisticated five-link rear suspension, self-leveling rear shock absorbers, precision variable-assist rack-and-pinion steering, and large tires on wide wheels make it an outstanding sports tourer for the open road. Yet, Pacifica is equally at home in the city, steering through traffic with an excellent ride that is exceptionally quiet.</rdfs:comment>
+    <skos:prefLabel>2006 Chrysler Pacifica</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volkswagen-passat">
+    <rdfs:comment>Volkswagen redesigns its midsize car for 2006 with fresh styling, larger dimensions, and more power. Newly available features include a navigation system and steering-linked bi-xenon headlamps, plus manual and automatic transmissions with six speeds instead of five. The base engine remains a turbocharged 4-cyl, but it's a 200-hp 2.0-liter vs. a 170-hp 1.8. It's used in Value Edition and 2.0 T models. These come with front-wheel drive and either transmission. The V6 is now a 280-hp 3.6-liter vs. a 190-hp 2.8. It's used in the two 3.6 models, one of which has front-drive, the other VW's 4Motion all-wheel drive. Both come only with automatic transmission.</rdfs:comment>
+    <skos:prefLabel>2006 Volkswagen Passat</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-celica">
+    <rdfs:comment>The 2006 Toyota Celica has been created with a design that provides its passengers space and comfort. Its design has a flowing kind of effect that makes you feel at ease and comfortable. This new vehicle has racy lines that are very detailed. These lines provide and exude an aura of a performance that would be high technology. And yes, the 2006 Toyota Celica does not fail this perception.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Celica</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-neon">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Neon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-ford-fusion">
+    <rdfs:comment>The 2008 Ford Fusion is a mid-size sedan that fits in the Ford sedan lineup between the smaller Ford Focus and the larger Ford Taurus. At 100 cu-ft, the Ford Fusion's passenger volume exceeds that of the Chevrolet Malibu, but is below a Toyota Camry's.</rdfs:comment>
+    <skos:prefLabel>2008 Ford Fusion</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-fj-cruiser">
+    <rdfs:comment>The FJ Cruiser is a retro-style off-road SUV reminiscent of the older line of FJ-Series Land Cruisers. The 2007 model is the debut of the FJ Cruiser and is marketed towards young outdoor enthusiasts, with the pricing matching their budgets starting in the low $20,000s.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota FJ Cruiser</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-silverado">
+    <rdfs:comment>Chevrolet's large pickups are mostly unchanged for 2006, awaiting redesigned replacements due as early 2007 models. This report covers half-ton 1500-series Silverados in regular, extended, and Crew Cab models. Extendeds have rear-hinged back doors that don't open independently of the fronts; Crew Cabs have four conventional doors. Both include a 3-person rear bench seat and offer front bucket seats as well as a bench. Regulars and extendeds offer 6.6- and 8.0-ft Fleetside cargo beds or a 6.6-ft Sportside flare-fender box. Crews use a 5.8-ft Fleetside box and roughly match short-bed extendeds in overall length.</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Silverado</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-thunderbird">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Ford Thunderbird</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-accord">
+    <rdfs:comment>The 2007 Honda Accord comes either as a midsize sedan or coupe. These have two body types, the 2-door Coupe and the 4-door Sedan. The engines for these models are the 3.0 liter V 6 with the 2.4 L Inline 4; the major trims are the LX and EX, which have sub-trims the LX V6, EX-L and EX-L V6. Its power is 1223 kW that delivers 166 hp at 5800 rpm.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Accord</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volkswagen-touareg">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Volkswagen Touareg</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-hyundai-elantra">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Hyundai Elantra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/new-camaro">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>New Camaro</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-ram">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Ram</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-reno">
+    <rdfs:comment>You?ve got places to go. People to see. And the clock?s ticking. That?s where Reno comes in. Its</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki Reno</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-nissan-altima-hybrid">
+    <rdfs:comment>With its distinctive exterior design, powerful 4-cylinder engine, sport-oriented suspension and spacious interior, Altima would seem to have it all. Now, Nissan has found one more attribute that completes the Altima's line-up - superb fuel economy from a state-of-the-art hybrid gasoline-electric powertrain.</rdfs:comment>
+    <skos:prefLabel>2007 Nissan Altima Hybrid</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-safari">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Safari</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-nissan-sentra">
+    <rdfs:comment>Going without a redesign for six years (2000-2006) the Nissan Sentra moves up Nissan's line up with a massive redesign for the 2007 year. Nissan joins the other car manufacturers in moving their traditional sub-compact cars into the compact range, which keeps the Sentra competitive with cars such as the Honda Civic.</rdfs:comment>
+    <skos:prefLabel>2007 Nissan Sentra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-chevrolet-suburban">
+    <rdfs:comment>Is the hectic pace of life getting you down? Maclaren knows that when the going gets tough, parents, especially, need help. Help from a buggy that is durable and rigorous, that stands up to your active lifestyle, that can keep pace whilst shopping or on public transport, that won't let you down. Maclaren has engineered the Triumph, easy to use, distinctively styled. When life throws you a curve. Triumph!</rdfs:comment>
+    <skos:prefLabel>2007 Chevrolet Suburban</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-chevrolet-malibu">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2008 Chevrolet Malibu</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-sky">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saturn Sky</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hummer-h3">
+    <rdfs:comment>The H3's goal is to preserve the brand's Lego-block styling identity and go absolutely anywhere off-road ability, while offering a more affordable, more garageable, more fuel-efficient vehicle for the masses. Riding on a 118.6-inch wheelbase and measuring 74.5 inches wide, the H3T concept embodies the classic Hummer proportions -- wide stance, low roofline, and wheels at the corners.</rdfs:comment>
+    <skos:prefLabel>2006 HUMMER H3</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevy-equinox">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevy Equinox</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/porsche-caymen-s-raffle">
+    <rdfs:comment>A really sweet car.</rdfs:comment>
+    <skos:prefLabel>Porsche Caymen S Raffle</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-ranger">
+    <rdfs:comment>Ford's compact pickups get only a mild facelift for 2006. Ranger offers regular-cab and extended SuperCab models spanning six trim packages. SuperCabs have two rear fold-down jump seats as standard or optional, depending on trim, and are available with back-hinged rear access doors. Regulars offer 6- and 7-ft cargo beds; SuperCabs use the 6 ft only. Engines comprise a 2.3-liter 4-cyl and 3.0- and 4.0-liter V6s. All use manual or 5-speed automatic transmission and standard rear-wheel drive. V6s also offer 4WD that can't be used on dry pavement but includes low-range gearing. All models come with 4-wheel ABS. Leather upholstery is among the many options. Mazda's B-Series trucks are retrimmed Rangers with a different pricing and features mix. Styling changes for '06 Rangers involve modest revisions to bumpers, grille, fenders, and lights.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Ranger</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-altima">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Altima</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-lexus-ls">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Lexus LS</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-civic-si-coupe">
+    <rdfs:comment>The 2007 Honda Civic Si Coupe is the Sport Injected (Si) version of the classic coupe version. The Si is essentially an EX trim level of the coupe with performance enhancing improvements. Honda replaces the 1.8L SOHC engine with a 2.0L K20 engine that delivers 197HP at 7800RPM.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Civic Si Coupe</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-l300">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saturn L300</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-honda-cr-v">
+    <rdfs:comment>Sometimes you know exactly what to expect. Other times, life throws you a curveball. Thankfully, there's the CR-V. Because whether you're driving to the grocery store after work or taking a surprise weekend getaway, the CR-V is versatile enough to help. Have a seat inside and you'll marvel at how much room there is for gear, supplies or friends. Front side and side curtain airbags are standard on all models. Vehicle Stability Assist (VSA) controls brake pressure and engine power to help maintain traction. The new 2005 CR-V features 16-inch wheels and revamped styling, both inside and out. And if you're looking for a new level of refinement, be sure to check out the 4WD Special Edition CR-V with Leather.</rdfs:comment>
+    <skos:prefLabel>2006 Honda CR-V</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-pontiac-solstice">
+    <rdfs:comment>A year after the redesigned Solstice comes to market in the fall of 2005, Pontiac is expected to release a high-powered GXP version of its new roadster. The 2007 Solstice GXP will be distinguished primarily through its dual exhaust pipes, more aggressive wheels and tires and more powerful engine. Power will likely come from a 2.0-liter four-cylinder with horsepower in the 200-hp neighborhood. This engine will be mated with a six-speed manual transmission for extra driving pleasure.</rdfs:comment>
+    <skos:prefLabel>2007 Pontiac Solstice</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/bmw-x3">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>BMW X3</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-verona">
+    <rdfs:comment>Suzuki's largest car trims its model offerings and gets additional standard equipment for 2006. Verona drops its S, LX, and EX trim levels and now comes in base and Luxury Package versions. Both have a 2.5-liter inline 6-cyl engine and 4-speed automatic transmission. Standard equipment includes front side airbags, and--new for '06--antilock 4-wheel disc brakes. Also standard are power windows/locks/heated mirrors, keyless entry, air conditioning, tilt steering wheel, height-adjustable driver seat, CD/cassette stereo with steering-wheel controls, and split folding rear seat. The Luxury Package adds 16-inch alloy wheels to replace 15-inch steel wheels, plus automatic climate control, sunroof, leather upholstery, heated front seats, and power driver seat; optional is a traction-control system. Like other Suzukis, Verona carries a 3-year/36,000-mile bumper-to-bumper warranty that includes roadside assistance, and transferable 7/100,000 powertrain coverage with provision for a free loaner car.</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki Verona</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-volkswagen-rabbit">
+    <rdfs:comment>Beetle to Rabbit to Beetle to Rabbit. After more than 20 years Volkwagen is bringing back the Rabbit for the North American market to take a piece of the expanding minicar market. VW is bringing back the name more than anything, as the Rabbit has been available all this time, except it was known as the Golf. In other parts of the world the name Rabbit has never been used, and the Golf brand will continue outside of North America. The Rabbit is built on the 5th generation Golf design, and while it contains many similarities to the 2006 Golf, there are many differences and improvements as well. The launch of the Rabbit is heavily marketed to combat the already strong competition in the form of the Honda Fit and Civic, and the Nissan Versa and Sentra.</rdfs:comment>
+    <skos:prefLabel>2007 Volkswagen Rabbit</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/jeep-compass">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Jeep Compass</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-impala">
+    <rdfs:comment>Chevrolet is currently working on a revamped Impala that will most likely appear for the 2006 model year. It won't be a full-scale redesign just a mild refresh, but both the front and rear ends should see noticeable styling changes. Not much is expected to change underneath the sheet metal, but the interior may get some much needed upgrades</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Impala</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-slr-mclaren">
+    <rdfs:comment>Top speed 208 mph. 0-60 in under 3.8 seconds. The SLR McLaren is a milestone automotive achievement, as much for its staggering power and performance as its Formula 1 inspired engineering and design.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz SLR McLaren</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-quest">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Quest</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/tesla-model-s">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Tesla Model S</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-v50">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Volvo V50</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-taurus">
+    <rdfs:comment>The Taurus enters 2006 again available in four models: SE and SEL Sedan, with the SE and SEL Wagons coming later on in the year. All models feature a 3.0L V-6 engine that produces 155 horsepower and 185 ft-lbs of torque. Standard equipment on the Taurus includes a four-speed automatic transmission, keyless entry remote system, front and rear mudguards, and power convenience features. The optional Safety and Security Package features traction control, anti-lock brakes, and front side impact airbags. The SEL Premium Package includes a six-disc CD changer with AM/FM cassette stereo, electronic climate control, leather seating surfaces, rear spoiler (sedan), power adjustable passenger seat, and automatic headlamps.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Taurus</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-solara">
+    <rdfs:comment>It's nice to be noticed, and that makes the Camry Solara the ideal car. The admiration that everyone has for the stylish Camry Solara Coupe will naturally extend to you as you nonchalantly listen to your available JBL&amp;#174; 270-watt, 3-in-1 sound system. But if your prefer to keep even more of the focus on you, all it takes is the push of a button in the Camry Solara Convertible to have your day in the sun. With the top down, your admirers can check out the array of available amenities like perforated leather-trimmed heated seats and the touch-screen DVD navigation system. Then, once they've gotten one last look, you can make use of the available 3.3-liter 225-hp VVT-i V6 for a graceful, dramatic exit.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Solara</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-lexus-lf">
+    <rdfs:comment>The two-seat concept blends the performance of an exotic sports car with the luxury refinements of a Lexus. Designed to express a bold new direction in styling for the Lexus brand, the LF-A concept is a vision closely aligned with the company's Formula One commitment to achieving superiority among its rivals in speed, quickness, agility and reliability. The Lexus LF-A concept features an engine capable of developing more than 500 horsepower from a displacement of less than five liters. With a combination of optimum gearing, weight and aerodynamics, the LF-A concept would produce a top speed in the neighborhood of 200 miles per hour.</rdfs:comment>
+    <skos:prefLabel>2006 Lexus LF</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-echo">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Toyota ECHO</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-xg350">
+    <rdfs:comment>The new 2006 and for next year's (2006) Hyundai XG350 is a roomy vehicle, with a wheelbase of 108.3&quot; allows plenty of leg room up front and is, according to this 2006 Hyundai XG350 review, more than adequate space for passengers in the back seat. This is a great buy for 2006!</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai XG350</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-corvette">
+    <rdfs:comment>Shorter and slightly narrower than its predecessor and sporting fixed headlights rather than pop-up units, the sixth-generation coupe and convertible promise nearly as much passenger space. A super-performance Z06 edition with a 505-horsepower V-8 engine debuts for 2006.</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Corvette</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/audi-q5">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Audi Q5</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-sl-class">
+    <rdfs:comment>Why just drive a sports car when you can drive a legend? The latest incarnation of the ever-popular SL-Class Roadster more than lives up to expectations. Whether it?s the torque-laden performance or the fully automatic vario-roof, the SL-Class delivers thrills in abundance.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes SL-Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-honda-civic">
+    <rdfs:comment>America's best-selling compact car is redesigned for 2006 with new styling, new safety equipment, and more power. Civic returns in 4-dr sedan and 2-dr coupe body styles, plus a gas/electric Hybrid model. Compared to the 2001-2005 generation, the sedan is larger outside, but smaller in some dimensions inside. The coupe is slightly smaller inside and out. Head-protecting curtain side airbags are new to Civic and are standard on all '06 models; ABS also is newly standard on all.</rdfs:comment>
+    <skos:prefLabel>2006 Honda Civic</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-civic-si-sedan">
+    <rdfs:comment>For the first time ever Honda has released a Sport Injected (Si) Civic sedan. The Si sedan combines the same performance enhancements that the Si Coupe brings, as well as the extra room of the normal sedan. Identical to the Si coupe, the Si Sedan has a major improvement in the engine going from the 1.8L SOHC to a 2.0L K20 DOHC i-VTEC which delivers 197 HP at 7800 RPM. Wheels are 17&quot; allow up from 16&quot; in the non-Si. The transmission moves from a 5-speed to 6-speed manual with no automatic option.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Civic Si Sedan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-elantra">
+    <rdfs:comment>When the 2006 Elantra appears in the fall of 2005 as part of Hyundai's mammoth, two-year product offensive, it will feature brand-new sheet metal as well as a completely different interior, most notably, a much larger cabin. This upscale Hyundai model will also receive a brand-new engine, as well as different suspension. The Elantra, as it has in the past, will be marketed as a more upscale vehicle than the Accent, and the price will certainly reflect this.</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Elantra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-corolla">
+    <rdfs:comment>You can't put a price on looking good - but if you have to, it might as well be low. Enter the 2006 Toyota Corolla S, with its awesome styling like front and rear underbody spoilers and available 15-in. aluminum alloy wheels. Then there's the Corolla LE, which has remote keyless entry and power windows, door locks and color-keyed mirrors. The XRS comes equipped with 16-in. aluminum alloy wheels, 4-wheel disc brakes, color-keyed grille surround and 164-hp [2] engine. And if you choose to roll with the CE, you also get a 16-valve VVT-i engine and chrome grille surround. After all, what good is a flashy car if you can't afford to leave your driveway?</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Corolla</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-honda-fit">
+    <rdfs:comment>Honda has unofficially announced that it will begin selling a smaller, less expensive model below the current Civic. Designed to go head-to-head with the likes of the Scion xA and other compacts, Honda's new model is likely to be a version of the Fit hat</rdfs:comment>
+    <skos:prefLabel>2006 Honda Fit</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-grand-vitara">
+    <rdfs:comment>This car-based SUV, which has seen its initial popularity recede over the last few years, will be redesigned toward the end of 2005, at the earliest. It's believed that the Vitara's architecture will no longer be shared with the now defunct Chevy Tracker. Most likely, the new Vitara will be spun off from General Motors' Theta platform, which it will have in common with the Saturn Vue and the projected Pontiac Torrent.</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki Grand Vitara</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-nissan-altima">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Nissan Altima</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-volvo-c30">
+    <rdfs:comment>Volvo is introducing the C30 as part of its 2008 lineup in the North America; the 2007 is already available in Europe and Canada (with the European delivery option). The C30 is a four passenger compact hatchback with good performance. According to Volvo, it'll do 0-60 mph in 6.2 seconds, and the quarter mile in 15 seconds, reaching a speed of 95 mph (153 km/h). This car is marketed towards young urban professionals wanting a high performance, near-luxury vehicle.</rdfs:comment>
+    <skos:prefLabel>2008 Volvo C30</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-volkswagen-passat-wagon">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Volkswagen Passat Wagon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-xc70">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Volvo XC70</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-galant">
+    <rdfs:comment>Mitsubishi introduced a Ralliart, or motor sport version, of the Galant at the 2004 SEMA show which the company intends to bring into production for the 2006 model year. With its rear spoiler, side skirts, wire mesh grille and special front and rear fascias, this flashy variant of Mitsubishi's sedan is aimed at roping in younger buyers. The engine is a 3.8-liter V6, capable of 260 horsepower, which the Galant Ralliart will share with the 2006 Mitsubishi Eclipse. The powertrain is rounded out with a six-speed manual transmission. Other performance-oriented features include Racing Hart F10 wheels, Goodyear F1 GS-D3 tires, a Ralliart exhaust along with a custom air intake, a rear stabilizer bar, cross-drilled rotors, a coil-over spring suspension and Brembo four-piston front brakes -- but don't get too excited as most of these parts aren't likely to remain on the production version.</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Galant</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-spyder">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Spyder</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-magnum">
+    <rdfs:comment>The Hemi-powered Magnum RT is a bold step by Dodge. Featuring a full-size wagon body, rear-wheel-drive and a massive V8, this SUV-alternative harks back to the big, powerful boat-like cars of old. All-wheel-drive optional.</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Magnum</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-f-150">
+    <rdfs:comment>With a revised Dodge Ram on sale for 2006 and a brand-new, Texas-built Toyota Tundra on the horizon, Ford is not taking any chances with its F-150 Pickup this year. A limited-edition F-150 Harley-Davidson model debuts, equipped with rear-wheel-drive or an all-wheel-drive system - a first on an F-150. The Harley truck includes special interior and exterior trim, rich aniline leather upholstery, and 22-inch polished and forged aluminum wheels. Twenty-inch wheels can be ordered for the F-150 FX4, Lariat, and King Ranch this year, and traction control is now available on any 2WD model equipped with a V8 engine.</rdfs:comment>
+    <skos:prefLabel>2006 Ford F-150</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-avalon">
+    <rdfs:comment>The next-generation of Toyota's premier sedan is scheduled to appear in 2005. The Camry's older, more genteel sibling will feature an updated profile based on a Camry platform. Expected to be larger and longer than its predecessor, the new Avalon will also feature a more spacious interior. Powertrain will be a 3.5-liter V-6, which is basically a beefed-up version of the Camry's current engine. This V-6, which will probably be mated to a five-speed automatic, should be capable of at least 270-horsepower.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Avalon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2002-acura-rsx">
+    <rdfs:comment>A 2-door, 4-cylinder sports coupe from Acura. Boasts 200hp in the Type-S and 160 hp for the standard model. Available in manual and automatic with sportshift. 2002 is the debut year for the RSX.</rdfs:comment>
+    <skos:prefLabel>2002 Acura RSX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-solstice">
+    <rdfs:comment>The Pontiac Solstice is a high point of innovative design. All the planning, engineering and refining culminates in an inspired roadster, delivering what may very well be the perfect open-air driving experience. Fluid lines wrap around the GM global RWD compact performance architecture with unibody construction, and set the stage for crisp response and exhilarating performance delivered by the 177 horsepower 2.4L 4-cylinder ECOTEC DOHC VVT engine. The AISIN 5-speed short throw manual transmission allows for quick gear changes. Four-wheel vented disc brakes slow you down before you accelerate out of the corners while the ergonomic contoured driver's seat holds you firmly in place.</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac Solstice</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-supra">
+    <rdfs:comment>Contrary to rumors, Toyota's Supra replacement will in no way, shape or form, bear any resemblance to the Giugiaro-designed Volta concept which appeared in Geneva last March. Toyota does, however, plan on delivering a high-performance sports car along the lines of the departed Supra some time between the end of 2006 and 2007. This two-door, front-engine, rear-wheel-drive sport coupe might be built on an all-new platform, although it's expected that Lexus will not build its own variation.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Supra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chrysler-srt">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chrysler SRT</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-aura">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saturn Aura</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-xlr">
+    <rdfs:comment>With the CTS-V already burning up the streets with its Corvette-sourced V8, Cadillac has turned its attention to the XLR for V-Series treatment. Instead of an LS6 V8, however, the XLR-V is expected to get a supercharged version of its standard 4.6-liter Northstar V8. A full complement of performance enhancements such as larger wheels and tires, recalibrated suspension and stronger brakes should round out the package giving Cadillac a serious performance entry in the luxury convertible segment.</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac XLR</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2009-honda-accord-coupe">
+    <rdfs:comment>The 2009 Honda Accord Coupe is a reliable car that in the 2.4L configuration will give you 30 MPG on the interstate. When shopping for the Honda Accord, you must test drive a comparable BMW or Mercedes C320 because the ride of these exotic cars is much less comfortable. You will feel better knowing that you saved money getting a real car instead. For those looking for a car with more room, you should also consider the 2009 Honda Accord EX-L which is essentially the top of the line Accord today.</rdfs:comment>
+    <skos:prefLabel>2009 Honda Accord Coupe</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-porsche-911">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Porsche 911</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2009-toyota-corolla">
+    <rdfs:comment>The compact Toyota Corolla is the best sold vehicle worldwide. Completely redesigned for 2009, the Corolla grows slightly over its predecessor and offers a little more interior space. With a passenger volume of 92 cu.-ft. and a trunk space of 16.3 cu.-ft., the Corolla bests the Honda Civic (90.9/12.0) and Chevrolet Cobalt (87.1/13.9).</rdfs:comment>
+    <skos:prefLabel>2009 Toyota Corolla</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-rl">
+    <rdfs:comment>The 2006 Acura RL is not just an all-new, class-leading performance sedan. It's the quintessential luxury sedan. Upon first glance, its dramatic styling beckons. On closer inspection, its countless technological feats are overtly apparent. Case in point: a 300-horsepower, V-6, VTEC&amp;#174; engine and the revolutionary Super Handling All-Wheel Drive? (SH-AWD?)--the groundbreaking all-wheel drive platform that distributes torque between the front and rear wheels and can send up to 100% of the rear-wheel torque to either the left or right rear wheel. There's even a real-time traffic feature that displays traffic updates 24-hours a day in select metropolitan areas.</rdfs:comment>
+    <skos:prefLabel>2006 Acura RL</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-ford-fusion">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Ford Fusion</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-srx">
+    <rdfs:comment>Considered Cadillac's first crossover utility vehicle by combining the attributes of more than one vehicle class, the SRX wagon debuted for the 2004 model year. Built on General Motors' Sigma platform like the company's CTS sedan, the luxury-oriented SRX comes with a V-6 or V-8 engine and either rear- or all-wheel drive.</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac SRX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-santa-fe">
+    <rdfs:comment>Hyundai's compact sport utility vehicle received several refinements for the 2005 model year. Styling changes included a fresh grille and taillights, refined bodyside cladding, a redesigned tailgate handle and restyled 16-inch alloy wheels. A new instrument cluster went inside, and the LX model gained a power driver's seat.</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Santa Fe</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-s40">
+    <rdfs:comment>Designed and built for a life on the move. Compact ? yet with generous large-car feel. Technical innovation, creativity and youthful lines point the way for a new generation of Volvo cars. Inspiring driving pleasure included in the price. Volvo?s world-renowned safety features too. An entirely new Volvo that fires your enthusiasm is here.</rdfs:comment>
+    <skos:prefLabel>2006 Volvo S40</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-g6">
+    <rdfs:comment>With sophisticated engine management and computer programming, G6 offers available ABS with standard Full Function Traction Control System (TCS) on the GT model, and available Enhanced Traction System (ETS) on the sedan and 6-cylinder model. Stabilitrak Dynamic Control System comes standard on GTP model.These advanced systems provide solid stops, traction, and control in the most challenging conditions. Among its many safety features, the G6 provides driver and right front passenger air bags and 3-point safety belts for all positions, plus pretensioners that cause the seatbelt to tighten if the vehicle senses an accident, or when the vehicle stops short. Also available side curtain and seat-mounted airbags.</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac G6</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chrysler-crossfire">
+    <rdfs:comment>The new 2006 Chrysler Crossfire comes in a sophisticated two tone, twin cockpit interior. To add to the sporty Crossfire's appearance is the center spine shape which also appears on the shifter and instrument panel. The new Crossfire center console is metallic from the top of the instrument panel to the center of the car and gives this new Chrysler a sporty durable look. Metallic accents are featured throughout the interior including the doors, steering wheel, and instrument panel. The ignition switch is located on the instrument panel not the commonly seen steering column. By the time Crossfire had evolved from concept to production, it had been given a 3.2 LTR 18 valve SOHC V6 engine.</rdfs:comment>
+    <skos:prefLabel>2006 Chrysler Crossfire</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-hyundai-sonata">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Hyundai Sonata</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-uplander">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Uplander</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-grand-prix">
+    <rdfs:comment>When Pontiacs become BMWs, what will the taste-challenged drive? For 04, Pontiac has replaced the excess plastic cladding on the Grand Prix with the clean looks of the G-Force show car (News, May 2002) and given it a BMW-like twin-port grille. An evolution of the 97-03 Grand Prix, the new GP marches toward modernity--hot on the heels of the Vibe and the Z4-like Solstice concept--but on an updated version of that 97-03 platform. Changes include wider-opening rear doors (82 versus 67 degrees), a 10-inch-wider-opening trunk, and nearly six-inch-lower lift-in height--better for hauling mountain bikes and such that otherwise might steer buyers to an SUV.</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac Grand Prix</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-explorer">
+    <rdfs:comment>Enhanced comfort, more power and new safety features are the headlines for the 2006 Ford Explorer. Drive this latest Explorer against an earlier version and you'll likely notice that it's quieter and more refined. Ford added additional sound insulation to reduce road noise and revised the Explorer's suspension and frame for improved ride quality. There are other mechanical changes, as well, such as upgraded brakes (now with EBD and brake assist) and a steering rack that reduces the effort required to turn the steering wheel at low speeds.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Explorer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/volkswagen-golf-mk5-2006">
+    <rdfs:comment>Volkswagen used last year's Frankfurt International Motor Show to introduce its fifth-generation Golf and it looks to be yet another solid entry in this long line of popular hatchbacks. The new design is longer, wider and taller than the previous version resulting in more rear leg- and headroom as well as additional cargo capacity. Both two- and four-door versions are offered in three trim levels. U.S.-spec engine information has not yet been announced, but European versions use a mix of direct injection diesel and gas-powered units. A six-speed automatic is offered along with VW's Direct Shift Gearbox that blends elements of both automatic and manual transmissions. An all-new multilink suspension underpins the rear while struts are used up front. A unique electromechanical steering system is also new.</rdfs:comment>
+    <skos:prefLabel>Volkswagen Golf Mk5 (2006)</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/mercedez-benz-ml350">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Mercedez-Benz ML350</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saab-9-5">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saab 9-5</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hummer-h1">
+    <rdfs:comment>Faced with slumping sales, Hummer is readying a new lineup of high-performance variants of its standard vehicles known as the Alpha series the first of which will be the H1 Alpha. The H1 Alpha will be available as both a four-door open top and a four-door wagon. The engine on both models will be a brand-new Duramax 6.6-liter turbodiesel which produces 310 horsepower and 520 lb-ft of torque at 1,500 rpm. Along with its new Allison 1000 five-speed automatic transmission, this powertrain makes significant improvements in terms of fuel economy, emissions levels and off-road capability over the H1's previous power plant. Additional changes to the H1 include a new, larger capacity fuel tank and a body height increase of 2 inches which is meant to accommodate the new engine and transmission as well as add additional clearance.</rdfs:comment>
+    <skos:prefLabel>2006 Hummer H1</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-aerio">
+    <rdfs:comment>While driving new cars all the time I have to take notes -- mental and with pen and paper. And, it?s annoying to hop from car to car not knowing where the light switch is or flipping the lightswitch when trying to find the windshield wiper gizmo. Like I said, it?s tough, but somebody has to do it. Before you cry me a river or call me ?negative? let me say it was only slightly embarrassing when I stalled the 2004 Suzuki Aerio SX while trying to back out of a parking spot at Oxford Bank, there in downtown Oxford. It had nothing to do with the 2.3L, DOHC 16-valve four cylinder engine. No design flaw with the foot pedal configuration. Nope. I just forgot I was driving a stick. Luckily, no one in the parking lot recognized me.</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki Aerio</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-avalanche">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Avalanche</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-prius">
+    <rdfs:comment>The forward-thinking 2006 Prius with Hybrid Synergy Drive&amp;#174; combines a gas engine and an emissions-free electric motor to achieve amazing fuel economy and an Advanced Technology Partial Zero Emission Vehicle (AT-PZEV) rating - all with the performance of a conventional car. And to make up to 650 miles between fill-ups comfortable, there?s now an available leather-trimmed interior and available cutting-edge features like Bluetooth&amp;#174; wireless technology, Smart Key System and backup camera. Plus you never need to plug-in for recharging. What more could you ask for? Well, several states now give Prius owners carpool lane privileges.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Prius</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-viper">
+    <rdfs:comment>Dodge's high-performance 2-seat sports car revives its coupe body style for 2006. Viper now comes as a convertible with a manual-folding top and heated glass rear window, or as a coupe, which was last offered in 2002. The only engine is a 510-hp 8.3-liter V10. The sole transmission is a 6-speed manual. ABS is standard. Tires are run-flats on 18-inch front wheels and 19-inch rears. Side airbags and antiskid/traction-control systems are unavailable. Standard features include leather-and-faux-suede seats, tilt steering column, power-adjustable pedals, and xenon headlights. Dodge says it will offer satellite radio later in the model year.</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Viper</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-tacoma">
+    <rdfs:comment>In your capable hands, the 2006 Tacoma is ready to make an impression on any surface. An available 236-hp V6 can be matched to a rugged 6-speed manual transmission. Throw yourself inside and you'll find the roomiest Tacoma we've ever made, sitting on top of the strongest chassis we've ever forged. And if that wasn?t enough, there are 18 different Tacomas ? from the corner-carving X-Runner to the Double Cab Long Bed. The earth is your canvas, the wilderness your sketchbook.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Tacoma</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-subaru-forester">
+    <rdfs:comment>THINK. About innovating. About safety. About</rdfs:comment>
+    <skos:prefLabel>2006 Subaru Forester</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-xl-7">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki XL-7</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-gmc-yukon">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 GMC Yukon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-scion-tc">
+    <rdfs:comment>In addition to raw power, the tC also boasts low emissions, low noise levels, and an impressive fuel economy. Manual transmissions get 22 city / 29 highway miles, and automatics deliver 23 city / 30 highway.</rdfs:comment>
+    <skos:prefLabel>2006 Scion tC</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-charger">
+    <rdfs:comment>A rear-drive sedan with a design completely opposite that of its previous design philosophy. This car has long hood, low profile and tons of V8 power courtesy of an all-new Hemi powerhouse. A lower V6 model may also be offered, along with possible coupe and all-wheel-drive variations. Of course, it also packs numerous Mercedes Benz parts.</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Charger</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-yaris">
+    <rdfs:comment>Built around the core concept of &quot;pride of ownership&quot; the Yaris is Toyota's 2007 entry into the competitive minicar market, which includes the Honda Fit and Nissan Versa. Toyota's previous offering for this level, the Toyota Echo, received lukewarm response by critics and in the marketplace. There are two different models of the Yaris, a 3-door liftback and a 4-door sedan, a 5-door hatchback is also available in Canada. Leveraging Toyota's massive resources the Sedan and Hatchback versions of the car were created by two entirely different teams, so while the specifics of the cars remain similar or even identical, the feel is quite distinct.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Yaris</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-porsche-cayman">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Porsche Cayman</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-camry-hybrid">
+    <rdfs:comment>The Toyota Camry Hybrid is all-new for the 2007 model year. The heart of the Camry Hybrid is Toyota's 2.4l Inline-4 cylinder connected to an electric motor that uses the power generated during braking and decelertion phases. The combined output of this powertrain is 187 hp and 38 lb-ft.Gas mileage is rated at 40 mpg city and 38 mpg on the highway. Compared to the standard Camr sedan, th Hybrid's trunk-space decreases to 10.6 cu-ft from 15.0 cu-t, due to the batteries for the Hybrid powertrain that are stored in the trunk.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Camry Hybrid</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-c70">
+    <rdfs:comment>With its three-piece retractable hardtop, the second-generation C70 promises the best of both worlds: With the top up, it's a sporty coupe with dramatic, head-turning style. With the top stowed below the rear deck, it's an open-air convertible that invites wind-in-the-hair fun and excitement.</rdfs:comment>
+    <skos:prefLabel>2006 Volvo C70</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-tiburon">
+    <rdfs:comment>Equally at home either around the streets or out on the open road, Tiburon is ideal for the driving enthusiast. With its powerful 2.7L, all alloy, V6 quad cam engine, the Tiburon offers a choice of 6 speed close ratio manual, or the technologically advanced dual-mode Selectronic automatic transmission with HiVec (Hyundai intelligent Vehicle electronic control) system for optimised performance.</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Tiburon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-honda-pilot">
+    <rdfs:comment>The Honda Pilot has been freshened for 2006 with subtle styling updates along with enhancements to some of the interior features. Also, a new front-wheel-drive model has been added that lowers the price of entry for this midsize sport utility. The 2006 Honda Pilot models offer enhanced safety in the form of three-row curtain air bags that come as standard equipment.</rdfs:comment>
+    <skos:prefLabel>2006 Honda Pilot</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/silence-pt2">
+    <rdfs:comment>Electric vehicles promise to run on less energy, and be friendlier to the environment. However, some people worry that performance and style has to be sacrificed on the altar of the environment. Silence Inc, a joint venture between two Canadian companies, EBW (Electric Big Wheel) and T-Rex, have created the Silence PT2: an electric 3-wheel vehicle. The PT2 is advertised to last for 125-250 miles on a single charge, and can reach a speed of 120 mph. It is 13 feet long, six feet wide and four feet high.</rdfs:comment>
+    <skos:prefLabel>Silence PT2</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-dakota">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Dakota</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-a8">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Audi A8</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-chevrolet-cobalt">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Chevrolet Cobalt</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-s4">
+    <rdfs:comment>In addition to its six-spoke Avus-style wheels and low-profile running shoes, the S4's visual threat is enhanced with more aggressive grille work up front and larger dual exhausts out back. Polished aluminum side-mirror housings are Audi's polite way of saying, &quot;Out of the way, Jack!&quot; Out of respect for the unwritten law that insists that every automobile with sporting intentions must have a deck-lid spoiler, there's one on the S4 sedan's rump. At least it's discreet.</rdfs:comment>
+    <skos:prefLabel>2006 Audi S4</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-ford-explorer">
+    <rdfs:comment>Ford has made considerable updates for the next version of the Explorer Sport Trac, which debuted this year at the Detroit auto show. Now based on the current-generation Explorer platform, it's 2 inches wider and 5 inches longer which should ensure better handling as well as extended cargo space. Storage room will be further increased through a swing-over tubular bed extender as well as a 30-percent augmentation of the cargo bed. Independent rear suspension and Roll Stability Control should also add to the driver's control and safety, while the addition of V8 power should make it more useful for towing.</rdfs:comment>
+    <skos:prefLabel>2007 Ford Explorer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-prius">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Prius</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/cars">
+    <foaf:isPrimaryTopicOf rdf:resource="http://www.productwiki.com/cars/"/>
+    <skos:topConceptOf rdf:resource="http://productdb.org/products"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-bmw-3-series"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-sienna"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2002-acura-rsx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-c-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chrysler-crossfire"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-elantra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-sts"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-a3"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2009-honda-accord-coupe"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-sierra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mazda-6"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-honda-civic"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-pontiac-solstice"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-grand-prix"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-tl"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-lexus-lf"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-titan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-gmc-yukon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-silverado"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-dodge-ram-srt-10"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-civic-sedan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-cavalier"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-volvo-c30"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-rav4"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-xl-7"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-neon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-prius"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-q7"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-colorado"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-grand-caravan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-chevrolet-aveo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-volkswagen-rabbit"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-five-hundred"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-cr-v"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-nissan-altima-hybrid"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-sunfire"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2009-nissan-altima-sedan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-nissan-versa"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/porsche-911-turbo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-solstice"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-allroad"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-supra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-grand-vitara"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-porsche-911"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-civic-hybrid"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2009-toyota-corolla"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-stratus"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-camry"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-charger"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-sl-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/volkswagen-golf-mk5-2006"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-honda-cr-v"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-camry"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-altima"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-corolla"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-tundra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-civic-si-coupe"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-srt4"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2005-acura-rl"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-mazda-3-sedan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/mercedez-benz-ml350"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-subaru-forester"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-v-series"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/porsche-caymen-s-raffle"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mazda-miata"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-nissan-sentra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-ford-mustang-shelby-gt500kr"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-cts"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-corolla"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-tiburon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-lexus-gx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-xc70"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-avalanche"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/tesla-roadster"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-hyundai-sonata"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-chevrolet-malibu"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-escalade"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-armada"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-uplander"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-srx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/audi-q5"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-v70"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ferrari-f430"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-matrix"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-e-series-passenger-van"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-freestar"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-express"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volkswagen-touareg"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-ssr"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-mazda-3-hatchback"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-camry-hybrid"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-tacoma"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/jeep-compass"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-a6"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-porsche-cayenne"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-colt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-focus"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-lancer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-honda-element"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/silence-pt2"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-ford-fusion"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-dodge-caliber"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-chevrolet-suburban"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-bmw-m"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/lamborghini-gallardo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-envoy"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-matrix"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/tesla-model-s"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-s-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-dts"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-highlander"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-vue"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-excursion"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-explorer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chrysler-sebring"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-c70"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volkswagen-gti"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-lancer-evolution"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-bmw-1-series"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-reno"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-freestyle"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-savana"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-durango"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-ion"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-celica"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-g-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-viper"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-slr-mclaren"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-fit"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-porsche-boxster"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-tsx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-audi-r8"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-mustang"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/new-camaro"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/bmw-320"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saab-9-5"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mini-cooper"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-crown-victoria"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-santa-fe"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mazda-rx-8"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-s80"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-lexus-ls"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-safari"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-hyundai-elantra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-relay"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chrysler-pacifica"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-hyundai-sonata"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-raider"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-blazer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-a4"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-4runner"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-cls-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-endeavor"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-v50"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-caravan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-benz-cl-class"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-toyota-camry"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volkswagen-jetta"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/acura-rdx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-bmw-m5"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-prius"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-sky"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-s40"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/swiper"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-subaru-baja"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-forenza"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-mitsubishi-outlander"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-gt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2010-lexus-rx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chrysler-srt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-mr2-spyder"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volvo-s60"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-honda-pilot"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-smart-fortwo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-verona"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mercedes-clk-500"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-cobalt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-escape"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-mitsubishi-lancer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-lexus-sc"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-yukon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-scion-tc"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-sequoia"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-subaru-outback"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-f-150"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-fj-cruiser"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-malibu"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-rl"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/volvo-xc60"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hummer-h1"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-dodge-avenger"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-sonata"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-maxima"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/bmw-x3"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevy-venture"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-aura"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-quest"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saab-9-3"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-nsx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-yaris"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-dakota"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saturn-l300"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-ferrari-f599-fiorano"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-corvette"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-grand-am"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-hhr"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-accord"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-galant"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-civic-coupe"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-s4"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mazda-tribute"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-volkswagen-jetta"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2002-porsche-carrera-4s"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevy-equinox"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-lexus-rx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-magnum"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-bmw-5-series"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-impala"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chrysler-town-country"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-murano"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-nissan-altima"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-monte-carlo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevy-suburban"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-xg350"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-ford-harley-davidson-f-150"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-honda-fit"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-chevrolet-cobalt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-tt"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-cadillac-dts"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-ranger"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-mdx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-volkswagen-passat-wagon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-toyota-tundra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-thunderbird"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-honda-civic-si-sedan"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-sprinter"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/aston-martin"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/mercedes-sl-63"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-avalon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-suzuki-aerio"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-g6"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2009-nissan-altima-coupe"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-gmc-canyon"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-azera"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-pontiac-montana"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2008-ford-fusion"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/hydrogen-car-kits"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mazda-mpv"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hyundai-accent"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-echo"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-chevrolet-trailblazer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-volkswagen-passat"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-a8"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-taurus"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/nissan-x-trail-bonavista-edition"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-saab-9-2x"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-ford-fusion"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2000-volvo-v40"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-bmw-6-series"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-deville"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-acura-rsx"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-porsche-cayman"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-cadillac-xlr"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-nissan-sentra"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-mitsubishi-spyder"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-dodge-ram"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-audi-rs-4"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2007-ford-explorer"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-toyota-solara"/>
+    <ov:isCategoryOf rdf:resource="http://productdb.org/2006-hummer-h3"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel>Cars</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-g-class">
+    <rdfs:comment>25 years on from its debut, the G-Class is considered to be among the leading lights in its segment even today. It&amp;#180;s a modern classic. State-of-the-art technology, brimming with innovations, and a distinctive shape which oozes character are qualities which set it apart from the rest. The legend lives on in the form of the new G 55 AMG with a supercharged V8 engine.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz G-Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-civic-sedan">
+    <rdfs:comment>The sedan is the larger 4-door model of Honda's ultra-popular Civic line of cars. Internally, the sedan is no different than the coupe model, featuring the same engine and features, the difference is all on the outside, with more storage capacity for people in the back seat as well as a larger trunk. The 2007 model stays in the eighth generation of Civics which follows the bold and futuristic styling that has garnered mixed reactions.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Civic Sedan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-ion">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saturn ION</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-bmw-m">
+    <rdfs:comment>?M? stands for Motorsport. And there?s no question that these cars have racing in their blood. The engine roars. The pulse quickens. Exhilaration becomes an understatement. The M Cars. Joy, measured in milliseconds.</rdfs:comment>
+    <skos:prefLabel>2006 BMW M</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-bmw-6-series">
+    <rdfs:comment>Building on BMW's thoroughbred sports coupe heritage, the 6's aggressive lines and low-slung kidney-grille project a dynamic spirit and a compelling sense of style. Behind the wheel, it's pure passion. A heart-pounding launch to 60 mph in a mere 5.3 seconds*, fired by a 4.8-liter V-8 engine and controlled by your choice of three precise 6-Speed transmissions. Exceptional performance and level handling in the fastest corners with BMW's innovative new Active Roll Stabilization (ARS). Refined luxury and a near-obsessive attention to the smallest of details. The 6 Coupe. Exceed expectations.</rdfs:comment>
+    <skos:prefLabel>2006 BMW 6 Series</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-fit">
+    <rdfs:comment>What happens when Honda's baby, the Civic, grows up? The void gets replaced by a totally new model. The Fit is Honda's answer to the surge in the minicar category with the Toyota Yaris and Nissan's Versa. In creating the Fit Honda preempted the concerns about small cars and offers a host of standard safety features including side front airbags, side curtain airbags, and an anti-lock braking system.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Fit</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-matrix">
+    <rdfs:comment>The Matrix is Toyota's answer to the working professional that likes to seek adventure on the weekends. When it was introduced in 2003, the Matrix was one of the first vehicles known as Crossovers that combine the storage requirements of a van or SUV, with the handling and speed of a sedan. For 2007 the Matrix remains largely unchanged from its first model featuring minor improvements across the board. The 2006 Matrix had a sporty XRS model, and All Wheel Drive options available, but both of those are dropped for 2007. Trimming down the model lineup leaves the base model, and a slightly upgraded XR model. Built upon the Corolla base the Matrix is jointly developed with General Motors who offers an almost identical vehicle in the Pontiac Vibe.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Matrix</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2002-porsche-carrera-4s">
+    <rdfs:comment>In 2002, Porsche gave the 996-generation Carrera (911) a face-lift. nbsp; The headlights changed to be more oval shaped, larger displacement engine (from 3.4 to 3.6L), and other improvments.&lt;/p&gt; &lt;p&gt;The Carrera 4S (some call it the C4S) for the 996-generation debuted in 2002 and remained in production until 2005.&lt;/p&gt; &lt;p&gt;Some specs off the top of my head:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;320 hp&lt;/li&gt; &lt;li&gt;273 ft-lb of torque&lt;/li&gt; &lt;li&gt;AWD&lt;/li&gt; &lt;li&gt;0-60 mph in roughly 5.0 seconds&lt;/li&gt; &lt;li&gt;averages about 20 mpg&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;It's a great all around enthusiast's car. nbsp; All wheel drive handling is great for the winter. nbsp; Beautiful sounding exhaust (try to find one with the factory sports exhaust). nbsp; Fast enough.&lt;/p&gt; &lt;p&gt;If you want the 4S cabriolet, it was first offered in 2003.&lt;/p&gt; &lt;p&gt;My previous car was a Porsche Boxster S. nbsp; Although the Carrera 4S is a larger car, believe it or not, the Boxster S had more storage space due to the 2 trunks. nbsp; Heavier (especially in the rear) than the Boxster S and you can feel it, but you can also feel the additional power.&lt;/p&gt;</rdfs:comment>
+    <skos:prefLabel>2002 Porsche Carrera 4S</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2010-lexus-rx">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2010 Lexus RX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-bmw-m5">
+    <rdfs:comment>Fortified with a Formula One-inspired V10 engine, this Motorsport version of the latest 5 Series looks as though it will raise the bar once again in the super-sport sedan category. With roughly 500 horsepower, a seven-speed SMG gearbox and 19-inch tires, BMW predicts that this car will hit 60 mph in less than five seconds and blitz the quarter-mile in just 13 ? supercar stats indeed. And although playing the part of sleeper sedan is always amusing, the M5 won't be very good at it given its lower stance, reshaped front and rear fascias and unmistakable quad-tipped exhaust.</rdfs:comment>
+    <skos:prefLabel>2006 BMW M5</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-volkswagen-jetta">
+    <rdfs:comment>Jetta is one of Volkswagen's most popular cars as it brings European luxury stylings and designs and wraps them in an economy price. The 2007 Jetta is part of the fifth generation of models introduced in the 2006 year. Previous Jettas were available in wagon versions, but for 2007 VW is offering only a sedan. There are four different models which vary in features and engine that range from an entry level price of $16,000 to the fully loaded GLI which comes in at $31,000. This broad range of prices makes it competitive to the other compact cars such as the Honda Civic and Nissan Sentra, while on the upper end making it compete with Nissan's Altima. With the new generation Volkswagen focused on strength and rigidity using high strength steel and laser welding in the manufacturing process.</rdfs:comment>
+    <skos:prefLabel>2007 Volkswagen Jetta</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-c-class">
+    <rdfs:comment>From the very first bend, the Sports Coup&amp;#233; simply demands to be driven. Thanks to DIRECT CONTROL suspension, steering and transmission, its power is translated more precisely and directly than ever. Visually, the message is equally unambiguous, thanks to clear-lens headlights and a wide rear. Inside, chrome-ringed dials and aluminium trim provide further notice of the cars sporting intent.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz C-Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-a3">
+    <rdfs:comment>Audi can't help you with the envy thing. But the parking thing's a breeze with the A3, the most compact of Audi's cars conveyed to North Americans. (There's an aluminum A2 city car sold in Europe, but its tall-narrow-short monospace shape seems to be missing its Matchbox logo along with its entry visa.) The A3 five-door will rightly be known with the suffix Sportback when it migrates to the States, and will be pitched at those hazily defined active-lifestylers who never sit down long enough to be properly tagged for observation.</rdfs:comment>
+    <skos:prefLabel>2006 Audi A3</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-durango">
+    <rdfs:comment>Dodge's mid-size SUV returns for 2006 with a revised line-up and new standard features. The new SXT (replacement for the ST) joins the SLT and Limited as available Durango trim levels. Fuel efficiency is improved by 20% with the new multi-displacement system (MDS), featured exclusively on the 5.7L HEMI V8 engine. Other available engines include a 3.7L V6 and 4.7L V8, which both offer a Clean Fuel option. Safety is enhanced with new standard equipment, including the Electronic Stability Program (ESP) and roll-sensing side curtain air bags. Other revisions for this year include a power rear liftgate, a remote start, and a three-passenger third row seat. Newly designed 17-inch aluminum wheels are standard, while two new 18-inch wheel options are offered.</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Durango</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-e-series-passenger-van">
+    <rdfs:comment>For 2006, the E-Series Van returns with little changes. The E- Series is available in XL, XLT, and Chateau trims. The XL and XLT models feature a standard eight-passenger seating configuration, while the Chateau model can seat seven passengers with its first and second row captain's chairs configuration. The standard 4.6L V-8 engine and the optional 255-hp 5.4L V-8 are paired to a four-speed automatic transmission with overdrive. Standard features on the E350 include air conditioning, dual front airbags, tilt steering, and four-wheel anti-lock disc brakes. The Chateau trim upgrades by adding features such as aluminum wheels, a CD stereo, two-tone paint, privacy glass, and remote keyless entry. A rear seat entertainment system is also available.</rdfs:comment>
+    <skos:prefLabel>2006 Ford E-Series Passenger Van</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-sentra">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Sentra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-s80">
+    <rdfs:comment>The 2006 Volvo S80 is a 4-door, 5-passenger luxury sedan, available in two trims, the 2.5T and the 2.5T AWD. Upon introduction, the 2.5T is equipped with a standard 2.5-liter, I5, 208-horsepower, turbo engine that achieves 21-mpg in the city and 30-mpg on the highway. The 2.5T AWD is equipped with a standard 2.5-liter, I5, 208-horsepower, turbo engine that achieves 19-mpg in the city and 26-mpg on the highway. A 5-speed automatic transmission is standard on both trims.</rdfs:comment>
+    <skos:prefLabel>2006 Volvo S80</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-trailblazer">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Trailblazer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-excursion">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Ford Excursion</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-yukon">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Yukon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-blazer">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Blazer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-express">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Express</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-escape">
+    <rdfs:comment>The Escape returns for 2006 with no major changes after major revisions were made for the 2005 model year. The Escape is available in 10 trim lines: Limited, XLS, XLT 2.3L, XLT 3.0L, and XLT Sport, with either 2WD or 4WD configurations. The Escape compact utility is equipped with a 2.3L engine producing 153-hp and the 200-hp 3.0 V6 on the XLT. The interior includes white-faced gauges, floor mounted gear shifter, and additional storage compartments. Returning to the Escape line-up for 2006 is the XLT Sport trim, which adds unique aluminum wheels, two-tone paint, and black side step bars.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Escape</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-cobalt">
+    <rdfs:comment>Chevrolet revises the 2006 Cobalt lineup, ditching the Base trim in favor of LS, LT sedan, and a new premium LTZ version (sedan only) for the volume models. Also new this year are SS coupes and SS sedans with a 171-horsepower, 2.4-liter four-cylinder engine under the hood, special exterior trim, 17-inch wheels, four-wheel-disc antilock brakes, and performance suspension tuning. The hot SS Supercharged coupe from last year returns for 2006. Majestic Amethyst and Laser Blue are the new colors this year.</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Cobalt</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mazda-miata">
+    <rdfs:comment>After 15 years of design continuity, Mazda plans to completely revise its popular convertible for the 2006 model year. It's believed that the new Miata will share sheet metal, and perhaps even its platform with the RX-8. The traditional soft top could even be replaced by a power-folding metal hardtop, adding to the belief that the 2006 Miata could end up being a heftier car than any of its lithe predecessors. The revised model will probably be powered by Mazda's 2.3-liter inline four-cylinder. The company is also likely to offer a MazdaSpeed version.</rdfs:comment>
+    <skos:prefLabel>2006 Mazda Miata</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-maxima">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Maxima</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-fusion">
+    <rdfs:comment>The Fusion is aimed directly at midsize sedan stars such as Honda Accord, Toyota Camry, and Nissan Altima. An all-aluminum 2.3-liter four-cylinder engine will be standard with an optional 3.0-liter V6 available. Both power plants will drive the front wheels and there will be a choice of manual, automatic or continuously variable transmissions. The Fusion will also be offered with a hybrid power plant.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Fusion</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-audi-r8">
+    <rdfs:comment>The Audi R8 is a two-passenger sports car that is expected to step up to the plate against the Porsche 911 and Aston Martin V8 Vantage. Featuring a mid-engine V-10, the R8 could have close to 500hp running through a permanent all wheel drive system. It's also expected to include a clutchless, six-speed manual transmission, magnetic ride shock absorbers, carbon ceramic disc brakes, and a fully-independent, double wishbone suspension.</rdfs:comment>
+    <skos:prefLabel>2007 Audi R8</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-tundra">
+    <rdfs:comment>Although the current Tundra enjoys brisk sales due to its refined ride and easy-to-drive demeanor, Toyota knows that in order to compete with the big boys it needs a bigger truck. The next-generation Tundra will be a full-size truck in every respect, with a larger V8 power plant and comparable dimensions to Detroit's biggest and best. The FTX concept truck shown at the 2004 Detroit Auto Show was a preview of what Toyota has in mind. Its outlandish size and styling may get toned down a bit for the production truck, but there's no doubt who Toyota is targeting. In fact, Toyota is so intent on building a credible truck, it's constructing an all-new plant in San Antonio, Texas, to build it.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Tundra</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saab-9-3">
+    <rdfs:comment>After the successful launch of the 9-3 Cabrio and sedan, Saab is gearing up for yet another addition to the lineup in the form of a sport wagon. A concept version of this upcoming addition was unveiled at this year's Frankfurt International Motor Show. With a shape inspired by the earlier Saab 9-3X concept, Saab further refined the idea into the 9-3 Sport-Hatch concept. Intended to blur the lines between traditional wagons and hatchbacks, the Sport-Hatch is less radical than the 9-3X, but no less appealing thanks to its swoopy exterior shape and more useful configuration.</rdfs:comment>
+    <skos:prefLabel>2006 Saab 9-3</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-caravan">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Caravan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2009-nissan-altima-coupe">
+    <rdfs:comment>The 2009 Nissan Altima Coupe is a marginal update to the previous year's newly introduced 2008 Altima Coupe. While the models between the two years are almost identical save for some minor improvements on the 2009 - including a higher-finish grille and larger wheel sizes on the more expensive trim levels - the differences with the Altima Sedan are quite significant. Most obvious is the exterior styling of the two cars as the Coupe has both a shorter wheel-base and shorter height to achieve a sportier look while sacrificing interior room, particularly in the trunk area. Interior-wise both cars feature a very similar setup using the same engine and offering almost identical packages. The Altima Coupe stands out somewhat from the crowd, and even from the Sedan model, as the base packages include a relatively large amount of premium features including heated seats, 6-speaker audio system, side airbags, moonroof, power-everything, etc. There are 2 main trim levels with an optional premium package per trim.</rdfs:comment>
+    <skos:prefLabel>2009 Nissan Altima Coupe</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-smart-fortwo">
+    <rdfs:comment>The 2008 smart fortwo &quot;micro compact car&quot; is the second generation smart car, and will be available for the first time in the United States in the first quarter of 2008. While the first generation fortwo was first launched in 1997 and has sold 750,000 units worldwide, it was only available in the US as a &quot;grey market&quot; import car. Also known as a &quot;city coupe&quot;, its trademark features are fuel efficiency, low emissions, safety, and small size.</rdfs:comment>
+    <skos:prefLabel>2008 smart fortwo</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-five-hundred">
+    <rdfs:comment>After debuting last year, the 2006 Ford Five Hundred sees few changes. Leather upholstery is now available on the base SE model, while the SEL and Limited versions can be outfitted with a Family Entertainment System including a rear seat DVD player. A navigation system is also optional, but only on the top Limited trim level. Silver Birch is the single new color for 2006.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Five Hundred</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-hhr">
+    <rdfs:comment>After the successful launch of the 9-3 Cabrio and sedan, Saab is gearing up for yet another addition to the lineup in the form of a sport wagon. A concept version of this upcoming addition was unveiled at this year's Frankfurt International Motor Show. With a shape inspired by the earlier Saab 9-3X concept, Saab further refined the idea into the 9-3 Sport-Hatch concept. Intended to blur the lines between traditional wagons and hatchbacks, the Sport-Hatch is less radical than the 9-3X, but no less appealing thanks to its swoopy exterior shape and more useful configuration. In very Saab-like fashion, the five-door &quot;fastback&quot; is powered by a 2.0-liter turbo engine which rated at 250 horsepower. Expect to see a production version of the Sport-Hatch later next year.</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet HHR</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-bmw-3-series">
+    <rdfs:comment>While 3-Series sedans and wagons are redesigned for 2006, coupes and convertibles continue with a design introduced for 1999. These models have rear-wheel drive and inline 6-cyl engines. The 325 versions have a 185-hp 2.5-liter, 330 models a 225-hp 3.0, M3 editions a 333-hp 3.2. The 325s offer a 5-speed manual transmission or 5-speed automatic. M3s offer a 6-speed manual or BMW's 6-speed Sequential Manual Gearbox. This sequential manual transmission (SMT) is essentially a manual transmission without a clutch pedal. Gear changes are via a floor shifter or steering-wheel paddles; it can also be set to shift like an automatic.</rdfs:comment>
+    <skos:prefLabel>2006 BMW 3 Series</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-cl-class">
+    <rdfs:comment>The look is simply unforgettable; the driving experience is truly incomparable. The pillarless elegance of the 2006 CL-Class is further enhanced by AMG-designed lower bodywork, rear apron, and wheels. One look and you'll see why it's one of the world's most desired cars.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz CL-Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/tesla-roadster">
+    <rdfs:comment>An upcoming 100% electric car capable of accelerationg from zero to 60 mph in 4 seconds and boasting a top speed of 130 mph. The Tesla Roadster, currently in safety and durability testing by Tesla Motors, plans on bringing much more power to the electric car. Sleek, stylish, powerful, and 135 mpg (gasoline equivalent) fuel efficiency. Burn rubber at about 1 cent per mile. Claims to get about 250 miles per charge. Look for this to hit the scene (and make a big impact) in Fall 2007.</rdfs:comment>
+    <skos:prefLabel>Tesla Roadster</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-vue">
+    <rdfs:comment>If you drive too fast, they'll only see a blur. If the VUE is about taking it anywhere, the VUE Red Line is about taking it further. Big 18-inch alloy wheels on wide, low-profile tires keep you in touch with the street. Front and side ground effects lower the VUE's look and streamline its aerodynamics. And with 250 horsepower, the engine delivers performance that puts the sport back in sport utility vehicle. Inside, the contact points of the driving experience have earned long overdue respect: the floor pedals feature gleaming chrome accents that reflect footwell lighting in warm amber or cool blue.</rdfs:comment>
+    <skos:prefLabel>2006 Saturn Vue</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-tt">
+    <rdfs:comment>Although it still looks good after four years on the market, the TT is headed for a complete redesign in 2006. Altering the look of a car that depends so heavily on styling for its appeal is always tricky so expect an evolutionary design update that doesn't stray too far from the original. It's expected to share a platform with the A3 and will continue with a mix of four- and six-cylinder powerplants.</rdfs:comment>
+    <skos:prefLabel>2006 Audi TT</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/nissan-x-trail-bonavista-edition">
+    <rdfs:comment>The X-Trail Bonavista has a selection of clever features and options like reclining rear seats, warming / cooling cup holders, and a removable and washable cargo floor. Bonavista-exclusive upgrades include carbon-fibre interior trim, a special numbered plaque complimented by door sill badges, and a gorgeous platinum paint treatment. Heated leather seats and automatic climate control help make the spacious, five-passenger cabin even more inviting, while a potent 6-disc changer equipped, 160 watt stereo system is available to serenade passengers with powerful tunes. Completing the airy and roomy interior is a panoramic sunroof overhead. Power comes from a 2.5 litre four cylinder which generates 165 horsepower, and the only available transmission is a 4-speed automatic. Power is selective delivered to all four wheels by way of an all-mode 4x4 system.</rdfs:comment>
+    <skos:prefLabel>Nissan X-Trail - Bonavista Edition</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-dodge-ram-srt-10">
+    <rdfs:comment>A world-record top speed of over 154 mph. A 0-to-60 time in the low 5-second range. A 6-foot, 3-inch truck bed? You better believe it. It could only be the Viper V10-powered Dodge Ram SRT10.</rdfs:comment>
+    <skos:prefLabel>2007 Dodge Ram SRT-10</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volkswagen-jetta">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Volkswagen Jetta</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-sonata">
+    <rdfs:comment>Hyundai has already started trial production (in early June) of the Sonata in the Alabama plant by assembling two or three Sonatas a day,&quot; said CEO Kim Dong Jin. &quot;Hyundai will produce a total of 300,000 units of the Sonata and Santa Fe SUV a year in the Alabama plant</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Sonata</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-lancer">
+    <rdfs:comment>Deciding on a Lancer is the easy part. Lancer's roominess and reliability make it a practical choice, while its good looks and tight handling make it sporty and stylish. But Lancer is an exceptional overall value. It comes standard with luxuries like power windows and door locks, as well as an in-dash CD player. And the Lancer also has a bona-fide performance heritage. It shares more than a little DNA with</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Lancer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-ford-harley-davidson-f-150">
+    <rdfs:comment>A Harley-Davidson branded version of Ford's popular F-150 truck. Features 22-inch polished forged alumninum rims, lots of leather on the interior, and chrome on the exterior. Ford claims to have tuned this truck for a more precise driving experience. Under the hood is a 5.4-liter, 3-valve Triton V-8 featuring a specially tuned exhaust system to help capture the Harley-Davidson rumble.Added from trucks.about.com</rdfs:comment>
+    <skos:prefLabel>2007 Ford Harley-Davidson F-150</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/lamborghini-gallardo">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Lamborghini Gallardo</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-subaru-baja">
+    <rdfs:comment>The Subaru Baja proves that capability and comfort can go hand in hand. Powered by the Subaru boxer engine and a refined cabin with the latest amenities such as power windows, mirrors and ambient temperature gauge, the Subaru Baja is rugged enough to handle all your adventures, with the civilized versatility for your day to day life.</rdfs:comment>
+    <skos:prefLabel>2006 Subaru Baja</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-canyon">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Canyon</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saab-9-2x">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Saab 9-2X</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-camry">
+    <rdfs:comment>You didn't get to where you're at by waiting around. So the immediate acceleration of the 3.3-liter VVT-i V6 of Camry SE is utterly practical. But if luxury is more your speed, take a look at the XLE V6 with standard moonroof and leather-trimmed interior, or the Camry LE with power driver's seat and steering wheel audio controls. (Even the Camry Standard has air conditioning, CD player and cruise control all included.) And Camry gets you farther on less with a surprising rating of 24 estimated city, 34 highway miles per gallon. Hey, Camry knows how you like to travel through life. And it's not in the slow lane.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Camry</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-escalade">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac Escalade</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-mdx">
+    <rdfs:comment>Refined styling and rugged versatility have never coexisted so harmoniously as with the Acura MDX. With its sleek lines, muscular shape and refined elegance, you'll feel confident driving it. But for more reasons than its sheer good looks. With its powerful engine and myriad of advanced safety features, you'll travel with newfound authority, knowing that when you're in an Acura, up-to-the-minute technology is behind your every move. And when you add quick handling and performance to the equation, the MDX amounts to the most exhilarating 7-passenger luxury SUV on the road.</rdfs:comment>
+    <skos:prefLabel>2006 Acura MDX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-armada">
+    <rdfs:comment>Full-sized family adventure comes full circle, thanks to Armada's on- and off-road capabilities and seating for eight. Discover why Armada won Strategic Vision's Total Quality Index in Large SUVs.</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Armada</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-bmw-1-series">
+    <rdfs:comment>BMW has decided that it will, after all, bring its 1 Series to the American market. The 1 Series is scheduled to appear in Spring of 2008 as a rear-wheel-drive, two-door coupe and convertible. It will use the same chassis as the European 1 Series which was launched in 2005. The U.S. version of this vehicle will be powered by a 3.0-liter inline six-cylinder engine, which produces 230 horsepower in 128i models and a 300hp twin-turbocharged 3.0-liter inline six-cylinder engine in 135i models.</rdfs:comment>
+    <skos:prefLabel>2008 BMW 1 Series</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chrysler-sebring">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chrysler Sebring</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2009-nissan-altima-sedan">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2009 Nissan Altima Sedan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-endeavor">
+    <rdfs:comment>Mitsubishi will most likely be bringing the Endeavor Ralliart, which was shown as a concept at SEMA, into production in 2006, along with its sister vehicle, the Galant Ralliart. The wire mesh grille, gaudy exterior and numerous high-performance touches are intended to snare younger buyers into the brand. This midsize will be powered by a 3.8-liter MIVEC high-output V6, which yields 260 horsepower. This engine will be mated to a five-speed automatic transmission. The driving experience will be enhanced by a Logitech steering wheel, Ralliart pedals, a sport-tuned suspension and Brembo brakes, but the production version is likely to be toned down a bit in most of these areas.</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Endeavor</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-a6">
+    <rdfs:comment>If your car-purchasing motives include impressing the boorish burghers of the County Orange, there are plenty of flashy cars at the $50,000 price point that bounce the needle more.The A6 Avant is a car for people with money who would really rather not make an issue of it -- your anonymous-opera-benefactor types.It's also quietly gorgeous. Redesigned for 2006 and just hitting the market, the station wagon has a newly sleek skin that looks curried by the wind, a restyling that buffs out any linearity of the previous design, which wasn't exactly boxy to begin with. All the exterior detailing is vacu-formed, sucked into the bodywork: The glass and polished window surrounds are nearly flush; the door handles are embedded into the sheet metal; the lighting instruments (including the new LED tail lamps) wrap around like a military contractor's sunglasses.</rdfs:comment>
+    <skos:prefLabel>2006 Audi A6</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/mercedes-sl-63">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Mercedes SL 63</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-bmw-5-series">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 BMW 5 Series</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-cts">
+    <rdfs:comment>The CTS comes in a single trim level but numerous option packages enable buyers to add varying levels of additional luxury- and sport-oriented features. Standard equipment includes leather seating, side and head-protecting side-curtain airbags, an eight-way power-adjustable driver seat, dual-zone climate control, a CD player, the OnStar communications system, ABS and traction control. Upgrades through the Luxury package include items like a power passenger seat, a two-driver memory package, heated front seats, HomeLink and wood trim on the steering wheel and shift lever. Additional options include a sunroof and an upgraded Bose audio package with a DVD-based navigation system and satellite radio.</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac CTS</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-dodge-avenger">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2008 Dodge Avenger</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-sienna">
+    <rdfs:comment>Let the fun begin with the 2006 Sienna. Featuring an available rear-seat DVD entertainment system [2] with new 9-inch screen and plenty of cargo space for toys, it?s sure to bring a smile to all. Parents will be pleased with Sienna?s versatile 60/40 Split &amp; Stow 3rd RowTM seat, available Front and CenterTM second-row seat (8-passenger model) and that it's the first minivan to receive a &quot;Double Best Pick&quot; designation from the IIHS. Choose seating for 7 or 8 and you've got a minivan that'll be the envy of the neighborhood.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Sienna</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/hydrogen-car-kits">
+    <rdfs:comment>The Run Your Car On Water DIY Hydrogen Car Kit guide, is in my oppinion after reviewing the top three guides on the market, the best value guide there is at the moment.</rdfs:comment>
+    <skos:prefLabel>Hydrogen Car Kits</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-lexus-sc">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Lexus SC</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-dts">
+    <rdfs:comment>While the rest of Cadillac's lineup has migrated to a new rear-wheel-drive platform, the next-generation DTS will retain its front-wheel-drive setup when it debuts next year. The new DTS will most likely incorporate some of Cadillac's new design philosophy but the focus will remain on comfort instead of performance. Its size isn't likely to change much, but look for the incorporation of the new technological features and improved interior materials.</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac DTS</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-nissan-versa">
+    <rdfs:comment>Unlike Nissan's competition in the minicar market the Versa started life as a luxury subcompact car in other parts of the world. When the minicar market started to boom in North America Nissan already had the Versa (known as the Tiida in other markets) and brought the 2007 version over. Despite the economy nature of the minicar market Nissan opted to retain the luxury roots when they brought the Versa over.</rdfs:comment>
+    <skos:prefLabel>2007 Nissan Versa</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-cavalier">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Cavalier</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2000-volvo-v40">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2000 Volvo V40</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-savana">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Savana</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-ssr">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet SSR</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-grand-am">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac Grand Am</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-highlander">
+    <rdfs:comment>Midyear introduction of a gas/electric hybrid version highlights 2005 for this midsize SUV. Highlander shares its underskin structure with Toyota's Camry sedan and with the RX SUV from Toyota's luxury Lexus division. Introduced as early 2006 models, Hybrids combines the gas V6 and battery-powered electric motors for a total of 268 hp. Hybrids uses a continuously variable automatic transmission (CVT) and offers 2WD or AWD. Sharing hybrid technology with Toyota's Prius sedan and the RX 400h, a computer determines whether it drives on electricity, the gas engine, or both. No plug-in charging is required.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Highlander</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-gmc-envoy">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 GMC Envoy</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-dodge-caliber">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Dodge Caliber</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-grand-caravan">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Grand Caravan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevy-suburban">
+    <rdfs:comment>For this, the current Suburban's last year on the market, Chevrolet adds a new LTZ model to the lineup. The LTZ includes a 6.0-liter V8 making 335 horsepower, an all-wheel-drive system rather than the usual part-time two-speed transfer case, 20-inch wheels wearing 55-series rubber and fronting a Z55 suspension setup, and unique trim inside and out. The Suburban LTZ comes painted in black, red, blue, silver, or white. The LTZ includes the same list of features as the LT, with one unique option called the Sun, Sound, and Destinations Package, which bundles a power sunroof with a navigation system and a Bose in-dash CD changer with XM satellite radio. Speaking of XM, its antenna is now integrated with the OnStar telematics for a cleaner appearance. Also new, on Suburban 2500,are heated, extending camper mirrors with a convex &quot;spotter&quot; feature. All 2006 Chevrolet Suburbans are equipped with a tire pressure monitoring system.A redesigned Suburban is due in showrooms for the summer of 2006.</rdfs:comment>
+    <skos:prefLabel>2006 Chevy Suburban</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-toyota-camry">
+    <rdfs:comment>The Toyota Camry is a mid-size sedan, and one of the best selling cars in the US. The Camry has been completely redesigned for 2007, and features handsome, aerodynamic styling, a higher quality interior, and more powerful engines. The 2007 Camry is also available as a Hybrid.</rdfs:comment>
+    <skos:prefLabel>2007 Toyota Camry</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-honda-element">
+    <rdfs:comment>Where will adventure lead you? Load up the Element for a long weekend and you'll quickly notice its tremendous utility. With a tall, spacious cargo area and removable, flip-up rear seats, you can haul all the gear, tools, food, clothes and other supplies you need for the ultimate journey?and still have room for friends. Crank up the 270-watt, seven-speaker AM/FM/CD stereo system with XM&amp;#174; Satellite Radio (EX models), and the drive alone is worth the trip. With all the options the Element gives you to hit the road with, you'll always be hungry for what's next.</rdfs:comment>
+    <skos:prefLabel>2006 Honda Element</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-pontiac-sunfire">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Pontiac Sunfire</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-civic-hybrid">
+    <rdfs:comment>The hybrid Civic is Honda's environmentally friendly answer to the 2007 Toyota Prius in the small size sedan market. Due to the extra space requirements that the battery cells require to power the electric motor, the sedan model is the only available hybrid form. Furthermore, the battery cells reduce the available trunk space from 12 cubic feet in the non-hybrid Civic Sedan to 10.4 on the Hybrid. The battery cells also prevent the rear seats from folding inwards, to give more storage space, like they do on the non-hybrid version.</rdfs:comment>
+    <skos:prefLabel>2007 Honda Civic Hybrid</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-freestyle">
+    <rdfs:comment>The standard Duratec 3.0L engine and CVT give Freestyle impressive car-like fuel economy of 20 city/27 highway for front front-wheel-drive models and 19 city/24 highway* for all-wheel-drive models. Freestyle earned NHTSA?s five-star crash test rating ? the highest rating available ? for both front and side impacts. And it did so without the added benefit of the optional side airbags. Not only do you get a great view, you also get room to stretch with best-in-class+ 1st-, 2nd- and 3rd-row leg room. Room for your stuff is also best-in-class with fold-down 2nd- and 3rd-row seat backs.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Freestyle</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-nsx">
+    <rdfs:comment>Acura NSX drivers are passionate. Adventurous. Gregarious. Engrossed in all the details. That's why there's a place where every option can be explored. And every nuance discovered. Whether you are taking a 3-D tour of the 2005 NSX exterior or you're ogling the interior from the virtual driver's seat, you'll find that entering the Interactive Showroom is the next best thing to being there. In fact, the only thing more pleasurable than choosing an NSX is driving one.</rdfs:comment>
+    <skos:prefLabel>2006 Acura NSX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mazda-6">
+    <rdfs:comment>Mazda unveiled the production version of this high-performance variant of its midsize Mazda 6 in Paris this September. The concept first appeared in Paris two years ago. At the heart of this vehicle is a turbocharged, direct-injection, 2.3-liter, four-cylinder engine. This powertrain, capable of producing 270 horsepower, is mated with a six-speed manual transmission. All-wheel drive is a standard feature. &lt;-- this discription is incorrect, it is for the mazdaspeed 6.</rdfs:comment>
+    <skos:prefLabel>2006 Mazda 6</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-mr2-spyder">
+    <rdfs:comment>The 2006 MR2 Spyder comes with a choice of a 5-speed manual transmission or an available 6-speed sequential manual transmission, Antilock Brake System (ABS), power windows and doors, CFC-free air conditioning, remote keyless entry and a Deluxe 3-in-1 AM/FM ETR/Cassette/CD player with four speakers.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota MR2 Spyder</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-porsche-cayenne">
+    <rdfs:comment>A new, supreme top-of-the-range model is taking over the leading position within the Porsche Cayenne range; second only to the Carrera GT, the Cayenne Turbo S is the most powerful Porsche homologated for road use. Benefiting from careful improvement and on-going development of the turbocharger system, the eight-cylinder bi-turbo power unit develops maximum output of 520 bhp at 5,500 rpm, 70 bhp more than the Cayenne Turbo. Maximum torque of 530 lb-ft, in turn, is maintained consistently all the way between 2,750 and 3,750 rpm. This impressive output is reflected by truly outstanding performance on the road. The Cayenne Turbo S accelerates to 60 mph in 4.8 seconds, sprints from 50 ? 75 mph in fifth gear in 5.4 seconds, and has a top speed of 168 mph.</rdfs:comment>
+    <skos:prefLabel>2006 Porsche Cayenne</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mini-cooper">
+    <rdfs:comment>The Cooper is available as either a two-door hatchback or a two-door convertible with a power-operated top, and both are available in two versions -- base and &quot;S.&quot; The base Cooper is outfitted with 15-inch wheels, leatherette upholstery (cloth is a no-cost option), a tilt steering wheel, a centrally mounted speedometer, air conditioning with micron filtration, a six-speaker stereo with CD player and power windows, locks and mirrors. The Cooper S adds 16-inch wheels with run-flat performance tires, seat-height adjustment and a leather-wrapped steering wheel. A wide range of customizing packages and options are also available.</rdfs:comment>
+    <skos:prefLabel>2006 MINI Cooper</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-sequoia">
+    <rdfs:comment>The adventure may begin at your destination, but the vacation starts in your Sequoia. The 2006</rdfs:comment>
+    <skos:prefLabel>2006 Toyota Sequoia</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-cadillac-v-series">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Cadillac V-Series</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-azera">
+    <rdfs:comment>This is the never-before-seen 2006 Azera. Standard operating procedure was traded in for uncompromised engineering and style. The result is a premium high-performance luxury sedan sculpted from aluminum, leather and beautifully designed sheet metal.</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Azera</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-benz-s-class">
+    <rdfs:comment>Mercedes is hard at work revamping its flagship sedan in the face of stiff competition from Audi, BMW and Maserati. With its reputation taking a beating in recent reliability studies, Mercedes knows that this new sedan has to be perfect. Expect to see slightly larger dimensions with styling cues similar to the current version. The engine lineup will be roughly similar as well, with a range of V8s and V12s powering the lineup.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes-Benz S- Class</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-mitsubishi-lancer">
+    <rdfs:comment>The Mitsubishi Lancer has been around since 1973, and 2008 marks a significant design year for this model of sedan. No longer will the Lancer be thought of as the econobox version of the rally version Evo X as the vehicle has been completely redesigned. It is available in three trim levels: the base model DE, the luxury equipped ES, and the sportier GTS. All models use the same engine and each are available with a 5 manual transmission or a CVT (Continuously Variable Transmission) automatic. The GTS model also features a Sportronic version of the CVT with steering wheel mounted aluminum paddle shifters that simulates a 6-speed manual gearbox.</rdfs:comment>
+    <skos:prefLabel>2008 Mitsubishi Lancer</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-mustang">
+    <rdfs:comment>Redesigned for 2005, the current-generation Ford Mustang is larger than the prior model and features styling cues that hark back to the 1967 version. Mustangs have a standard V-6 engine, but the GT holds a 300-horsepower V-8. Occupants get more space than in the previous generation. Coupes and convertibles are offered.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Mustang</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-volvo-v70">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Volvo V70</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-crown-victoria">
+    <rdfs:comment>Crown Victoria is a sedan for traditional large-car buyers who seek the features offered in the American cars they grew up with  roominess, comfort, smooth ride, V-8 power and rear-wheel drive. Size, safety and dependability remain hallmarks, and Crown Victoria continues to earn the government's highest five-star crash rating for the driver and front passenger.</rdfs:comment>
+    <skos:prefLabel>2006 Ford Crown Victoria</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-ford-mustang-shelby-gt500kr">
+    <rdfs:comment>The Ford Shelby GT500KR, revealed at the 2007 New York International Auto Show, was released in the spring of 2008. The car is powered by a 540 horsepower 5.4-liter supercharged V-8 variation with a Ford Racing Power Upgrade Pack. According to an article in the July 2008 edition of Automobile Magazine, production was limited to 1,000 units in 2008; and the July 2008 edition of Hot Rod Magazine stated that 1,571 will be manufactured in 2009. The Shelby GT500KR features a carbon composite hood with scoops and hood pins, a lowered front air dam, and 14-inch Brembo brand front brakes with functional cooling ducts. The suspension has been modified and tuned by Shelby Automobiles and Ford Racing including unique spring rates, dampers, stabilizer bars, and strut tower brace, all designed specifically for the KR. The GT500KR draws on styling features from the classic 1968 &quot;King of the Road&quot; GT500KR model, and the 2008 model includes &quot;40th Anniversary&quot; badging; both years will have silver paint with blue &quot;LeMans&quot; stripes, and Carroll Shelby signature embroidered seats. The GT500KR's price will be $79,995.</rdfs:comment>
+    <skos:prefLabel>2008 Ford Mustang ShelBy GT500KR</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-mazda-3-hatchback">
+    <rdfs:comment>The hatchback version of the Mazda3 which contains more storage space and other interior improvements to enhance the luxury feel. The Mazda3 was first introduced in 2004 and quickly received critical and commercial success. For 2007 the Mazda3 has undergone minor improvements and upgrades, mainly on the interior with more features coming standard. The biggest change is the introduction of a performance oriented model named the Mazdaspeed3, which is based off of the Mazda 3 Hatchback model. What's special about the Mazda3 is its global design process with a body developed by Volvo, electronics from Ford, with engine design/production and overall tuning happening at Mazda in Japan. The Mazda 3 also comes in a 4-door sedan model. Mazda positions the 3 to compete in the compact commuter car segment which contains the Honda Civic and Nissan Sentra.</rdfs:comment>
+    <skos:prefLabel>2007 Mazda 3 Hatchback</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-suzuki-forenza">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Suzuki Forenza</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-chevrolet-aveo">
+    <rdfs:comment>General Motors is one of the biggest companies in the world selling millions of cars globally under a swath of different brands. The Aveo marketed under the Chevrolet brand is a recent entry to the subcompact field by GM to compete with offerings by Honda and Toyota in the Fit and Yaris respectively. Created by GM's Korean subsidiary Daewoo the Aveo is available in almost all markets around the world, though it comes in different names. In North America the Aveo is available as a 4-door sedan, and a 5-door hatchback known as the Aveo5. The Aveo5 comes in the low-priced Special Value trim, and an upgraded LS trim. while the Aveo sedan is offered in a base LS trim and the higher end LT trim.</rdfs:comment>
+    <skos:prefLabel>2007 Chevrolet Aveo</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/bmw-320">
+    <rdfs:comment>?? ?? ??</rdfs:comment>
+    <skos:prefLabel>BMW 320</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-cadillac-dts">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2007 Cadillac DTS</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mazda-rx-8">
+    <rdfs:comment>It's as pure as sports cars get  high-powered, super-lightweight and perfectly balanced for nimble handling and supreme control. And yet, its nothing like any other sports car in the world. From the industrys only rotary engine to the innovative free-style doors, the Mazda RX-8 is a sports car no other company could even dream of.</rdfs:comment>
+    <skos:prefLabel>2006 Mazda RX-8</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-ford-gt">
+    <rdfs:comment>Simply put, the Ford GT is an all-American supercar that was created in homage to the GT40 racecars that dominated competition at Le Mans in the mid-1960s. A supercharged, midmounted V-8 produces 550 horsepower, which is roughly equivalent to the output from the original, larger engine that went into competition GT40 cars. A limited-edition model for 2006 commemorates Ford's 1966 victory at the 24 Hours of Le Mans.</rdfs:comment>
+    <skos:prefLabel>2006 Ford GT</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/acura-rdx">
+    <rdfs:comment>Acura's first crossover SUV with its inaugural year in 2007 and has seen only minor changes in 2008 and 2009. This luxury, compact SUV is powered by a 4 cylinder, 2.4 L i-VTEC turbocharged engine (another Acura first) able to deliver 240 hp. It's drivetrain is a standard 5-speed automatic transmission with Acura's Super Handling All-Wheel Drive (SH-AWD) able to distribute power according to conditions to the front and rear wheels. It features similar styling as the larger Acura MDX SUV.</rdfs:comment>
+    <skos:prefLabel>Acura RDX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-titan">
+    <rdfs:comment>Titan is full-size power, all truck, and no compromise. The 5.6-L 305-hp V8 Endurance engine produces up to 379 lb-ft of torque. Available towing up to 9,500 lbs of maximum capacity. The available bed-organizing utility of Utili-track, or 350-watt Rockford Fosgate audio system. Explore the full-size power of Titan.</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Titan</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/volvo-xc60">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Volvo XC60</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/porsche-911-turbo">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Porsche 911 Turbo</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-nissan-murano">
+    <rdfs:comment>The 2006 Nissan Murano crossover sport utility vehicle continues to uphold the innovative design of combined multipurpose SUV aspects with that of sport sedan ride and performance. Murano is powered by a 245-horsepower* 3.5 liter DOHC V6 mated to Nissans fuel-efficient Xtronic CVT (Continuously Variable Transmission) for smooth, quiet acceleration and enhanced fuel efficiency (versus a standard 4-speed automatic transmission).</rdfs:comment>
+    <skos:prefLabel>2006 Nissan Murano</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-monte-carlo">
+    <rdfs:comment>Chevrolet has made significant mechanical and styling upgrades to its Monte Carlo coupe this year. The major mechanical change is the introduction of a trio of new engines. Last year's normally aspirated engines were fuel-efficient but not particularly sporty. They've been replaced by two new V6s with variable valve timing.</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Monte Carlo</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-honda-cr-v">
+    <rdfs:comment>2007 is a redesign year for the popular CR-V line of SUVs from Honda. Available in both 2WD and 4WD models boasting 30 mpg and 28 mpg respectively. Most noticeable change is the sleeker exterior with the spare wheel no longer fixed to the rear hatch that now opens vertically. Available in the US in three trim levels: LX, EX, and the upscale EX-L. The CR-V is 1.37 nearer to the ground and 1.18 inches wider than its predecessor, and along with suspension and chassis tweaks will drive more like a car. Powered by a 166 hp engine that delivers 161 ft-lbs. of torque. Expected to be available in the US in late September.</rdfs:comment>
+    <skos:prefLabel>2007 Honda CR-V</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-dodge-sprinter">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Dodge Sprinter</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-rs-4">
+    <rdfs:comment>Audi has chosen its trendsetting and groundbreaking FSI technology for the RS 4 saloon, direct gasoline injection ensuring even more effective combustion of the fuel/air mixture and, as a result, an even better power yield. This is matched by the highly responsive development of power, the RS 4 accelerating to 100 km/h in 4.8 seconds and reaching 200 km/h in 16.6 seconds. Top speed is cut off electron&amp;#172;ically at 250 km/h.</rdfs:comment>
+    <skos:prefLabel>2006 Audi RS 4</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mercedes-clk-500">
+    <rdfs:comment>Style is hard to describe but easy to recognise. Just take a look at the CLK-Class Coup&amp;#233;. With its timeless elegance and technical highlights such as new-generation 6-cylinder engines, it has an appeal thats simply unmistakable.</rdfs:comment>
+    <skos:prefLabel>2006 Mercedes CLK 500</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mitsubishi-colt">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Mitsubishi Colt</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2008-toyota-camry">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2008 Toyota Camry</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-acura-rsx">
+    <rdfs:comment>With its nimble, racecar handling and myriad of comforts, the 2006 RSX is the quintessence of performance and luxury. Equally at home on a merciless mountain road as a big-city interstate, the RSX and RSX Type-S dish up powerful, unparalleled thrills. Strategically savvy interior appointments easily accommodate its highly demanding sports coupe owner, while impressing even the most discriminating luxury coupe driver.</rdfs:comment>
+    <skos:prefLabel>2006 Acura RSX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-audi-allroad">
+    <rdfs:comment>Concept cars fall into two categories: those that are so otherworldly that they're fit only for a sci-fi B-movie, and those that are a thinly veiled production car. This Audi allroad quattro concept falls firmly into the latter category. It's a one-off built for the Detroit auto show and worth $3.5 million, but behind the glitzy show car detailing lays a very real product. This prototype will form the basis for the next allroad road car</rdfs:comment>
+    <skos:prefLabel>2006 Audi Allroad</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/aston-martin">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>Aston Martin</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-mazda-mpv">
+    <rdfs:comment>The Mazda MPV has everything you need in a minivan, plus some things you may have thought you d have to sacrifice. You ll find space, comfort and practicality seamlessly merged with unmistakable Mazda style and car-like performance and handling. All seven passengers are sure to agree... there s nothing boring about this minivan.</rdfs:comment>
+    <skos:prefLabel>2006 Mazda MPV</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2007-ferrari-f599-fiorano">
+    <rdfs:comment>Ferrari will replace the 575 Maranello with a variant of the 612 Scaglietti, which could retain the Maranello name or go by the new moniker of &quot;Imola.&quot; Either way, the Ferrari 600 will be an exceptionally powerful car, with a 6.0-liter version of the Scaglietti's V12. This lethal engine is expected to yield as much as 580 to 600 horsepower. This engine will be paired with a clutchless manual transmission. In addition to engine strength, the 600 will also improve its interior room and luggage space over the current Maranello. Designed by Pininfarina, the Ferrari 600 will be built on a shorter version of the Scaglietti's aluminum spaceframe chassis and also use the 612's front/midengine layout. The 600 should weigh in close to the Scaglietti at roughly 4,000 pounds. When it debuts in the spring of 2006, the Ferrari 600 will feature an MSRP somewhere in between the F430 and the Scaglietti</rdfs:comment>
+    <skos:prefLabel>2007 Ferrari F599 Fiorano</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/swiper">
+    <rdfs:comment>Details and specs to be added by fellow members of &quot;the Countache Club&quot;</rdfs:comment>
+    <skos:prefLabel>Swiper</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-toyota-4runner">
+    <rdfs:comment>The 2006 4Runner opens up those forbidding places you wouldn?t venture to before. With an available 260-hp VVT-i V8, it?s a high-tech machine that can roll over inhospitable territory, no sweat.</rdfs:comment>
+    <skos:prefLabel>2006 Toyota 4Runner</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-lexus-rx">
+    <rdfs:comment>The Lexus RX 400h is the first luxury sport utility vehicle equipped with a hybrid powertrain. It features a version of parent company Toyotas Hybrid Synergy Drive technology thats been modified for SUV duty. Changes include the installation of a new battery, the 3.3-liter V-6 from the RX 330 and a more powerful electric motor that can operate at 12,000 rpm thats twice the top speed of the motor used in the Toyota Prius hybrid.</rdfs:comment>
+    <skos:prefLabel>2006 Lexus RX</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevy-venture">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevy Venture</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-chevrolet-malibu">
+    <rdfs:comment>Start editing!</rdfs:comment>
+    <skos:prefLabel>2006 Chevrolet Malibu</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-saturn-relay">
+    <rdfs:comment>The Saturn Relay is styled to look like an SUV, with a long, square nose, exposed C-pillars, and heavy-duty roof rails. It is a minivan, however, with the valuable virtues of sliding side doors and comfortable seating for seven.The Relay's cabin is clean and contemporary, and some neat features are available. OnStar is standard. A new integrated navigation system is available. A rear-seat DVD entertainment system comes standard, and the available PhatNoise entertainment system can play video games, digital music and movies through the vehicle's existing sound system. It's pretty Phat.</rdfs:comment>
+    <skos:prefLabel>2006 Saturn Relay</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-hyundai-accent">
+    <rdfs:comment>As part of a major product offensive that will take place over the next two years, Korea's top auto manufacturer wil redesign its redoubtable entry-level compact. The 2006 Accent will borrow its underpinnings and other internal details from the next-generation Kia Rio, although you can expect the two vehicles to look quite different on the surface. Aesthetically, the Accent will probably take its cues from the E3 concept which appeared in Geneva this year. Hyundai has planned a tentative release date for the summer of 2005.</rdfs:comment>
+    <skos:prefLabel>2006 Hyundai Accent</skos:prefLabel>
+  </rdf:Description>
+
+  <rdf:Description rdf:about="http://productdb.org/2006-porsche-boxster">
+    <rdfs:comment>Porsche is reportedly working on an all-new Boxster that's anticipated to show up sometime next year. Even bigger news is expected about a year later when a coupe version debuts for the first time. Both cars will get slightly larger versions of the Boxster's current engine offerings with gains in the 10-20 horsepower range.</rdfs:comment>
+    <skos:prefLabel>2006 Porsche Boxster</skos:prefLabel>
+  </rdf:Description>
+
+</rdf:RDF>
