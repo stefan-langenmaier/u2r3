@@ -33,8 +33,8 @@ public abstract class MergeableRelation extends Relation {
 	}
 	
 	/**
-	 * TODO Wieso muss das ein Unterklasse machen?
 	 * Creates the delta of an relation for reasoning
+	 * The deltas have a different number od columns
 	 * @param id
 	 */
 	public abstract void createDeltaImpl(int id);

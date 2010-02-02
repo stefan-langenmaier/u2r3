@@ -74,15 +74,7 @@ public class DeltaRelation {
 			return relation.getTableName();
 		}
 	}
-//	
-//	public String getDeltaName(int delta, String table) {
-//		if (!table.equals(relation.getTableName())) return table;
-//		if (delta == DeltaRelation.NO_DELTA) {
-//			return getTableName();
-//		}
-//		return getTableName() + "_d" + delta;
-//	}
-	
+
 	public void merge(DeltaRelation delta) {
 		if (relation instanceof MergeableRelation) {
 			MergeableRelation mrelation = (MergeableRelation) relation;
