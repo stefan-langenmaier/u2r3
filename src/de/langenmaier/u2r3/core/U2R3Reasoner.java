@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
@@ -49,6 +50,8 @@ import de.langenmaier.u2r3.util.NodeIDMapper;
 import de.langenmaier.u2r3.util.Settings;
 
 public class U2R3Reasoner extends OWLReasonerBase {
+	static Logger logger = Logger.getLogger(U2R3Reasoner.class);
+	
 	private RuleManager ruleManager;
 	private RelationManager relationManager;
 	private ReasonProcessor reasonProcessor;
@@ -419,8 +422,11 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			} else {
 				throw new U2R3NotImplementedException();
 			}
-			
-			return stmt.execute();
+			logger.info(stmt.toString());
+			if (stmt.executeQuery().next()) {
+				return true;
+			}
+			return false;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			throw new UnsupportedEntailmentTypeException(axiom);

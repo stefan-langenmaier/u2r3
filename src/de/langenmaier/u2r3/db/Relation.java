@@ -307,6 +307,8 @@ public abstract class Relation extends U2R3Component implements Query {
 			relationManager.getRelation(RelationName.someValuesFrom).getSubAxiomLocationImpl(sql, ce, tid, col);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_ALL_VALUES_FROM) {
 			relationManager.getRelation(RelationName.allValuesFrom).getSubAxiomLocationImpl(sql, ce, tid, col);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_COMPLEMENT_OF) {
+			relationManager.getRelation(RelationName.complementOf).getSubAxiomLocationImpl(sql, ce, tid, col);
 		} else {
 			throw new U2R3NotImplementedException();
 		}
