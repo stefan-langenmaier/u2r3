@@ -1,6 +1,7 @@
 package de.langenmaier.u2r3.rules;
 
 import org.apache.log4j.Logger;
+import org.semanticweb.owlapi.vocab.OWLRDFVocabulary;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.db.DeltaRelation;
@@ -40,10 +41,10 @@ public class ClsSvf2LitRule extends ApplicationRule {
 		
 		sql.append("\n\t FROM " + delta.getDeltaName("someValuesFrom") + " AS svf");
 		sql.append("\n\t\t INNER JOIN " + delta.getDeltaName("dataPropertyAssertion") + " AS prp ON prp.property = svf.property");
-
+		sql.append("\n\t WHERE svf.total='" + OWLRDFVocabulary.OWL_THING.getIRI().toString() + "'");
 		
 		if (again) {
-			sql.append("\n\t WHERE NOT EXISTS (");
+			sql.append("\n\t AND NOT EXISTS (");
 			sql.append("\n\t\t SELECT bottom.entity");
 			sql.append("\n\t\t FROM " + newDelta.getDeltaName() + " AS bottom");
 			sql.append("\n\t\t WHERE bottom.entity = prp.subject AND bottom.colClass = svf.part");
