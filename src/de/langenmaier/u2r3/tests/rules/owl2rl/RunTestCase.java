@@ -116,10 +116,22 @@ public class RunTestCase {
 		
 		File f = new File(path);
 		
+		if (f.exists()) {
+			runConsistencyTestCase(folder, name, number, false);
+			return;
+		}
+		
+		path = folder + "/" + name + "/" + number +"/" + number + ".consistent.owl";
+		
+		f = new File(path);
+		if (f.exists()) {
+			runConsistencyTestCase(folder, name, number, true);
+			return;
+		}
+		
 		if (!f.exists()) {
 			runEntailmentTestCase(folder, name, number);
-		} else {
-			runConsistencyTestCase(folder, name, number);
+			return;
 		}
 	}
 	
@@ -166,11 +178,16 @@ public class RunTestCase {
 		}
 	}
 	
-	public static void runConsistencyTestCase(String folder, String name, String number) {
+	public static void runConsistencyTestCase(String folder, String name, String number, boolean consistencyCheck) {
 		try {
 			
 			folder = "file://" + folder + "/" + name + "/" + number + "/";
-			String ont_uri = folder +  number + ".owl";
+			String ont_uri;
+			if (consistencyCheck) {
+				ont_uri = folder +  number + ".consistent.owl";
+			} else {
+				ont_uri = folder +  number + ".owl";
+			}
 
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 			
@@ -185,7 +202,7 @@ public class RunTestCase {
 		
 			reasoner.prepareReasoner();
 
-			if (!reasoner.isConsistent()) {
+			if (reasoner.isConsistent() == consistencyCheck) {
 				logger.info("Tesfall <" + name + "> okay.");
 			} else {
 				logger.error("Fehler in Testfall <" + name + ">!");
