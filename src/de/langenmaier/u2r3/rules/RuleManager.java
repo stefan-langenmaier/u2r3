@@ -175,23 +175,25 @@ public class RuleManager {
 		//rules.put(RuleName.dt_not_type, new DtNotTypeRule(reasoner));
 		//zu heftig
 		//rules.put(RuleName.dt_eq, new DtEqRule(reasoner));
-		rules.put(RuleName.impl_obj_int, new ImplObjIntRule(reasoner));
-		rules.put(RuleName.impl_obj_uni, new ImplObjUniRule(reasoner));
-		rules.put(RuleName.impl_obj_com, new ImplObjComRule(reasoner));
-		rules.put(RuleName.impl_obj_oo, new ImplObjOoRule(reasoner));
-		rules.put(RuleName.impl_avf, new ImplAvfRule(reasoner));
-		rules.put(RuleName.impl_svf, new ImplSvfRule(reasoner));
-		rules.put(RuleName.impl_hv_ent, new ImplHvEntRule(reasoner));
-		rules.put(RuleName.impl_hv_lit, new ImplHvLitRule(reasoner));
-		rules.put(RuleName.impl_mc, new ImplMcRule(reasoner));
-		rules.put(RuleName.impl_mqc, new ImplMqcRule(reasoner));
-		rules.put(RuleName.impl_opa, new ImplOpaRule(reasoner));
-		rules.put(RuleName.impl_nopa, new ImplNopaRule(reasoner));
-		rules.put(RuleName.impl_dpa, new ImplDpaRule(reasoner));
-		rules.put(RuleName.impl_ndpa, new ImplNdpaRule(reasoner));
-		rules.put(RuleName.impl_lit_dp, new ImplLitDpRule(reasoner));
-		rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
-		rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
+		if (reasoner.getSettings().checkProfile() == false) {
+			rules.put(RuleName.impl_obj_int, new ImplObjIntRule(reasoner));
+			rules.put(RuleName.impl_obj_uni, new ImplObjUniRule(reasoner));
+			rules.put(RuleName.impl_obj_com, new ImplObjComRule(reasoner));
+			rules.put(RuleName.impl_obj_oo, new ImplObjOoRule(reasoner));
+			rules.put(RuleName.impl_avf, new ImplAvfRule(reasoner));
+			rules.put(RuleName.impl_svf, new ImplSvfRule(reasoner));
+			rules.put(RuleName.impl_hv_ent, new ImplHvEntRule(reasoner));
+			rules.put(RuleName.impl_hv_lit, new ImplHvLitRule(reasoner));
+			rules.put(RuleName.impl_mc, new ImplMcRule(reasoner));
+			rules.put(RuleName.impl_mqc, new ImplMqcRule(reasoner));
+			rules.put(RuleName.impl_opa, new ImplOpaRule(reasoner));
+			rules.put(RuleName.impl_nopa, new ImplNopaRule(reasoner));
+			rules.put(RuleName.impl_dpa, new ImplDpaRule(reasoner));
+			rules.put(RuleName.impl_ndpa, new ImplNdpaRule(reasoner));
+			rules.put(RuleName.impl_lit_dp, new ImplLitDpRule(reasoner));
+			rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
+			rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
+		}
 		rules.put(RuleName.cax_adc_ent, new CaxAdcEntRule(reasoner));
 		rules.put(RuleName.cax_adc_lit, new CaxAdcLitRule(reasoner));
 		
