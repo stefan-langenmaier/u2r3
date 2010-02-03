@@ -24,7 +24,8 @@ public class RelationManager {
 		//sourceIndividual, targetIndividual, assertionProperty, targetValue,
 		//onClass, onProperty, distinctMembers,
 		oneOf, disjointWith, differentFromLit,
-		negativeObjectPropertyAssertion, negativeDataPropertyAssertion};
+		negativeObjectPropertyAssertion, negativeDataPropertyAssertion,
+		datatypeRestriction, facetList};
 
 	private HashMap<RelationName, Relation> relations = new HashMap<RelationName, Relation>();
 	private History history = null;
@@ -89,6 +90,11 @@ public class RelationManager {
 		//relations.put(RelationName.onClass, new OnClassRelation(reasoner));
 		relations.put(RelationName.oneOf, new OneOfRelation(reasoner));
 		relations.put(RelationName.disjointWith, new DisjointWithRelation(reasoner));
+		
+		if (reasoner.getSettings().checkProfile() == false) {
+			//relations.put(RelationName.facetList, new FacetListRelation(reasoner));
+			//relations.put(RelationName.datatypeRestriction, new DatatypeRestrictionRelation(reasoner));
+		}
 		
 	}
 

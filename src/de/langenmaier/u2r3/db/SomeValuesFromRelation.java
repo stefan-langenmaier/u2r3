@@ -2,6 +2,7 @@ package de.langenmaier.u2r3.db;
 
 import java.sql.SQLException;
 
+import org.semanticweb.owlapi.model.OWLDataSomeValuesFrom;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectSomeValuesFrom;
 
@@ -61,6 +62,32 @@ public class SomeValuesFromRelation extends Relation {
 				}
 				if (svf.getFiller().isAnonymous()) {
 					handleAddAnonymousClassExpression(svf.getFiller());
+				}
+				
+			} else if (ce instanceof  OWLDataSomeValuesFrom) {
+				OWLDataSomeValuesFrom svf = (OWLDataSomeValuesFrom) ce;
+				addStatement.setString(1, nidMapper.get(ce).toString());
+				
+				if (svf.getProperty().isAnonymous()) {
+					addStatement.setString(2, nidMapper.get(svf.getProperty()).toString());
+				} else {
+					addStatement.setString(2, svf.getProperty().asOWLDataProperty().getIRI().toString());
+				}
+				
+				if (!svf.getFiller().isDatatype()) {
+					addStatement.setString(3, nidMapper.get(svf.getFiller()).toString());
+				} else {
+					addStatement.setString(3, svf.getFiller().asOWLDatatype().getIRI().toString());
+				}
+				//System.out.println(addStatement);
+				addStatement.execute();
+				reasonProcessor.add(new AdditionReason(this));
+				
+				if (svf.getProperty().isAnonymous()) {
+					handleAddAnonymousDataPropertyExpression(svf.getProperty());
+				}
+				if (!svf.getFiller().isDatatype()) {
+					handleAddAnonymousDataRangeExpression(svf.getFiller());
 				}
 				
 			} else {

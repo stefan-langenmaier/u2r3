@@ -41,7 +41,8 @@ public class RuleManager {
 		impl_obj_int, impl_obj_uni, impl_obj_com, impl_obj_oo,
 		impl_avf, impl_svf, impl_hv_ent, impl_hv_lit, impl_mc, impl_mqc,
 		impl_opa, impl_nopa, impl_dpa, impl_ndpa,
-		impl_lit_dp, impl_lit_hv, impl_lit_ndp};
+		impl_lit_dp, impl_lit_hv, impl_lit_ndp,
+		dtr_svf};
 
 	private HashMap<RuleName, Rule> rules = new HashMap<RuleName, Rule>();
 	private U2R3Reasoner reasoner;
@@ -193,6 +194,8 @@ public class RuleManager {
 			rules.put(RuleName.impl_lit_dp, new ImplLitDpRule(reasoner));
 			rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
 			rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
+			
+			//rules.put(RuleName.dtr_svf, new DtrSvfRule(reasoner));
 		}
 		rules.put(RuleName.cax_adc_ent, new CaxAdcEntRule(reasoner));
 		rules.put(RuleName.cax_adc_lit, new CaxAdcLitRule(reasoner));

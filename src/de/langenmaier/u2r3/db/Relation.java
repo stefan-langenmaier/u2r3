@@ -9,9 +9,11 @@ import java.util.HashSet;
 
 import org.apache.log4j.Logger;
 import org.semanticweb.owlapi.model.ClassExpressionType;
+import org.semanticweb.owlapi.model.DataRangeType;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClassExpression;
 import org.semanticweb.owlapi.model.OWLDataPropertyExpression;
+import org.semanticweb.owlapi.model.OWLDataRange;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLObject;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;
@@ -231,6 +233,8 @@ public abstract class Relation extends U2R3Component implements Query {
 			relationManager.getRelation(RelationName.hasValueEnt).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.DATA_HAS_VALUE) {
 			relationManager.getRelation(RelationName.hasValueLit).add(ce);
+		} else if (ce.getClassExpressionType() == ClassExpressionType.DATA_SOME_VALUES_FROM) {
+			relationManager.getRelation(RelationName.someValuesFrom).add(ce);
 		} else if (ce.getClassExpressionType() == ClassExpressionType.OBJECT_MAX_CARDINALITY) {
 			OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
 			if (mc.isQualified()) {
@@ -239,6 +243,7 @@ public abstract class Relation extends U2R3Component implements Query {
 				relationManager.getRelation(RelationName.maxCardinality).add(ce);
 			}
 		} else {
+			System.out.println(ce);
 			System.out.println(ce.getClassExpressionType());
 			throw new U2R3NotImplementedException();
 		}
@@ -252,7 +257,13 @@ public abstract class Relation extends U2R3Component implements Query {
 		} else {
 			throw new U2R3NotImplementedException();
 		}
-		
+	}
+	protected void handleAddAnonymousDataRangeExpression(OWLDataRange dr) {
+		System.out.println(dr);
+		System.out.println(dr.getDataRangeType());
+		if (dr.getDataRangeType() == DataRangeType.DATATYPE_RESTRICTION) {
+			relationManager.getRelation(RelationName.datatypeRestriction).add(dr);
+		}
 	}
 	
 	protected void handleAddAnonymousDataPropertyExpression(OWLDataPropertyExpression pe) {
