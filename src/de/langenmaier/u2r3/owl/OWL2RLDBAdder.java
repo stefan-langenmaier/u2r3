@@ -179,12 +179,10 @@ public class OWL2RLDBAdder extends U2R3Component implements OWLAxiomVisitor {
 	/**
 	 * Not allowed because this is already implicit defined
 	 */
-	public void visit(OWLDeclarationAxiom arg0) {
-		throw new U2R3NotInProfileException(arg0);
-		//logger.debug("  adding Declaration:" + axiom.toString());
-		//relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
-		//System.out.println("IGNORIERT: " + axiom);
-		//logger.debug("  added Declaration");
+	public void visit(OWLDeclarationAxiom axiom) {
+		logger.debug("  adding Declaration:" + axiom.toString());
+		relationManager.getRelation(RelationName.classAssertionEnt).add(axiom);
+		logger.debug("  added Declaration");
 	}
 
 	@Override
