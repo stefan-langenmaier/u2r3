@@ -70,8 +70,75 @@ T(?s1, owl:sameAs, ?s2), T(?s1, ?p, ?o) | T(?s2, ?p, ?o)
 
 Die Verknüpfung wird durch einen JOIN auf die entsprechende Spalte realisiert.
 
+\begin{lstlisting}[language=SQL]
 INSERT INTO objectPropertyAssertion(subject, object, property)
 SELECT sa.right, opa.property, opa.object
 FROM objectPropertyAssertion AS opa
 INNER JOIN sameAs AS sa
 	ON sa.left = opa.subject
+\end{lstlisting}
+
+\subsubsection{Listenegeln}
+Dabei können Listenregeln auch Regeln sein die neue Fakten erzeugen oder Inkonsistenzen überprüfen. Eine Inkonsistenzregel mit einer Liste ist z.B. prp-adp:
+
+If | then
+T(?x, rdf:type, owl:AllDisjointProperties)
+T(?x, owl:members, ?y)
+LIST[?y, ?p1, ..., ?pn]
+T(?u, ?pi, ?v)
+T(?u, ?pj, ?v)                                    | false | für alle 1 ≤ i < j ≤ n 
+
+Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert dese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
+
+\begin{lstlisting}
+SELECT 1
+FROM classAssertionEnt AS ca
+INNER JOIN members AS m ON ca.entity = m.class
+INNER JOIN list AS l ON m.list = l.name
+INNER JOIN objectPropertyAssertion AS opa1 ON opa1.property = l.property
+INNER JOIN objectPropertyAssertion AS opa2 ON opa2.property = l.property
+WHERE opa1.subject = opa2.subject AND opa1.object = opa2.object
+	AND ca.class = 'owl:AllDisjointProperties'
+\end{lstlisting}
+
+Tatsächlich wird hier mehr gemacht als nötig ist. Die subject und object Spalten werden von beiden Seiten miteinander verglichen. Es wäre aber nur eine nötig. So ist es allerdings einfacher und natürlicher in SQL Syntax zu implementieren.
+
+Im Falle der Regel eq-diff2 muss eine Tabelle doppelt importiert werden um wirkliche alle Fakten mit einander vergleichen zu können. Die ursprüngliche Regel.
+
+If | then
+T(?x, rdf:type, owl:AllDifferent)
+T(?x, owl:members, ?y)
+LIST[?y, ?z1, ..., ?zn]
+T(?zi, owl:sameAs, ?zj) 	          | false 	| für alle 1 ≤ i < j ≤ n
+
+Würde man hier streng nach Schema vorgehen würde die sameAs Relation nur einmal in der Abfrage auftauchen. Das würde allerdings nicht alle Kombinationen erzeugen. Die Abfrage ist damit sehr ähnlich der obigen und wird hier ausgespart.
+
+Ein besonderer Typ der Listenregel ist z.B. cls-oo, diese Regel erzeugt mehrere Fakten. Das ist aber in der Umsetzung kein Problem.
+
+If | then
+T(?c, owl:oneOf, ?x)
+LIST[?x, ?y1, ..., ?yn] 	 | T(?y1, rdf:type, ?c)
+								...
+								T(?yn, rdf:type, ?c) 
+
+\subsubsection{Datentypenregeln}
+Die Regeln zur Überprüfung der Datentypen ist nicht komplizierter, allerdings eine effiziente Umsetzung ist hier das Problem. Hier ist vor allem die dt-eq Regel das Problem.
+
+If | then
+true | T(lt1, owl:sameAs, lt2) | für alle Literale lt1 und lt2 mit dem selben Datenwert
+
+Die aktuelle Umsetzung versucht sich möglichst nah an das MEMA-Prinzip und die Regel zu halten. Optimierungen sind hier noch wesentlich vorhanden.
+
+\begin{lstlisting}
+INSERT INTO sameAsLit (left, right)
+SELECT ca1.literal, ca2.literal
+FROM classAssertionLit AS ca1
+CROSS JOIN classAssertionLit AS ca2
+WHERE isSameLiteral(ca1.literal, ca2.literal)
+\end{lstlisting}
+
+Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenbankoperationen ist, außerdem können Literal nicht mit den üblichen Datenbankoperatoren verglichen werden. Hierzu wurde eine eigene Datenbankmethode geschrieben die dies übernimmt. DIe Datenbankmethde ruft eine Java-Routine auf die dann den eigentlichen Vergleich vornimmt. Diese beiden Verlangsamungen sind noch nicht genug. In der aktuellen IMplementierung sind nicht gleich alle Literal in der Relation, sondern können später noch hinzukommen, d.h. das diese Regel öfters aufgerufen werden kann. Hier ist also noch Potential für eine Optimierung vorhanden.
+
+
+\subsubsection{Spezialfälle} 
+ 
