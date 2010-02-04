@@ -1,1 +1,77 @@
-\section{Regelbeispiel}
+\subsection{Regelbeispiele}
+In diesem Teil der Regelumsetzung wird an konkreten Beispielen gezeigt, wie eine Umsetzung der OWL2 RL Regeln in SQL möglich ist. Die SQL Abfragen benutzen dabei die vorher im MEMA-Prinzip erstellen Relationen
+
+Die Abfragen werden zunächst allgemein an einfachen Regeln prinzipiell erklärt, danach wird auf die Sonderfälle eingegangen.
+
+Insgesamt kann dabei in vier Kategorie unterschieden werden:
+\begin{itemize}
+  \item Gewöhnliche Regeln: Dabei werden verschiedene Fakten miteinander verknüpft, so das dabei neue Fakten entstehen können. Diese Regeln sind alle sehr schematisch umsetzbar.
+  \item Listenregeln: Hier werden Listen von Fakten bearbeitet. Dabei ist nicht klar wie viele Elemente eine Liste enthält. Dies kann zu einem Problem werden, wenn man die Entstehungsgeschichte von Fakten, z.B. für das Löschen mitabspeichern will. Hier muss man gesondert darauf achten das diese Information der Entstehung nicht verloren geht.
+  \item Inkonsistenzregeln: Sie sind ähnlich der neuen Regeln, erzeugen allerdings keine neuen Fakten. Falls sie neue Fakten erzeugen könnten bedeutet dies eine Inkonsistenz in der Ontologie.
+  \item Regeln für Datentypen: Für typisierte Literal werden einige Überprüfung bzgl. der Gleichheit untereindander und der Konformität zu den in OWL2 RL eingebauten Datentypen durchgeführt.
+  \item Einmalige Regeln: Einige Regeln haben keine Vorbedigung. Diese werden einmal zu Beginn der Regelanwendung ausgeführt.
+\end{itemize}
+
+\subsubsection{Einmalige Regeln}
+
+cls-thing
+if | then
+true | owl:Thing rdf:type owl:Class
+
+Diese Regel wird einmal zu Beginn in die Liste der Regelanwendungen gesteckt. Sie sorgt dafür das dieses Faktum eingefügt wird.
+
+In SQL lautet dies:
+
+INSERT INTO classAssertionEnt (entity, class)
+	VALUES ('owl:Thing', 'owl:Class')
+
+\subsubsection{Inkonsistenzregeln}
+Inkonsistenzregeln erzeugen keine Fakten. Sie versuchen aber gewisse Fakten zu finden, die im Widerspruch zu einander stehen.
+
+Die Inkonsistenzregeln cls-nothing2 sieht dabei so aus:
+
+If | then
+T(?x, rdf:type, owl:Nothing) | false
+
+Dies wird in folgende SQL-Abfrage umgewandelt:
+
+SELECT 1
+FROM classAssertionEnt
+WHERE class = 'owl:Nothing'
+
+Die Relation classAssertionEnt ist die Relation, die die type-Beziehung speichert. Ist darin eine Zeile zu finden, die als type die KLasse owl:Nothing hat wird eine Zeile zurückgegeben. Falls also diese Abfrage eine oder mehrere Zeilen erzeugt liegt eine Inkonsistenz vor.
+
+\subsubsection{Gewöhnliche Regeln}
+Gewöhnliche Regeln erzeugen neue Fakten in der Datenbank. Eine einfache Regel ist hier eq-sym:
+
+If | then
+T(?x, owl:sameAS, ?y) | T(?y, owl:sameAS, ?x)
+
+Dies wird wie folgt in SQL überführt:
+
+INSERT INTO sameAs (left, right)
+SELECT right, left
+FROM sameAs
+
+Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Umwandlung schon einge Dinge vereinfacht, die in der Implementierung so nicht gemacht wurden.
+
+\begin{enumerate}
+  \item Was passiert wenn eine Zeile eingefügt werden soll, die schon enthalten ist?
+  \item Wie würde man hier die Delta-Iteration einsetzen können, um nicht immer auf alle Fakten schließen zu müssen?
+  \item Wie kann man die Entstehungsgeschiechte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen.
+\end{enumerate}
+
+Diese Punkte werden jeweils in ihren speziellen Abgeschnitten. Um die Beispiel nicht untnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
+
+Ein komplexeres Beispiel ist die Verknüpfung von Fakten um auf neue Fakten schließen zu können, z.B. in der Regel eq-rep-s:
+
+If | then
+T(?s1, owl:sameAs, ?s2), T(?s1, ?p, ?o) | T(?s2, ?p, ?o)
+
+Die Verknüpfung wird durch einen JOIN auf die entsprechende Spalte realisiert.
+
+INSERT INTO objectPropertyAssertion(subject, object, property)
+SELECT sa.right, opa.property, opa.object
+FROM objectPropertyAssertion AS opa
+INNER JOIN sameAs AS sa
+	ON sa.left = opa.subject
