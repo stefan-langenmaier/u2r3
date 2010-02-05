@@ -33,6 +33,7 @@
 				<pathelement location="import/h2-1.2.126.jar"/>
 				<pathelement location="import/log4j-1.2.15.jar"/>
 				<pathelement location="import/owlapi-bin.jar"/>
+				<pathelement location="import/org.semanticweb.HermiT.jar"/>
 			</classpath>
 		</javac>
 	</target>
