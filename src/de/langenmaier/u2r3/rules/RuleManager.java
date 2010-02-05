@@ -195,7 +195,10 @@ public class RuleManager {
 			rules.put(RuleName.impl_lit_hv, new ImplLitHvRule(reasoner));
 			rules.put(RuleName.impl_lit_ndp, new ImplLitNdpRule(reasoner));
 			
-			//rules.put(RuleName.dtr_svf, new DtrSvfRule(reasoner));
+			if (reasoner.getSettings().areExtrasEnabled()) {
+				rules.put(RuleName.dtr_svf, new DtrSvfRule(reasoner));
+			}
+			
 		}
 		rules.put(RuleName.cax_adc_ent, new CaxAdcEntRule(reasoner));
 		rules.put(RuleName.cax_adc_lit, new CaxAdcLitRule(reasoner));

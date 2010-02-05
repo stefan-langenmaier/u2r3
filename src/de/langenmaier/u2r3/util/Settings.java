@@ -71,6 +71,14 @@ public class Settings {
 				}
 			}
 			
+			if (prop.containsKey("u2r3.extras")) {
+				if (prop.get("u2r3.extras").equals("TRUE")) {
+					enableExtras(true);
+				} else if (prop.get("u2r3.extras").equals("FALSE")) {
+					enableExtras(false);
+				}
+			}
+			
 			if (prop.containsKey("u2r3.databaseMode")) {
 				if (prop.get("u2r3.databaseMode").equals("EMBEDDED")) {
 					setDatabaseMode(DatabaseMode.EMBEDDED);
@@ -88,8 +96,7 @@ public class Settings {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	/**
 	 * If startClean is set to true a run of U2R3 will delete all old data and start from scratch.
 	 */
@@ -137,11 +144,18 @@ public class Settings {
 	public enum EvaluationStrategy { COMMONLAST, RARELAST };
 	private EvaluationStrategy evaluationStrategy = EvaluationStrategy.COMMONLAST;
 	
-	
+
 	/**
 	 * Should a loaded ontology be checked if it is in the RL Profile
 	 */
 	private boolean checkProfile = true;
+	
+	
+	/**
+	 * Should extras rules and relations be activated that are not part of
+	 * OWL2 RL
+	 */
+	private boolean areExtrasEnabled = false;
 	
 	public void startClean(boolean sc) {
 		startClean = sc;
@@ -198,6 +212,16 @@ public class Settings {
 	
 	public boolean checkProfile() {
 		return checkProfile;
+	}
+	
+	
+	
+	public void enableExtras(boolean b) {
+		areExtrasEnabled = b;		
+	}
+	
+	public boolean areExtrasEnabled() {
+		return areExtrasEnabled;
 	}
 
 	public void setDatabaseMode(DatabaseMode databaseMode) {
