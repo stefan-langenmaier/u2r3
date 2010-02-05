@@ -6,5 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
 	<classpathentry kind="lib" path="import/owlapi-bin.jar" sourcepath="import/owlapi-src.jar"/>
 	<classpathentry kind="lib" path="import/h2-1.2.126.jar"/>
+	<classpathentry kind="lib" path="import/org.semanticweb.HermiT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
