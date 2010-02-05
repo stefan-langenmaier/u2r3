@@ -141,4 +141,167 @@ Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenban
 
 
 \subsubsection{Spezialfälle} 
+In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im Gegensatz zu den anderen Regeln eine variable Anzahl von Fakten in der Premise. Diese Fakten sind allerdings nur indirekt über eine Liste verknüpft.
  
+Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
+
+T(?p, owl:propertyChainAxiom, ?x)
+LIST[?x, ?p1, ..., ?pn]
+T(?u1, ?p1, ?u2)
+T(?u2, ?p2 ?u3)
+...
+T(?un, ?pn, ?un+1) 	                      | T(?u1, ?p, ?un+1)
+
+Die Kette muss dabei eine Start und ein Ende haben und die Glieder der Kette muss untereinander verbunden sein. ?u2 einmal als object und einmal als subject. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neuen Fakt.
+
+Diese Regel ist in SQL in zwei Schritten übersetzt worden. Zunächst eine Hilfsabfrage die in der späteren Abfrage mehrmals verwendet wird.
+
+\begin{lstlisting}
+SELECT vopa.subject as vorgaenger,
+       opa.subject  AS start,
+       opa.object   AS ende,
+       nopa.object  as nachfolger,
+       l.name       AS lname,
+       anzl.anz
+FROM   list AS l
+       INNER JOIN objectpropertyassertion AS opa
+         ON opa.property = l.element
+       INNER JOIN (SELECT   name,
+                            COUNT(name) AS anz
+                   FROM     list
+                   GROUP BY name) AS anzl
+         ON anzl.name = l.name
+       LEFT OUTER JOIN objectpropertyassertion AS vopa
+         ON vopa.object = opa.subject
+       LEFT OUTER JOIN objectpropertyassertion AS nopa
+         ON nopa.subject = opa.object
+\end{lstlisting}
+
+Diese Abfrage erzeugt ein Ergebnis in der alle objectPropertyAssertions einer Liste mit ihrem Vorgänger und Nachfolger aufgelistet sind. Außerdem wird die Anzahl der Elemente in der Liste mitgeführt.
+
+\begin{lstlisting}
+INSERT INTO objectPropertyAssertion
+           (subject,
+            property,
+            object)
+SELECT start.start,
+       pc.property,
+       ende.ende
+FROM   (SELECT   lname,
+                 anz
+        FROM     (--- ...Unterabfrage für gültige Liste... ---)
+        GROUP BY lname
+        HAVING   COUNT(lname) = anz) AS thel
+       INNER JOIN (SELECT lname,
+                          start
+                   FROM   (--- ...Unterabfrage für Vorgänger... ---)
+                   WHERE  vorgaenger IS NULL) AS start
+         ON start.lname = thel.lname
+       INNER JOIN (SELECT lname,
+                          ende
+                   FROM   (--- ...Unterabfrage für Nachfolger... ---)
+                   WHERE  nachfolger IS NULL) AS ende
+         ON ende.lname = thel.lname
+       INNER JOIN propertyChain AS pc
+         ON pc.list = thel.lname
+\end{lstlisting}
+
+Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoined.
+
+Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja wird es der Klasse dieser Schnittmenge hinzugefügt.
+
+If | then
+T(?c, owl:intersectionOf, ?x)
+LIST[?x, ?c1, ..., ?cn]
+T(?y, rdf:type, ?c1)
+T(?y, rdf:type, ?c2)
+...
+T(?y, rdf:type, ?cn) 	             | T(?y, rdf:type, ?c) 	 
+
+\begin{lstlisting}
+INSERT INTO classAssertionEnt
+           (entity,
+            class)
+SELECT   clsA.entity AS entity,
+         int.class   AS class
+FROM     (SELECT   name,
+                   COUNT(name) AS anzahl
+          FROM     list
+          GROUP BY name) AS anzl
+         INNER JOIN list AS l
+           ON anzl.name = l.name
+         INNER JOIN classAssertionEnt AS clsA
+           ON l.element = clsA.class
+         INNER JOIN intersectionOf AS int
+           ON int.list = l.name
+GROUP BY l.name,
+         clsA.entity,
+         int.class
+HAVING   COUNT(l.name) = anzl.anzahl
+\end{lstlisting}
+
+Diese Abfrage wurd auch wesentlich vereinfacht. Für die Abspeicherung einer Historie dürfen die Fakten erst danach gruppiert werden, dann wäre allerdings keine Überprüfung mit HAVING möglich.
+
+Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
+
+Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die die Individuen gleich.
+
+If | then
+T(?c, owl:hasKey, ?u)
+LIST[?u, ?p1, ..., ?pn]
+T(?x, rdf:type, ?c)
+T(?x, ?p1, ?z1)
+...
+T(?x, ?pn, ?zn)
+T(?y, rdf:type, ?c)
+T(?y, ?p1, ?z1)
+...
+T(?y, ?pn, ?zn) 	                 | T(?x, owl:sameAs, ?y)
+
+Die Abfrage ist der Einfachheit ebenfalls in zwei Teile zerlegt. Die Unterabfrage die mehrmals verwendet wird erzeugt zunächst eine gültige Liste von Individuen die über eine Eigenschaft mit dem gleichen Objekt verbunden sind.
+\begin{lstlisting}
+SELECT pax.subject, sl.name, anzl.anz
+FROM list AS sl
+        INNER JOIN (
+                SELECT name, COUNT(name) AS anz
+                FROM list
+                GROUP BY name
+        ) AS anzl
+                ON anzl.name = sl.name
+        INNER JOIN (
+                SELECT id, subject, property, object
+                FROM objectPropertyAssertion
+                UNION
+                SELECT id, subject, property, object
+                FROM dataPropertyAssertion
+        ) AS pax
+                ON sl.element = pax.property
+        INNER JOIN (
+                SELECT id, subject, property, object
+                FROM objectPropertyAssertion
+                UNION
+                SELECT id, subject, property, object
+                FROM dataPropertyAssertion
+        ) AS pay
+                ON sl.element = pay.property AND pax.property = pay.property AND pax.object = pay.object
+GROUP BY pax.subject, sl.name
+--- Es werden alle Listenelemente doppelt erzeugt
+HAVING COUNT(sl.name) = 2*anz
+\end{lstlisting}
+
+Diese Liste wird dann in der folgenden Abfrage zweimal verwendet um zwei Individuen miteinander verleichen zu können.
+\begin{lstlisting}
+INSERT INTO sameAsEnt (left, right)
+SELECT ca1.entity AS left, ca2.entity AS right
+FROM hasKey AS hk
+     INNER JOIN list AS l
+             ON l.name = hk.list
+     INNER JOIN classAssertionEnt AS ca1
+            ON ca1.class = hk.class
+     INNER JOIN classAssertionEnt AS ca2
+            ON ca2.class = hk.class
+     INNER JOIN (--- ...Unterabfrage... ---) AS valid1
+                ON valid1.subject = ca1.entity
+     INNER JOIN (--- ...Unterabfrage... ---) AS valid2
+                ON valid2.subject = ca2.entity
+\end{lstlisting}
