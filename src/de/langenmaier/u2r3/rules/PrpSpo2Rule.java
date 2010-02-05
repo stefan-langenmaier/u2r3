@@ -98,12 +98,13 @@ public class PrpSpo2Rule extends ApplicationRule {
 		sql.append("\n\t 		ON vopa.object = opa.subject");
 		sql.append("\n\t 	LEFT OUTER JOIN objectPropertyAssertion AS nopa");
 		sql.append("\n\t 		ON nopa.subject = opa.object");
-		sql.append("\n\t 		WHERE EXISTS (");
-		sql.append("\n\t 		 SELECT 1");
-		sql.append("\n\t 		 FROM list AS sl");
-		sql.append("\n\t 		 	INNER JOIN objectPropertyAssertion AS sopa ON sl.element = sopa.property");
-		sql.append("\n\t 		 WHERE l.name = sl.name AND (opa.object = sopa.subject OR opa.subject = sopa.object)");
-		sql.append("\n\t 	)");
+		//wieso sollte das nötig sein
+//		sql.append("\n\t 	WHERE EXISTS (");
+//		sql.append("\n\t 		 SELECT 1");
+//		sql.append("\n\t 		 FROM list AS sl");
+//		sql.append("\n\t 		 	INNER JOIN objectPropertyAssertion AS sopa ON sl.element = sopa.property");
+//		sql.append("\n\t 		 WHERE l.name = sl.name AND (opa.object = sopa.subject OR opa.subject = sopa.object)");
+//		sql.append("\n\t 	)");
 	}
 
 
