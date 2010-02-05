@@ -60,7 +60,7 @@ public class LoadReasonerTL {
             System.out.println("Deutscher / Time: " + (System.currentTimeMillis() - start) / 1000.0 +
                     " no of results: " + ind2.getFlattened().size());
 
-            OWLClass orte = factory.getOWLClass(IRI.create(LOG_URI + "Orte"));
+            OWLClass orte = factory.getOWLClass(IRI.create(LOG_URI + "Ort"));
             start = System.currentTimeMillis();
             NodeSet<OWLNamedIndividual> ind = reasoner.getInstances(orte, true);
             System.out.println("Orte / Time: " + (System.currentTimeMillis() - start) / 1000.0 +
@@ -72,7 +72,7 @@ public class LoadReasonerTL {
             start = System.currentTimeMillis();
             OWLObjectProperty lib = factory.getOWLObjectProperty(IRI.create(LOG_URI + "liegt-in-bundesland"));
             OWLNamedIndividual hessen = factory.getOWLNamedIndividual(IRI.create(LOG_URI + "Hessen"));
-            ind = reasoner.getObjectPropertyValues(hessen, lib);
+            ind = reasoner.getObjectPropertyValues(hessen, lib.getInverseProperty());
             System.out.println("Orte in Hessen / Time: " + (System.currentTimeMillis() - start) / 1000.0 +
                     " no of results: " + ind.getFlattened().size());
             for (OWLNamedIndividual in : ind.getFlattened()) {
