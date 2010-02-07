@@ -86,7 +86,7 @@ T(?x, rdf:type, owl:AllDisjointProperties)
 T(?x, owl:members, ?y)
 LIST[?y, ?p1, ..., ?pn]
 T(?u, ?pi, ?v)
-T(?u, ?pj, ?v)                                    | false | für alle 1 ≤ i < j ≤ n 
+T(?u, ?pj, ?v)                                    | false | fuer alle 1 <= i < j <= n 
 
 Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert dese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
 
@@ -109,7 +109,7 @@ If | then
 T(?x, rdf:type, owl:AllDifferent)
 T(?x, owl:members, ?y)
 LIST[?y, ?z1, ..., ?zn]
-T(?zi, owl:sameAs, ?zj) 	          | false 	| für alle 1 ≤ i < j ≤ n
+T(?zi, owl:sameAs, ?zj) 	          | false 	| für alle 1 <= i < j <= n
 
 Würde man hier streng nach Schema vorgehen würde die sameAs Relation nur einmal in der Abfrage auftauchen. Das würde allerdings nicht alle Kombinationen erzeugen. Die Abfrage ist damit sehr ähnlich der obigen und wird hier ausgespart.
 
@@ -189,17 +189,17 @@ SELECT start.start,
        ende.ende
 FROM   (SELECT   lname,
                  anz
-        FROM     (--- ...Unterabfrage für gültige Liste... ---)
+        FROM     (--- ...Unterabfrage fuer gueltige Liste... ---)
         GROUP BY lname
         HAVING   COUNT(lname) = anz) AS thel
        INNER JOIN (SELECT lname,
                           start
-                   FROM   (--- ...Unterabfrage für Vorgänger... ---)
+                   FROM   (--- ...Unterabfrage fuer Vorgaenger... ---)
                    WHERE  vorgaenger IS NULL) AS start
          ON start.lname = thel.lname
        INNER JOIN (SELECT lname,
                           ende
-                   FROM   (--- ...Unterabfrage für Nachfolger... ---)
+                   FROM   (--- ...Unterabfrage fuer Nachfolger... ---)
                    WHERE  nachfolger IS NULL) AS ende
          ON ende.lname = thel.lname
        INNER JOIN propertyChain AS pc
