@@ -30,7 +30,7 @@ public class TimeHermit {
 			}
 			
 			if (args.length<=0) {
-				System.err.println("USAGE: java " + LoadReasoner.class.getName() + " <filename>");
+				System.err.println("USAGE: java " + TimeHermit.class.getName() + " <filename>");
 				return;
 			}
 			
@@ -45,8 +45,8 @@ public class TimeHermit {
 			logger.info("OWLAPI loaded " + ont.getOntologyID());
 			
 			ReasonerFactory factory = new ReasonerFactory();
-	        // The factory can now be used to obtain an instance of HermiT as an OWLReasoner. 
-	        OWLReasoner reasoner=factory.createReasoner(ont);
+			// The factory can now be used to obtain an instance of HermiT as an OWLReasoner. 
+			OWLReasoner reasoner=factory.createReasoner(ont);
 
 			logger.info("Ontology loaded in DB");
 			
