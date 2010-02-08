@@ -44,7 +44,7 @@ Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenü
 \subsubsection{Attributive Language}
 Die attributive language ist die grundlegende Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
 
-$\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | BOTTOM | NEG A | C intersection D | $\forall$r.C | $\exists$r
+$\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | $\bot$ | $\lnot$A | C $\land$ D | $\forall$r.C | $\exists$r
 
 Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema wird aber von vielen Programmen wie z.B. Protégé verwendet.
 
@@ -56,26 +56,55 @@ Damit ist der Einsatz von Literalen möglich, z.B. in datatype properties, data 
   \item $\mathcal{U}$ Konzeptvereinigung (Union)
   \item $\mathcal{E}$ Existenzquantoren für komplexe Ausdrücke (Exists)\newline
 Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
-  \item $\mathcal{N}$ Functional properties. TODO
+  \item $\mathcal{N}$ Kardinalitätseinschränkungen.
   \item $\mathcal{I}$ Inverse Eigenschaften (Inverse)
   \item $\mathcal{O}$ Aufzählungen von object values (Nominals)
   \item $\mathcal{H}$ Hierarchie von Eigenschaften (Role hierarchy)
-  \item $\mathcal{F}$ Functional properties. TODO
-\end{itemize} [ref wikipedia]
+  \item $\mathcal{F}$ Funktionale Eigenschaften
+\end{itemize}
+\cite{wiki:DL}
 
 \subsubsection{Komplexität in Form der attributive language}
- * U2R2 ist ein Reasoner im SHIF-Fragment (woher weiß ich das Referenz dringend)
- * OWL liegt in SHOIN (Referenz)
- * OWL2 basiert auf SROIQ (Krötzsch2008)
- * OWL-DL entspricht SHOIN (Referenz)
+\begin{itemize}
+  \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$)
+  \item Die Sprache OWL1 bzw. OWL-DL liegt in $\mathcal{ALCHOIN}$ ($\mathcal{SHOIN}$)
+  \item OWL2 basiert auf $\mathcal{ALCROIQ}$ ($\mathcal{SROIQ}$) \cite{Krötzsch2008}
+\end{itemize}
+
 
 TABELLE der Komplexitäten TABELLE
-
-% http://www.webont.org/owl/1.1/tractable.html
-
-% http://www.cs.manchester.ac.uk/~ezolin/dl/
-
-% http://www.w3.org/TR/owl2-profiles/#Computational_Properties
+\begin{table}
+	\rowcolors{3}{lightgray}{white}
+	
+	\begin{tabular}{|m{1.4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
+	\hline
+	Sprache & Schlussfolger\-ungs\-problem & Komplexität der Taxonmie & Daten\-komplexität & Abfrage Komplexität & Kombinierte Komplexität \\
+	\hline
+	\hline
+	\multirow{2}{*}{OWL-DL} & Ableitung & NEXPTIME-vollständig & Offen & Nicht anwendbar & NEXPTIME-vollständig \\ \cline{2-6}
+		& Abfragen & Offen & Offen & Offen & Offen \\
+	\hline
+	\multirow{2}{*}{DLP} & Ableitung & In EXPTIME & PTIME-vollständig & Nicht anwendbar & In EXPTIME \\ \cline{2-6}
+		& Abfragen & In EXPTIME & PTIME-vollständig & In EXPTIME & In EXPTIME \\
+	\hline
+	\multirow{2}{*}{OWL2 Direct Semantics} & Ableitung & 2NEXPTIME-vollständig & entscheidbar, aber Komplexität offen & Nicht anwendbar & 2NEXPTIME \\ \cline{2-6}
+		& Abfragen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen \\
+	\hline
+	\multirow{2}{*}{OWL2 EL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\ \cline{2-6}
+		& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & PSPACE-vollständig \\
+	\hline
+	\multirow{2}{*}{OWL2 QL} & Ableitung & NLogSpace-vollständig & In AC$^0$ & Nicht anwendbar & NLogSpace-vollständig \\ \cline{2-6}
+		& Abfragen & NLogSpace-vollständig & In AC$^0$ & NP-vollständig & NP-vollständig \\
+	\hline
+	\multirow{2}{*}{OWL2 RL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\ \cline{2-6}
+		& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & NP-vollständig \\
+	\hline
+	\end{tabular}
+	
+	\cite{WebontTractable}
+	\cite{OWL2Complexities}
+	\cite{ComplexityNavigator}
+\end{table}
 
 Natürlich ist das Sprachfragemnt OWL2 RL entscheidbar und zwar in polynomieller Zeit entscheidbar. In der Profilbeschreibung wird dabei feiner unterschieden.
 

@@ -28,24 +28,6 @@ Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er quasi 
 
 Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB} ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem igbt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurden. Natürlich muss man sich abschließen bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
-\begin{verbatim}
-    * Was ist Sinn und Zweck dieser Arbeit?
-    * Engültige Fragen
-          o Lohnt sich der Speicher/Vorbereitungszeit-Tradeoff gegenüber der Anfragezeit?
-          o Wie können Änderungen effizient realisiert werden? 
-    * Was wird hier behandelt?
-          o Aktuelle Spezifikation von OWL2
-            - im besonderen das RL Profil
-          o Die OWLAPI v3
-          o Die Umsetzung der Regeln aus dem RL Profil in SQL
-          o Optimierungen für einen Schlussfolgerer der nach dem Prinzip forward-chaining mit direct-materialisation arbeitet.
-          o Erweiterung des üblichen Fähigkeiten eines Schlussfolgerers durch die Umsetzung eines effizienten Verfahren zum Zurückziehen von Fakten (retraction) aber auch dem späteren hinzufügen von Fakten
-          o offenen Optimierungen ansprechen
-            - Parallelisierung
-            - Approximation
-            - eigene (smart relations)
-\end{verbatim}
-
 Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann, auch wenn hier sicherlich nicht alles behandelt und implementiert werden kann. Trotzdem wird auch versucht offene Optimierungen anzusprechen.
 
 \begin{itemize}
@@ -55,11 +37,14 @@ Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansat
 \end{itemize}
 
 \section{Problemstellungen im Bereich Wissensmodellierung}
- * heterogenes Wissen
- * Darstellung im Computer
- * flexible Verarbeitung
- * Schlussfolgerung
- * Austausch (Standardformate)
+
+\begin{itemize}
+  \item heterogenes Wissen
+  \item Darstellung im Computer
+  \item flexible Verarbeitung
+  \item Schlussfolgerung
+  \item Austausch (Standardformate)
+\end{itemize}
 
 Diese Problem sind real und existieren. Es sind allerdings bereits Lösungsansätze für alle Bereiche vorhanden. Wenn man die Probleme von heterogenem Wissen und Austausch dieses Wissens lösen will, bedeutet das sich auf eine einheitliche Interpretation festzulegen. Dies ist durch die Entwicklung von OWL und OWL2 schon geschehen und ein Lösungsansatz ist damit vorhanden. Da hier auf XML und URI bzw. IRIs aufgesetzt wurde steht einer Verwendung im Internet nichts mehr im Wege. Um die Darstellung im Computer und eine flexible Verarbeitung zu ermöglichen sind spezialisierte Werkzeuge nötig. Durch Anwendungen wie Protege ist eine Darstellung für Anwender möglich, dabei wird als Grundlage die OWLAPI verwendet, die eine flexible Verarbeitung zulässt, indem sie auch Schnittstellen für andere Anwendungen bietet. Der Punkt Schlussfolgerung lässt natürlich viele verschieden Lösungsansätze zu, je nach welche Anforderungen an den Schlussfolgerer und die Ontologien gestellt sind. Diese Arbeit will dabei Schlussfolgerer für den aktuellen Bereich OWL2 RL anbieten. Der sich über die OWLAPI nahtlos in dieses Problemlösungskonzept einfügen lässt.
 
