@@ -91,7 +91,7 @@ public class RelationManager {
 		relations.put(RelationName.oneOf, new OneOfRelation(reasoner));
 		relations.put(RelationName.disjointWith, new DisjointWithRelation(reasoner));
 		
-		if (reasoner.getSettings().areExtrasEnabled() == false) {
+		if (reasoner.getSettings().areExtrasEnabled() == true) {
 			relations.put(RelationName.facetList, new FacetListRelation(reasoner));
 			relations.put(RelationName.datatypeRestriction, new DatatypeRestrictionRelation(reasoner));
 		}
