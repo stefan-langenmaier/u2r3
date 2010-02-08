@@ -10,7 +10,7 @@ both are contained in the standard repository.
 
 How to get the current repository
 
-$ svn co https://81.89.103.197/svn/repos/u2r3/trunk
+$ svn co https://84.23.75.144/svn/repos/u2r3/trunk
 use
 $ svn up trunk/
 on a checked out project to update it.
@@ -27,6 +27,7 @@ In dist will be a jar file of the current project. In the javadoc folder will be
 
 Before the start
 Before u2r3 can be used the H2 database has to be started. If you use the DB from the repository than it's also possible to use the accompanying script h2.sh to start the database.
+The database will be created in the home folder with the name u2r3. This is hard-coded in the U2R3DBConnection.
 
 How to run
 Normally u2r3 cannot run on its on because it is just small part of another library the OWLAPI.
