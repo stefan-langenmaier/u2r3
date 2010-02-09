@@ -1,42 +1,40 @@
 \chapter{Grundlagen}
 In den einleitenden Abschnitten wurden bereits einige Begriffe verwendet, die noch nicht zur Gänze erklärt sind bzw. die für das Verständnis der Entwicklungsgeschichte und auch für den technischen Gesichtspunkt wichtig sind.
 
-Dazu gehören Ontologien, für was sie stehen und wozu sie nützlich sind. Die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründen für die Umsetzungen von Ontologien in Datenbanken.
+Dazu gehören Ontologien, für was sie stehen und wozu sie nützlich sind. Die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründe für die Umsetzungen von Ontologien in Datenbanken.
 
 \section{Kriterien der Wissensrepräsentation}
 
-Die Wissensrepräsentation ist zentraler Bestandteil eine KI-Systems. Eine Wissensrepräsentation wird zu jedem Bereich von intelligenten rechnergestützten Systemen benötigt.
+Die Wissensrepräsentation ist zentraler Bestandteil eines KI-Systems. Eine Wissensrepräsentation wird zu jedem Bereich von intelligenten rechnergestützten Systemen benötigt.
 
 Eine Wissensrepräsentation kann für verschiedene Anwendungsgebiete ausgelegt sein, daher gibt es einige allgemeine Kriterien, um solche Sprachen einzuordnen.
 
 Die wichtigsten Begriffe zur Einordnung dabei sind:
 \begin{itemize}
-  \item Korrektheit
-Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus einer Wissenrepräsentation zu ziehen. Falsche Schlüsse beziehen sich dabei auf die Semantik des Verfahrens.
- \item Vollständigkeit
-Ein Verfahren ist vollständig wenn alle korrekten Schlüsse folgerbar sind.
- \item Entscheidbarkeit
-Ein Verfahren ist entscheidbar, wenn immer der Algorithmus für das Schlussfolgern immer existiert.
- \item Adäquatheit
+  \item \textbf{Korrektheit}:
+Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus einer Wissenrepräsentation zu ziehen.
+ \item \textbf{Vollständigkeit}:
+Ein Verfahren ist vollständig, wenn alle korrekten Schlüsse folgerbar sind.
+ \item \textbf{Entscheidbarkeit}:
+Ein Verfahren ist entscheidbar, wenn immer ein Algorithmus für das Schlussfolgern existiert.
+ \item \textbf{Adäquatheit}:
 Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen auf eine einfache und verständliche Art möglich ist.
- \item Komplexität
+ \item \textbf{Komplexität}:
 Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
 \end{itemize}
 
 
 \subsection{OWL2 RL Eigenschaften}
-Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Effizient ist dabei sehr theoretisch zu verstehen. Solange die Ableitungsfunktion in polynomieller Die Sprachuntermenge von OWL2 wurde dabei so gewählt, das sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP [ref] und pD* [ref] inspiriert.
+Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Effizient ist dabei im theoretischen Sinne zu verstehen, d.h. die Ableitungsfunktion ist in polynomieller Zeit ausführbar. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, dass sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben, die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP \cite{Grosof2003} und pD* \cite{Li2006} inspiriert.
 
-Damit fällt OWL2 RL auch in die Kategorie der monotonen Sprachen, das bedeutet wenn neue expliziten Fakten zur Wissensbasis hinzugefügt werden, diese neue implizite Fakten zur Wissenbasis hinzufügen. Aber unter keine Umständen können die expliziten Fakten das Entfernen von bereits abgeleiten Fakten verursachen. Damit kann das Hinzufügen von neuen Fakten die abgeleitete Wissenbasis nur monoton erweitern. [ref englischer Text aus dem Wiki]
+Damit fällt OWL2 RL auch in die Kategorie der monotonen Sprachen, das bedeutet wenn neue expliziten Fakten zur Wissensbasis hinzugefügt werden, dann fügen diese zwar durch Ableitung neue implizite Fakten zur Wissensbasis hinzu, aber unter keine Umständen können die expliziten Fakten das Entfernen von bereits abgeleiten Fakten verursachen. Damit kann das Hinzufügen von neuen Fakten die abgeleitete Wissenbasis nur monoton erweitern.
 
-Um einige geschwünschte Eigenschaften für die Sprache zu erhalten ist es dabei nötig nicht nur die verwendeten Konstrukte einzuschränken, sondern auch die Syntax. Daazu wird in OWL2 RL eine Grammatik vorgegeben, an welcher Stelle welche Konstrukte verwendet werden dürfen.
+Um einige geschwünschte Eigenschaften für die Sprache zu erhalten ist es dabei nötig nicht nur die verwendeten Konstrukte einzuschränken, sondern auch die Syntax. In OWL2 RL Profilbeschreibung wird eine Grammatik angegeben, an welcher Stelle welche Konstrukte verwendet werden dürfen.
 
-Sofern sich eine Ontologie an die syntaktischen Rahmenbedigungen des Sprachfragments hält und ein Schlussfoglerer entsprechend der angebenen Regelsemantik implementiert ist, können sich daraus einige positive Kriterien ableiten lassen. So ist dann garantiert, das alle und nur gültige Ergebnisse vom Schlussfolgerer geliefert werden. Das Verfahren für die Wissensrepräsentation ist damit korrekt und vollständig. (siehe Beweis)
-Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntaktisch konformen Ontologien zu schlussfolgern. Es ist dann zwar nicht mehr möglich alle Ergebnisse zu ermitteln, aber es werden zumindest weiterhin nur gültige Ergebnisse abgeleitet. [ref wc3]
+Sofern sich eine Ontologie an die syntaktischen Rahmenbedigungen des Sprachfragments hält und ein Schlussfoglerer entsprechend der angebenen Regelsemantik implementiert ist, können sich daraus einige positive Kriterien ableiten lassen. So ist dann garantiert, das alle und nur gültige Ergebnisse vom Schlussfolgerer geliefert werden. Das Verfahren für die Wissensrepräsentation ist damit korrekt und vollständig (siehe Beweis in \cite{OWL2Profiles}).
+Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntaktisch konformen Ontologien zu schlussfolgern. Es ist dann zwar nicht mehr möglich alle Ergebnisse zu ermitteln, aber es werden zumindest weiterhin nur gültige Ergebnisse abgeleitet.
 
-Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden viele kleine verteilte Wissensbasen erzeugt. In einer Sammlung solcher Wissensbasen kann dann geschlussfolgert werden. Wird diese Sammlung erweitert, verkleinert oder verändert ist es natürlich umständlich wenn wieder über alle anderen Beziehung geschloßen werden müsste. Durch eine montone Logik ist eine modulare Umsetzung besonders gut zu realisieren.
-
-Eine vollständige Beschreibung für die syntaktisch Einschränkung dieser Sprache findet man im Anhang und in der Referenz [ref].
+Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden viele kleine verteilte Wissensbasen erzeugt. In einer Sammlung solcher Wissensbasen kann dann geschlussfolgert werden. Wird diese Sammlung erweitert, verkleinert oder verändert ist es natürlich umständlich, wenn wieder über alle anderen Beziehung geschloßen werden müsste. Durch eine montone Logik ist eine modulare Umsetzung besonders gut zu realisieren.
 
 \subsection{Sprachkomplexitäten}
 Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
@@ -72,7 +70,6 @@ Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
 \end{itemize}
 
 
-TABELLE der Komplexitäten TABELLE
 \begin{table}
 	\rowcolors{3}{lightgray}{white}
 	
@@ -125,6 +122,7 @@ Der zweite Unterschied besteht darin, wie man über die Daten schließt. In eine
 \end{figure}
 
 \section{OWL2}
+\label{abschnitt-owl2}
  http://www.cs.man.ac.uk/~sattler/publications/sroiq-TR.pdf
 OWL2 DL liegt in SROIQ
 gefunden in  http://www.w3.org/TR/2009/REC-owl2-overview-20091027/
