@@ -1,10 +1,23 @@
 \chapter{Evaluierung}
+Die Evaluierung sollen einen Vergleich von u2r3 mit anderen Schlussfolgereren ermöglichen, um seine Leistung in Relations zu sehen. Es sollen die Vor- und Nachteile mit anderen Anwendungen gegenüber gestellt werden.
 
-\begin{verbatim}
-    * Welche Systeme (Konkurrzenz) werden im Moment zum Schlussfolgern verwendet?
-          o Bzgl Sprache, Features und Ansatz? 
-    * Wie ordnet sich U2R2 ein? Was ist der Reasoner Ansatz/ die Reasoner Strategie?
-    * Wieviel bringt es die URIs durch Zahlen zu ersetzen?
-    * Welche möglichen Test/Benchmarks/Messungen kann/soll man machen? 
-     (Paper von Weithöhner bezüglich Benchmarks einbauen)
-\end{verbatim}
+\section{Konkurrenz}
+Die ``großen'' Schlussfolgerer im Moment sind FaCT++ \cite{Factpp}, Pellet \cite{Pellet}, HermiT \cite{Hermit}, RacerPro \cite{RacerPro} und OWLim \cite{OWLim}. Mit der Ausnahme von OWLim sind dabei alle Tableaux-basiert und für den DL- Bereich ausgelegt. Von der Heransgehenweise ist dabei OWLim der einzig Vergleichbare, da er ebenfalls auf einem direct-materialisation und zu mindest teilweise forward-chaining Ansatz basiert. Allerdings gibt es hier größere Unterschiede bzgl der Anbindung nach außen (SEQRL) und auch dem Sprachbereich in dem geschlussfolgert wird.
+
+Eine Anbindung an die OWLAPI ist zwar bei allen außer OWLim vorhanden, jedoch hat mit der Ausnahme von HermiT und Pellet keiner eine lauffähige Version bei der Erscheinung der OWLAPIv3 vorweisen können. Pellet und HermiT sind zwei jüngere Reasoner die ziemlich rapide entwickelt werden.
+
+Diese Punkte machen es alle recht schwer einen brauchbaren Vergleich zu u2r3 zu finden.
+
+\section{Vergleiche}
+Die Implementierung und Optimierung von u2r3 hat sich hauptsächlich mit dem Bereich des Schlussfolgerns und nicht mit der Beantwortung von Abfragen beschäftigt. Die Beantwortung von Anfragen ist sicher auch ein großer und komplexer Teil - einer der Grund warum dies nur rudimentär implementiert wurde - aber durch den direct-materialisation Ansatz sollten alle ERgebnisse möglicher Anfragen schon zur Anfragezeit vorliegen un der begrenzende Faktor ist somit hauptsächlich die Datenbank und die Geschwindigkeit mi der die Daten zurückgeliefert werden können.
+
+Um die Tableaux Reasoner mit dem forward-chaining-Prinzip gut vergleichen zu können werden die Anfragen der Testfälle so ausgelegt sein, das die Tableaux-Reasoner einen ähnlich großen Aufwand habe. Dafür sind drei Varianten ausgewählt worden:
+
+\begin{itemize}
+  \item T-Box Klassifizierung: Dafür wurde die diseases Ontologie ausgewählt das sie fast ausschließlich aus einer Konzepte-Hierachie besteht.
+  \item A-Box Realisierung: Hier wurde die beiden Ontologien financial und VAST2009 ausgewählt, da beide sich durch eine große Anzahl an Individuen auszeichen. DIe finiancial Ontologie enthält dabei nur objectProperties, die VAST2009 Ontologie enthält hauptsächlich dataProperties und muss daher mit Literalen arbeiten.
+  \item OWL2 RL: walter, als ein Beispiel für die Ausdrucksmächtigkeit von OWL2 RL
+  \item OWL2 RL + Extras: DomusAG-full als ein Beispiel für die DatatypeRestriction Erweiterung
+\end{itemize}
+
+Alle Ontologien finden sich im Anhang und im Repository im Ordner ontologien/.
