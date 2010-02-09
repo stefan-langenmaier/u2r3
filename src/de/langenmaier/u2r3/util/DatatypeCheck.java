@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.util;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,8 @@ import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLDatatype;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import org.semanticweb.owlapi.vocab.OWLFacet;
+
+import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
 
 public class DatatypeCheck {
 	/**
@@ -20,7 +23,7 @@ public class DatatypeCheck {
 		if (isValid(literal, datatype)) {
 			return literal;
 		}
-		return null;
+		throw new U2R3RuntimeException();
 	}
 
 	public static boolean isValid(String literal, OWLDatatype dt) {
@@ -30,7 +33,7 @@ public class DatatypeCheck {
 					Boolean.parseBoolean(literal);
 				}
 				if (dt.isInteger()) {
-					Integer.parseInt(literal);
+					new BigDecimal(literal);
 				}
 				if (dt.isFloat()) {
 					Float.parseFloat(literal);

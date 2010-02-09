@@ -70,9 +70,11 @@ public class LoadReasonerTL {
             //}
 
             start = System.currentTimeMillis();
-            OWLObjectProperty lib = factory.getOWLObjectProperty(IRI.create(LOG_URI + "liegt-in-bundesland"));
+            @SuppressWarnings("unused")
+			OWLObjectProperty lib = factory.getOWLObjectProperty(IRI.create(LOG_URI + "liegt-in-bundesland"));
+            OWLObjectProperty inv_lib = factory.getOWLObjectProperty(IRI.create(LOG_URI + "hat-orte"));
             OWLNamedIndividual hessen = factory.getOWLNamedIndividual(IRI.create(LOG_URI + "Hessen"));
-            ind = reasoner.getObjectPropertyValues(hessen, lib.getInverseProperty());
+            ind = reasoner.getObjectPropertyValues(hessen, inv_lib);
             System.out.println("Orte in Hessen / Time: " + (System.currentTimeMillis() - start) / 1000.0 +
                     " no of results: " + ind.getFlattened().size());
             for (OWLNamedIndividual in : ind.getFlattened()) {
@@ -90,9 +92,10 @@ public class LoadReasonerTL {
             OWLClassExpression hasvh = factory.getOWLObjectSomeValuesFrom(adr, someoh);
             OWLClassExpression verdadr = factory.getOWLObjectIntersectionOf(verd, hasvh);
 
-            NodeSet<OWLNamedIndividual> verdhss = reasoner.getInstances(verdadr, false);
-            System.out.println("Verd. mit Adr in Hessen Time: " + (System.currentTimeMillis() - start) / 1000.0 +
-                    " no of results: " + verdhss.getFlattened().size());
+            // Abfragen mit komplexen Strukturen sind noch nicht implementiert
+//            NodeSet<OWLNamedIndividual> verdhss = reasoner.getInstances(verdadr, false);
+//            System.out.println("Verd. mit Adr in Hessen Time: " + (System.currentTimeMillis() - start) / 1000.0 +
+//                    " no of results: " + verdhss.getFlattened().size());
 //        for (OWLIndividual in : verdhss) {
 //            System.out.println(in);
 //        }
