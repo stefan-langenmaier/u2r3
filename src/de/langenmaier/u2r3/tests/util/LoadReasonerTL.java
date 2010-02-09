@@ -1,17 +1,26 @@
 package de.langenmaier.u2r3.tests.util;
 
-import de.langenmaier.u2r3.core.U2R3Reasoner;
-import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
+import java.io.File;
+
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.IRI;
+import org.semanticweb.owlapi.model.OWLClass;
+import org.semanticweb.owlapi.model.OWLClassExpression;
+import org.semanticweb.owlapi.model.OWLDataFactory;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLOntology;
+import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasonerFactory;
 
-import java.io.File;
+import de.langenmaier.u2r3.core.U2R3Reasoner;
+import de.langenmaier.u2r3.core.U2R3ReasonerFactory;
 
 
 public class LoadReasonerTL {
@@ -90,7 +99,8 @@ public class LoadReasonerTL {
             OWLClassExpression orthes = factory.getOWLObjectHasValue(bliegt, hessen);
             OWLClassExpression someoh = factory.getOWLObjectSomeValuesFrom(ort, orthes);
             OWLClassExpression hasvh = factory.getOWLObjectSomeValuesFrom(adr, someoh);
-            OWLClassExpression verdadr = factory.getOWLObjectIntersectionOf(verd, hasvh);
+            @SuppressWarnings("unused")
+			OWLClassExpression verdadr = factory.getOWLObjectIntersectionOf(verd, hasvh);
 
             // Abfragen mit komplexen Strukturen sind noch nicht implementiert
 //            NodeSet<OWLNamedIndividual> verdhss = reasoner.getInstances(verdadr, false);
