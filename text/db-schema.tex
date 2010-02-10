@@ -1,337 +1,355 @@
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=4cm]
 
-\begin{tikzpicture}[node distance=6cm]
-	\node (history) [relation, rectangle split, rectangle split parts=2]{
-			\textbf{history}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\underline{table}: TABLE\newline
-			\underline{sourceId}: INT\newline
-			\underline{sourceTable}: TABLE
-	};
-	\node (list) [relation, rectangle split, rectangle split parts=2, left of= history]{
-			\textbf{list}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{name}}: CLASS\newline
-			\textbf{\underline{element}}: CLASS/IND
-	};
+\begin{figure}
+	\caption{Die Hilfsrelationen list und history}
+	\label{relations-list-history}
+	\begin{tikzpicture}[node distance=6cm]
+		\node (history) [relation, rectangle split, rectangle split parts=2]{
+				\textbf{history}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\underline{table}: TABLE\newline
+				\underline{sourceId}: INT\newline
+				\underline{sourceTable}: TABLE
+		};
+		\node (list) [relation, rectangle split, rectangle split parts=2, left of= history]{
+				\textbf{list}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{name}}: CLASS\newline
+				\textbf{\underline{element}}: CLASS/IND
+		};
+	
+	\end{tikzpicture}
+\end{figure}
 
-\end{tikzpicture}
+\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=5cm]
+\begin{figure}
+	\caption{Liste der Relationen, für die auch Fakten erzeugt werden}
+	\label{relations-for-which-data-is-created}
+	\begin{tikzpicture}[node distance=2.5cm]
+		\node (subClass) [relation, rectangle split, rectangle split parts=2]{
+				\textbf{subClass}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{sub}}: CLASS\newline
+				\textbf{\underline{super}}: CLASS
+		};
+		
+		\node (equivalentClass) [relation, rectangle split, rectangle split parts=2, right =2cm of subClass]{
+				\textbf{equivalentClass}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		
+		\node (subProperty) [relation, rectangle split, rectangle split parts=2, below of= subClass]{
+				\textbf{subProperty}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{sub}}: PROPERTY\newline
+				\textbf{\underline{super}}: PROPERTY
+		};
+		
+		\node (equivalentProperty) [relation, rectangle split, rectangle split parts=2, right =2cm of subProperty]{
+				\textbf{equivalentProperty}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		
+		
+		\node (classAssertionEnt) [relation, rectangle split, rectangle split parts=2, below of= subProperty]{
+				\textbf{classAssertionEnt}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{entity}}: IND/CLASS\newline
+				\textbf{\underline{class}}: CLASS
+		};
+		
+		\node (classAssertionLit) [relation, rectangle split, rectangle split parts=2, right =2cm of classAssertionEnt]{
+				\textbf{classAssertionLit}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{literal}}: LITERAL\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{language}}: LANGUAGE
+		};
+		
+		\node (sameAsEnt) [relation, rectangle split, rectangle split parts=2, below =1.5cm of classAssertionEnt]{
+				\textbf{sameAsEnt}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{left}}: IND\newline
+				\textbf{\underline{right}}: IND
+		};
+		
+		\node (sameAsLit) [relation, rectangle split, rectangle split parts=2, right =2cm of sameAsEnt, text width=6cm]{
+				\textbf{sameAsLit}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{left}}: IND\newline
+				\textbf{\underline{right}}: IND\newline
+				\textbf{\underline{left\_type}}: CLASS\newline
+				\textbf{\underline{right\_type}}: CLASS\newline
+				\textbf{\underline{left\_language}}: LANGUAGE\newline
+				\textbf{\underline{right\_language}}: LANGUAGE
+		};
+		
+		\node (objectPropertyAssertion) [relation, rectangle split, rectangle split parts=2, below =1.8cm of sameAsEnt]{
+				\textbf{objectPropertyAssertion}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{subject}}: IND\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{object}}: IND
+		};
+		
+		\node (dataPropertyAssertion) [relation, rectangle split, rectangle split parts=2, right =2cm of objectPropertyAssertion, text width=6cm]{
+				\textbf{dataPropertyAssertion}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{subject}}: IND\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{object}}: LITERAL\newline
+				\textbf{\underline{type}}: CLASS\newline
+				\textbf{\underline{language}}: LANGUAGE
+		};
+		
+		 
+		\node (propertyDomain) [relation, rectangle split, rectangle split parts=2, below= 1cm of objectPropertyAssertion]{
+				\textbf{propertyDomain}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{property}}: CLASS\newline
+				\textbf{\underline{domain}}: CLASS
+		};
+		
+		\node (propertyRange) [relation, rectangle split, rectangle split parts=2, right =2cm of propertyDomain]{
+				\textbf{propertyRange}
+			\nodepart{second}
+				\underline{id}: INT\newline
+				\textbf{\underline{property}}: CLASS\newline
+				\textbf{\underline{range}}: CLASS
+		};
+	
+	\end{tikzpicture}
+\end{figure}
+
+Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die neue Fakten abgeleitet werden können. Alle anderen Relationen werden nur beim laden einer Ontologie gefüllt und danach nicht mehr verändert.
 
 \begin{figure}
-\caption{Liste der Relationen, für die auch Fakten erzeugt werden}
-	\label{relations-for-which-data-is-created}
-\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=5cm]
-\begin{tikzpicture}[node distance=2.5cm]
-	\node (subClass) [relation, rectangle split, rectangle split parts=2]{
-			\textbf{subClass}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{sub}}: CLASS\newline
-			\textbf{\underline{super}}: CLASS
-	};
+	\caption{Relationen die auf Listen arbeiten}
+	\label{relations-that-work-on-lists}
+	\begin{tikzpicture}[node distance=3cm]
+		\node (members) [relation, rectangle split, rectangle split parts=2]{
+				\textbf{members}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{list}}: NAME
+		};
+		
+		\node (propertyChain) [relation, rectangle split, rectangle split parts=2, right =2cm of members]{
+				\textbf{propertyChain}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{list}}: NAME
+		};
+		
+		\node (hasKey) [relation, rectangle split, rectangle split parts=2, below of= members]{
+				\textbf{hasKey}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{list}}: NAME
+		};
+		
+		\node (intersectionOf) [relation, rectangle split, rectangle split parts=2, right =2cm of hasKey]{
+				\textbf{intersectionOf}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{list}}: NAME
+		};
+		
+		\node (unionOf) [relation, rectangle split, rectangle split parts=2, below of= hasKey]{
+				\textbf{unionOf}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{list}}: NAME
+		};
+		
+		
+		\node (oneOf) [relation, rectangle split, rectangle split parts=2, right= 2cm of unionOf]{
+				\textbf{oneOf}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{list}}: NAME
+		};
 	
-	\node (equivalentClass) [relation, rectangle split, rectangle split parts=2, right =2cm of subClass]{
-			\textbf{equivalentClass}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	
-	\node (subProperty) [relation, rectangle split, rectangle split parts=2, below of= subClass]{
-			\textbf{subProperty}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{sub}}: PROPERTY\newline
-			\textbf{\underline{super}}: PROPERTY
-	};
-	
-	\node (equivalentProperty) [relation, rectangle split, rectangle split parts=2, right =2cm of subProperty]{
-			\textbf{equivalentProperty}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	
-	
-	\node (classAssertionEnt) [relation, rectangle split, rectangle split parts=2, below of= subProperty]{
-			\textbf{classAssertionEnt}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{entity}}: IND/CLASS\newline
-			\textbf{\underline{class}}: CLASS
-	};
-	
-	\node (classAssertionLit) [relation, rectangle split, rectangle split parts=2, right =2cm of classAssertionEnt]{
-			\textbf{classAssertionLit}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{literal}}: LITERAL\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{language}}: LANGUAGE
-	};
-	
-	\node (sameAsEnt) [relation, rectangle split, rectangle split parts=2, below =2cm of classAssertionEnt]{
-			\textbf{sameAsEnt}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{left}}: IND\newline
-			\textbf{\underline{right}}: IND
-	};
-	
-	\node (sameAsLit) [relation, rectangle split, rectangle split parts=2, right =2cm of sameAsEnt, text width=6cm]{
-			\textbf{sameAsLit}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{left}}: IND\newline
-			\textbf{\underline{right}}: IND\newline
-			\textbf{\underline{left\_type}}: CLASS\newline
-			\textbf{\underline{right\_type}}: CLASS\newline
-			\textbf{\underline{left\_language}}: LANGUAGE\newline
-			\textbf{\underline{right\_language}}: LANGUAGE
-	};
-	
-	\node (objectPropertyAssertion) [relation, rectangle split, rectangle split parts=2, below =2cm of sameAsEnt]{
-			\textbf{objectPropertyAssertion}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{subject}}: IND\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{object}}: IND
-	};
-	
-	\node (dataPropertyAssertion) [relation, rectangle split, rectangle split parts=2, right =2cm of objectPropertyAssertion, text width=6cm]{
-			\textbf{dataPropertyAssertion}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{subject}}: IND\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{object}}: LITERAL\newline
-			\textbf{\underline{type}}: CLASS\newline
-			\textbf{\underline{language}}: LANGUAGE
-	};
-	
-	 
-	\node (propertyDomain) [relation, rectangle split, rectangle split parts=2, below= 1cm of objectPropertyAssertion]{
-			\textbf{propertyDomain}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{property}}: CLASS\newline
-			\textbf{\underline{domain}}: CLASS
-	};
-	
-	\node (propertyRange) [relation, rectangle split, rectangle split parts=2, right =2cm of propertyDomain]{
-			\textbf{propertyRange}
-		\nodepart{second}
-			\underline{id}: INT\newline
-			\textbf{\underline{property}}: CLASS\newline
-			\textbf{\underline{range}}: CLASS
-	};
-
-\end{tikzpicture}
-\end{figure} 
-
-\begin{tikzpicture}[node distance=3cm]
-	\node (members) [relation, rectangle split, rectangle split parts=2]{
-			\textbf{members}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{list}}: NAME
-	};
-	
-	\node (propertyChain) [relation, rectangle split, rectangle split parts=2, right =2cm of members]{
-			\textbf{propertyChain}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{list}}: NAME
-	};
-	
-	\node (hasKey) [relation, rectangle split, rectangle split parts=2, below of= members]{
-			\textbf{hasKey}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{list}}: NAME
-	};
-	
-	\node (intersectionOf) [relation, rectangle split, rectangle split parts=2, right =2cm of hasKey]{
-			\textbf{intersectionOf}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{list}}: NAME
-	};
-	
-	\node (unionOf) [relation, rectangle split, rectangle split parts=2, below of= hasKey]{
-			\textbf{unionOf}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{list}}: NAME
-	};
-	
-	
-	\node (oneOf) [relation, rectangle split, rectangle split parts=2, right= 2cm of unionOf]{
-			\textbf{oneOf}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{list}}: NAME
-	};
-
-\end{tikzpicture}
-
+	\end{tikzpicture}
+\end{figure}
+Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relationen die mit einer variablen Anzahl von Elementen umgehen und daher mit Listen arbeiten. Es gibt Relationen wie sameAs und differentFrom die mehrere Fakten enthalten können. Hier ist es so festgelegt, das wenn nur ein Paar erzeugt wird, dann wird es in der speziellen Relation abgelegt. Falls die Anzahl größer ist wird es in der members Relation abgelegt. Hier gilt aber ebenfalls das neue Fakten nur für Relationen in der Abbildung \ref{relations-for-which-data-is-created} erzeugt werden können, d.h. es können nur paarweise Daten erzeugt werden und keine Liste.
 
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=6cm]
-\begin{tikzpicture}[node distance=3cm]
-	\node (allValuesFrom) [relation, rectangle split, rectangle split parts=2]{
-			\textbf{allValuesFrom}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{part}}: CLASS\newline
-			\textbf{\underline{property}}: CLASS\newline
-			\textbf{\underline{total}}: NAME
-	};
-	
-	\node (someValuesFrom) [relation, rectangle split, rectangle split parts=2, right =1cm of allValuesFrom]{
-			\textbf{someValuesFrom}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{part}}: CLASS\newline
-			\textbf{\underline{property}}: CLASS\newline
-			\textbf{\underline{total}}: NAME
-	};
-	
-	\node (hasValueEnt) [relation, rectangle split, rectangle split parts=2, below =1cm of allValuesFrom]{
-			\textbf{hasValueEnt}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{value}}: IND
-	};
-	
-	\node (hasValueLit) [relation, rectangle split, rectangle split parts=2, right =1cm of hasValueEnt]{
-			\textbf{hasValueLit}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{value}}: LITERAL\newline
-			\textbf{\underline{language}}: LANGUAGE\newline
-			\textbf{\underline{type}}: CLASS
-	};
-	
-	\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below =1cm of hasValueEnt]{
-			\textbf{disjointWith}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	
-	\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, right =1cm of disjointWith]{
-			\textbf{propertyDisjointWith}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: PROPERTY\newline
-			\textbf{\underline{right}}: PROPERTY
-	};
-	
-	\node (maxCardinality) [relation, rectangle split, rectangle split parts=2, below of= disjointWith]{
-			\textbf{maxCardinality}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{value}}: NUMBER
-	};
-	
-	\node (maxQualifiedCardinality) [relation, rectangle split, rectangle split parts=2, right =1cm of maxCardinality]{
-			\textbf{maxQualifiedCardinality}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{class}}: CLASS\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{total}}: CLASS\newline
-			\textbf{\underline{value}}: NUMBER
-	};
-	
-	\node (complementOf) [relation, rectangle split, rectangle split parts=2, below of= maxCardinality]{
-			\textbf{complementOf}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	
-	\node (inverseOf) [relation, rectangle split, rectangle split parts=2, right =1cm of complementOf]{
-			\textbf{inverseOf}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	
-	\node (negativeObjectPropertyAssertion) [relation, rectangle split, rectangle split parts=2, below of= complementOf]{
-			\textbf{negativeObjectPropertyAssertion}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{subject}}: IND\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{object}}: IND
-	};
-	
-	\node (negativeDataPropertyAssertion) [relation, rectangle split, rectangle split parts=2, right =1cm of negativeObjectPropertyAssertion]{
-			\textbf{negativeDataPropertyAssertion}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{subject}}: IND\newline
-			\textbf{\underline{property}}: PROPERTY\newline
-			\textbf{\underline{object}}: IND
-	};
-	
-\end{tikzpicture}
+\begin{figure}
+	\caption{sonstige Relationen}
+	\label{relations-others-1}
+	\begin{tikzpicture}[node distance=3cm]
+		\node (allValuesFrom) [relation, rectangle split, rectangle split parts=2]{
+				\textbf{allValuesFrom}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{part}}: CLASS\newline
+				\textbf{\underline{property}}: CLASS\newline
+				\textbf{\underline{total}}: NAME
+		};
+		
+		\node (someValuesFrom) [relation, rectangle split, rectangle split parts=2, right =1cm of allValuesFrom]{
+				\textbf{someValuesFrom}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{part}}: CLASS\newline
+				\textbf{\underline{property}}: CLASS\newline
+				\textbf{\underline{total}}: NAME
+		};
+		
+		\node (hasValueEnt) [relation, rectangle split, rectangle split parts=2, below =1cm of allValuesFrom]{
+				\textbf{hasValueEnt}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{value}}: IND
+		};
+		
+		\node (hasValueLit) [relation, rectangle split, rectangle split parts=2, right =1cm of hasValueEnt]{
+				\textbf{hasValueLit}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{value}}: LITERAL\newline
+				\textbf{\underline{language}}: LANGUAGE\newline
+				\textbf{\underline{type}}: CLASS
+		};
+		
+		\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below =1cm of hasValueEnt]{
+				\textbf{disjointWith}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		
+		\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, right =1cm of disjointWith]{
+				\textbf{propertyDisjointWith}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: PROPERTY\newline
+				\textbf{\underline{right}}: PROPERTY
+		};
+		
+		\node (maxCardinality) [relation, rectangle split, rectangle split parts=2, below of= disjointWith]{
+				\textbf{maxCardinality}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{value}}: NUMBER
+		};
+		
+		\node (maxQualifiedCardinality) [relation, rectangle split, rectangle split parts=2, right =1cm of maxCardinality]{
+				\textbf{maxQualifiedCardinality}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{class}}: CLASS\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{total}}: CLASS\newline
+				\textbf{\underline{value}}: NUMBER
+		};
+		
+		\node (complementOf) [relation, rectangle split, rectangle split parts=2, below of= maxCardinality]{
+				\textbf{complementOf}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		
+		\node (inverseOf) [relation, rectangle split, rectangle split parts=2, right =1cm of complementOf]{
+				\textbf{inverseOf}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		
+		\node (negativeObjectPropertyAssertion) [relation, rectangle split, rectangle split parts=2, below of= complementOf]{
+				\textbf{negativeObjectPropertyAssertion}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{subject}}: IND\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{object}}: IND
+		};
+		
+		\node (negativeDataPropertyAssertion) [relation, rectangle split, rectangle split parts=2, right =1cm of negativeObjectPropertyAssertion]{
+				\textbf{negativeDataPropertyAssertion}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{subject}}: IND\newline
+				\textbf{\underline{property}}: PROPERTY\newline
+				\textbf{\underline{object}}: IND
+		};
+		
+	\end{tikzpicture}
+\end{figure}
 
-
-\begin{tikzpicture}[node distance=6cm]
-	\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2]{
-			\textbf{differentFromEnt}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: IND\newline
-			\textbf{\underline{right}}: IND
-	};
-	\node (differentFromLit) [relation, rectangle split, rectangle split parts=2, left of= differentFromEnt]{
-			\textbf{differentFromLit}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: IND\newline
-			\textbf{\underline{right}}: IND\newline
-			left\_language: LANGUAGE\newline
-			left\_type: CLASS\newline
-			right\_language: LANGUAGE\newline
-			right\_type: CLASS
-	};
+\begin{figure}
+	\caption{sonstige Relationen (fortgesetzt)}
+	\label{relations-other-2}
+	\begin{tikzpicture}[node distance=5cm]
+		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2]{
+				\textbf{differentFromEnt}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: IND\newline
+				\textbf{\underline{right}}: IND
+		};
+		\node (differentFromLit) [relation, rectangle split, rectangle split parts=2, right =2cm of differentFromEnt]{
+				\textbf{differentFromLit}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: IND\newline
+				\textbf{\underline{right}}: IND\newline
+				left\_language: LANGUAGE\newline
+				left\_type: CLASS\newline
+				right\_language: LANGUAGE\newline
+				right\_type: CLASS
+		};
+		
+		\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below of= differentFromEnt]{
+				\textbf{disjointWith}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: CLASS\newline
+				\textbf{\underline{right}}: CLASS
+		};
+		\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, right =2cm of disjointWith]{
+				\textbf{propertyDisjointWith}
+			\nodepart{second}
+				id: INT\newline
+				\textbf{\underline{left}}: PROPERTY\newline
+				\textbf{\underline{right}}: PROPERTY
+		};
 	
-	\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below of= differentFromEnt]{
-			\textbf{disjointWith}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: CLASS\newline
-			\textbf{\underline{right}}: CLASS
-	};
-	\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, left of= disjointWith]{
-			\textbf{propertyDisjointWith}
-		\nodepart{second}
-			id: INT\newline
-			\textbf{\underline{left}}: PROPERTY\newline
-			\textbf{\underline{right}}: PROPERTY
-	};
-
-\end{tikzpicture}
+	\end{tikzpicture}
+\end{figure}
+Die sonstige Relationen aus Abbildung \ref{relations-others-1} und \ref{relations-other-2} sind so umfangreich, da in OWL2 RL fast die komplette Sprachmächtigkeit von OWL2 abbildbar ist.
