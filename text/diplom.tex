@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \documentclass[a4paper,10pt,bibtotoc,twoside,openright,pointlessnumbers,normalheadings,DIV=9
-,draft
+%,draft
 ]{scrbook}
 \KOMAoptions{DIV=last}
 
@@ -16,6 +16,7 @@
 \usepackage{verbatim}
 \usepackage[table]{xcolor}
 \usepackage{tabularx}
+\usepackage{array}
 \usepackage{multirow}
 \usepackage{subfigure}
 \usepackage{url}
@@ -83,6 +84,11 @@ pdfborder=0 0 0	% keine Box um die Links!
 
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes,shadows,arrows}
+
+\newcolumntype{P}[1]{>{\raggedright}p{#1}}
+\newcolumntype{M}[1]{>{\raggedright}m{#1}}
+\newcommand{\rr}{\raggedright}
+\newcommand{\tn}{\tabularnewline}
 
  
 %Trennungsregeln

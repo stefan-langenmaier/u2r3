@@ -3,6 +3,132 @@ In den einleitenden Abschnitten wurden bereits einige Begriffe verwendet, die no
 
 Dazu gehören Ontologien, für was sie stehen und wozu sie nützlich sind. Die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründe für die Umsetzungen von Ontologien in Datenbanken.
 
+\section{Ontologien}
+
+
+TEXT
+
+
+\subsection{Unterschied zu relationaler Datenbank}
+
+Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als\emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
+Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden, ist es nicht Teil des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
+\begin{figure}
+	\caption{W3 Layercake}
+	\label{image-w3-layercake}
+	\scalebox{0.2}{
+		\includegraphics{images/w3-layercake.pdf}
+	}
+\end{figure}
+
+\section{OWL2}
+\label{abschnitt-owl2}
+
+\begin{figure}
+	\caption{OWL Layer Map}
+	\label{image-owl-layer-map}
+	\scalebox{0.2}{
+		\includegraphics{images/owl-layer-map.pdf}
+	}
+\end{figure}
+Adaption der offizielen OWL Layer Map \cite{OWLLayerMap}. Es ist nur der in der Arbeit verwendete Teil hervorgehoben.
+
+\section{Sprachkomplexitäten}
+Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
+
+
+\begin{figure}
+	\caption{Sprachierarchie \cite{OWLimManual}}
+	\label{image-sprachhierarchie}
+	\scalebox{0.2}{
+		\includegraphics{images/sprachhierarchie.pdf}
+	}
+\end{figure}
+Frei nach der Vorlage aus der OWLim Dokumentation.
+
+\begin{figure}
+	\caption{Sprachkomplexitäten}
+	\label{image-sprachhierarchie}
+	\scalebox{0.15}{
+		\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
+	}
+\end{figure}
+Frei nach der Vorlesung/Übung Wissensmodellierung \cite{WiMo}.
+
+\subsection{Attributive Language}
+Die \emph{attributive language} ist eine einfache Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
+
+$\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | $\bot$ | $\lnot$A | C $\land$ D | $\forall$r.C | $\exists$r
+
+Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema, wird aber von vielen Programmen wie z.B. Protégé verwendet.
+
+Bei diesem Namenschema werden an die Buchstaben $\mathcal{AL}$ noch weitere Kürzel angehängt, die für die zusätzlichen Operatoren stehen.
+\begin{itemize}
+  \item $\mathcal{C}$ für volle Negation (Complement)
+  \item (D) für konkrete Domänen\newline
+Damit ist der Einsatz von Literalen möglich, z.B. in datatype properties, data values oder data types.
+  \item $\mathcal{U}$ Konzeptvereinigung (Union)
+  \item $\mathcal{E}$ Existenzquantoren für komplexe Ausdrücke (Exists)\newline
+Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
+  \item $\mathcal{N}$ Kardinalitätseinschränkungen.
+  \item $\mathcal{I}$ Inverse Eigenschaften (Inverse)
+  \item $\mathcal{O}$ Aufzählungen von \emph{object values} (Nominals)
+  \item $\mathcal{H}$ Hierarchie von Eigenschaften (Role hierarchy)
+  \item $\mathcal{F}$ Funktionale Eigenschaften
+\end{itemize}
+\cite{wiki:DescriptionLogic}
+
+\subsection{Komplexität in Form der attributive language}
+\begin{itemize}
+  \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$)
+  \item Die Sprache OWL1 bzw. OWL-DL liegt in $\mathcal{ALCHOIN}$ ($\mathcal{SHOIN}$) [ref]
+  \item OWL2 basiert auf $\mathcal{ALCROIQ}$ ($\mathcal{SROIQ}$) \cite{Krötzsch2008}
+\end{itemize}
+
+
+\begin{table}
+	\caption{Sprachkomplexitäten}
+	\label{table-sprachkomplexitaeten}
+%	\rowcolors{3}{white}{lightgray}
+	
+	\scalebox{0.74}{
+		\renewcommand{\arraystretch}{1.2}
+		\begin{tabular}{|M{2cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+		\hline
+		\rr Sprache & \rr Schluss\-folger\-ungs\-problem & \rr Komplexität der Taxonmie & \rr Daten\-komplexität & \rr Abfrage Komplexität & \rr Kombinierte Komplexität \tn
+		\hline
+		\hline
+		\multirow{3}{*}{OWL-DL} & Ableitung & NEXPTIME-vollständig & Offen & Nicht anwendbar & NEXPTIME-vollständig \\ 
+		\cline{2-6}
+								& Abfragen & Offen & Offen & Offen & Offen \\
+		\hline
+		\multirow{3}{*}{DLP} & Ableitung & In EXPTIME & PTIME-vollständig & Nicht anwendbar & In EXPTIME \\
+							\cline{2-6}
+							& Abfragen & In EXPTIME & PTIME-vollständig & In EXPTIME & In EXPTIME \\
+		\hline
+		\rr \multirow{4}{2cm}{OWL2 Direct Semantics} & Ableitung & 2NEXPTIME-vollständig & entscheidbar, aber Komplexität offen & Nicht anwendbar & 2NEXPTIME \\
+			\cline{2-6}
+			& Abfragen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen \\
+		\hline
+		\multirow{3}{*}{OWL2 EL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\
+			\cline{2-6}
+			& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & PSPACE-vollständig \\
+		\hline
+		\multirow{3}{*}{OWL2 QL} & Ableitung & NLogSpace-vollständig & In AC$^0$ & Nicht anwendbar & NLogSpace-vollständig \\
+			\cline{2-6}
+			& Abfragen & NLogSpace-vollständig & In AC$^0$ & NP-vollständig & NP-vollständig \\
+		\hline
+		\multirow{2}{*}{OWL2 RL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\
+			\cline{2-6}
+			& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & NP-vollständig \\
+		\hline
+		\end{tabular}
+	}
+	\cite{WebontTractable}
+	\cite{OWL2Complexities}
+	\cite{ComplexityNavigator}
+\end{table}
+
 \section{Kriterien der Wissensrepräsentation}
 
 Die Wissensrepräsentation ist zentraler Bestandteil eines KI-Systems. Eine Wissensrepräsentation wird zu jedem Bereich von intelligenten rechnergestützten Systemen benötigt.
@@ -23,8 +149,7 @@ Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen au
 Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
 \end{itemize}
 
-
-\subsection{OWL2 RL Eigenschaften}
+\section{OWL2 RL Eigenschaften}
 Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren effizient ableitbar zu sein. Effizient ist dabei im theoretischen Sinne zu verstehen, d.h. die Ableitungsfunktion ist in polynomieller Zeit ausführbar. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, dass sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben, die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP \cite{Grosof2003} und pD* \cite{Li2006} inspiriert.
 
 Damit fällt OWL2 RL auch in die Kategorie der monotonen Sprachen, das bedeutet wenn neue expliziten Fakten zur Wissensbasis hinzugefügt werden, dann fügen diese zwar durch Ableitung neue implizite Fakten zur Wissensbasis hinzu, aber unter keine Umständen können die expliziten Fakten das Entfernen von bereits abgeleiten Fakten verursachen. Damit kann das Hinzufügen von neuen Fakten die abgeleitete Wissenbasis nur monoton erweitern.
@@ -36,143 +161,12 @@ Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntakt
 
 Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden viele kleine verteilte Wissensbasen erzeugt. In einer Sammlung solcher Wissensbasen kann dann geschlussfolgert werden. Wird diese Sammlung erweitert, verkleinert oder verändert ist es natürlich umständlich, wenn wieder über alle anderen Beziehung geschloßen werden müsste. Durch eine montone Logik ist eine modulare Umsetzung besonders gut zu realisieren.
 
-\subsection{Sprachkomplexitäten}
-Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
-
-\subsubsection{Attributive Language}
-Die attributive language ist die grundlegende Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
-
-$\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | $\bot$ | $\lnot$A | C $\land$ D | $\forall$r.C | $\exists$r
-
-Diese attributive language kann durch weitere Operatoren in ihrere Ausdrucksmächtigkeit vergrößert werden. Für die Menge an Möglichkeiten hat sich dabei ein Namensschema herauskristallisiert. Dies ist zwar kein offizielles und eindeutiges Schema wird aber von vielen Programmen wie z.B. Protégé verwendet.
-
-Bei diesem Namenschema werden an die Buchstaben AL noch weitere Kürzel angehängt die für die zusätzlichen Operatoren stehen.
-\begin{itemize}
-  \item $\mathcal{C}$ für volle Negation (Complement)
-  \item (D) für konkrete Domänen\newline
-Damit ist der Einsatz von Literalen möglich, z.B. in datatype properties, data values oder data types.
-  \item $\mathcal{U}$ Konzeptvereinigung (Union)
-  \item $\mathcal{E}$ Existenzquantoren für komplexe Ausdrücke (Exists)\newline
-Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
-  \item $\mathcal{N}$ Kardinalitätseinschränkungen.
-  \item $\mathcal{I}$ Inverse Eigenschaften (Inverse)
-  \item $\mathcal{O}$ Aufzählungen von object values (Nominals)
-  \item $\mathcal{H}$ Hierarchie von Eigenschaften (Role hierarchy)
-  \item $\mathcal{F}$ Funktionale Eigenschaften
-\end{itemize}
-\cite{wiki:DL}
-
-\subsubsection{Komplexität in Form der attributive language}
-\begin{itemize}
-  \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$)
-  \item Die Sprache OWL1 bzw. OWL-DL liegt in $\mathcal{ALCHOIN}$ ($\mathcal{SHOIN}$)
-  \item OWL2 basiert auf $\mathcal{ALCROIQ}$ ($\mathcal{SROIQ}$) \cite{Krötzsch2008}
-\end{itemize}
+\subsection{OWL2 RL Einsatzgebiete}
 
 
-\begin{table}
-	\rowcolors{3}{lightgray}{white}
-	
-	\begin{tabular}{|m{1.4cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|p{2cm}|}
-	\hline
-	Sprache & Schlussfolger\-ungs\-problem & Komplexität der Taxonmie & Daten\-komplexität & Abfrage Komplexität & Kombinierte Komplexität \\
-	\hline
-	\hline
-	\multirow{2}{*}{OWL-DL} & Ableitung & NEXPTIME-vollständig & Offen & Nicht anwendbar & NEXPTIME-vollständig \\ \cline{2-6}
-		& Abfragen & Offen & Offen & Offen & Offen \\
-	\hline
-	\multirow{2}{*}{DLP} & Ableitung & In EXPTIME & PTIME-vollständig & Nicht anwendbar & In EXPTIME \\ \cline{2-6}
-		& Abfragen & In EXPTIME & PTIME-vollständig & In EXPTIME & In EXPTIME \\
-	\hline
-	\multirow{2}{*}{OWL2 Direct Semantics} & Ableitung & 2NEXPTIME-vollständig & entscheidbar, aber Komplexität offen & Nicht anwendbar & 2NEXPTIME \\ \cline{2-6}
-		& Abfragen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen & Entscheidbarkeit offen \\
-	\hline
-	\multirow{2}{*}{OWL2 EL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\ \cline{2-6}
-		& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & PSPACE-vollständig \\
-	\hline
-	\multirow{2}{*}{OWL2 QL} & Ableitung & NLogSpace-vollständig & In AC$^0$ & Nicht anwendbar & NLogSpace-vollständig \\ \cline{2-6}
-		& Abfragen & NLogSpace-vollständig & In AC$^0$ & NP-vollständig & NP-vollständig \\
-	\hline
-	\multirow{2}{*}{OWL2 RL} & Ableitung & PTIME-vollständig & PTIME-vollständig & Nicht anwendbar & PTIME-vollständig \\ \cline{2-6}
-		& Abfragen & PTIME-vollständig & PTIME-vollständig & NP-vollständig & NP-vollständig \\
-	\hline
-	\end{tabular}
-	
-	\cite{WebontTractable}
-	\cite{OWL2Complexities}
-	\cite{ComplexityNavigator}
-\end{table}
-
-Natürlich ist das Sprachfragemnt OWL2 RL entscheidbar und zwar in polynomieller Zeit entscheidbar. In der Profilbeschreibung wird dabei feiner unterschieden.
-
-\subsection{Zusammenhang mit einem Schlussfolgerer}
-%besser in Konzeption oder Realisierung
-Die Wissensrepräsentation hängt nicht direkt mit dem Schlussfolger zusammen, wenn man allerdings über die gewünschte Wissensrepräsentation bescheid weiß, ist es möglich den Schlussfolger daraufhin zu trimmen. Im Falle dieser Arbeit wird mit einer Wissensrepräsentation gearbeitet -- OWL2 RL -- und der Schlussfolgerer ist daraufhin optimiert, die in der Sprache repräsentierten Kriterien, wie Entscheidbarkeit und Komplexität zu erreichen.
-Das bedeutet zum einen einfach, das wenn die Sprache entscheidbar ist, also es einen immer einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
-Die Komplexität einer Sprache gibt nur einen theoretischen Wert an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nah an der Definition der Sprache umgesetzt werden und somit auch nah an der theoretischen Komplexität bleiben.
-Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete Rolle.
-
-\section{Ontologien}
-= Unterschied zu relationaler Datenbank =
-
-Beim Abspeichern einer Ontologie in einer relatioalenDatenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die unique name assumption, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von  eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder unique deklariert werden wird sichergestellt das Namen eindeutig sind.
-Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden ist nicht Tel des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
-\begin{figure}
-\includegraphics{images/w3-layercake.pdf}
-\end{figure}
-
-\section{OWL2}
-\label{abschnitt-owl2}
- http://www.cs.man.ac.uk/~sattler/publications/sroiq-TR.pdf
-OWL2 DL liegt in SROIQ
-gefunden in  http://www.w3.org/TR/2009/REC-owl2-overview-20091027/
-2.3 Semantics
-\begin{figure}
-\includegraphics{images/owl-layer-map.pdf}
-\end{figure}
-
-\begin{figure}
-\includegraphics{images/sprachhierarchie.pdf}
-\end{figure}
-
-\begin{figure}
-\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
-\end{figure}
-
-\section{Schlussfolger}
-
-\section{U2R2}
-
-\section{Aktueller Stand auf dem Onto-Gebiet}
-Nicht nur die aktuelle Veröffentlichung der OWL2 Spezifikation zeugt davon das im Moment die Entwicklung im Ontologie-Bereich der künstlichen Intelligenz in vollem Gange ist. Auch auf der Seite des W3C für Semantic Web findet man eine große Anzahl an Projekten die auf dieser Basis arbeiten.
-Darunter sind z.B.:
-\begin{itemize}
-  \item AUFZÄHLUNG USE CASES
-\end{itemize}
-Diese verschiedenen Bereiche zeigen auf das Ontologien einerseits unterschiedliche Bereiche verbinden aber auch ihrer Wichtigkeit.
+\section{Weiterentwicklung auf dem Onto-Gebiet}
 
 OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL ist auch schon in Planung [ref OWL3 Suggestions] und es werden verschieden Konferenzen zu diesem Thema abgehalten.
 \begin{itemize}
   \item AUFZÄHLUNG VON KONFERENZEN
 \end{itemize}
-
-\begin{verbatim}
-    * Was ist OWL im Hinblick auf Ontologien?
-         o Wo ist das OWL2 RL Fragment einzuordnen?
-          o Wie ist OWL2 aufgebaut?
-          o Was sind andere Profile
-          o Was sind ihre Unterschiede
-          o Was sind ihre Eigenschaften.
-    * Was ist interessant bzgl des Fragements OWL2 RL?
-    * Was ist das Einsatzgebiet von OWL2 RL?
-    
-    * Wie ist der OWL2 Zeitplan?
-    
-    * Warum braucht man einen Reasoner?
-    * Was zeichnet einen Reasoner aus? Welche Funktionen muss er bereitstellen?
-    
-    * Was ist die Herkunft und der Hintergrund meiner DA?
-    * Wie ordnet sich U2R2 ein? Was ist der Reasoner Ansatz/ die Reasoner Strategie?
-    * Wie war dieser Reasoner aufgebaut und konzipiert?
-    * Was waren die Fähigkeiten von U2R2?
-\end{verbatim}
