@@ -1,33 +1,40 @@
-\chapter{Motivation}
+\chapter{Motivation & Aufgabenstellung}
 \label{kapitel-motivation}
-
-Nachdem Ende Oktober 2009 OWL2 vom W3C als technical report veröffentlicht wurde geht die Entwicklung der Anwednungen im Berich \emph{semantic web} in eine neue Runde. Hinter den bekannten Namen wie Pellet, HermitT oder auch Fact++ wird an der OWLAPI schon länger an der Aktualisierung auf die neue Spezifikation gearbeitet.
-
-OWL2 ist nicht einfach eine Erhöhung der Versionsnummer, es wurde zwar versucht Rückwärtskompatibilität weitestgehend zu erhalten, aber die Sprache wurde um einige Dinge erweitert. Im folgenden wird dabei  insbesondere auf die in OWL2 hinzugekommenen Profile eingegangen. In OWL1 gab es bereits das Lite-Profil, das einen gewissen Teilsatz von OWL1 anbot, in dem es zwar einfacher war Schlussfolgerungen zu treffen, aber die Bezeichnung \emph{lite} war vielleicht eine Übertreibung. In OWL2 wurde dies jetzt noch feiner unterteilt und die Eigenschaften und Komplexitäten bzgl. der Schlussfolgerungen auf spezifischere Anwendungsgebiete festgelegt.
-
-Die gewünschten Fähigkeiten, die für den Schlussfolgerer erreicht werden soll werden im nächsten Abschnitt Ziele \ref{abschnitt-ziele} näher erläutert. Danach wird im Abschnitt OWL2 \ref{abschnitt-owl2} die Sprache und das RL Profil näher erläutert.
 
 \section{Anwendungsgebiete}
 Die Anwendungsgebiete von Ontolgien, dem Semantic Web und OWL sind quasi nur durch die Vorstellungskraft begrenzt. Dem Leser der auf diesem Gebiet vertraut ist, ist die Anwendung im medizinischen Bereich sicherlich schon bekannt. Auch die Anreicherung von Metainformationen zur Verbesserung von Suchergebnisssen bei Suchmaschinen sollte bekannt sein bzw. liegt nahe.
 
 Neue Anwendungsgebiete bilden sich im Moment aber ständig heraus. So sind Ontologien ebenfalls sehr gut im juristischen Bereich anwendbar, da wie in der Medizin eine große Terminologien-Vielfalt vorhanden ist und gerade hier mit Schlussfolgerern die Entscheidungsfindung unterstützt und überpürft werden kann.
 Aber auch jede Firma hat das Problem ihr Fachwissen zu verwalten und für ihre Mitarbeiter effizient zugänglich zu machen. Ein spezieller Punkt hierbei ist das Workflow-Management, das besonders intensiv an der Uni Ulm behandelt wird. Die Komplexitäten der hierfür verwendeten Programme zeigen, das die Arbeitsabläufe, die damit modelliert werden von komplexer Natur sind. Hier helfen ebenfalls Metadaten die Modellierung zu unterstützen.
-Aber es gibt auch Anwendungsgebiete in der Lndwirtschaft, im Bankenwesen, in der Luft- und Raumfahrt, auf dem Desktop des eigenen PCs, der Lernunterstützung für Schüler und Studenten, in der Verwaltung von Regierungen\ldots
+Aber es gibt auch Anwendungsgebiete in der Landwirtschaft, im Bankenwesen, in der Luft- und Raumfahrt, auf dem Desktop des eigenen PCs, der Lernunterstützung für Schüler und Studenten, in der Verwaltung von Regierungen\ldots
+
 Eine vollständige und ausführliche Beschreibung ist unmöglich und würde den Rahmen diser Arbeit sprengen. AUf der Webseite des W3C zum Semantic Web \cite{W3CUseCases} sind einige dieser Anwendungsfälle näher beschrieben.
+
+
+
+\section{Aktualität}
+OWL ist eine Spezifikation zur Repräsenation von Ontologien. 2001 wurde dabei die erste Version herausgegeben. Seit Oktober 2009 existiert OWL2 als vom W3C veröffentlichter technical report. Damit geht die Entwicklung der Anwednungen im Berich \emph{semantic web} in eine neue Runde. Hinter den bekannten Schlussfolgerungssystemen wie Pellet, HermitT oder auch Fact++ wird an der OWLAPI schon länger an der Aktualisierung auf die neue Spezifikation gearbeitet.
+
+OWL2 ist Rückwärtskompatibilität, aber die Sprache wurde um einige Dinge erweitert. Im folgenden wird dabei  insbesondere auf die in OWL2 hinzugekommenen Profile eingegangen. Die Profile sind dabei eine Neuerung aus OWL2.
+
+In OWL1 gab es bereits das Lite-Profil, das einen gewissen Teilsatz von OWL1 anbot, in dem es zwar einfacher war Schlussfolgerungen zu treffen, aber die Bezeichnung \emph{lite} war unvorteilhaft, da dieses Profil zu grob war. In OWL2 wurde dies jetzt noch feiner unterteilt und die Eigenschaften und Komplexitäten bzgl. der Schlussfolgerungen auf spezifischere Anwendungsgebiete festgelegt.
+
+Diese neue Unterteilung war der Grund für dieses Thema. Die Profile waren für gewisse Arten der Implementierung vorgesehen. So ist z.B. das hier nicht behandelte QL Profil daraufausgelegt mit einer Datenbank umzusetzten, in dem man die Anfragen an einen Schlussfolgere in SQL Abfragen umschreibt. Das hier behandelte RL Profil bot sich an, da der Regelansatz auf den in diesem Profil abgezielt wird schon in frühren Arbeiten an der Uni behandelt wurde. Damit war es nur natürlich diese Arbeit fortzusetzen und weiterzuentwickeln.
+
+Die gewünschten Fähigkeiten, die für den Schlussfolgerer erreicht werden soll werden im nächsten Abschnitt Ziele \ref{abschnitt-ziele} näher erläutert. Danach wird im Abschnitt OWL2 \ref{abschnitt-owl2} die Sprache und das RL Profil näher erläutert.
 
 \section{Ziele}
 \label{abschnitt-ziele}
 
-In erster Linie soll in dieser Arbeit ein benutzbarer Schlussfolgerer entstehen, der dabei einige Randbedingungen erfüllt. Es sollte eine Dokumentation in ausreichendem Umfang und Qualität vorhanden sein, damit auch später sich jemand in das Thema einarbeiten kann.
+In erster Linie soll in dieser Arbeit ein benutzbarer Schlussfolgerer entstehen, unter benutzbar ist dabei die Erfüllung der folgenden Punkte zu verstehen.
 
-Zum einen wird dies versucht durch die Entwicklung mit einem Wiki und SVN Repository sicherzustellen. Hier kann man die komplette Entwicklung des Quellcodes verfolgen. Zum anderen wird Javadoc verwendet, das beim Schreiben von Code in der IDE behilflich ist. Schließlich soll auch dieser Diplomarbeitstext selbst als Dokumenation dienen und die in der Implemenation getroffenen Design-Entscheidungen zu begründen.
+\begin{itemize}
+  \item RL-Profil Abdeckung
+  \item Korrektheit und Vollständigkeit
+  \item Anbindung an die OWLAPI
+  \item Retraction (Das Zurückziehen von Fakten)
+\end{itemize}
 
-Damit der Code auch von anderen Personen überprüft und korrigiert werden kann wurde versucht den Code möglichst gut wartbar zu machen und Fehlerquellen weitestgehend von einender zu isolieren. Dies geschiet z.B. durch den Einsatz eines DBMS zum Speichern der Daten. Diese Arbeit greift dabei Ideen aus der Umsetzung des u2r2 \cite{Weithoehner2008} auf.
-Allerdings wird die Komplexität dieser Umsetzung versucht zu reduzieren und auf die aktuelle Situation anzupassen. Durch die Umstellung auf OWL2 RL als Basis für die Semantik wird der Regelsatz deutlich größer und komplexer als er in u2r2 implementiert war. Dafür fällt der Compiler zum erstellen von Regelsätzen heraus, da es nur einen fixen Satz gibt und dieser wird in SQL implementiert.
-
-Um den Schlussfolgerer benutzbar zu machen braucht er ein möglichst breites Einsatzgebiet. Dazu gehören eine dokumentierte und übliche Schnittstelle. Daurm setzt dieser Schlussfolgerer auf der OWLAPIv3 \cite{OWLAPI} auf. Dieser ermöglicht es nicht nur auf einfache Art und Weise viele syntaktische Varianten von OWL2 zu parsen, sondern stellt auch eine Schnittstelle für Schlussfolgerer zur Verfügung, die bereits von namhaften Ontologie-Anwendungen (Pellet, Fact++, HermitT, RacerPro, Protégé) unterstützt wird. Desweiteren ist das breite Einsatzgebiet ein Grund für die Auswahl des RL-Profils gewesen. Diese Teilmenge von OWL2 ist auf eine große Ausdrucksmächtigkeit ausgelegt, um aber trotzdem noch entscheidbar und effizient zu bleiben. Letztendlich wurde auch die Entwicklung des u2r3 so konzipiert, dass er auf verschiedene Vorrausetzungen optimiert werden kann, um nur das Benötigte zu berechnen.
-
-Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er auf einem reinen \emph{open-source Stack} verfügbar. Die verwendete Datenbank H2 ist in Java implementiert und open-source, genauso wie die OWLAPI.
 
 Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden, wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL-Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB}, ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem gibt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurde. Natürlich muss man sich abschließend bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
@@ -41,18 +48,12 @@ Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansat
 
 Die Optimierungen werden im Kapitel Ausblick \ref{kapitel-ausblick} behandelt.
 
-\section{Problemstellungen im Bereich Wissensmodellierung}
-Für eine vollständiges KI-System sind gewissen Problem zu lösen. Wie sich u2r3 in dieses Ökosystem einfügt und was die dabei zu lösendenn Probleme sind kommen nachfolgend:
+\section{Ergebnisse}
+Zum einen wird dies versucht durch die Entwicklung mit einem Wiki und SVN Repository sicherzustellen. Hier kann man die komplette Entwicklung des Quellcodes verfolgen. Zum anderen wird Javadoc verwendet, das beim Schreiben von Code in der IDE behilflich ist. Schließlich soll auch dieser Diplomarbeitstext selbst als Dokumenation dienen und die in der Implemenation getroffenen Design-Entscheidungen zu begründen.
 
-\begin{itemize}
-  \item heterogenes Wissen
-  \item Darstellung im Computer
-  \item flexible Verarbeitung
-  \item Schlussfolgerung
-  \item Austausch (Standardformate)
-\end{itemize}
+Damit der Code auch von anderen Personen überprüft und korrigiert werden kann wurde versucht den Code möglichst gut wartbar zu machen und Fehlerquellen weitestgehend von einender zu isolieren. Dies geschiet z.B. durch den Einsatz eines DBMS zum Speichern der Daten. Diese Arbeit greift dabei Ideen aus der Umsetzung des u2r2 \cite{Weithoehner2008} auf.
+Allerdings wird die Komplexität dieser Umsetzung versucht zu reduzieren und auf die aktuelle Situation anzupassen. Durch die Umstellung auf OWL2 RL als Basis für die Semantik wird der Regelsatz deutlich größer und komplexer als er in u2r2 implementiert war. Dafür fällt der Compiler zum erstellen von Regelsätzen heraus, da es nur einen fixen Satz gibt und dieser wird in SQL implementiert.
 
-Diese Problem sind real und existieren. Es sind allerdings bereits Lösungsansätze für alle Bereiche vorhanden. Wenn man die Probleme von heterogenem Wissen und Austausch dieses Wissens lösen will, bedeutet das sich auf eine einheitliche Interpretation festzulegen. Dies ist durch die Entwicklung von OWL und OWL2 schon geschehen und ein Lösungsansatz ist damit vorhanden. Da hier auf XML und URIs bzw. IRIs aufgesetzt wurde steht einer Verwendung im Internet nichts mehr im Wege. Um die Darstellung im Computer und eine flexible Verarbeitung zu ermöglichen sind spezialisierte Werkzeuge nötig. Durch Anwendungen wie Protégé ist eine Darstellung für Anwender möglich, dabei wird als Grundlage die OWLAPI verwendet, die eine flexible Verarbeitung zulässt, indem sie auch Schnittstellen für andere Anwendungen bietet. Der Punkt Schlussfolgerung lässt natürlich viele verschieden Lösungsansätze zu, je nachdem welche Anforderungen an den Schlussfolgerer und die Ontologien gestellt sind. Diese Arbeit will dabei einen Schlussfolgerer für den aktuellen Bereich OWL2 RL anbieten, der sich über die OWLAPI nahtlos in dieses Problemlösungskonzept einfügen lässt.
+Um den Schlussfolgerer benutzbar zu machen braucht er ein möglichst breites Einsatzgebiet. Dazu gehören eine dokumentierte und übliche Schnittstelle. Daurm setzt dieser Schlussfolgerer auf der OWLAPIv3 \cite{OWLAPI} auf. Dieser ermöglicht es nicht nur auf einfache Art und Weise viele syntaktische Varianten von OWL2 zu parsen, sondern stellt auch eine Schnittstelle für Schlussfolgerer zur Verfügung, die bereits von namhaften Ontologie-Anwendungen (Pellet, Fact++, HermitT, RacerPro, Protégé) unterstützt wird. Desweiteren ist das breite Einsatzgebiet ein Grund für die Auswahl des RL-Profils gewesen. Diese Teilmenge von OWL2 ist auf eine große Ausdrucksmächtigkeit ausgelegt, um aber trotzdem noch entscheidbar und effizient zu bleiben. Letztendlich wurde auch die Entwicklung des u2r3 so konzipiert, dass er auf verschiedene Vorrausetzungen optimiert werden kann, um nur das Benötigte zu berechnen.
 
-Es ist damit ein vollständiges KI-System, mit einer Wissenrepräsentation, einer Problemlösungstechnik und einer Benutzerschnittstelle.
-
+Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er auf einem reinen \emph{open-source Stack} verfügbar. Die verwendete Datenbank H2 ist in Java implementiert und open-source, genauso wie die OWLAPI.
