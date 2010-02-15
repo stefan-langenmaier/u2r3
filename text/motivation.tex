@@ -1,4 +1,4 @@
-\chapter{Motivation & Aufgabenstellung}
+\chapter{Motivation \& Aufgabenstellung}
 \label{kapitel-motivation}
 
 \section{Anwendungsgebiete}
@@ -10,12 +10,27 @@ Aber es gibt auch Anwendungsgebiete in der Landwirtschaft, im Bankenwesen, in de
 
 Eine vollständige und ausführliche Beschreibung ist unmöglich und würde den Rahmen diser Arbeit sprengen. AUf der Webseite des W3C zum Semantic Web \cite{W3CUseCases} sind einige dieser Anwendungsfälle näher beschrieben.
 
+Um diese Herausforderungen richtig zu lösen ist ein komplette KI-System nötig. Die Bereich die ein solches System behandeln muss sind \cite{vonHenke2009}:
+
+\begin{itemize}
+  \item heterogenes Wissen
+  \item Darstellung im Computer
+  \item flexible Verarbeitung
+  \item Schlussfolgerung
+  \item Austausch (Standardformate)
+\end{itemize}
+
+Es sind allerdings bereits Lösungsansätze für alle Bereiche vorhanden. Wenn man die Probleme von heterogenem Wissen und Austausch dieses Wissens lösen will, bedeutet das sich auf eine einheitliche Interpretation festzulegen. Dies ist durch die Entwicklung von OWL und OWL2 schon geschehen und ein Lösungsansatz ist damit vorhanden. Da hier auf XML und URIs bzw. IRIs aufgesetzt wurde steht einer Verwendung im Internet nichts mehr im Wege. Um die Darstellung im Computer und eine flexible Verarbeitung zu ermöglichen sind spezialisierte Werkzeuge nötig. Durch Anwendungen wie Protégé ist eine Darstellung für Anwender möglich, dabei wird als Grundlage die OWLAPI verwendet, die eine flexible Verarbeitung zulässt, indem sie auch Schnittstellen für andere Anwendungen bietet.
+
+Der Punkt Schlussfolgerung lässt natürlich viele verschieden Lösungsansätze zu, je nachdem welche Anforderungen an den Schlussfolgerer und die Ontologien gestellt sind. Diese Arbeit will dabei einen Schlussfolgerer für den aktuellen Bereich OWL2 RL anbieten, der sich über die OWLAPI nahtlos in dieses Problemlösungskonzept einfügen lässt.
+
+In allen oben angegeben Fallstudien ist ein Schlussfolgerer nötig, um die impliziten Beziehungen in den Ontologien zu finden. Dieser Reasoner fügt sich also nahtlos in eine Softwareumfeld zur Lösung von real existierenden Problemen ein. Ein Schlussfolgerer ist für ein KI-System nötig, damit dieser hohe Aufwand an Formalismen durch aussagekräftige Ergebnisse wieder hereingeholt werden kann.
 
 
 \section{Aktualität}
 OWL ist eine Spezifikation zur Repräsenation von Ontologien. 2001 wurde dabei die erste Version herausgegeben. Seit Oktober 2009 existiert OWL2 als vom W3C veröffentlichter technical report. Damit geht die Entwicklung der Anwednungen im Berich \emph{semantic web} in eine neue Runde. Hinter den bekannten Schlussfolgerungssystemen wie Pellet, HermitT oder auch Fact++ wird an der OWLAPI schon länger an der Aktualisierung auf die neue Spezifikation gearbeitet.
 
-OWL2 ist Rückwärtskompatibilität, aber die Sprache wurde um einige Dinge erweitert. Im folgenden wird dabei  insbesondere auf die in OWL2 hinzugekommenen Profile eingegangen. Die Profile sind dabei eine Neuerung aus OWL2.
+OWL2 ist Rückwärtskompatibilität, aber die Sprache wurde um einige Dinge erweitert \cite{Golbreich2008}. Im folgenden wird dabei  insbesondere auf die in OWL2 hinzugekommenen Profile eingegangen. Die Profile sind dabei eine Neuerung aus OWL2.
 
 In OWL1 gab es bereits das Lite-Profil, das einen gewissen Teilsatz von OWL1 anbot, in dem es zwar einfacher war Schlussfolgerungen zu treffen, aber die Bezeichnung \emph{lite} war unvorteilhaft, da dieses Profil zu grob war. In OWL2 wurde dies jetzt noch feiner unterteilt und die Eigenschaften und Komplexitäten bzgl. der Schlussfolgerungen auf spezifischere Anwendungsgebiete festgelegt.
 

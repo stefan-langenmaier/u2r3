@@ -1,4 +1,4 @@
-\chapter{Grundlagen & Vorarbeiten}
+\chapter{Grundlagen \& Vorarbeiten}
 Im folgenden werden Begriffe zum Bereich Wissenmodellierung und Wissensrepräsentationnäher erklärt.
 
 Dazu gehören Ontologien, für was sie stehen und die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründe für die Umsetzungen von Ontologien in Datenbanken.
@@ -53,7 +53,7 @@ Frei nach der Vorlage aus der OWLim Dokumentation.
 		\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
 	}
 \end{figure}
-Frei nach der Vorlesung/Übung Wissensmodellierung \cite{WiMo}.
+Frei nach der Vorlesung/Übung Wissensmodellierung \cite{vonHenke2009}.
 
 \subsection{Attributive Language}
 Die \emph{attributive language} ist eine einfache Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
@@ -161,12 +161,20 @@ Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntakt
 
 Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden viele kleine verteilte Wissensbasen erzeugt. In einer Sammlung solcher Wissensbasen kann dann geschlussfolgert werden. Wird diese Sammlung erweitert, verkleinert oder verändert ist es natürlich umständlich, wenn wieder über alle anderen Beziehung geschloßen werden müsste. Durch eine montone Logik ist eine modulare Umsetzung besonders gut zu realisieren.
 
-\subsection{OWL2 RL Einsatzgebiete}
+\subsection{Aufgabe eines Reasoner}
+Ein Schlussfolgerer hat zwei Aufgaben:
+
+\begin{itemize}
+  \item Klassifizierung
+  \item Realisierung
+\end{itemize}
+
+Die Klassifizierung soll die Struktur der Ontologie bestimmen, d.h. die Beziehung der Klassen bzw. Konzepte zueinander. Was sind die Unterklassen einer bestimmten Klasse oder welche Klassen sind äquivalent.
+Die Realisierung bestimmt Beziehung zwischen Individuen bzw. Instanzen. Welche Individuen sind Mitglieder von Klassen und über welche Beziehungen sind sie untereinander verbunden.
+
+Alle Anfragemöglichkeiten die ein Reasoner hat sind spezielle Formen solche Ergebnisse abzufragen. Diese beiden Aufgaben sind der zentrale Dienst eine Schlussfoglerers. 
 
 
 \section{Weiterentwicklung auf dem Onto-Gebiet}
-
-OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL ist auch schon in Planung [ref OWL3 Suggestions] und es werden verschieden Konferenzen zu diesem Thema abgehalten.
-\begin{itemize}
-  \item AUFZÄHLUNG VON KONFERENZEN
-\end{itemize}
+OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL ist auch schon in Planung \cite{Hitzler2009} und es werden verschieden Konferenzen zu diesem Thema abgehalten. Auf \url{http://semanticweb.org/wiki/Events}
+findet man eine große Anzahl an Konferenzen und Workshops die zu diesem Gebiet gehören.
