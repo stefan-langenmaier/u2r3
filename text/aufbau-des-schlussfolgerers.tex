@@ -1,40 +1,56 @@
 \section{Aufbau des Schlussfolgerers}
 
 
+\begin{figure}
+	\caption{Aufbau der Hauptklassen des U2R3 Reasoner}
+	\label{schema-aufbau-u2r3}
+	
+	\tikzstyle{composition}=[->, >=diamond, thick]
+	
+	\tikzstyle{class}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text centered, anchor=north, text width=3.5cm, rectangle split, rectangle split parts=1]
 
-\tikzstyle{composition}=[->, >=diamond, thick]
+	\begin{tikzpicture}[node distance=2cm]
+	    \node (U2R3Reasoner) [class]
+	        {
+	            \textbf{U2R3Reasoner}
+	%            \nodepart{second}name
+	        };
+	        
+	    \node (RuleManager) [class, below of= U2R3Reasoner]
+	        {
+	            \textbf{RuleManager}
+	%            \nodepart{second}name
+	        };
+	        
+	     \node (RelationManager) [class, left =0.1cm of RuleManager]
+	        {
+	            \textbf{RelationManager}
+	%            \nodepart{second}name
+	        };
+	        
+	    \node (ReasonProcessor) [class, rectangle split parts=2, right =0.1cm of RuleManager]
+	        {
+	            \textbf{ReasonProcessor}
+	            \nodepart{second}+ classify()
+			};
 
-\tikzstyle{class}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text centered, anchor=north, text width=3.5cm, rectangle split, rectangle split parts=1]
+		\draw[composition] (RuleManager.north) -- (U2R3Reasoner.south);
+		\draw[composition] (RelationManager.north) -- (U2R3Reasoner.south);
+		\draw[composition] (ReasonProcessor.north) -- (U2R3Reasoner.south);
 
-\begin{tikzpicture}[node distance=2cm]
-    \node (U2R3Reasoner) [class]
-        {
-            \textbf{U2R3Reasoner}
-%            \nodepart{second}name
-        };
-        
-    \node (RuleManager) [class, below of= U2R3Reasoner]
-        {
-            \textbf{RuleManager}
-%            \nodepart{second}name
-        };
-        
-     \node (RelationManager) [class, left =0.1cm of RuleManager]
-        {
-            \textbf{RelationManager}
-%            \nodepart{second}name
-        };
-        
-    \node (ReasonProcessor) [class, rectangle split parts=2, right =0.1cm of RuleManager]
-        {
-            \textbf{ReasonProcessor}
-            \nodepart{second}+ classify()
-        };
-        
-    \draw[composition] (RuleManager.north) -- (U2R3Reasoner.south);
-    \draw[composition] (RelationManager.north) -- (U2R3Reasoner.south);
-    \draw[composition] (ReasonProcessor.north) -- (U2R3Reasoner.south);
-        
-        
-\end{tikzpicture}
-        
+	\end{tikzpicture}
+\end{figure}
+
+Das Klassendiagram \ref{schema-aufbau-u2r3} stellt den vereinfachten Aufbau des Schlussfolgerers dar. Die Aufgaben des Reasoner sind dabei in vier Hauptbereich zerlegt.
+\begin{enumerate}
+  \item Der RelationManger verwaltet die Relationen in der Datenbank und stellt die Verbindung zu dieser her. Darin sind alle Methoden die mit der Erstellung und Veränderung von Tabellenstrukturen zu tun hat enthalten.
+  \item Der RuleManager kapselt alle Regeln ab.
+  \item Der ReasonProcessor bringt Regeln zur Ausführung. Damit ist er das eigentliche Herz des Schlussfolgerers. Hier wird bestimmt welche Regeln auf welche Relationen angewendet werden und in welcher Reihenfolge.
+  \item Der U2R3Reasoner stellt die Schnittstelle nach außen dar. Er nimmt Ontologien, sowie Anfragen an diese Ontologien entgegen.
+\end{enumerate}
+
+\subsection{Relationen}
+\subsection{Regeln}
+\subsection{Regelprozessor}
+\subsection{Abfragen}
+\input{komplexe-ausdruecke}

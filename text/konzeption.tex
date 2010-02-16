@@ -2,6 +2,12 @@
 
 TEXT
 
+\begin{verbatim}
+* Wie wandelt man die Ontologie in INSERTs um?
+* Wie läd man eine Ontologie?
+\end{verbatim}
+
+
 \input{mema-prinzip}
 
 \section{Wissensrepräsentation in Zusammenhang mit einem Schlussfolgerer}
@@ -13,40 +19,40 @@ Das bedeutet zum einen, das wenn die Sprache entscheidbar ist, also es immer ein
 Die Komplexität einer Sprache gibt nur einen theoretischen Wert an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nahe an der Definition der Sprache umgesetzt werden und somit auch nahe an der theoretischen Komplexität bleiben.
 Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete Rolle.
 
-\input{arbeitsablauf-des-schlussfolgerers}
-
 \input{aufbau-des-schlussfolgerers}
 
+\input{arbeitsablauf-des-schlussfolgerers}
+
 \section{Auswertungsstrategien}
-Modusname: '''!EvaluationStrategy''' := COMMONLAST | RARELAST
+Die Auswertungstrategie beschreibt in welcher Reihenfolge der Regelprozessor die Anwendung von Regeln auslöst. 
 
-== Alle Regeln nacheinander ==
-trivial (nicht implementiert, sollte in der !RuleActionQueue umgesetzt werden)
+Der naive Ansatz wäre alle Regeln nacheinander auszuführen, d.h. alles Regeln die implementiert sind anwenden, wenn eine der Regeln dabei neue Fakten erzeugt muss dieser Vorgang wiederholt werden. Dieses Vorgehen ist trotz seiner leichten Umsetzbarkeit nicht implementiert, da der Reasoner damit unnötig viel Arbeit verrichten müssste.
 
-== Abhängigkeiten der Regeln ausnutzen/Regeln in eine Queue packen ==
+Ein etwas fortgeschrittener Ansatz ist es die Abhängigkeiten der Regeln auszunutzen, d.h. nur wenn für die Prämisse einer Regel überhaupt Fakten vorhanden sind kann diese ausgelöst werden. Das heißt im konkreten, wenn eine Relation die in einer Regel in der Prämisse verwendet wird neue Daten enthält, dann muss diese Regel ausgelöst werden. Dieses Verfahren ist im Schlussfolgerer so umgesetzt.
 
-Regeln zusammenfassen, falls sie mehrmals angefragt werden
+Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst wird dann zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
 
- * an ihrer Position in der Queue lassen
- * zurückschieben '''im Moment implementiert''' (siehe !RuleActionQueue)
+Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrere Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
 
-== Regelauslösung ==
-Für jeden Manipulation der Datenbank (DELETE/INSERT) wird/muss eine Reason ausgelöst (werden). Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen war. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
+In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
+
+\subsection{Regelauslösung}
+Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
+
+\begin{verbatim}
+DB Manipulation (1) ===> (1) Reason (1) ===> (n) RuleActions
+\end{verbatim}
 
 
-%{{{
-DB Manipulation  (1) ===> (1) Reason (1) ===> (n) RuleActions
-%}}}
-
-%{{{
+\begin{verbatim}
            Realtion                     Delta
-%            ######
-%            ######         <===           #
-%            ######
+            ######
+            ######         <===           #
+            ######
                                           |
 (welche Regel) |                          | (welche neuen Daten)
                |                          |
-%                ####>  Reason  <==========
+                ####>  Reason  <==========
 
                           | (1)
                           |
@@ -55,52 +61,18 @@ DB Manipulation  (1) ===> (1) Reason (1) ===> (n) RuleActions
                           v (n)
 
                       RuleAction
-
-%}}}
-
-\input{komplexe-ausdruecke}
-
-\begin{verbatim}
-    * Was ist der Unterschied zu OWL1 DL/Lite?
-    * Was sind Fähigkeiten, die der neue U2R2 haben soll?
-          o Schlussfolgern, Konsistenzprüfung, Änderung, Löschung, OWLAPI Anbindung, Konformitätsüberprüfung auf OWL2 RL 
-    * Wie konform und semantisch korrekt war U2R2?
-    * Was ist der Unterschied in der Menge und Art der Regelimplementierung
-          o Welche Techniken wurden verwendet
-          o Wieviele wurden implementiert
-                + Aussagekraft der Sprachen 
-          o Wie komplex sind die implementierten Regeln? Wären alle Regeln aus u2r3 auch in u2r3 implementierbar gewesen, oder wie aufwändig wäre es gewesen diese zu implementieren?
-                + Lohnt sich deshalb schon der Umstieg auf ein RDBMS? (einfachere Aufbau, standardisierte Funktionen, größere Funktionsumfang) 
-    * Wie wird die Trennung von Klassen und Individuen im MEMA-Modell erhalten?
-    
-    
-        * Welche Fragestellungen gibt es?
-    * Wie hängen diese zusammen?
-    * Wie können spätere Manipluationen durchgeführt werden?
-    * Was ist der Aufwand nach einer Änderung (von Fakten oder Konzepten)?
-    * Was ist die Ausdrucksmächtigkeit von OWL2 RL?
-    * Was ist die Zeit und Speicher Komplexität von OWL2 RL?
-    * Was ist der Unterschied zur Ausdrucksmächtigkeit von U2R2 (1)?
-    * Welche Erkenntisse gibt es bereits?
-    * Was sind die Fähigkeiten/Ausdrucksmächtigkeiten der verschiedenen Fragmente?
-    * Was sind ihre Komplexitäten?
-    * Was versteht man unter Truth-Maintenance? 
-
-
-    * Wie muss dadurch über die entstandenen Daten geschloßen werden?
-    * Was sind deduktive Datenbanken?
-    * Können die SQL Statements generiert werden?
-    * Wie bildet man Regeln allgemein auf SQL ab? RAP?
-    * Kann man quadrat. Rekursion im auflösen?
-    * Wie sieht das DB-Schema aus?
-    * Kann man manche Ableitungsschritte zusammenfassen?
-    * Was bringen rekursive Abfragen wirklich? (Es werden dadurch ja auch andere Regeln angestoßen und dann müssen die rekursiven wieder ran)
-    * Wie wandelt man die Ontologie in INSERTs um? 
 \end{verbatim}
 
 
-\section{Zurückziehen von Fakten}
-Das Einfügen von Fakten, die man löschen will um herauszufinden, welche gleich sind, um sie danach wieder zu löschen macht keinen großen Sinn. Erstens ist es Recht aufwendig zu implementieren. Zweitens müsste nach dem Einfügen neuer Fakten ersteinmal wieder die Ableitungsregeln ausgeführt werden. Das zerstört den Vorteil den man sich durch forward-chaining mit direct-materialisation erkauft hat sofort wieder und bringt außerdem auch Nachteille mit sich wenn man noch nicht komplett fertig war mit dem Schlussfolgern.
-Daher muss es ein Verfahren geben die zu löschenden Fakten zu finden ohne sie vorher einfügen zu müssen.
 
-\section{Finden von Fakten}
+
+
+
+
+\section{Zurückziehen von Fakten}
+Das Einfügen von Fakten, die man löschen will, um herauszufinden, welche gleich sind, um sie danach wieder zu löschen macht keinen großen Sinn. Erstens ist es Recht aufwendig zu implementieren. Zweitens müsste nach dem Einfügen neuer Fakten ersteinmal wieder die Ableitungsregeln ausgeführt werden. Das zerstört den Vorteil, den man sich durch forward-chaining mit direct-materialisation erkauft hat sofort wieder und bringt außerdem auch Nachteile mit sich wenn man noch nicht komplett fertig war mit dem Schlussfolgern.
+Daher muss es ein Verfahren geben die zu löschenden Fakten zu finden ohne sie vorher einfügen zu müssen.
+\begin{verbatim} 
+* Wie können spätere Manipluationen durchgeführt werden?
+* Was ist der Aufwand nach einer Änderung (von Fakten oder Konzepten)?
+\end{verbatim}
