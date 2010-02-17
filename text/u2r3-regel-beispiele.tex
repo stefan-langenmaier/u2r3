@@ -1,57 +1,79 @@
 \subsection{Regelbeispiele}
+\label{abschnitt-regelbeispiele}
 In diesem Teil der Regelumsetzung wird an konkreten Beispielen gezeigt, wie eine Umsetzung der OWL2 RL Regeln in SQL möglich ist. Die SQL Abfragen benutzen dabei die vorher im MEMA-Prinzip erstellen Relationen
 
 Die Abfragen werden zunächst allgemein an einfachen Regeln prinzipiell erklärt, danach wird auf die Sonderfälle eingegangen.
 
-Insgesamt kann dabei in vier Kategorie unterschieden werden:
+Insgesamt kann dabei in fünf Kategorien unterschieden werden:
 \begin{itemize}
-  \item Gewöhnliche Regeln: Dabei werden verschiedene Fakten miteinander verknüpft, so das dabei neue Fakten entstehen können. Diese Regeln sind alle sehr schematisch umsetzbar.
-  \item Listenregeln: Hier werden Listen von Fakten bearbeitet. Dabei ist nicht klar wie viele Elemente eine Liste enthält. Dies kann zu einem Problem werden, wenn man die Entstehungsgeschichte von Fakten, z.B. für das Löschen mitabspeichern will. Hier muss man gesondert darauf achten das diese Information der Entstehung nicht verloren geht.
-  \item Inkonsistenzregeln: Sie sind ähnlich der neuen Regeln, erzeugen allerdings keine neuen Fakten. Falls sie neue Fakten erzeugen könnten bedeutet dies eine Inkonsistenz in der Ontologie.
-  \item Regeln für Datentypen: Für typisierte Literal werden einige Überprüfung bzgl. der Gleichheit untereindander und der Konformität zu den in OWL2 RL eingebauten Datentypen durchgeführt.
-  \item Einmalige Regeln: Einige Regeln haben keine Vorbedigung. Diese werden einmal zu Beginn der Regelanwendung ausgeführt.
+  \item Gewöhnliche Regeln: Dabei werden verschiedene Fakten miteinander verknüpft, so dass dabei neue Fakten entstehen können. Diese Regeln sind alle sehr schematisch umsetzbar.
+  \item Listenregeln: Hier werden Listen von Fakten bearbeitet. Dabei ist nicht klar wie viele Elemente eine Liste enthält. Dies kann zu einem Problem werden, wenn man die Entstehungsgeschichte von Fakten, z.B. für das Löschen mitabspeichern will. Hier muss man gesondert darauf achten, dass diese Information der Entstehung nicht verloren geht.
+  \item Inkonsistenzregeln: Sie sind ähnlich der gewöhnlichen Regeln, erzeugen allerdings keine neuen Fakten. Falls sie neue Fakten erzeugen könnten, bedeutet dies eine Inkonsistenz in der Ontologie.
+  \item Regeln für Datentypen: Für typisierte Literale werden einige Überprüfung bzgl. der Gleichheit untereinander und der Konformität zu den in OWL2 RL eingebauten Datentypen durchgeführt.
+  \item Einmalige Regeln: Einige Regeln haben keine Vorbedigung. Diese werden einmal zum Start des Regelprozessors ausgeführt.
 \end{itemize}
 
 \subsubsection{Einmalige Regeln}
 
-cls-thing
-if | then
-true | owl:Thing rdf:type owl:Class
+\begin{table}
+\begin{tabular}{l|l}
+if & then \\ \hline
+true & owl:Thing rdf:type owl:Class
+\end{tabular}
+\caption{Die Regel cls-thing}
+\label{rule-cls-thing}
+\end{table}
 
-Diese Regel wird einmal zu Beginn in die Liste der Regelanwendungen gesteckt. Sie sorgt dafür das dieses Faktum eingefügt wird.
+
+Diese Regel \ref{rule-cls-thing} wird einmal zu Beginn in die Liste der Regelanwendungen gesteckt. Sie sorgt dafür das dieses Faktum eingefügt wird.
 
 In SQL lautet dies:
-
+\begin{lstlisting}[language=SQL]
 INSERT INTO classAssertionEnt (entity, class)
 	VALUES ('owl:Thing', 'owl:Class')
+\end{lstlisting}
 
 \subsubsection{Inkonsistenzregeln}
 Inkonsistenzregeln erzeugen keine Fakten. Sie versuchen aber gewisse Fakten zu finden, die im Widerspruch zu einander stehen.
 
-Die Inkonsistenzregeln cls-nothing2 sieht dabei so aus:
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
+T(?x, rdf:type, owl:Nothing) & false
+\end{tabular}
+\caption{Die Inkonsistenzregel cls-nothing2}
+\label{rule-cls-nothing2}
+\end{table}
 
-If | then
-T(?x, rdf:type, owl:Nothing) | false
 
 Dies wird in folgende SQL-Abfrage umgewandelt:
-
+\begin{lstlisting}[language=SQL]
 SELECT 1
 FROM classAssertionEnt
 WHERE class = 'owl:Nothing'
+\end{lstlisting}
 
 Die Relation classAssertionEnt ist die Relation, die die type-Beziehung speichert. Ist darin eine Zeile zu finden, die als type die KLasse owl:Nothing hat wird eine Zeile zurückgegeben. Falls also diese Abfrage eine oder mehrere Zeilen erzeugt liegt eine Inkonsistenz vor.
 
 \subsubsection{Gewöhnliche Regeln}
 Gewöhnliche Regeln erzeugen neue Fakten in der Datenbank. Eine einfache Regel ist hier eq-sym:
 
-If | then
-T(?x, owl:sameAS, ?y) | T(?y, owl:sameAS, ?x)
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
+T(?x, owl:sameAS, ?y) & T(?y, owl:sameAS, ?x)
+
+\end{tabular}
+\caption{Die gewöhnliche Regel eq-sym}
+\label{rule-eq-sym}
+\end{table}
 
 Dies wird wie folgt in SQL überführt:
-
+\begin{lstlisting}[language=SQL]
 INSERT INTO sameAs (left, right)
 SELECT right, left
 FROM sameAs
+\end{lstlisting}
 
 Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Umwandlung schon einge Dinge vereinfacht, die in der Implementierung so nicht gemacht wurden.
 
@@ -61,12 +83,17 @@ Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Um
   \item Wie kann man die Entstehungsgeschiechte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen.
 \end{enumerate}
 
-Diese Punkte werden jeweils in ihren speziellen Abgeschnitten. Um die Beispiel nicht untnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
+Diese Punkte werden jeweils in ihren speziellen Abschnitten behandelt. Um die Beispiele nicht unnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
 
-Ein komplexeres Beispiel ist die Verknüpfung von Fakten um auf neue Fakten schließen zu können, z.B. in der Regel eq-rep-s:
-
-If | then
-T(?s1, owl:sameAs, ?s2), T(?s1, ?p, ?o) | T(?s2, ?p, ?o)
+Ein komplexeres Beispiel ist die Verknüpfung von Fakten, um auf neue Fakten schließen zu können, z.B. in der Regel eq-rep-s:
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
+T(?s1, owl:sameAs, ?s2), T(?s1, ?p, ?o) & T(?s2, ?p, ?o)
+\end{tabular}
+\caption{Die Regel eq-rep-s}
+\label{rule-eq-rep-s}
+\end{table}
 
 Die Verknüpfung wird durch einen JOIN auf die entsprechende Spalte realisiert.
 
@@ -80,13 +107,19 @@ INNER JOIN sameAs AS sa
 
 \subsubsection{Listenegeln}
 Dabei können Listenregeln auch Regeln sein die neue Fakten erzeugen oder Inkonsistenzen überprüfen. Eine Inkonsistenzregel mit einer Liste ist z.B. prp-adp:
-
-If | then
+\begin{table}
+\begin{tabular}{l|l|l}
+If & then & \\ \hline
 T(?x, rdf:type, owl:AllDisjointProperties)
 T(?x, owl:members, ?y)
 LIST[?y, ?p1, ..., ?pn]
 T(?u, ?pi, ?v)
-T(?u, ?pj, ?v)                                    | false | fuer alle 1 <= i < j <= n 
+T(?u, ?pj, ?v) & false & fuer alle 1 <= i < j <= n
+\end{tabular}
+\caption{Die Listenregel prp-adp}
+\label{rule-prp-adp}
+\end{table}
+
 
 Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert dese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
 
@@ -101,31 +134,49 @@ WHERE opa1.subject = opa2.subject AND opa1.object = opa2.object
 	AND ca.class = 'owl:AllDisjointProperties'
 \end{lstlisting}
 
-Tatsächlich wird hier mehr gemacht als nötig ist. Die subject und object Spalten werden von beiden Seiten miteinander verglichen. Es wäre aber nur eine nötig. So ist es allerdings einfacher und natürlicher in SQL Syntax zu implementieren.
+Tatsächlich wird hier mehr gemacht als nötig ist. Die \emph{subject} und \emph{object} Spalten werden von beiden Seiten miteinander verglichen. Es wäre aber nur eine nötig. So ist es allerdings einfacher und natürlicher in SQL Syntax zu implementieren.
 
-Im Falle der Regel eq-diff2 muss eine Tabelle doppelt importiert werden um wirkliche alle Fakten mit einander vergleichen zu können. Die ursprüngliche Regel.
-
-If | then
+Im Falle der Regel eq-diff2 muss eine Tabelle doppelt importiert werden, um wirkliche alle Fakten mit einander vergleichen zu können. Die ursprüngliche Regel.
+\begin{table}
+\begin{tabular}{l|l|l}
+If & then & \\ \hline
 T(?x, rdf:type, owl:AllDifferent)
 T(?x, owl:members, ?y)
 LIST[?y, ?z1, ..., ?zn]
-T(?zi, owl:sameAs, ?zj) 	          | false 	| für alle 1 <= i < j <= n
+T(?zi, owl:sameAs, ?zj) & false & für alle 1 <= i < j <= n
+\end{tabular}
+\caption{Die Listenregel eq-diff2}
+\label{rule-eq-diff2}
+\end{table}
+
 
 Würde man hier streng nach Schema vorgehen würde die sameAs Relation nur einmal in der Abfrage auftauchen. Das würde allerdings nicht alle Kombinationen erzeugen. Die Abfrage ist damit sehr ähnlich der obigen und wird hier ausgespart.
 
 Ein besonderer Typ der Listenregel ist z.B. cls-oo, diese Regel erzeugt mehrere Fakten. Das ist aber in der Umsetzung kein Problem.
-
-If | then
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
 T(?c, owl:oneOf, ?x)
-LIST[?x, ?y1, ..., ?yn] 	 | T(?y1, rdf:type, ?c)
+LIST[?x, ?y1, ..., ?yn] & T(?y1, rdf:type, ?c)
 								...
 								T(?yn, rdf:type, ?c) 
+\end{tabular}
+\caption{Die Listenregel cls-oo}
+\label{rule-cls-oo}
+\end{table}
+
 
 \subsubsection{Datentypenregeln}
 Die Regeln zur Überprüfung der Datentypen ist nicht komplizierter, allerdings eine effiziente Umsetzung ist hier das Problem. Hier ist vor allem die dt-eq Regel das Problem.
+\begin{table}
+\begin{tabular}{l|l|l}
+If & then & \\ \hline
+true & T(lt1, owl:sameAs, lt2) & für alle Literale lt1 und lt2 mit dem selben Datenwert
+\end{tabular}
+\caption{Die Datentyperegel dt-eq}
+\label{rule-dt-eq}
+\end{table}
 
-If | then
-true | T(lt1, owl:sameAs, lt2) | für alle Literale lt1 und lt2 mit dem selben Datenwert
 
 Die aktuelle Umsetzung versucht sich möglichst nah an das MEMA-Prinzip und die Regel zu halten. Optimierungen sind hier noch wesentlich vorhanden.
 
@@ -137,22 +188,28 @@ CROSS JOIN classAssertionLit AS ca2
 WHERE isSameLiteral(ca1.literal, ca2.literal)
 \end{lstlisting}
 
-Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenbankoperationen ist, außerdem können Literal nicht mit den üblichen Datenbankoperatoren verglichen werden. Hierzu wurde eine eigene Datenbankmethode geschrieben die dies übernimmt. DIe Datenbankmethde ruft eine Java-Routine auf die dann den eigentlichen Vergleich vornimmt. Diese beiden Verlangsamungen sind noch nicht genug. In der aktuellen IMplementierung sind nicht gleich alle Literal in der Relation, sondern können später noch hinzukommen, d.h. das diese Regel öfters aufgerufen werden kann. Hier ist also noch Potential für eine Optimierung vorhanden.
+Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenbankoperationen ist, außerdem können Literale nicht mit den üblichen Datenbankoperatoren verglichen werden. Hierzu wurde eine eigene Datenbankmethode geschrieben die dies übernimmt. Die Datenbankmethode ruft eine Java-Routine auf, die dann den eigentlichen Vergleich vornimmt. Diese beiden Verlangsamungen sind noch nicht genug. In der aktuellen IMplementierung sind nicht gleich alle Literal in der Relation, sondern können später noch hinzukommen, d.h. das diese Regel öfters aufgerufen werden kann. Hier ist also noch Potential für eine Optimierung vorhanden.
 
 
 \subsubsection{Spezialfälle} 
-In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im Gegensatz zu den anderen Regeln eine variable Anzahl von Fakten in der Premise. Diese Fakten sind allerdings nur indirekt über eine Liste verknüpft.
- 
-Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
+In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im Gegensatz zu den anderen Regeln eine variable Anzahl von Fakten in der Prämisse. Diese Fakten sind allerdings nur indirekt über eine Liste verknüpft.
 
+Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
+\begin{table}
+\begin{tabular}{l|l}
+if & then \\ \hline
 T(?p, owl:propertyChainAxiom, ?x)
 LIST[?x, ?p1, ..., ?pn]
 T(?u1, ?p1, ?u2)
 T(?u2, ?p2 ?u3)
-...
-T(?un, ?pn, ?un+1) 	                      | T(?u1, ?p, ?un+1)
+\ldots
+T(?un, ?pn, ?un+1) & T(?u1, ?p, ?un+1)
+\end{tabular}
+\caption{Der Spezialfall prp-spo2}
+\label{rule-prp-spo2}
+\end{table}
 
-Die Kette muss dabei eine Start und ein Ende haben und die Glieder der Kette muss untereinander verbunden sein. ?u2 einmal als object und einmal als subject. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neuen Fakt.
+Die Kette muss dabei einen Start und ein Ende haben und die Glieder der Kette müssen untereinander verbunden sein. Die Variable ?u2 wird einmal als object und einmal als subject verwendet. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neues Faktum.
 
 Diese Regel ist in SQL in zwei Schritten übersetzt worden. Zunächst eine Hilfsabfrage die in der späteren Abfrage mehrmals verwendet wird.
 
@@ -209,14 +266,20 @@ FROM   (SELECT   lname,
 Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoined.
 
 Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja wird es der Klasse dieser Schnittmenge hinzugefügt.
-
-If | then
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
 T(?c, owl:intersectionOf, ?x)
 LIST[?x, ?c1, ..., ?cn]
 T(?y, rdf:type, ?c1)
 T(?y, rdf:type, ?c2)
 ...
-T(?y, rdf:type, ?cn) 	             | T(?y, rdf:type, ?c) 	 
+T(?y, rdf:type, ?cn) & T(?y, rdf:type, ?c) 	 
+\end{tabular}
+\caption{Der Spezialfall cls-int2}
+\label{rule-cls-int2}
+\end{table}
+
 
 \begin{lstlisting}
 INSERT INTO classAssertionEnt
@@ -245,18 +308,24 @@ Diese Abfrage wurd auch wesentlich vereinfacht. Für die Abspeicherung einer His
 Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
 
 Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die die Individuen gleich.
-
-If | then
+\begin{table}
+\begin{tabular}{l|l}
+If & then \\ \hline
 T(?c, owl:hasKey, ?u)
 LIST[?u, ?p1, ..., ?pn]
 T(?x, rdf:type, ?c)
 T(?x, ?p1, ?z1)
-...
+\ldots
 T(?x, ?pn, ?zn)
 T(?y, rdf:type, ?c)
 T(?y, ?p1, ?z1)
-...
-T(?y, ?pn, ?zn) 	                 | T(?x, owl:sameAs, ?y)
+\ldots
+T(?y, ?pn, ?zn) & T(?x, owl:sameAs, ?y)
+\end{tabular}
+\caption{Der Spezialfall prp-key}
+\label{rule-prp-key}
+\end{table}
+
 
 Die Abfrage ist der Einfachheit ebenfalls in zwei Teile zerlegt. Die Unterabfrage die mehrmals verwendet wird erzeugt zunächst eine gültige Liste von Individuen die über eine Eigenschaft mit dem gleichen Objekt verbunden sind.
 \begin{lstlisting}

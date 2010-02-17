@@ -3,54 +3,51 @@ Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahre
 
 \begin{itemize}
   \item Modus ponens
-  A->B
-  A
-  ---
-  B
+	\begin{verbatim}
+A->B
+A
+---
+B
+	\end{verbatim}
+
   \item Modus tollens
-  A->B
-  ~B
-  ---
-  ~A
+\begin{verbatim}
+A->B
+~B
+---
+~A
+\end{verbatim}
 \end{itemize}
 
-Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere ABleitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
+Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere Ableitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
 
 Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
-
+\begin{verbatim}
 A -> B
 B
 ---
 A
+\end{verbatim}
 
 ist z.B. kein gültiger Schluss.
 
-Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit OWL2 RL Fragement zu erreichen.
-
-\subsection{Kriterien für Inferenzprozeduren}
-Die Ableitungsregeln arbeiten eng mit der Wissensrepräsentation zusammen. Auch hier gibt es Kriterien für die Einordnung der Ableitungsprozedur.
-
-\begin{itemize}
-  \item Korrektheit
-  Eine Inferenzprodzerdur ist korrekt, wenn für jede Ableitung einer Formel aus einer Formel Menge auch gilt, das diese Formel Modell für die Formelmenge ist.
-  \item Vollständigkeit
-  Eine Inferenzprozedur ist vollständig, wenn für jedes Modell einer Formelmenge auch die Inferenzprozedur die Formel ableiten kann.
-  \item Entscheidbarkeit
-  Eine Inferenzprozedur ist entscheidbar, wenn sie immer zu dem Ergebniss kommt (terminiert), ob die Formel aus der Formelmenge ableitbar ist oder nicht.
-  \item Komplexität
-  Die Komplexität bezieht sich auf die Komplexität der Inferenzprozedur, um eine Ableitung durchzuführen.
-\end{itemize}
+Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten, ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit dem OWL2 RL Fragement zu erreichen.
 
 
 \section{Regelumsetzung von OWL2 RL}
 
 In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend der Sprachmächtigkeit darin zu schlussfolgern.
-%\note Was ist die Sprachmächtigkeit?
-Die angegebenen Regeln sind vollständig aber nicht optimal \cite{placeholder}, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln der einzige oder minimale Satz sein, die zu diesem Ergebniss kommen..
 
-In dieser Diplomarbeit wird versucht möglichst nah an diesem Menge von Regeln zu bleiben, um sichergestellt zu haben das die Semantik korrekt erhalten ist und somit die Implementierung leichter zu überprüfen ist.
-Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{mitternachtsformel} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
-Wieso und wie das funktioniert wird in Abschnitt \cite{placeholder} an einigen Beispielen und Sonderfällen demonstriert.
+Die angegebenen Regeln sind vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
+
+In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt erhalten ist und somit die Implementierung leichter zu überprüfen ist.
+Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{abschnitt-regelbeispiele} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
+Wieso und wie das funktioniert wird ebenfalls in diesem Abschnitt an einigen Beispielen und Sonderfällen demonstriert.
+
+\input{delta-iteration}
+
+\input{u2r3-regel-beispiele}
+
 
 \subsection{Regeloptimierung}
 
@@ -58,28 +55,8 @@ Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hie
 
 Man kann entscheiden, ob man die Ontologie später verändern will. Das hat zur Folge, das die Entstehungsgeschichte von abgeleiteten Fakten erhalten bleiben muss.
 
-Eine naive Anwendung der Regel hätte außerdem zur Folge, das sich die Regeln immer auf alle Fakten beziehen. Meist reicht es aber asich auf erzeugt Fakten aus vorherigen Schritten zu beziehen. Das wird näher im Abschnittt \cite{placeholder} (delta-Iteration) geklärt. Hierbei gibt es zwei verschiedene Varianten wie diese umgesetzt ist.
+Eine naive Anwendung der Regel hätte außerdem zur Folge, das sich die Regeln immer auf alle Fakten beziehen. Meist reicht es aber sich auf erzeugt Fakten aus vorherigen Schritten zu beziehen. Das wird näher im Abschnitt \ref{abschnitt-delta-iteration} geklärt. Hierbei gibt es zwei verschiedene Varianten wie diese umgesetzt ist.
 
-Die Struktur der Umsetzung der Regeln in SQL ist zwar fix aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implmentiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.
+Die Struktur der Umsetzung der Regeln in SQL ist zwar fix, aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implmentiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.
 
 Es wäre sicherlich interessant die Regeln in einer gewissen Reihenfolge anzuwenden. Vielleicht gibt es hier eine Möglichkeit eine effzienten Ablaufpfad zu finden.
-
-\subsubsection{delta-Iteration}
-\input{delta-iteration}
-
-\subsubsection{Magic-Sets}
-Auf die Implementierung von Magic-Set-Algorithmen kann verzichtet werden, da die Regel-Implementierung in SQL fast ausschließlich von Hand abliefund deswegen schon von vorneherein optimiert sind.
-Referenzen-MEHR.
-
-\subsection{Anmerkung zu Aufblähung von Deltas}
-Welche Regeln sind das:
-Wird nur von den ``drei" Regeln verursacht. Wenn sie nichts erzeugen blähen sie auch nichts auf, wenn doch.
-
-Lösungsmöglichkeit. Nach dem bearbeiten dieser Regeln, sofort die Regelqueue flushen, mergen und nochmal anfangen.
-
-Spielt also erstens nur eine Rolle wenn im COLLECTIVE Mode.
-
-Nach dem mergen ist das Delta aber sowie so eingeschrumpft. Auf das schlussfolgern wirkt es sich also kaum negativ aus.
-
-\subsection{Regelbeispiele}
-\input{u2r3-regel-beispiele}
