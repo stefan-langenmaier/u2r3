@@ -1,58 +1,49 @@
-\section{Löschung}
-Modusname: '''!DeletionType''' := CLEAN | CASCADING
+\section{Löschung (\& Änderung)}
 
-== Ableitungsreihenfolge abspeichern ==
- * OWL2 RL ist eine monotone Logik ([ticket:20])
-   * Neue Fakten können einfach hinzugefügt werden und darüber erneut geschloßen werden. Alte Fakten werden dadurch nicht beeinflusst.
-   * Änderungen von Daten können auf löschen von Fakten und hinzufügen von Fakten reduziert werden. Hinzufügen ist einfach (siehe oben).
-   * Löschen von Fakten
-     * Fakten die abgeleitet wurden können nicht gelöscht werden
-     * Fakten die keine Ableitungen verursacht haben können gelöscht werden
-     * Fakten die eine Ableitung verursacht haben können nur gelöscht werden, wenn alle ihre Ableitungen gelöscht werden.
+Wie aus dem Grundlagen Kapitel \ref{kapitel-grundlagen} bekannt ist handelt es sich bei OWL2 RL um eine monotone Logik. Damit ist das Hinzufügen von Fakten kein Problem, da es sich nicht auf schon geschlussfolgerte Fakten auswirkt. In der Implementierung ist damit die Änderung von Fakten damit umgesetzt, das die zu ändernden Fakten gelöscht und dann die neuen Fakten wieder hinzugefügt werden. Die Änderung von Fakten ist damit auf die Löschung von Fakten reduzierbar.
 
-Durch das Speichern der Ableitungsreihenfolge Manipulationen an der Ontologie beschleunigen.
+Allgemein gibt es zwei Arten wie die Löschung von Fakten umgesetzt werden kann. Der naive Ansatz wär es, wenn ein Faktum gelöscht werden soll, werden alle bisher geschlussfolgerten Ergebnisse verworfen und der Schlussfolgerungsprozess wird danach von vorne gestartet. Ein optimierter Ansatz wäre es, das ein Faktum das gelöscht wird nur die Löschung von daraus geschlussfolgerten Ergebnissen auslöst. Dieses Vorgehen wurde im Schlussfolgerer umgesetzt und im folgeden näher beschrieben. Zunächst die grundlegenden Bedingungen für das Löschen von Fakten:
 
-=== Woher ist etwas abgeleitet ===
- * eine Regel
- * '''mehrere Fakten'''
-Regel egal, da diese ja auf Grund der Fakten ausgewählt wurde.
-''Gilt das nur für die ABox oder auch die TBox?'' '''ja''
+\begin{itemize}
+  \item Fakten die hergeleitet wurden können nicht gelöscht werden.
+  \item Fakten die keine Ableitungen verursacht haben können gelöscht werden.
+  \item Fakten die eine Ableitung verursacht haben können nur gelöscht werden, wenn alle ihre Ableitungen gelöscht werden.
+\end{itemize}
 
-=== Wie speichert man die Ableitungsreihenfolge ab ===
-Die !ApplicationRules so erweitern, dass sie von jeder verwendeten Tabelle, die id der Zeile mitliefert. Dazu müssen ids in Tabellen eingeführt werden. Das entspricht sehr dem !MEMA-Schema, da durch id eine klare, einheitlich Historie-Tabelle angelegt werden kann, die unabhängig von unterschiedlichen Axiom-Konstrukten ist. Die ids müssen !UNIQUE pro Tabelle sein.
+Um zu ermöglichen, dass das Löschen eines Faktums nur Ergebnisse entfernt die daraus abgeleitet wurden wird die Ableitungsreihenfolge abspeichern mit abgespeichert. Durch diesen zusätzlichen Aufwand soll die Manipulation an der Ontologie beschleunigt werden.
 
-Falls die Anzahl der Spalten einer Abfrage nicht bekannt ist, kann sie auch dynamisch erstellt werden, da die einheitliche ids pro Axiom verwendet werden. Die Anzahl der Spalten pro Tabelle ist von H2 nicht begrenzt (schon überprüft, in der Dokumentation).
+Dabei ist die Frage wichtig, woher etwas abgeleitet ist. Regeln erzeugen diese Fakten, aber damit eine Regel ausgelöst wird sind eigentlich die Fakten verantwortlich. Das Problem hierbei ist, das unterschiedliche Regeln eine unterschiedliche Anzahl an Fakten in der Prämisse verwenden. Die drei Spezialregeln sind dabei besonders schlimm da sie eine theoretisch beliebig große Anzahl Fakten in der Prämisse verwendet.
 
-Danach müssen die Daten-Spalten in eine seperate Referenztabelle (Historien-Tabelle). Hier wird zu einer id und einer Tabelle, die Quelldaten woher dieser Fakt stammt ebenfalls in Form von einer id und Tabelle abgepseichert.
+Gut ist hingegen das durch das MEMA Prinzip die Unterscheidung zwischen T-Box und A-Box aufgehoben wird. Der Regelsatz von OWL2 RL nimmt darauf auch keinen besonderen Bezug. Damit ist möglich für Löschungen in der T-Box und in der A-Box das selbe Verfahren verwenden zu können.
 
-Regel
-%{{{
+\subsection{Abspeichern der Ableitungsreihenfolge}
+Die ApplicationRules sind die Klasse aller Regeln die neue Fakten erzeugen können. Diese wurden so erweitern, dass sie von jeder verwendeten Tabelle in der Regel, die id der Zeile mitliefert. Jede Tabelle wurde so ausgestatte das jede Zeile als jeder Fakt eine eindeutige Nummer hat. So kann jedes Konstrukt einer Tabelle über eine Nummer angesprochen werden, egal wieviele Unterelemente dieses Konstrukt hat. Das entspricht sehr dem MEMA-Schema, da durch eine id eine klare, einheitlich Historien-Tabelle angelegt werden kann, die unabhängig von unterschiedlichen Axiom-Konstrukten ist. Die ids müssen einzigartig pro Tabelle sein.
+
+Die Anzahl der Spalten die eine Regelanwendung für die Angabe der Historiendaten ist von Regel zu Regel unterschiedlich aber dabei immer für jede Regel fest. Davon ausgenommen sind die drei Spezialregeln. Wie die Historiendaten hier mitgeschrieben werden, wird in Abschnitt \ref{abschnitt-aufblaehung} geklärt.
+
+Danach müssen die Historiendaten in eine seperate Referenztabelle (history \ref{relations-list-history}). Hier wird zu einer id und einer Tabelle, die Quelldaten woher dieser Fakt stammt ebenfalls in Form von einer id und Tabelle abgepseichert.
+
+Im nachfolgendes Beispiel wird die Situation angenommen das eine Subklassenbeziehung zwischen A,B, und B,C besteht. Damit besteht auch eine Subklassenbeziehung zwischen A,C. All diese Ausdrücke sind mit einer eindeutigen id identifizierbar.
+\begin{verbatim}
 subClass(A,C) := subClass(A,B), subClass(B,C)
- neue\_id             id\_x           id\_y
-%}}}
+   id_neu             id_x           id_y
+\end{verbatim}
 
-Historie
-%{{{
+Dadurch werden folgende Zeilen in der Historietabelle angelegt.
+\begin{verbatim}
    id      ||   quelle
 ========================
- neue\_id         id\_x
- neue\_id         id\_y 
-%}}}
+  id_neu         id_x
+  id_neu         id_y 
+\end{verbatim}
 
+Um in deltas schon eine deterministische id vergeben zu können wird eine tabellenübergreifende Sequence verwendet. Das ist eine Möglichkeit in einer Datenbank Standardwerte für Spalten aus einer zentralen Stelle vergeben zu können.
 
-'''ABER'''
-
-Den Deltas kann im voraus keine deterministische id gegeben werden oder nur mit erheblichen Locking- und Management-Aufwand. Daher liegt es nahe sog. !UUIDs zu verwenden. Das ist allerdings ein kleiner Performance- und Speicherverlust. Verliert aber dabei nicht an Skalierbarkeit.
-
-==== Idee ====
-Evtl. können auch Daten mit einer Art Wildcard angelegt werden. Daten, die keine Quellangabe haben werden immer gelöscht.
-
-=== Wie löscht man dann Daten ===
-Die id des zu löschenden Axioms bestimmen.
-Schauen, ob die id in der Historientabelle vorhanden ist. Wenn ja dann alle Abhängigkeiten finden. Rekursiv diese löschen. Dann den Wert selbst löschen.
+\subsection{Löschablauf}
+Man beginnt das Löschen eines Axioms damit das man seine id bestimmt. Dann überprüft man, ob die id in der Historientabelle vorhanden ist. Wenn ja dann alle Abhängigkeiten finden und rekursiv diese löschen. Danach den Wert selbst löschen. 
 
 z.B.: subClass(B,C) => id\_y
-%{{{
+\begin{verbatim}
 SELECT id FROM Historie WHERE quelle = $id_y$
 
 while(id)
@@ -60,18 +51,28 @@ while(id)
   DELETE FROM Historie WHERE id = id
 
 DELETE FROM subClass WHERE id = $id_y$
-%}}}
-
-=== Kann man Unterschiede in ABox und TBox Löschungen ausnützen? ===
-In U2R2/3 verschwimmt der Unterschied zwischen ABox und TBox weiter, da beide in den selben Strukturen abgespeichert werden.
+\end{verbatim}
 
 
-== Wann müssen beim Löschen Regeln ausglöst werden? ==
-Es müssen für alle gelöschte Fakten Reason augelöst werden, da nicht von vornherein gesagt werden kann, wie Daten erzeugt werden.
+Nachdem Fakten gelöscht wurde müssen ebenfalls Regeln ausgelöst werden, da es sein könnte das gelöschte geschlussfolgerte Ergebnisse auch über andere Fakten ableitbar gewesen wären. 
+Hier wär auch ein naiver Ansatz möglich, indem man alle Regeln auf alle bekannt Fakten anwendet. Es wurde aber ein effizienteres Verfahren implementiert, so dass nur Regeln ausgelöst werden, die Fakten in den Relationen erzeugen können aus denen etwas gelöscht wurde.
+Um entscheiden zu können welche Regeln ausgelöst werden sollen, müssen die Relationen wissen welche Regeln in ihnen neue Fakten erzeugen können. Diese Regeln müssen dann ausgelöst werden im Gegenteil zu ''normalen'' Inferenzregeln.
 
-== Welche Regeln müssen beim Löschen ausgelöst werden? ==
-Relationen müssen wissen welche Regeln bei Ihnen Daten erzeugen können. Diese Regeln müssen dann ausgelöst werden. Im Gegenteil zu ''normalen'' Inferenzregeln.
+Für die Unterscheidung wurden zwei verschiedene Reason eingeführt werden.
+\begin{itemize}
+  \item AdditionReason (wenn der Grund durch das Hinzufügen eines Faktes entstanden ist)
+  \item DeletionReason (wenn der Grund durch das Löschen eines Faktes entstanden ist)
+\end{itemize}
 
-Beim löschen müssen die Regeln angestoßen werden, die in der gelöschten Tabelle Daten erzeugen könnten. Für die Unterscheidung sollten zwei verschiedene Reason eingeführt werden.
- * !AdditionReason (wenn der Grund durch das hinzufügen eines Faktes entstanden ist)
- * !DeletionReason (wenn der Grund durch das hinzufügen eines Faktes entstanden ist)
+Der Modus mit dem gelöscht wird kann in der Konfigurationsdatei von u2r3 eingestellt werden. Die Option dafür hat den Namen \emph{DeletionType} und hat die gültigen Werte \emph{CLEAN} oder \emph{CASCADING}.
+
+\subsection{Anmerkung zu Aufblähung von Deltas}
+\label{abschnitt-aufblaehung}
+Welche Regeln sind das:
+Wird nur von den drei Sonderregeln verursacht. Wenn sie nichts erzeugen blähen sie auch nichts auf, wenn doch.
+
+Lösungsmöglichkeit. Nach dem bearbeiten dieser Regeln, sofort die Regelqueue flushen, mergen und nochmal anfangen.
+
+Spielt also erstens nur eine Rolle wenn im COLLECTIVE Mode.
+
+Nach dem mergen ist das Delta aber sowie so eingeschrumpft. Auf das Schlussfolgern wirkt es sich also kaum negativ aus.
