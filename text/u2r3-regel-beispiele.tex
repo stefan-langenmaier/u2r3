@@ -123,7 +123,7 @@ T(?u, ?pj, ?v) & false & fuer alle 1 <= i < j <= n
 
 Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert dese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 SELECT 1
 FROM classAssertionEnt AS ca
 INNER JOIN members AS m ON ca.entity = m.class
@@ -180,7 +180,7 @@ true & T(lt1, owl:sameAs, lt2) & für alle Literale lt1 und lt2 mit dem selben D
 
 Die aktuelle Umsetzung versucht sich möglichst nah an das MEMA-Prinzip und die Regel zu halten. Optimierungen sind hier noch wesentlich vorhanden.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 INSERT INTO sameAsLit (left, right)
 SELECT ca1.literal, ca2.literal
 FROM classAssertionLit AS ca1
@@ -213,7 +213,7 @@ Die Kette muss dabei einen Start und ein Ende haben und die Glieder der Kette m�
 
 Diese Regel ist in SQL in zwei Schritten übersetzt worden. Zunächst eine Hilfsabfrage die in der späteren Abfrage mehrmals verwendet wird.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 SELECT vopa.subject as vorgaenger,
        opa.subject  AS start,
        opa.object   AS ende,
@@ -236,7 +236,7 @@ FROM   list AS l
 
 Diese Abfrage erzeugt ein Ergebnis in der alle objectPropertyAssertions einer Liste mit ihrem Vorgänger und Nachfolger aufgelistet sind. Außerdem wird die Anzahl der Elemente in der Liste mitgeführt.
 
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 INSERT INTO objectPropertyAssertion
            (subject,
             property,
@@ -281,7 +281,7 @@ T(?y, rdf:type, ?cn) & T(?y, rdf:type, ?c)
 \end{table}
 
 
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 INSERT INTO classAssertionEnt
            (entity,
             class)
@@ -328,7 +328,7 @@ T(?y, ?pn, ?zn) & T(?x, owl:sameAs, ?y)
 
 
 Die Abfrage ist der Einfachheit ebenfalls in zwei Teile zerlegt. Die Unterabfrage die mehrmals verwendet wird erzeugt zunächst eine gültige Liste von Individuen die über eine Eigenschaft mit dem gleichen Objekt verbunden sind.
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 SELECT pax.subject, sl.name, anzl.anz
 FROM list AS sl
         INNER JOIN (
@@ -359,7 +359,7 @@ HAVING COUNT(sl.name) = 2*anz
 \end{lstlisting}
 
 Diese Liste wird dann in der folgenden Abfrage zweimal verwendet um zwei Individuen miteinander verleichen zu können.
-\begin{lstlisting}
+\begin{lstlisting}[language=SQL]
 INSERT INTO sameAsEnt (left, right)
 SELECT ca1.entity AS left, ca2.entity AS right
 FROM hasKey AS hk
