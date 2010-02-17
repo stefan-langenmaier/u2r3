@@ -43,6 +43,7 @@ public class CaxDwEntRule extends ConsistencyRule {
 			sql.append("\n\t INNER JOIN classAssertionEnt AS ca1 ON dw.colLeft = ca1.colClass");
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionEnt") + " AS ca2 ON dw.colRight = ca2.colClass");
 		}
+		sql.append("\nWHERE ca1.entity = ca2.entity");
 
 		return sql.toString();
 	}

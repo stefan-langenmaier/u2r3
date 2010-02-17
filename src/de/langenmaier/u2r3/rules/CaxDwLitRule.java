@@ -43,6 +43,7 @@ public class CaxDwLitRule extends ConsistencyRule {
 			sql.append("\n\t INNER JOIN classAssertionLit AS ca1 ON dw.colLeft = ca1.colClass");
 			sql.append("\n\t INNER JOIN " + delta.getDeltaName("classAssertionLit") + " AS ca2 ON dw.colRight = ca2.colClass");
 		}
+		sql.append("\nWHERE isSameLiteral(ca1.literal, ca2.literal, ca1.colClass, ca2.colClass, ca1.language, ca2.language)");
 
 		return sql.toString();
 	}
