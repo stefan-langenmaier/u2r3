@@ -3,32 +3,44 @@ Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahre
 
 \begin{itemize}
   \item Modus ponens
-	\begin{verbatim}
-A->B
-A
----
+
+\begin{table}
+\begin{tabular}{l}
+A$\rightarrow$B \\
+A \\
+\hline
 B
-	\end{verbatim}
+\end{tabular}
+\caption{Modus ponens}
+\label{table-modus-ponens}
+\end{table}
 
   \item Modus tollens
-\begin{verbatim}
-A->B
-~B
----
-~A
-\end{verbatim}
+\begin{table}
+\begin{tabular}{l}
+A$\rightarrow$B \\
+$\neg$B \\
+\hline
+$\neg$A
+\end{tabular}
+\caption{Modus tollens}
+\label{table-modus-tollens}
+\end{table}
 \end{itemize}
 
 Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere Ableitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
 
 Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
-\begin{verbatim}
-A -> B
-B
----
+\begin{table}
+\begin{tabular}{l}
+A$\rightarrow$B \\
+B \\
+\hline
 A
-\end{verbatim}
-
+\end{tabular}
+\caption{ungültige Ableitung}
+\label{table-invalid-inferred}
+\end{table}
 ist z.B. kein gültiger Schluss.
 
 Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten, ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit dem OWL2 RL Fragement zu erreichen.
