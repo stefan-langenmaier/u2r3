@@ -1,23 +1,33 @@
 \section{Konsistenzprüfungen}
+Um die konsistenz einer Ontologie aus dem OWL2 RL Profil sicherzustellen, sind in der Spezifikation eigene Regeln vorgegeben. Es ist dabei aber nicht vorgeschrieben wann diese Regel zur ÜPberprüfung zur Ausführung gebracht werden müssen. Außerdem muss eine Ontologie unter Umständen nicht immer auf ihre Konsistenz überpüft werden, daher ergebn sich zunächst folgende Ideen wann und wie man die Prüfungen durchführt.
 
-Es gibt verschiedene Modus als Vorschlag
- * nach jeder Regelanwendung ('''nicht sinnvoll''': es kann durch eine Regelanwendung nicht gegen beliebige Konsistenzregeln verstoßen werden)
- * nach kompletter Ableitung ('''fraglich''', es sollte zwar gehen, aber ob es soviel schneller ist als nur die abhängigen ist unbekannt)
- * nur abhängige Konsistenzregeln ('''default''': sicher und nur nötigster Aufwand)
- * keine ('''schnell''', wenn bekannt ist, das die Ontologie konsistent ist braucht ja nicht jedesmal ihre Konsistenz wieder überpürft werden)
-Modusname: '''!ConsistencyLevel''' := NONE | DEFAULT
+\begin{itemize}
+  \item Nach jeder Regelanwendung. Dies ist nicht sinnvoll, da durch eine Regelanwendung nicht gegen beliebige Konsistenzregeln verstoßen werden kann.
+  \item Nur abhängige Konsistenzregeln überprüfen, die Auslösung der Regeln funktioniert dabei genauso wie bei gewöhnlichen Regeln. Dieses Verfahren meldet sofort zurück wenn eine Inkonsistenz gefunden wurde, macht aber nur den nötigsten Aufwand. Es ist in u2r3 implementiert und ist der voreingestellt Modus zur Konsistenzprüfung.
+  \item Die Überprüfung könnte erst nach kompletter Ableitung durchgeführt werden. Es ist allerdings fraglich, ob es soviel schneller ist, als nach nur abhängigen. Außerdem kann auch schon eine halbabgeleitete Ontologie nützlich sein, man wüsste aber dann nicht, ob diese konsistent ist.
+  \item Keine Überprüfung der Konsistenz ist sicherlich die schnellste Möglichkeit, da hierbei einfach keine Regeln ausgeführt werden müssen. Dies ist hilfreich, wenn man z.B. die Konsistenz in einem vorherigen Lauf bestimmt hat. Diese Option ist ebenfalls implementiert.
+\end{itemize} 
+Die Möglichkeit die Konsistenzprüfung zu wechseln ist in u2r3 implementiert und kann in der Konfigurationsdatei mit unter dem Namen \emph{ConsistencyLevel} gesetzt werden. Gültige Werte dabei sind \emph{NONE} oder \emph{DEFAULT}.
 
-== Einsatzort ==
-Die Tabellen sollten hier auch wissen, welche (Konsistenz-)Regeln sie auslösen (können), der !ReasonProcessor entscheidet dann, welche !RuleActions er anlegt.
+Damit der Regelprozessor zwischen Konsistenzregeln und Anwendungsregeln unterscheiden kann sind alle Regeln die eine Inkonsistenz auslösen könne von der Subklasse ConsistencyRule abgeleitet.
 
-== Rückmeldung ==
-Konsistenzregeln melden sich nur in einem Fehlerfall zurück. Die Rückmeldung erfolgt aus den Regeln selbst während ihrer Ausführung.
+\begin{verbatim}
+        * Was ist die Konsequenz, wenn Konsistenzprüfungen nicht rechtzeitig durchgeführt werden.
+\end{verbatim}
 
-Hier gibt es die zwei Möglichkeiten:
- * nur eine Warnung auszugeben (log4j)
- * die Verarbeitung unterbrechen (Exception werfen)
- * abhängig von der Inkonsistenz reagieren
-Modusname: '''!InconsitencyReaction''' := WARN | FAIL | PERCASE
+\subsection{Rückmeldung}
+Konsistenzregeln melden sich nur in einem Fehlerfall zurück. Die Rückmeldung erfolgt aus den Regeln selbst während ihrer Ausführung. Die OWLAPI schlägt hier vor eine Exception zu werfen. Allerdings sind nicht alle Inkonsistenz gleich schwerwiegend. Eine Inkonsistenz in der A-Box ist normalerweise nicht so problematisch wie eine Inkonsistenz in der T-Box.
 
-== Implementierung ==
-Von der Klasse Rule wird eine Subklasse !ConsistencyRule abgeleitet von der alle Konsistenzregeln abgeleitet sein sollen.
+\begin{verbatim}
+Soll das im Reasoner wirklich so bleiben, die OWLAPI schläft vor eine Exception auszulösen?
+\end{verbatim}
+
+Die Möglichkeiten wie auf eine Inkonsistenz reagiert werden kann sind dabei:
+\begin{itemize}
+  \item Nur eine Warnung auszugeben, diese wird dann automatisch mitgeloggt. Das ist die Voreinstellung damit wird der Schlussfolgerungsprozess nie unterbrochen.
+  \item Abhängig von der Inkonsistenz reagieren. Dabei wird zwischen Inkonsistenzen in der A-Box und der T-Box unterschieden. Ein Fehler in der A-Box gibt nur eine Warnung aus, wohingegen ein Fehler in der T-Box eine Ausnahme erzeugt.
+  \item Die Verarbeitung unterbrechen und bei jeder Inkonsistenz eine Exception erzeugen.
+\end{itemize}
+
+Im Reasoner kann dies mit der Option \emph{InconsitencyReaction} verändert werden, dabei sind \emph{WARN}, \emph{PERCASE} oder \emph{FAIL}.
+
