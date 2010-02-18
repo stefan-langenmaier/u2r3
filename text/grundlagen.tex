@@ -6,13 +6,11 @@ Dazu gehören Ontologien, für was sie stehen und die Beschreibung des OWL2 RL F
 
 \section{Ontologien}
 
-
-TEXT
-
+Ontologien sind nach einem gewissen Formalismus erzeugte Beschreibungen eines Teilausschnittes der Welt. Sie erinnern damit stark an Datenabnken, die  z.B. nach einem ER-Modell entwickelt wurden. Ontologien enthalten dabei die Struktur und Beziehung der Daten, sowie die Daten selbst. Der Formalismus auf dem eine Ontologie aufsetzt ist normalerweise stark von Logik geprägt.
 
 \subsection{Unterschied zu relationaler Datenbank}
 
-Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als\emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
+Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als \emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
 Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden, ist es nicht Teil des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
 \begin{figure}
 	\caption{W3 Layercake}
@@ -33,6 +31,9 @@ Der zweite Unterschied besteht darin, wie man über die Daten schließt. In eine
 	}
 \end{figure}
 Adaption der offizielen OWL Layer Map \cite{OWLLayerMap}. Es ist nur der in der Arbeit verwendete Teil hervorgehoben.
+
+\section{Delta-Relation}
+Im späteren Verlauf wird häufiger auf delts oder delta-Relationen hingewiesen. Das ist keine besondere Art von Datenbankrelationen sondern sind ganz gewöhnliche Tabellen. Allerdings ist damit eine besondere Verwendung gemeint. Im Abschnitt \ref{abschnitt-mema-prinzip} werden einige Tabellen \ref{relations-for-which-data-is-created} vorgestellt für die durch Ableitungen neue Fakten erzeugt werden können. Aus Optmierungsgründen, werden diese neue Fakten allerdings nicht direkt in diese Tabellen geschrieben, sondern erst in eine sog. delta-Relation. Diese Relation hat alle Spalten ihrere ``Original''-Relation und einige weitere. Dieses delta kann dann in weiteren Schlussfolgerungen verwendet werden. Falls nicht die komplette Relation benötigt wird sondern nur neue Fakten. Welche Fakten benötigt werden wird vom Regelprozessor und von den eigentlichen Regeln entschieden.
 
 \section{Sprachkomplexitäten}
 Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
@@ -175,7 +176,16 @@ Die Realisierung bestimmt Beziehung zwischen Individuen bzw. Instanzen. Welche I
 
 Alle Anfragemöglichkeiten die ein Reasoner hat sind spezielle Formen solche Ergebnisse abzufragen. Diese beiden Aufgaben sind der zentrale Dienst eine Schlussfoglerers. 
 
+\section{Regeln}
+\begin{verbatim}
+WAS IST EINE REGEL?
 
-\section{Weiterentwicklung auf dem Onto-Gebiet}
-OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL ist auch schon in Planung \cite{Hitzler2009} und es werden verschieden Konferenzen zu diesem Thema abgehalten. Auf \url{http://semanticweb.org/wiki/Events}
-findet man eine große Anzahl an Konferenzen und Workshops die zu diesem Gebiet gehören.
+WIE SIEHT EINE REGEL AUS?
+\end{verbatim}
+
+\section{UML}
+\begin{verbatim}
+WAS IST UML?
+WAS SIND KLASSENDIAGRAMME?
+WIESO WERDEN DIESE HIER VERWENDET?
+\end{verbatim}

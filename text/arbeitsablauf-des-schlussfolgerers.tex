@@ -39,6 +39,12 @@ Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes 
 \end{table}
 
 
+\begin{verbatim}
+* Wie wandelt man die Ontologie in INSERTs um?
+* Wie läd man eine Ontologie?
+\end{verbatim}
+
+
 Falls ein Axiom aus komplexen Ausdrücken zusammengesetzt ist werden die Ausdrücke rekursiv abgearbeitet und einzeln behandelt. Zum herstellen der Beziehungen bei komplexen Axiomen werden Platzhalter für die Ausdrücke verwendet. Die Platzhalter die dabei erzeugt werden stammen von der OWLAPI aus der NodeID Klasse und folgen damit dem selben Schema wie auch bei anonymen Individuen.
 
 Bsp:
@@ -55,12 +61,6 @@ Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis (\e
 Dieser überprüft die Ursache und legt entsprechende Regeln an, die auf diese Veränderung ausgeführt werden können.
 
 Die abzuarbeitenden Regeln enthalten eine Referenz auf die Fakten, die hinzugekommen sind. Allgemein sind sie so implementiert, das sie nur auf diesen neuen Fakten arbeiten -  auf den sogenannten Deltas - dies ist allerdings nicht in allen Fällen möglich (\emph{cls-int1}), sinnvoll (zu viele verschiedene Kombinationsmöglichkeiten) oder einfach zu komplex und damit fehleranfällig (\emph{prp-spo2}). Falls zwei oder mehrmals eine Regel auf die selben neuen Fakten erzeugt wird bevor sie ausgelöst wird, werden die beiden Regeln zu einer zusammengefasst und können je nach Einstellung neu priorisiert werden.
-
-WAS SIND DELTAS?
-
-
-WAS IST EINE RELATION?
-
 
 All diese Regeln sind in einer Warteschleife abgelegt, die beim laden der Ontologie gefüllt wird und beim abarbeiten, d.h. dem realisieren, der Ontologie ausgelesen wird.
 

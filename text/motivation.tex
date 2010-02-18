@@ -8,7 +8,7 @@ Neue Anwendungsgebiete bilden sich im Moment aber ständig heraus. So sind Ontol
 Aber auch jede Firma hat das Problem ihr Fachwissen zu verwalten und für ihre Mitarbeiter effizient zugänglich zu machen. Ein spezieller Punkt hierbei ist das Workflow-Management, das besonders intensiv an der Uni Ulm behandelt wird. Die Komplexitäten der hierfür verwendeten Programme zeigen, das die Arbeitsabläufe, die damit modelliert werden von komplexer Natur sind. Hier helfen ebenfalls Metadaten die Modellierung zu unterstützen.
 Aber es gibt auch Anwendungsgebiete in der Landwirtschaft, im Bankenwesen, in der Luft- und Raumfahrt, auf dem Desktop des eigenen PCs, der Lernunterstützung für Schüler und Studenten, in der Verwaltung von Regierungen\ldots
 
-Eine vollständige und ausführliche Beschreibung ist unmöglich und würde den Rahmen diser Arbeit sprengen. AUf der Webseite des W3C zum Semantic Web \cite{W3CUseCases} sind einige dieser Anwendungsfälle näher beschrieben.
+Eine vollständige und ausführliche Beschreibung ist unmöglich und würde den Rahmen dieser Arbeit sprengen. Auf der Webseite des W3C zum Semantic Web \cite{W3CUseCases} sind einige dieser Anwendungsfälle näher beschrieben.
 
 Um diese Herausforderungen richtig zu lösen ist ein komplette KI-System nötig. Die Bereich die ein solches System behandeln muss sind \cite{vonHenke2009}:
 
@@ -44,14 +44,11 @@ Die gewünschten Fähigkeiten, die für den Schlussfolgerer erreicht werden soll
 In erster Linie soll in dieser Arbeit ein benutzbarer Schlussfolgerer entstehen, unter benutzbar ist dabei die Erfüllung der folgenden Punkte zu verstehen.
 
 \begin{itemize}
-  \item RL-Profil Abdeckung
-  \item Korrektheit und Vollständigkeit
-  \item Anbindung an die OWLAPI
-  \item Retraction (Das Zurückziehen von Fakten)
+  \item RL-Profil Abdeckung: Damit ist gemeint das alls Schlussfolgerungen und Konsistenzprüfungen aus dem OWL2 RL Profil möglich sind.
+  \item Korrektheit und Vollständigkeit: Der Schlussfolgerer sollte natürlich entsprechend der OWL Spezifikation die Kriterien Korrektheit und Vollständigkeit erfüllen. Diese sind beide mit dem RL Profil möglich.
+  \item Anbindung an die OWLAPI: Der Schlussfolgerer sollte über die aktuelle OWLAPI ansprechbar sein. Damit sollte auch überprüfbar sein, ob eine Ontologie konform bezüglich der OWL2 RL Spezifikation ist.
+  \item Retraction: Es sollte möglich sein Fakten in einer Ontologie über die bereits geschlussfolgert wurde effizient zu löschen oder zu ändern.
 \end{itemize}
-\begin{verbatim}
-Schlussfolgern, Konsistenzprüfung, Änderung, Löschung, OWLAPI Anbindung, Konformitätsüberprüfung auf OWL2 RL
-\end{verbatim}
 
 Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden, wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL-Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB}, ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem gibt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurde. Natürlich muss man sich abschließend bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
