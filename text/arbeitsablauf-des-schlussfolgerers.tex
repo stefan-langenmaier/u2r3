@@ -1,23 +1,26 @@
 \section{Arbeitsablauf des Schlussfolgerers}
 
-In der nachfolgenden Abbildung \ref{image-u2r3-workflow} ist der gewöhnliche Ablauf des Reasoner dargestellt. Dabei ist er in dreih Phasen einzuteilen. Das LAden der Ontologie, der Schlussfolgerungsvorgang und die Abfrage .
+In der nachfolgenden Abbildung \ref{image-u2r3-workflow} ist der gewöhnliche Ablauf des Reasoner dargestellt. Dabei ist er in drei Phasen einzuteilen. Das Laden der Ontologie, der Schlussfolgerungsvorgang und die Abfrage .
 
 \begin{figure}
 	\caption{Arbeitsablauf des Schlussfolgerers}
 	\label{image-u2r3-workflow}
+\begin{center}
 	\scalebox{0.6}{
 		\includegraphics{images/u2r3-workflow.pdf}
 	}
+\end{center}
 \end{figure}
 
-konform: überprüft, ob die verwendete Syntax im OWL2 RL Profil liegt
+\subsection{Konformität}
+Konformität: überprüft, ob die verwendete Syntax im OWL2 RL Profil liegt
 laden: bringt die Ontolgoie in das Datenbank-Schema, dabei merkt es an welche Regeln für das ableiten ausgeführt werden sollen
 initialisieren: erzeugt das Datenbankschema notfalls, läd Standardwerte und richtet in der Datenbank nötige Funktionen ein
 konsistent: ist eine Hülle um dafür zu sorgen, das nur über konsistente Fakten geschlossen wird. Die Häufigkeit kann eingestellt werden.
 ableiten:Wendet die Ableitungsregeln an. Die Regelandwendung ist abgschloßen wenn keine neuen Fakten erzeugt werden können.
 abfragen: implementiert die Schnittstelle der OWLAPI, mit der man Anfragen an die abgeleiteten Fakten stellen kann
 
-OWLAPI Anbindung
+\subsection{OWLAPI Anbindung}
 
 Der obere Teil ist die sogenannte OWLAPI. Die OWLAPI ist eine Bibliothek die das Auslesen von Ontologien in verschiedenen Formaten erlaubt und eine Schlussfolgererschnittstelle für andere Programme zur Verfügung stellt. Durch die Implementierung dieser Schnittstelle in U2R3 ist es für alle Programme zugänglich die mit der OWLAPI arbeiten.
 Die Schnittstelle stellt dabei auch eine Liste typischer Abfragen für einen Reasoner dar und kann allein dadurch schon als Messlatte für die Fähigkeiten eines Schlussfolgerers verwendet werden. Das OWLAPI-Projekt ist open-source und in Java implementiert und ist damit auch optimal für die Implementierung von U2R3 geeignet. Neben der reinen Parsertätigkeit kann die OWLAPI auch noch helfen zu überprüfen, ob eine Ontologie im OWL2 RL Profil liegt und nimmt damit weitere Arbeit ab.
@@ -29,13 +32,14 @@ Die Inhalte einer Ontolgie die für das Schlussfolgern wichtig sind, sind die Ax
 Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes Axiom genau eine Relation vorgesehen. Falls die Ontologie nicht OWL2 RL konform ist müssen für gewisse Axiome implizite Informationen abgelegt, wie. z.B.
 
 \begin{table}
-	\begin{tabular}{|l|l|}
-    \hline
-    If & then \\
-    \hline
-	T(?i1, ?property, ?i2 & property owl:type ObjectProperty \\
-	\hline
-    \end{tabular}
+	\caption{Eine implizite Regel}
+	\label{rule-impl}
+\begin{center}
+	\begin{tabular}{l|l}
+    If & then \\ \hline
+	T(?i1, ?property, ?i2 ) & T(?property owl:type ObjectProperty) \\
+   \end{tabular}
+\end{center}
 \end{table}
 
 
@@ -47,14 +51,16 @@ Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes 
 
 Falls ein Axiom aus komplexen Ausdrücken zusammengesetzt ist werden die Ausdrücke rekursiv abgearbeitet und einzeln behandelt. Zum herstellen der Beziehungen bei komplexen Axiomen werden Platzhalter für die Ausdrücke verwendet. Die Platzhalter die dabei erzeugt werden stammen von der OWLAPI aus der NodeID Klasse und folgen damit dem selben Schema wie auch bei anonymen Individuen.
 
-Bsp:
-\begin{verbatim}
-(A int (Svf p B)) subC C
-      nid1             C    subClass(nid1, C)
-      nic2                  intOf(nid1, nid2)
- A         nid3             list(nid2, A, nid3)
-            p B             svf(nid3, p, B)
-\end{verbatim}
+In folgendem Besipeil soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubseteq C$ abgespeichert werden. Zur Verdeutlichung wurden Klammern eingebaut.
+
+\begin{equation}
+\overbrace{
+	(\overbrace{A \sqcap (
+		\overbrace{\exists{}p.B}
+		^{nid3 \Rightarrow someValuesFrom(nid3, p, B)})}
+	^{nid2 \Rightarrow intersectionOf(nid1, nid2), list(nid2, A, nid3)})}
+^{nid1 \Rightarrow subClass(nid1, C)} \sqsubseteq C
+\end{equation}
 
 Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis (\emph{Reason}) an den Regelprozessor geschickt.
 
@@ -62,7 +68,7 @@ Dieser überprüft die Ursache und legt entsprechende Regeln an, die auf diese V
 
 Die abzuarbeitenden Regeln enthalten eine Referenz auf die Fakten, die hinzugekommen sind. Allgemein sind sie so implementiert, das sie nur auf diesen neuen Fakten arbeiten -  auf den sogenannten Deltas - dies ist allerdings nicht in allen Fällen möglich (\emph{cls-int1}), sinnvoll (zu viele verschiedene Kombinationsmöglichkeiten) oder einfach zu komplex und damit fehleranfällig (\emph{prp-spo2}). Falls zwei oder mehrmals eine Regel auf die selben neuen Fakten erzeugt wird bevor sie ausgelöst wird, werden die beiden Regeln zu einer zusammengefasst und können je nach Einstellung neu priorisiert werden.
 
-All diese Regeln sind in einer Warteschleife abgelegt, die beim laden der Ontologie gefüllt wird und beim abarbeiten, d.h. dem realisieren, der Ontologie ausgelesen wird.
+All diese Regeln sind in einer Warteschleife abgelegt, die beim Laden der Ontologie gefüllt wird und beim Abarbeiten, d.h. dem Realisieren, der Ontologie ausgelesen wird.
 
 Regeln können durch das Erzeugen von neuen Fakten Hinweise für den Regelprozessor geben der daraufhin weitere Regeln anlegt und in die Warteschlange einsortiert.
 
@@ -74,7 +80,11 @@ Für das Abarbeiten und Erzeugen der Regeln ist hauptsächlich der Regelprozesso
 
 
 \subsection{Das Schlussfolgern in einer Ontologie}
+\begin{verbatim}
+TEXT
+\end{verbatim}
 
 \subsection{Das Abfragen einer Ontologie}
-
-
+\begin{verbatim}
+TEXT
+\end{verbatim}

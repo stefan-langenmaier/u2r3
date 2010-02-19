@@ -15,13 +15,15 @@ Insgesamt kann dabei in fünf Kategorien unterschieden werden:
 
 \subsubsection{Einmalige Regeln}
 
-\begin{table}
-\begin{tabular}{l|l}
-if & then \\ \hline
-true & owl:Thing rdf:type owl:Class
-\end{tabular}
-\caption{Die Regel cls-thing}
-\label{rule-cls-thing}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l|l}
+	if & then \\ \hline
+	true & T(owl:Thing, rdf:type, owl:Class)
+	\end{tabular}
+\end{center}
+	\caption{Die Regel cls-thing}
+	\label{rule-cls-thing}
 \end{table}
 
 
@@ -36,13 +38,15 @@ INSERT INTO classAssertionEnt (entity, class)
 \subsubsection{Inkonsistenzregeln}
 Inkonsistenzregeln erzeugen keine Fakten. Sie versuchen aber gewisse Fakten zu finden, die im Widerspruch zu einander stehen.
 
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?x, rdf:type, owl:Nothing) & false
-\end{tabular}
-\caption{Die Inkonsistenzregel cls-nothing2}
-\label{rule-cls-nothing2}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l|l}
+	if & then \\ \hline
+	T(?x, rdf:type, owl:Nothing) & false
+	\end{tabular}
+\end{center}
+	\caption{Die Inkonsistenzregel cls-nothing2}
+	\label{rule-cls-nothing2}
 \end{table}
 
 
@@ -58,14 +62,15 @@ Die Relation classAssertionEnt ist die Relation, die die type-Beziehung speicher
 \subsubsection{Gewöhnliche Regeln}
 Gewöhnliche Regeln erzeugen neue Fakten in der Datenbank. Eine einfache Regel ist hier eq-sym:
 
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?x, owl:sameAS, ?y) & T(?y, owl:sameAS, ?x)
-
-\end{tabular}
-\caption{Die gewöhnliche Regel eq-sym}
-\label{rule-eq-sym}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l|l}
+	if & then \\ \hline
+	T(?x, owl:sameAS, ?y) & T(?y, owl:sameAS, ?x)
+	\end{tabular}
+\end{center}
+	\caption{Die gewöhnliche Regel eq-sym}
+	\label{rule-eq-sym}
 \end{table}
 
 Dies wird wie folgt in SQL überführt:
@@ -86,13 +91,15 @@ Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Um
 Diese Punkte werden jeweils in ihren speziellen Abschnitten behandelt. Um die Beispiele nicht unnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
 
 Ein komplexeres Beispiel ist die Verknüpfung von Fakten, um auf neue Fakten schließen zu können, z.B. in der Regel eq-rep-s:
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?s1, owl:sameAs, ?s2), T(?s1, ?p, ?o) & T(?s2, ?p, ?o)
-\end{tabular}
-\caption{Die Regel eq-rep-s}
-\label{rule-eq-rep-s}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{m{4.5cm}|m{4cm}}
+	if & then \\ \hline
+	T(?s1, owl:sameAs, ?s2),\newline T(?s1, ?p, ?o) & T(?s2, ?p, ?o)
+	\end{tabular}
+\end{center}
+	\caption{Die Regel eq-rep-s}
+	\label{rule-eq-rep-s}
 \end{table}
 
 Die Verknüpfung wird durch einen JOIN auf die entsprechende Spalte realisiert.
@@ -107,17 +114,19 @@ INNER JOIN sameAs AS sa
 
 \subsubsection{Listenegeln}
 Dabei können Listenregeln auch Regeln sein die neue Fakten erzeugen oder Inkonsistenzen überprüfen. Eine Inkonsistenzregel mit einer Liste ist z.B. prp-adp:
-\begin{table}
-\begin{tabular}{l|l|l}
-If & then & \\ \hline
-T(?x, rdf:type, owl:AllDisjointProperties)
-T(?x, owl:members, ?y)
-LIST[?y, ?p1, ..., ?pn]
-T(?u, ?pi, ?v)
-T(?u, ?pj, ?v) & false & fuer alle 1 <= i < j <= n
-\end{tabular}
-\caption{Die Listenregel prp-adp}
-\label{rule-prp-adp}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{M{7cm}|M{1.2cm}|M{2.5cm}}
+	if & then & \\ \hline
+	T(?x, rdf:type, owl:AllDisjointProperties),\newline
+	T(?x, owl:members, ?y),\newline
+	LIST[?y, ?$p_1$, \ldots, ?$p_n$],\newline
+	T(?u, ?$p_i$, ?v),\newline
+	T(?u, ?$p_j$, ?v) & false & für alle $1 \leq i < j \leq n$
+	\end{tabular}
+\end{center}
+	\caption{Die Listenregel prp-adp}
+	\label{rule-prp-adp}
 \end{table}
 
 
@@ -128,8 +137,10 @@ SELECT 1
 FROM classAssertionEnt AS ca
 INNER JOIN members AS m ON ca.entity = m.class
 INNER JOIN list AS l ON m.list = l.name
-INNER JOIN objectPropertyAssertion AS opa1 ON opa1.property = l.property
-INNER JOIN objectPropertyAssertion AS opa2 ON opa2.property = l.property
+INNER JOIN objectPropertyAssertion AS opa1
+	ON opa1.property = l.property
+INNER JOIN objectPropertyAssertion AS opa2
+	ON opa2.property = l.property
 WHERE opa1.subject = opa2.subject AND opa1.object = opa2.object
 	AND ca.class = 'owl:AllDisjointProperties'
 \end{lstlisting}
@@ -137,44 +148,52 @@ WHERE opa1.subject = opa2.subject AND opa1.object = opa2.object
 Tatsächlich wird hier mehr gemacht als nötig ist. Die \emph{subject} und \emph{object} Spalten werden von beiden Seiten miteinander verglichen. Es wäre aber nur eine nötig. So ist es allerdings einfacher und natürlicher in SQL Syntax zu implementieren.
 
 Im Falle der Regel eq-diff2 muss eine Tabelle doppelt importiert werden, um wirkliche alle Fakten mit einander vergleichen zu können. Die ursprüngliche Regel.
-\begin{table}
-\begin{tabular}{l|l|l}
-If & then & \\ \hline
-T(?x, rdf:type, owl:AllDifferent)
-T(?x, owl:members, ?y)
-LIST[?y, ?z1, ..., ?zn]
-T(?zi, owl:sameAs, ?zj) & false & für alle 1 <= i < j <= n
-\end{tabular}
-\caption{Die Listenregel eq-diff2}
-\label{rule-eq-diff2}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{M{7cm}|M{1.2cm}|M{2.5cm}}
+	if & then & \\ \hline
+	T(?x, rdf:type, owl:AllDifferent),\newline
+	T(?x, owl:members, ?y),\newline
+	LIST[?y, ?$z_1$, \ldots, ?$z_n$],\newline
+	T(?$z_i$, owl:sameAs, ?$z_j$) & false & für alle $1 \leq i < j \leq n$
+	\end{tabular}
+\end{center}
+	\caption{Die Listenregel eq-diff2}
+	\label{rule-eq-diff2}
 \end{table}
 
 
 Würde man hier streng nach Schema vorgehen würde die sameAs Relation nur einmal in der Abfrage auftauchen. Das würde allerdings nicht alle Kombinationen erzeugen. Die Abfrage ist damit sehr ähnlich der obigen und wird hier ausgespart.
 
 Ein besonderer Typ der Listenregel ist z.B. cls-oo, diese Regel erzeugt mehrere Fakten. Das ist aber in der Umsetzung kein Problem.
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?c, owl:oneOf, ?x)
-LIST[?x, ?y1, ..., ?yn] & T(?y1, rdf:type, ?c)
-								...
-								T(?yn, rdf:type, ?c) 
-\end{tabular}
-\caption{Die Listenregel cls-oo}
-\label{rule-cls-oo}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{m{4.5cm}|m{4cm}}
+	if & then \\ \hline
+ 	T(?c, owl:oneOf, ?x),\newline
+ 	LIST[?x, ?$y_1$, \ldots, ?$y_n$]
+								 	&
+								 	T(?$y_1$, rdf:type, ?c),\newline
+								 	\ldots,\newline
+								 	T(?$y_n$, rdf:type, ?c)
+	\end{tabular}
+\end{center}
+	\caption{Die Listenregel cls-oo}
+	\label{rule-cls-oo}
 \end{table}
 
 
 \subsubsection{Datentypenregeln}
 Die Regeln zur Überprüfung der Datentypen ist nicht komplizierter, allerdings eine effiziente Umsetzung ist hier das Problem. Hier ist vor allem die dt-eq Regel das Problem.
-\begin{table}
-\begin{tabular}{l|l|l}
-If & then & \\ \hline
-true & T(lt1, owl:sameAs, lt2) & für alle Literale lt1 und lt2 mit dem selben Datenwert
-\end{tabular}
-\caption{Die Datentyperegel dt-eq}
-\label{rule-dt-eq}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l|l|M{3cm}}
+	if & then & \\ \hline
+	true & T(lt1, owl:sameAs, lt2) & für alle Literale lt1 und lt2 mit dem selben Datenwert
+	\end{tabular}
+\end{center}
+	\caption{Die Datentyperegel dt-eq}
+	\label{rule-dt-eq}
 \end{table}
 
 
@@ -195,18 +214,20 @@ Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenban
 In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im Gegensatz zu den anderen Regeln eine variable Anzahl von Fakten in der Prämisse. Diese Fakten sind allerdings nur indirekt über eine Liste verknüpft.
 
 Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
-\begin{table}
-\begin{tabular}{l|l}
-if & then \\ \hline
-T(?p, owl:propertyChainAxiom, ?x)
-LIST[?x, ?p1, ..., ?pn]
-T(?u1, ?p1, ?u2)
-T(?u2, ?p2 ?u3)
-\ldots
-T(?un, ?pn, ?un+1) & T(?u1, ?p, ?un+1)
-\end{tabular}
-\caption{Der Spezialfall prp-spo2}
-\label{rule-prp-spo2}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{m{6cm}|m{3cm}}
+	if & then \\ \hline
+	T(?p, owl:propertyChainAxiom, ?x),\newline
+	LIST[?x, ?$p_1$, \ldots, ?$p_n$],\newline
+	T(?$u_1$, ?$p_1$, ?$u_2$),\newline
+	T(?$u_2$, ?$p_2$ ?$u_3$),\newline
+	\ldots,\newline
+	T(?$u_n$, ?$p_n$, ?$u_{n+1}$) & T(?$u_1$, ?p, ?$u_{n+1}$)
+	\end{tabular}
+\end{center}
+	\caption{Der Spezialfall prp-spo2}
+	\label{rule-prp-spo2}
 \end{table}
 
 Die Kette muss dabei einen Start und ein Ende haben und die Glieder der Kette müssen untereinander verbunden sein. Die Variable ?u2 wird einmal als object und einmal als subject verwendet. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neues Faktum.
@@ -266,18 +287,20 @@ FROM   (SELECT   lname,
 Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoined.
 
 Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja wird es der Klasse dieser Schnittmenge hinzugefügt.
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?c, owl:intersectionOf, ?x)
-LIST[?x, ?c1, ..., ?cn]
-T(?y, rdf:type, ?c1)
-T(?y, rdf:type, ?c2)
-...
-T(?y, rdf:type, ?cn) & T(?y, rdf:type, ?c) 	 
-\end{tabular}
-\caption{Der Spezialfall cls-int2}
-\label{rule-cls-int2}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{m{6cm}|m{3.5cm}}
+	if & then \\ \hline
+	T(?c, owl:intersectionOf, ?x),\newline
+	LIST[?x, ?$c_1$, ..., ?$c_n$],\newline
+	T(?y, rdf:type, ?$c_1$),\newline
+	T(?y, rdf:type, ?$c_2$),\newline
+	\ldots,\newline
+	T(?y, rdf:type, ?$c_n$) & T(?y, rdf:type, ?c) 	 
+	\end{tabular}
+\end{center}
+	\caption{Der Spezialfall cls-int2}
+	\label{rule-cls-int2}
 \end{table}
 
 
@@ -308,22 +331,24 @@ Diese Abfrage wurd auch wesentlich vereinfacht. Für die Abspeicherung einer His
 Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
 
 Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die die Individuen gleich.
-\begin{table}
-\begin{tabular}{l|l}
-If & then \\ \hline
-T(?c, owl:hasKey, ?u)
-LIST[?u, ?p1, ..., ?pn]
-T(?x, rdf:type, ?c)
-T(?x, ?p1, ?z1)
-\ldots
-T(?x, ?pn, ?zn)
-T(?y, rdf:type, ?c)
-T(?y, ?p1, ?z1)
-\ldots
-T(?y, ?pn, ?zn) & T(?x, owl:sameAs, ?y)
-\end{tabular}
-\caption{Der Spezialfall prp-key}
-\label{rule-prp-key}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l|l}
+	If & then \\ \hline
+	T(?c, owl:hasKey, ?u)
+	LIST[?u, ?$p_1$, \ldots, ?$p_n$]
+	T(?x, rdf:type, ?c)
+	T(?x, ?$p_1$, ?$z_1$)
+	\ldots
+	T(?x, ?$p_n$, ?$z_n$)
+	T(?y, rdf:type, ?c)
+	T(?y, ?$p_1$, ?$z_1$)
+	\ldots
+	T(?y, ?$p_n$, ?$z_n$) & T(?x, owl:sameAs, ?y)
+	\end{tabular}
+\end{center}
+	\caption{Der Spezialfall prp-key}
+	\label{rule-prp-key}
 \end{table}
 
 
@@ -352,7 +377,9 @@ FROM list AS sl
                 SELECT id, subject, property, object
                 FROM dataPropertyAssertion
         ) AS pay
-                ON sl.element = pay.property AND pax.property = pay.property AND pax.object = pay.object
+                ON sl.element = pay.property
+                AND pax.property = pay.property
+                AND pax.object = pay.object
 GROUP BY pax.subject, sl.name
 --- Es werden alle Listenelemente doppelt erzeugt
 HAVING COUNT(sl.name) = 2*anz

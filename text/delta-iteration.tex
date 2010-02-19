@@ -36,21 +36,20 @@ Dies ist im folgenden Code \ref{code-immediate-delta-iteration} schematisch darg
 	\caption{Abarbeitung der RuleActions im immediate Modus.}
 	\label{code-immediate-delta-iteration}
 	\begin{lstlisting}[language=Java]
-while(action = list.popAction()) {
+while(action = rulesToApply.popAction()) {
 	action.rule.apply(action.delta);
 	
-	//kann ueberprueft werden, da alle Regel die dieses Delta benoetigen koennten sofort erzeugt werden
-	if (!(list.contains(delta)) {
-		delta.addToRelation()
-		delta.drop()
-		delta == null
+	if (!(rulesToApply.contains(delta)) {
+		delta.addToRelation();
+		delta.drop();
+		delta == null;
 	}
 }
 	\end{lstlisting}
 \end{figure}
 
 
-Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, da soviele Actions wie möglich gleizeitig angewand werden können.
+Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, da soviele Actions wie möglich gleizeitig angewand werden können. Die Parallelisierung ist eines der Ziele die eventuell in der Zukunft umgesetzt werden sollen.
 
 Der Nachteil ist das viele Deltas gleichzeitg entstehen und insgesamt mehr Regel angewendet werden müssen. Die deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber eine Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es istnicht unbedingt klar wie sich das auf ein DBMS auswirkt.
 
@@ -69,17 +68,17 @@ Regel: sameas-eq-ref-s //neue Fakten
 	\caption{Abarbeitung der RuleActions im immediate Modus.}
 	\label{code-immediate-delta-iteration}
 	\begin{lstlisting}[language=Java]
-do \{
+do {
   while (action = list.popAction()) {
     action.rule.apply(action.delta);
-    //if nicht moeglich, da man ja nicht weiss, ob noch eine Regel entsteht (vllt schon moeglich aber aeusserst aufwendig)
   }
 }
-while (applyRelations()); //WAIT hier muss immer alles zusammenlaufen, jetzt koennen keine Regeln angewendet werden
+while (applyRelations()); //WAIT
 
-applyRelations() {
+boolean applyRelations() {
   for(r : relations)
     r.applyAux();
+  return relations.wereDirty()
 }
 
 applyAux() {
@@ -97,7 +96,7 @@ Vorteile:
   \item Es werden evtl. größere Menge an neuen Fakten zusammengefasst. (Muss nicht notwendiger weise gut sein.)
 \end{itemize}
 
-Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werden kann, da zu gewissen Zeitpunkten, die Regelanwendung unterbrochen wird.
+Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werden kann, da zu gewissen Zeitpunkten (Zeile 6), die Regelanwendung unterbrochen wird und die Ausführung wieder synchronisiert werden muss.
 
 \subsection{Simulation}
 
@@ -108,7 +107,7 @@ Unterscheidungen müssen also an folgenden Stellen getroffen werden:
   \item classify(): nach abarbeiten aller Regeln müssen alle Relationen die angefasst wurden noch hinzugefügt werden und evtl. ein weiterer Lauf stattfinden, falls es eine Relation gab.
   \item apply(): das erzeugen des Deltas brauch eine andere Abfrage, da evtl in das selbe delta aka AUX mehrmals geschrieben werden kann
   \item apply(): das hinzufügen neuer Fakten darf nur im immediate Fall passieren.
-  \item makeDirty()/isDirty(): eine Relation muss wissen, ob sie noch ausstehende Operationen hat
+  \item makeDirty()/isDirty(): eine Relation muss wissen, ob sie noch ausstehende Daten, die zu mergen sind hat.
   \item merge(): die Relation kann jetzt das alte Delta löschen 
 \end{itemize}
 

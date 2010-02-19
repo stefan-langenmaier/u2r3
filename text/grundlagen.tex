@@ -6,30 +6,26 @@ Dazu gehören Ontologien, für was sie stehen und die Beschreibung des OWL2 RL F
 
 \section{Ontologien}
 
-Ontologien sind nach einem gewissen Formalismus erzeugte Beschreibungen eines Teilausschnittes der Welt. Sie erinnern damit stark an Datenabnken, die  z.B. nach einem ER-Modell entwickelt wurden. Ontologien enthalten dabei die Struktur und Beziehung der Daten, sowie die Daten selbst. Der Formalismus auf dem eine Ontologie aufsetzt ist normalerweise stark von Logik geprägt.
+Ontologien sind nach einem gewissen Formalismus erzeugte Beschreibungen eines Teilausschnittes der Welt. Sie erinnern damit stark an Datenabnken, die  z.B. nach einem ER-Modell entwickelt wurden. Ontologien enthalten dabei die Struktur und Beziehung der Daten, sowie die Daten selbst. Der Formalismus auf dem eine Ontologie aufsetzt ist normalerweise stark von Logik geprägt. \cite{Hesse2002}
 
 \subsection{Unterschied zu relationaler Datenbank}
 
 Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als \emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
 Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden, ist es nicht Teil des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
-\begin{figure}
-	\caption{W3 Layercake}
-	\label{image-w3-layercake}
-	\scalebox{0.2}{
-		\includegraphics{images/w3-layercake.pdf}
-	}
-\end{figure}
 
 \section{OWL2}
 \label{abschnitt-owl2}
 
-\begin{figure}
-	\caption{OWL Layer Map}
-	\label{image-owl-layer-map}
-	\scalebox{0.2}{
-		\includegraphics{images/owl-layer-map.pdf}
+\begin{figure}[htp]
+	\caption{W3 Layercake}
+	\label{image-w3-layercake}
+	\begin{center}
+	\scalebox{0.35}{
+		\includegraphics{images/w3-layercake.pdf}
 	}
+	\end{center}
 \end{figure}
+
 Adaption der offizielen OWL Layer Map \cite{OWLLayerMap}. Es ist nur der in der Arbeit verwendete Teil hervorgehoben.
 
 \section{Delta-Relation}
@@ -38,22 +34,33 @@ Im späteren Verlauf wird häufiger auf delts oder delta-Relationen hingewiesen.
 \section{Sprachkomplexitäten}
 Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
 
-
-\begin{figure}
-	\caption{Sprachierarchie \cite{OWLimManual}}
-	\label{image-sprachhierarchie}
-	\scalebox{0.2}{
-		\includegraphics{images/sprachhierarchie.pdf}
+\begin{figure}[htp]
+	\caption{OWL Layer Map}
+	\label{image-owl-layer-map}
+	\begin{center}
+	\scalebox{0.35}{
+		\includegraphics{images/owl-layer-map.pdf}
 	}
+	\end{center}
 \end{figure}
 Frei nach der Vorlage aus der OWLim Dokumentation.
 
-\begin{figure}
+\begin{figure}[htp]
 	\caption{Sprachkomplexitäten}
 	\label{image-sprachhierarchie}
-	\scalebox{0.15}{
-		\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
+	\begin{center}
+	\subfigure[]{
+		\scalebox{0.3}{
+			\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
+		}
 	}
+	\subfigure[]{
+		\scalebox{0.4}{
+			\includegraphics{images/sprachhierarchie.pdf}
+		}
+	}
+    
+    \end{center}
 \end{figure}
 Frei nach der Vorlesung/Übung Wissensmodellierung \cite{vonHenke2009}.
 
@@ -83,7 +90,6 @@ Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
 \subsection{Komplexität in Form der attributive language}
 \begin{itemize}
   \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$)
-  \item Die Sprache OWL1 bzw. OWL-DL liegt in $\mathcal{ALCHOIN}$ ($\mathcal{SHOIN}$) [ref]
   \item OWL2 basiert auf $\mathcal{ALCROIQ}$ ($\mathcal{SROIQ}$) \cite{Krötzsch2008}
 \end{itemize}
 
@@ -139,15 +145,13 @@ Ein Wissensrepräsentationsformalismus kann für verschiedene Anwendungsgebiete 
 
 Die wichtigsten Begriffe zur Einordnung dabei sind:
 \begin{itemize}
-  \item \textbf{Korrektheit}:
+	\item \textbf{Korrektheit}:
 Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus einer Wissenrepräsentation zu ziehen.
- \item \textbf{Vollständigkeit}:
+	\item \textbf{Vollständigkeit}:
 Ein Verfahren ist vollständig, wenn alle korrekten Schlüsse folgerbar sind.
- \item \textbf{Entscheidbarkeit}:
+	\item \textbf{Entscheidbarkeit}:
 Ein Verfahren ist entscheidbar, wenn immer ein Algorithmus für das Schlussfolgern existiert.
- \item \textbf{Adäquatheit}:
-Eine Wissensrepräsentation ist adäquat, wenn die Formulierung von Problemen auf eine einfache und verständliche Art möglich ist.
- \item \textbf{Komplexität}:
+	\item \textbf{Komplexität}:
 Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
 \end{itemize}
 
@@ -163,27 +167,56 @@ Mit dieser regelbasierten Implementierung ist es sogar möglich in nicht-syntakt
 
 Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden viele kleine verteilte Wissensbasen erzeugt. In einer Sammlung solcher Wissensbasen kann dann geschlussfolgert werden. Wird diese Sammlung erweitert, verkleinert oder verändert ist es natürlich umständlich, wenn wieder über alle anderen Beziehung geschloßen werden müsste. Durch eine montone Logik ist eine modulare Umsetzung besonders gut zu realisieren.
 
-\subsection{Aufgabe eines Reasoner}
-Ein Schlussfolgerer hat zwei Aufgaben:
 
+\subsection{RIF}
+\begin{verbatim}
+RIF TEXT
+\end{verbatim}
+
+
+\subsection{Aufgabe eines Reasoner}
+Allgemein muss ein Schlussfolgere die Frage beantworten, ob eine beliebige Formel $\Theta$ Modell der Ontologie $\Psi$ ist, kurz $\Theta \models \Psi$. Alle Anfragemöglichkeiten die ein Reasoner hat sind spezielle Formen solche Ergebnisse abzufragen.
+
+Es lässt sich dabei in zwei Hauptaufgaben einteilen.
 \begin{itemize}
   \item Klassifizierung
   \item Realisierung
 \end{itemize}
+Diese beiden Aufgaben sind der zentrale Dienst eine Schlussfoglerers. 
 
 Die Klassifizierung soll die Struktur der Ontologie bestimmen, d.h. die Beziehung der Klassen bzw. Konzepte zueinander. Was sind die Unterklassen einer bestimmten Klasse oder welche Klassen sind äquivalent.
 Die Realisierung bestimmt Beziehung zwischen Individuen bzw. Instanzen. Welche Individuen sind Mitglieder von Klassen und über welche Beziehungen sind sie untereinander verbunden.
 
-Alle Anfragemöglichkeiten die ein Reasoner hat sind spezielle Formen solche Ergebnisse abzufragen. Diese beiden Aufgaben sind der zentrale Dienst eine Schlussfoglerers. 
-
 \section{Regeln}
-\begin{verbatim}
-WAS IST EINE REGEL?
+Das OWL2 RL Profil wurde unter dem ASpekt entiwckelt, dass Inferenzen darin gut mit einem regelbasierten Ansatz umzusetzen sind.
 
-WIE SIEHT EINE REGEL AUS?
+Wie dabei die Umsetzung der Regeln in SQL stattfindet wird in entsprechenden Abschnitt \ref{abschnitt-regelbeispiele} näher erklärt. Hier wird vorab der Aufbau und die Bedeutung der in der OWL2 RL Spezifikation angegebenen Regeln näher gebracht.
+
+Eine Regel setzt sich grundsätzlich aus zwei Dingen zusammen. Das ist zum einen die Vorbedingung und zum anderen die Nachbedingung\footnote{In den folgenden Tabellen, in denen Regeln beschrieben werden, wird die Vorbedingung mit \emph{if} abgekürzt und die Nachbedingung mit \emph{then}.}. Wenn für die Vorbedingung eine gültige Belegung in der Ontologie gefunden werden kann, dann gilt die Nachbedingung. Das Wort Belegung macht deutlich, das die Vorbedingung und Nachbedingung Variablen enthalten können.Variablen sind dadurch gekennzeichnet, das sie mit einem ``?'' vor ihrem Namen beginnen und kleingeschirben sind.
+
+Die Vorbedingung und Nachbedingung enthalten immer Tripel oder Listen. Tripel sind bekannt aus dem RDF-Bereich[ref]. Damit werden zwei Entitäten über das mittlere Element in Beziehung gesetzt. Das sieht z.B. so aus:
+\begin{verbatim}
+T('Walter', rdf:type, 'Person')
 \end{verbatim}
+Listen sind eine Konstrukt, um die Darstellung von Listen über die Tripels zu vereinfachen. Sie lassen sich aber auf Tripels zurückführen. [ref OWL2 RL Spez]
+
+Eine komplette Regeln kann foglendermaßen dagestellt werden:
+
+\begin{table}[htp]
+\begin{center}
+\begin{tabular}{l|l}
+if & then \\ \hline
+T(?property, rdfs:domain, ?class), T(?x, ?property, ?class) & T(?x, rdf:type, ?class)
+\end{tabular}
+\end{center}
+\caption{tablecaption}
+\label{tablelabel}
+\end{table}
+
+Auf der Seite der Vorbedingung sind zwei Tripel, d.h. es muss für beide gleichzeitig eine Belegung der Variablen gefunden werden. Für jede gültige Belegung der Varaiblen gilt dann die Belegung der Variablen auf der rechten Seite.
 
 \section{UML}
+Zur Darstelung der Struktur der Relationen und einigen anderen Konstruktuen wurden die Klassediargramme der UML [ref] verwendet. Die UML ist ein Standard zur Beschreibung zur Modellierung im Softwarebereich, sowohl in der Sprache als auch in ihrer Darstellung. Es wurden die Klassendiagramme ausgewählt, weil sie eine kompakte Darstellung der Struktur bieten, obwohl ER-Diagramme eine größere Ausdrucksmächtigkeit für Relationen bieten würden.
 \begin{verbatim}
 WAS IST UML?
 WAS SIND KLASSENDIAGRAMME?

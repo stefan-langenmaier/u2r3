@@ -1,8 +1,11 @@
+In den Diagrammen sind Spalten, die ``fett'' markiert sind mit einem Index ausgestattet. Felder die Unterstrichend sind wurden in der Datenbank als Primärschluss umgesetzt und müssen eindeutig in der Relation sein.
+
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=4cm]
 
 \begin{figure}
 	\caption{Die Hilfsrelationen list und history}
 	\label{relations-list-history}
+\begin{center}
 	\begin{tikzpicture}[node distance=6cm]
 		\node (history) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{history}
@@ -21,12 +24,14 @@
 		};
 	
 	\end{tikzpicture}
+\end{center}
 \end{figure}
 
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=5cm]
 \begin{figure}
 	\caption{Liste der Relationen, für die auch Fakten erzeugt werden}
 	\label{relations-for-which-data-is-created}
+\begin{center}
 	\begin{tikzpicture}[node distance=2.5cm]
 		\node (subClass) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{subClass}
@@ -136,6 +141,7 @@
 		};
 	
 	\end{tikzpicture}
+\end{center}
 \end{figure}
 
 Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die neue Fakten abgeleitet werden können. Alle anderen Relationen werden nur beim laden einer Ontologie gefüllt und danach nicht mehr verändert.
@@ -143,6 +149,7 @@ Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die
 \begin{figure}
 	\caption{Relationen die auf Listen arbeiten}
 	\label{relations-that-work-on-lists}
+\begin{center}
 	\begin{tikzpicture}[node distance=3cm]
 		\node (members) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{members}
@@ -194,13 +201,15 @@ Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die
 		};
 	
 	\end{tikzpicture}
+\end{center}
 \end{figure}
-Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relationen die mit einer variablen Anzahl von Elementen umgehen und daher mit Listen arbeiten. Es gibt Relationen wie sameAs und differentFrom die mehrere Fakten enthalten können. Hier ist es so festgelegt, das wenn nur ein Paar erzeugt wird, dann wird es in der speziellen Relation abgelegt. Falls die Anzahl größer ist wird es in der members Relation abgelegt. Hier gilt aber ebenfalls das neue Fakten nur für Relationen in der Abbildung \ref{relations-for-which-data-is-created} erzeugt werden können, d.h. es können nur paarweise Daten erzeugt werden und keine Liste.
+Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relationen die mit einer variablen Anzahl von Elementen umgehen und daher mit Listen arbeiten. Es gibt Relationen wie sameAs und differentFrom die mehrere Fakten enthalten können. Hier ist es so festgelegt, das wenn nur ein Paar erzeugt wird, dann wird es in der speziellen Relation abgelegt. Falls die Anzahl größer ist wird es in der members Relation abgelegt. Hier gilt aber ebenfalls das neue Fakten nur für Relationen in der Abbildung \ref{relations-for-which-data-is-created} erzeugt werden können, d.h. es können nur paarweise Daten erzeugt werden und keine Liste.\footnote{Die Bennenung der Spalten ist vereinfacht gegenüber der Umsetzung in der Datenbank, das es hier reservierte Schlüselwörter gibt. Außerdem sind Spalten nicht wirklich von dem angegeben Typ. Es soll damit aufgezeigt werden, das sehr wohl klar ist in welcher Tabelle welche Fakten abgespeichert werden. Auch wenn die Grenzen zwischen A-Box und T-Box verschwimmen, werden sie trotzdem nicht durcheinander gebracht.}
 
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=6cm]
 \begin{figure}
 	\caption{sonstige Relationen}
 	\label{relations-others-1}
+\begin{center}
 	\begin{tikzpicture}[node distance=3cm]
 		\node (allValuesFrom) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{allValuesFrom}
@@ -309,14 +318,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{object}}: IND
 		};
 		
-	\end{tikzpicture}
-\end{figure}
-
-\begin{figure}
-	\caption{sonstige Relationen (fortgesetzt)}
-	\label{relations-other-2}
-	\begin{tikzpicture}[node distance=5cm]
-		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2]{
+		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2, below of= negativeObjectPropertyAssertion]{
 				\textbf{differentFromEnt}
 			\nodepart{second}
 				id: INT\newline
@@ -335,21 +337,8 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				right\_type: CLASS
 		};
 		
-		\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below of= differentFromEnt]{
-				\textbf{disjointWith}
-			\nodepart{second}
-				id: INT\newline
-				\textbf{\underline{left}}: CLASS\newline
-				\textbf{\underline{right}}: CLASS
-		};
-		\node (propertyDisjointWith) [relation, rectangle split, rectangle split parts=2, right =2cm of disjointWith]{
-				\textbf{propertyDisjointWith}
-			\nodepart{second}
-				id: INT\newline
-				\textbf{\underline{left}}: PROPERTY\newline
-				\textbf{\underline{right}}: PROPERTY
-		};
-	
 	\end{tikzpicture}
+\end{center}
 \end{figure}
-Die sonstige Relationen aus Abbildung \ref{relations-others-1} und \ref{relations-other-2} sind so umfangreich, da in OWL2 RL fast die komplette Sprachmächtigkeit von OWL2 abbildbar ist.
+
+Die sonstige Relationen aus Abbildung \ref{relations-others-1} sind so umfangreich, da in OWL2 RL fast die komplette Sprachmächtigkeit von OWL2 abbildbar ist.

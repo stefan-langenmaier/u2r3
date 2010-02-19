@@ -1,7 +1,6 @@
 \chapter{Motivation \& Aufgabenstellung}
 \label{kapitel-motivation}
 
-\section{Anwendungsgebiete}
 Die Anwendungsgebiete von Ontolgien, dem Semantic Web und OWL sind quasi nur durch die Vorstellungskraft begrenzt. Dem Leser der auf diesem Gebiet vertraut ist, ist die Anwendung im medizinischen Bereich sicherlich schon bekannt. Auch die Anreicherung von Metainformationen zur Verbesserung von Suchergebnisssen bei Suchmaschinen sollte bekannt sein bzw. liegt nahe.
 
 Neue Anwendungsgebiete bilden sich im Moment aber ständig heraus. So sind Ontologien ebenfalls sehr gut im juristischen Bereich anwendbar, da wie in der Medizin eine große Terminologien-Vielfalt vorhanden ist und gerade hier mit Schlussfolgerern die Entscheidungsfindung unterstützt und überpürft werden kann.
@@ -26,8 +25,6 @@ Der Punkt Schlussfolgerung lässt natürlich viele verschieden Lösungsansätze 
 
 In allen oben angegeben Fallstudien ist ein Schlussfolgerer nötig, um die impliziten Beziehungen in den Ontologien zu finden. Dieser Reasoner fügt sich also nahtlos in eine Softwareumfeld zur Lösung von real existierenden Problemen ein. Ein Schlussfolgerer ist für ein KI-System nötig, damit dieser hohe Aufwand an Formalismen durch aussagekräftige Ergebnisse wieder hereingeholt werden kann.
 
-
-\section{Aktualität}
 OWL ist eine Spezifikation zur Repräsenation von Ontologien. 2001 wurde dabei die erste Version herausgegeben. Seit Oktober 2009 existiert OWL2 als vom W3C veröffentlichter technical report. Damit geht die Entwicklung der Anwednungen im Berich \emph{semantic web} in eine neue Runde. Hinter den bekannten Schlussfolgerungssystemen wie Pellet, HermitT oder auch Fact++ wird an der OWLAPI schon länger an der Aktualisierung auf die neue Spezifikation gearbeitet.
 
 OWL2 ist Rückwärtskompatibilität, aber die Sprache wurde um einige Dinge erweitert \cite{Golbreich2008}. Im folgenden wird dabei  insbesondere auf die in OWL2 hinzugekommenen Profile eingegangen. Die Profile sind dabei eine Neuerung aus OWL2.
@@ -52,22 +49,23 @@ In erster Linie soll in dieser Arbeit ein benutzbarer Schlussfolgerer entstehen,
 
 Damit aus dieser Implementierung auch eine vollwertige Diplomarbeit wird, werden natürlich Fragen aus der Forschung beantwortet. Ein offenes Thema ist, wie gut Regeln in handelsübliches SQL übersetzt werden können. Welche Probleme hier entstanden sind und wie diese gelöst wurden, wird hier versucht aufzuzeigen. Auch gibt es bereits Ansätze, wie man eine OWL-Ontologie in eine Datenbank speichern kann \cite{Kleb2009OWLDB}, ohne dabei schon konkret in einem Produkt umgesezt worden zu sein. Außerdem gibt es die großen Fragen, wie sich eine Ontologie effizient bearbeiten lässt, in welcher schon geschlussfolgert wurde. Natürlich muss man sich abschließend bei einem Verfahren mit forward-chaing und direct-materialisation auch Gedanken machen, ob sich dieser Speicher- und Vorbereitungs-Tradeoff lohnt.
 
-Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann, auch wenn hier sicherlich nicht alles behandelt und implementiert werden kann. Trotzdem wird auch versucht offene Optimierungen anzusprechen.
+Letztendlich ist der Antrieb dieser Arbeit die Frage, wie weit man mit dem Ansatz forward-chaining mit direct-materialisation gehen kann, auch wenn hier sicherlich nicht alles behandelt und implementiert werden kann. Trotzdem wird auch versucht aktuelle Optimierungsfragen anzusprechen.
 
 \begin{itemize}
-  \item Parallelisierung
-  \item Approximation
-  \item smart relations (eigene)
+  \item Parallelisierung: Darunter versteh man, Programmcode so auszulegen, das es ausgenützt werden kann, wenn mehrere Prozessoren zur Verfügung stehen. Dazu muss ein Programm seinen Ablauf in kleine unabhängige Teilaufgaben zerlegen können. Teilaufgaben, auf denen andere Teilaufgaben aufbauen bzw. auf ihre ABarbeitung warten müssen, müssen vermieden werden. Aber auch das Design des Programms muss dafür ausgelegt sein, da durch die parallele Ausführung nur schwer nachvollziehbare Seiteneffekte ausgelöst werden können
+  \item Approximation: Darunter versteht man die Schlussfolgerung nicht komplett durchzuführen. Die hier implemtierte Art der Schlussfolgerung ist beim anfänglichen Laden recht aufendig. Falls also gewisse Zeitrestriktionen vorhanden sind, sollte es z.B. möglich sein soviel zu schlussfolgern wie möglich ist, dann aber beendet werden können. Außerdem soll es möglich sein auf diesem Ergebnis später wieder aufsetzen zu können und wenn wieder Zeit vorhanden ist weiterzuarbeiten.
 \end{itemize}
 
 Die Optimierungen werden im Kapitel Ausblick \ref{kapitel-ausblick} behandelt.
 
 \section{Ergebnisse}
-Zum einen wird dies versucht durch die Entwicklung mit einem Wiki und SVN Repository sicherzustellen. Hier kann man die komplette Entwicklung des Quellcodes verfolgen. Zum anderen wird Javadoc verwendet, das beim Schreiben von Code in der IDE behilflich ist. Schließlich soll auch dieser Diplomarbeitstext selbst als Dokumenation dienen und die in der Implemenation getroffenen Design-Entscheidungen zu begründen.
+Als Ergebnis ist dieser Diplomarbeistext entstande, der einerseits als Dokumentation dienen soll, aber hauptsächlich die in der Implementation getroffenen Deign-Entscheidungen begründen soll.
 
-Damit der Code auch von anderen Personen überprüft und korrigiert werden kann wurde versucht den Code möglichst gut wartbar zu machen und Fehlerquellen weitestgehend von einender zu isolieren. Dies geschiet z.B. durch den Einsatz eines DBMS zum Speichern der Daten. Diese Arbeit greift dabei Ideen aus der Umsetzung des u2r2 \cite{Weithoehner2008} auf.
+Für eine vollständige Dokumentation bzw. Entwicklungsgeschichte sind aber weiter Werkzeuge einsetzt worden und auch weiteres Material, über diesen Text hinaus, entstanden. Es wird zum einen Javadoc verwendet, mit dem man automatisch eine technische Dokumentation generieren lassen kann, das aber auch bereits in der Entwicklung helfen kann, sofern die IDE\footnote{Eclipse kann aus der Javadoc Beschreibung im Content-Assist erzeugen.} dies unterstützt. Außerdem kann in einem mitgeführten Wiki und Ticketsystem\footnote{Es wurde Trac verwendet, um ein möglichst einfaches und schlichtes Projektverwaltungssystem zu haben.} und Code Repository\footnote{Es wurde SVN verwendet, da es sich gut in Trac und Eclipse integrieren lässt.} jeder Entwicklungsschritt des Projekts nachvollzogen werden.
+
+Damit der Code auch von anderen Personen überprüft und korrigiert werden kann wurde versucht den Code möglichst gut wartbar zu machen und Fehlerquellen weitestgehend von einender zu isolieren. Dies geschieht z.B. durch den Einsatz eines DBMS zum Speichern der Daten. Diese Arbeit greift dabei Ideen aus der Umsetzung des u2r2 \cite{Weithoehner2008} auf.
 Allerdings wird die Komplexität dieser Umsetzung versucht zu reduzieren und auf die aktuelle Situation anzupassen. Durch die Umstellung auf OWL2 RL als Basis für die Semantik wird der Regelsatz deutlich größer und komplexer als er in u2r2 implementiert war. Dafür fällt der Compiler zum erstellen von Regelsätzen heraus, da es nur einen fixen Satz gibt und dieser wird in SQL implementiert.
 
 Um den Schlussfolgerer benutzbar zu machen braucht er ein möglichst breites Einsatzgebiet. Dazu gehören eine dokumentierte und übliche Schnittstelle. Daurm setzt dieser Schlussfolgerer auf der OWLAPIv3 \cite{OWLAPI} auf. Dieser ermöglicht es nicht nur auf einfache Art und Weise viele syntaktische Varianten von OWL2 zu parsen, sondern stellt auch eine Schnittstelle für Schlussfolgerer zur Verfügung, die bereits von namhaften Ontologie-Anwendungen (Pellet, Fact++, HermitT, RacerPro, Protégé) unterstützt wird. Desweiteren ist das breite Einsatzgebiet ein Grund für die Auswahl des RL-Profils gewesen. Diese Teilmenge von OWL2 ist auf eine große Ausdrucksmächtigkeit ausgelegt, um aber trotzdem noch entscheidbar und effizient zu bleiben. Letztendlich wurde auch die Entwicklung des u2r3 so konzipiert, dass er auf verschiedene Vorrausetzungen optimiert werden kann, um nur das Benötigte zu berechnen.
 
-Damit auch wirklich jeder Zugang zu diesem Schlussfoglerer bekommt ist er auf einem reinen \emph{open-source Stack} verfügbar. Die verwendete Datenbank H2 ist in Java implementiert und open-source, genauso wie die OWLAPI.
+Damit auch wirklich jeder Zugang zu diesem Schlussfolgerer bekommt ist er auf einem reinen \emph{open-source Stack} verfügbar. Die verwendete Datenbank H2 ist in Java implementiert und open-source, genauso wie die OWLAPI.
