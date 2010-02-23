@@ -18,7 +18,7 @@ public class ListRelation extends Relation {
 					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
 					" name TEXT," +
 					" element TEXT," +
-					" PRIMARY KEY (name, element));" +
+					" PRIMARY KEY (id));" +
 					" CREATE INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
 					" CREATE INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
 

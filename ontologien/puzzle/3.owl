@@ -68,6 +68,39 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     
 
 
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#hatEinzigenSohn -->
+
+    <owl:ObjectProperty rdf:about="&owl2;hatEinzigenSohn">
+        <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#hatNurDenHund -->
+
+    <owl:ObjectProperty rdf:about="&owl2;hatNurDenHund"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#hatOpa -->
+
+    <owl:ObjectProperty rdf:about="&owl2;hatOpa">
+        <owl:propertyChainAxiom rdf:parseType="Collection">
+            <rdf:Description rdf:about="&owl2;hatVater"/>
+            <rdf:Description rdf:about="&owl2;hatVater"/>
+        </owl:propertyChainAxiom>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#hatVater -->
+
+    <owl:ObjectProperty rdf:about="&owl2;hatVater">
+        <rdf:type rdf:resource="&owl;InverseFunctionalProperty"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#mag -->
 
     <owl:ObjectProperty rdf:about="&owl2;mag"/>
@@ -129,6 +162,38 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     
 
 
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Hund1Besitzer -->
+
+    <owl:Class rdf:about="&owl2;Hund1Besitzer">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;besitzt"/>
+                <owl:hasValue rdf:resource="&owl2;Hund1"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Hundeliebhaber -->
+
+    <owl:Class rdf:about="&owl2;Hundeliebhaber">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;hat"/>
+                <owl:allValuesFrom rdf:resource="&owl2;Hund"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Kind -->
+
+    <owl:Class rdf:about="&owl2;Kind"/>
+    
+
+
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Kleidung -->
 
     <owl:Class rdf:about="&owl2;Kleidung"/>
@@ -146,6 +211,20 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Muetzentraeger -->
 
     <owl:Class rdf:about="&owl2;Muetzentraeger"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#NurEinHundBesitzer -->
+
+    <owl:Class rdf:about="&owl2;NurEinHundBesitzer">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&owl2;hatNurDenHund"/>
+                <owl:onClass rdf:resource="&owl2;Hund"/>
+                <owl:maxQualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxQualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
@@ -207,6 +286,14 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     
 
 
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#BesitztHund1 -->
+
+    <owl:NamedIndividual rdf:about="&owl2;BesitztHund1">
+        <besitzt rdf:resource="&owl2;Hund1"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Bjoern -->
 
     <owl:NamedIndividual rdf:about="&owl2;Bjoern">
@@ -220,7 +307,25 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
 
     <owl:NamedIndividual rdf:about="&owl2;Charlie">
         <rdf:type rdf:resource="&owl2;Muetzentraeger"/>
+        <rdf:type rdf:resource="&owl2;Person"/>
         <hat rdf:resource="&owl2;RotWeisserPulli"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#CharlieVater -->
+
+    <owl:NamedIndividual rdf:about="&owl2;CharlieVater">
+        <hatEinzigenSohn rdf:resource="&owl2;Charlie"/>
+        <owl:sameAs rdf:resource="&owl2;HolgerVater"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#EineMuetze -->
+
+    <owl:NamedIndividual rdf:about="&owl2;EineMuetze">
+        <rdf:type rdf:resource="&owl2;Muetze"/>
     </owl:NamedIndividual>
     
 
@@ -228,7 +333,30 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Holger -->
 
     <owl:NamedIndividual rdf:about="&owl2;Holger">
-        <wird-genannt rdf:resource="&owl2;Charlie"/>
+        <hatVater rdf:resource="&owl2;HolgerVater"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#HolgerVater -->
+
+    <owl:NamedIndividual rdf:about="&owl2;HolgerVater">
+        <hatEinzigenSohn rdf:resource="&owl2;Holger"/>
+        <hatVater rdf:resource="&owl2;OpaWaldorian"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Hund1 -->
+
+    <owl:NamedIndividual rdf:about="&owl2;Hund1"/>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#IstHund1Besitzer -->
+
+    <owl:NamedIndividual rdf:about="&owl2;IstHund1Besitzer">
+        <rdf:type rdf:resource="&owl2;Hund1Besitzer"/>
     </owl:NamedIndividual>
     
 
@@ -239,6 +367,12 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
         <rdf:type rdf:resource="&owl2;Person"/>
         <besitzt rdf:resource="&owl2;WalterBrille"/>
     </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#OpaWaldorian -->
+
+    <owl:NamedIndividual rdf:about="&owl2;OpaWaldorian"/>
     
 
 
@@ -275,9 +409,19 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Waldo -->
 
     <owl:NamedIndividual rdf:about="&owl2;Waldo">
-        <wird-genannt rdf:resource="&owl2;Charlie"/>
+        <hatVater rdf:resource="&owl2;CharlieVater"/>
         <besitzt rdf:resource="&owl2;Sehschwaeche"/>
         <mag rdf:resource="&owl2;WalterStyle"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#WaldoVater -->
+
+    <owl:NamedIndividual rdf:about="&owl2;WaldoVater">
+        <hatEinzigenSohn rdf:resource="&owl2;Waldo"/>
+        <hatEinzigenSohn rdf:resource="&owl2;Wally"/>
+        <hatEinzigenSohn rdf:resource="&owl2;Willy"/>
     </owl:NamedIndividual>
     
 
@@ -285,8 +429,8 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Wally -->
 
     <owl:NamedIndividual rdf:about="&owl2;Wally">
-        <wird-genannt rdf:resource="&owl2;Charlie"/>
-        <wird-genannt rdf:resource="&owl2;Holger"/>
+        <hatVater rdf:resource="&owl2;HolgerVater"/>
+        <hatVater rdf:resource="&owl2;WaldoVater"/>
         <owl:sameAs rdf:resource="&owl2;Willy"/>
     </owl:NamedIndividual>
     
@@ -316,6 +460,7 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
     <!-- http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#Willy -->
 
     <owl:NamedIndividual rdf:about="&owl2;Willy">
+        <hat rdf:resource="&owl2;EineMuetze"/>
         <mag rdf:resource="&owl2;Pudel"/>
     </owl:NamedIndividual>
     
@@ -382,6 +527,11 @@ Wir haben es hier mit der Familie und der n&#228;heren Verwandschaft von Walter 
             </owl:Restriction>
         </owl:intersectionOf>
     </owl:Class>
+    <owl:Restriction>
+        <rdfs:subClassOf rdf:resource="&owl2;Kind"/>
+        <owl:onProperty rdf:resource="&owl2;hatVater"/>
+        <owl:someValuesFrom rdf:resource="&owl2;Person"/>
+    </owl:Restriction>
 </rdf:RDF>
 
 
