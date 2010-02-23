@@ -30,28 +30,33 @@ subClass(A,C) := subClass(A,B), subClass(B,C)
 \end{verbatim}
 
 Dadurch werden folgende Zeilen in der Historietabelle angelegt.
-\begin{verbatim}
-   id      ||   quelle
-========================
-  id_neu         id_x
-  id_neu         id_y 
-\end{verbatim}
 
+\begin{table}[htb]
+\begin{center}
+\begin{tabular}{l|l}
+ID & QuellID \\ \hline
+$id_{neu}$ & $id_x$ \\
+$id_{neu}$ & $id_y$
+\end{tabular}
+\end{center}
+\caption{Anlegen einer Ableitungshistorie}
+\label{table-inference-history}
+\end{table}
 Um in deltas schon eine deterministische id vergeben zu können wird eine tabellenübergreifende Sequence verwendet. Das ist eine Möglichkeit in einer Datenbank Standardwerte für Spalten aus einer zentralen Stelle vergeben zu können.
 
 \subsection{Löschablauf}
-Man beginnt das Löschen eines Axioms damit das man seine id bestimmt. Dann überprüft man, ob die id in der Historientabelle vorhanden ist. Wenn ja dann alle Abhängigkeiten finden und rekursiv diese löschen. Danach den Wert selbst löschen. 
+Man beginnt das Löschen eines Axioms damit das man seine id bestimmt. Dann überprüft man, ob die id in der Historientabelle vorhanden ist. Wenn ja, dann alle Abhängigkeiten finden und rekursiv diese löschen. Danach den Wert selbst löschen. 
 
-z.B.: subClass(B,C) => id\_y
-\begin{verbatim}
+z.B.: $subClass(B,C) \Rightarrow id_y$
+\begin{lstlisting}[language=SQL]
 SELECT id FROM Historie WHERE quelle = $id_y$
 
 while(id)
-  lösche(id)
-  DELETE FROM Historie WHERE id = id
+	delete(id)
+	DELETE FROM Historie WHERE id = id
 
 DELETE FROM subClass WHERE id = $id_y$
-\end{verbatim}
+\end{lstlisting}
 
 
 Nachdem Fakten gelöscht wurde müssen ebenfalls Regeln ausgelöst werden, da es sein könnte das gelöschte geschlussfolgerte Ergebnisse auch über andere Fakten ableitbar gewesen wären. 

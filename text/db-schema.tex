@@ -219,7 +219,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 	\caption{sonstige Relationen}
 	\label{relations-others-1}
 \begin{center}
-	\begin{tikzpicture}[node distance=3cm]
+	\begin{tikzpicture}[node distance=2.7cm]
 		\node (allValuesFrom) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{allValuesFrom}
 			\nodepart{second}
@@ -238,7 +238,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{total}}: NAME
 		};
 		
-		\node (hasValueEnt) [relation, rectangle split, rectangle split parts=2, below =1cm of allValuesFrom]{
+		\node (hasValueEnt) [relation, rectangle split, rectangle split parts=2, below =0.7cm of allValuesFrom]{
 				\textbf{hasValueEnt}
 			\nodepart{second}
 				id: INT\newline
@@ -258,7 +258,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{type}}: CLASS
 		};
 		
-		\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below =1cm of hasValueEnt]{
+		\node (disjointWith) [relation, rectangle split, rectangle split parts=2, below =0.7cm of hasValueEnt]{
 				\textbf{disjointWith}
 			\nodepart{second}
 				id: INT\newline
@@ -327,14 +327,14 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{object}}: IND
 		};
 		
-		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2, below of= negativeObjectPropertyAssertion]{
+		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2, below = 1cm of negativeObjectPropertyAssertion]{
 				\textbf{differentFromEnt}
 			\nodepart{second}
 				id: INT\newline
 				\textbf{\underline{left}}: IND\newline
 				\textbf{\underline{right}}: IND
 		};
-		\node (differentFromLit) [relation, rectangle split, rectangle split parts=2, right =2cm of differentFromEnt]{
+		\node (differentFromLit) [relation, rectangle split, rectangle split parts=2, right =1cm of differentFromEnt]{
 				\textbf{differentFromLit}
 			\nodepart{second}
 				id: INT\newline

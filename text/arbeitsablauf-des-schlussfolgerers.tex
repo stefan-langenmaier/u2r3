@@ -1,6 +1,6 @@
 \section{Arbeitsablauf des Schlussfolgerers}
 
-In der nachfolgenden Abbildung \ref{image-u2r3-workflow} ist der gewöhnliche Ablauf des Reasoner dargestellt. Dabei ist er in drei Phasen einzuteilen. Das Laden der Ontologie, der Schlussfolgerungsvorgang und die Abfrage .
+In der nachfolgenden Abbildung \ref{image-u2r3-workflow} ist der gewöhnliche Ablauf des Reasoner dargestellt. Dabei ist er in drei Phasen einzuteilen. Das Laden der Ontologie, der Schlussfolgerungsvorgang und die Abfrage.
 
 \begin{figure}
 	\caption{Arbeitsablauf des Schlussfolgerers}
@@ -43,12 +43,6 @@ Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes 
 \end{table}
 
 
-\begin{verbatim}
-* Wie wandelt man die Ontologie in INSERTs um?
-* Wie läd man eine Ontologie?
-\end{verbatim}
-
-
 Falls ein Axiom aus komplexen Ausdrücken zusammengesetzt ist werden die Ausdrücke rekursiv abgearbeitet und einzeln behandelt. Zum herstellen der Beziehungen bei komplexen Axiomen werden Platzhalter für die Ausdrücke verwendet. Die Platzhalter die dabei erzeugt werden stammen von der OWLAPI aus der NodeID Klasse und folgen damit dem selben Schema wie auch bei anonymen Individuen.
 
 In folgendem Besipeil soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubseteq C$ abgespeichert werden. Zur Verdeutlichung wurden Klammern eingebaut.
@@ -61,6 +55,7 @@ In folgendem Besipeil soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubset
 	^{nid2 \Rightarrow intersectionOf(nid1, nid2), list(nid2, A, nid3)})}
 ^{nid1 \Rightarrow subClass(nid1, C)} \sqsubseteq C
 \end{equation}
+Wenn ein Ausdruck nicht direkt abgespeichert werden kann,, dann wird für den Unterausdruck eine \emph{NodeID} erzeugt. Im obigen Beispiel werden drei Stück davon erzeugt. Diese stehen stellvertretend für den Unterausdruck. Es wird dann rekursiv weitergearbeitet bis alle in einfache Ausdrücke aufgelöst werden konnte.
 
 Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis (\emph{Reason}) an den Regelprozessor geschickt.
 

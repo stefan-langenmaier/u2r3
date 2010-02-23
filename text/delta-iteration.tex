@@ -69,23 +69,23 @@ Regel: sameas-eq-ref-s //neue Fakten
 	\label{code-immediate-delta-iteration}
 	\begin{lstlisting}[language=Java]
 do {
-  while (action = list.popAction()) {
-    action.rule.apply(action.delta);
-  }
+	while (action = list.popAction()) {
+		action.rule.apply(action.delta);
+	}
 }
 while (applyRelations()); //WAIT
 
 boolean applyRelations() {
-  for(r : relations)
-    r.applyAux();
-  return relations.wereDirty()
+	for(r : relations)
+		r.applyAux();
+		return relations.wereDirty()
 }
 
 applyAux() {
-  createDelta;
-  addDelta();
-  clearAux();
-  new Reason(relation, delta);
+	createDelta;
+	addDelta();
+	clearAux();
+	new Reason(relation, delta);
 }
 	\end{lstlisting}
 \end{figure}
@@ -100,7 +100,7 @@ Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werde
 
 \subsection{Simulation}
 
-Die collective delta-Iteration kann mit der immediate simuliert werden. Dabei lösen die Regeln nicht sofort neue Reasons aus, sondern das passiert erst, wenn die neuen Daten übernommen werden. Neue Daten werden erst nach dem abarbeiten aller Regeln übernommen. Die Hilfstabelle ist dabei das neue Delta, die Delta-Tabelle ist das Delta auf dem auch bei der immediate gearbeitet wird. Es muss dabei darauf geachtet werden, das in das neue delta nur echte neue Fakten kommen bzw. beim eintragen in die gesammte Tabelle die nicht neuen herausgelöscht werden (besser)
+Die collective delta-Iteration kann mit der immediate simuliert werden. Dabei lösen die Regeln nicht sofort neue Reasons aus, sondern das passiert erst, wenn die neuen Daten übernommen werden. Neue Daten werden erst nach dem abarbeiten aller Regeln übernommen. Die Hilfstabelle ist dabei das neue Delta, die Delta-Tabelle ist das Delta auf dem auch bei der immediate gearbeitet wird. Es muss dabei darauf geachtet werden, das in das neue delta nur echte neue Fakten kommen bzw. beim eintragen in die gesammte Tabelle die nicht neuen herausgelöscht werden.
 
 Unterscheidungen müssen also an folgenden Stellen getroffen werden:
 \begin{itemize}

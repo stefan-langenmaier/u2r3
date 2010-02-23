@@ -267,17 +267,17 @@ SELECT start.start,
        ende.ende
 FROM   (SELECT   lname,
                  anz
-        FROM     (--- ...Unterabfrage fuer gueltige Liste... ---)
+        FROM     (--- Unterabfrage fuer gueltige Liste ---)
         GROUP BY lname
         HAVING   COUNT(lname) = anz) AS thel
        INNER JOIN (SELECT lname,
                           start
-                   FROM   (--- ...Unterabfrage fuer Vorgaenger... ---)
+                   FROM   (--- Unterabfrage fuer Vorgaenger ---)
                    WHERE  vorgaenger IS NULL) AS start
          ON start.lname = thel.lname
        INNER JOIN (SELECT lname,
                           ende
-                   FROM   (--- ...Unterabfrage fuer Nachfolger... ---)
+                   FROM   (--- Unterabfrage fuer Nachfolger ---)
                    WHERE  nachfolger IS NULL) AS ende
          ON ende.lname = thel.lname
        INNER JOIN propertyChain AS pc
@@ -333,17 +333,17 @@ Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
 Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die die Individuen gleich.
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{l|l}
+	\begin{tabular}{m{4.5cm}|m{4cm}}
 	If & then \\ \hline
-	T(?c, owl:hasKey, ?u)
-	LIST[?u, ?$p_1$, \ldots, ?$p_n$]
-	T(?x, rdf:type, ?c)
-	T(?x, ?$p_1$, ?$z_1$)
-	\ldots
-	T(?x, ?$p_n$, ?$z_n$)
-	T(?y, rdf:type, ?c)
-	T(?y, ?$p_1$, ?$z_1$)
-	\ldots
+	T(?c, owl:hasKey, ?u),\newline
+	LIST[?u, ?$p_1$, \ldots, ?$p_n$],\newline
+	T(?x, rdf:type, ?c),\newline
+	T(?x, ?$p_1$, ?$z_1$),\newline
+	\ldots,\newline
+	T(?x, ?$p_n$, ?$z_n$),\newline
+	T(?y, rdf:type, ?c),\newline
+	T(?y, ?$p_1$, ?$z_1$),\newline
+	\ldots,\newline
 	T(?y, ?$p_n$, ?$z_n$) & T(?x, owl:sameAs, ?y)
 	\end{tabular}
 \end{center}

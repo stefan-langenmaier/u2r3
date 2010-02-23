@@ -202,15 +202,16 @@ Listen sind eine Konstrukt, um die Darstellung von Listen über die Tripels zu v
 
 Eine komplette Regeln kann foglendermaßen dagestellt werden:
 
-\begin{table}[htp]
+\begin{table}[htb]
 \begin{center}
-\begin{tabular}{l|l}
+\begin{tabular}{m{6cm}|m{4cm}}
 if & then \\ \hline
-T(?property, rdfs:domain, ?class), T(?x, ?property, ?class) & T(?x, rdf:type, ?class)
+T(?property, rdfs:domain, ?class),\newline
+T(?x, ?property, ?class) & T(?x, rdf:type, ?class)
 \end{tabular}
 \end{center}
-\caption{tablecaption}
-\label{tablelabel}
+\caption{Die Regel prp-dom}
+\label{rule-prp-dom}
 \end{table}
 
 Auf der Seite der Vorbedingung sind zwei Tripel, d.h. es muss für beide gleichzeitig eine Belegung der Variablen gefunden werden. Für jede gültige Belegung der Varaiblen gilt dann die Belegung der Variablen auf der rechten Seite.

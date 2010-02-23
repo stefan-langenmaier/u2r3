@@ -1,45 +1,46 @@
 \section{Regelumsetzung allgemein}
 Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahren zur Berechnung logischer Folgerungen. Inferenzenprozeduren sind bereits aus der Aussagenlogik bekannt.
 
-\begin{itemize}
-  \item Modus ponens
-
-\begin{table}
-\begin{tabular}{l}
-A$\rightarrow$B \\
-A \\
-\hline
-B
-\end{tabular}
-\caption{Modus ponens}
-\label{table-modus-ponens}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l}
+	A$\rightarrow$B \\
+	A \\
+	\hline
+	B
+	\end{tabular}
+\end{center}
+	\caption{Modus ponens}
+	\label{table-modus-ponens}
 \end{table}
 
-  \item Modus tollens
-\begin{table}
-\begin{tabular}{l}
-A$\rightarrow$B \\
-$\neg$B \\
-\hline
-$\neg$A
-\end{tabular}
-\caption{Modus tollens}
-\label{table-modus-tollens}
+\begin{table}[htb]
+\begin{center}
+	\begin{tabular}{l}
+	A$\rightarrow$B \\
+	$\neg$B \\
+	\hline
+	$\neg$A
+	\end{tabular}
+\end{center}
+	\caption{Modus tollens}
+	\label{table-modus-tollens}
 \end{table}
-\end{itemize}
 
 Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere Ableitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
 
 Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
 \begin{table}
-\begin{tabular}{l}
-A$\rightarrow$B \\
-B \\
-\hline
-A
-\end{tabular}
-\caption{ungültige Ableitung}
-\label{table-invalid-inferred}
+\begin{center}
+	\begin{tabular}{l}
+	A$\rightarrow$B \\
+	B \\
+	\hline
+	A
+	\end{tabular}
+\end{center}
+	\caption{ungültige Ableitung}
+	\label{table-invalid-inferred}
 \end{table}
 ist z.B. kein gültiger Schluss.
 
