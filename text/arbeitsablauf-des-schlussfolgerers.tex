@@ -80,11 +80,52 @@ Für das Abarbeiten und Erzeugen der Regeln ist hauptsächlich der Regelprozesso
 
 
 \subsection{Das Schlussfolgern in einer Ontologie}
+Das Schlussfolgern in einer Ontologie besteht darus die möglichen Regeln der OWL2 RL SPzeifiaktion anzuwenden. Diese Regeln erzeugen neue Fakten oder überpürfen dieKonsistenz. Der Schlussfolgerer hat seine Arbeit erledigt, wenn keine Regel neue Fakten erzeugen kann, Das sicherzustellen und dabei möglichst wenige Regeln anzuwenden ist seine Aufgabe. Daher wird im folgenden äher beschrieben, wann welche Regeln ausgelöst werden und in welcher Rehenfolge sie angewendet werden.
+
+\subsubsection{Auswertungsstrategien}
+Die Auswertungstrategie beschreibt in welcher Reihenfolge der Regelprozessor die Anwendung von Regeln auslöst. 
+
+Der naive Ansatz wäre alle Regeln nacheinander auszuführen, d.h. alles Regeln die implementiert sind anwenden, wenn eine der Regeln dabei neue Fakten erzeugt muss dieser Vorgang wiederholt werden. Dieses Vorgehen ist trotz seiner leichten Umsetzbarkeit nicht implementiert, da der Reasoner damit unnötig viel Arbeit verrichten müssste.
+
+Ein etwas fortgeschrittener Ansatz ist es die Abhängigkeiten der Regeln auszunutzen, d.h. nur wenn für die Prämisse einer Regel überhaupt Fakten vorhanden sind kann diese ausgelöst werden. Das heißt im konkreten, wenn eine Relation die in einer Regel in der Prämisse verwendet wird neue Daten enthält, dann muss diese Regel ausgelöst werden. Dieses Verfahren ist im Schlussfolgerer so umgesetzt.
+
+Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst wird dann zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
+
+Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrere Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
+
+In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
+
+\subsubsection{Regelauslösung}
+Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
+
 \begin{verbatim}
-TEXT
+DB Manipulation (1) ===> (1) Reason (1) ===> (n) RuleActions
 \end{verbatim}
 
-\subsection{Das Abfragen einer Ontologie}
+
 \begin{verbatim}
-TEXT
+           Realtion                     Delta
+            ######
+            ######         <===           #
+            ######
+                                          |
+(welche Regel) |                          | (welche neuen Daten)
+               |                          |
+                ####>  Reason  <==========
+
+                          | (1)
+                          |
+                          | (eine Regel mit neuen Daten)
+                          |
+                          v (n)
+
+                      RuleAction
 \end{verbatim}
+
+
+\subsection{Das Abfragen einer Ontologie}
+Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen AUsdruck und möchte überpürfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur a oder nein zurück. Die zweite Art von Abfrage möchte eine ERgebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
+
+Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-ABfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden egal on die SQL-ABfrage etwas zurückbringt oder nicht.. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
+
+\input{komplexe-ausdruecke}

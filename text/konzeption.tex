@@ -17,52 +17,6 @@ Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete R
 
 \input{arbeitsablauf-des-schlussfolgerers}
 
-\section{Auswertungsstrategien}
-Die Auswertungstrategie beschreibt in welcher Reihenfolge der Regelprozessor die Anwendung von Regeln auslöst. 
-
-Der naive Ansatz wäre alle Regeln nacheinander auszuführen, d.h. alles Regeln die implementiert sind anwenden, wenn eine der Regeln dabei neue Fakten erzeugt muss dieser Vorgang wiederholt werden. Dieses Vorgehen ist trotz seiner leichten Umsetzbarkeit nicht implementiert, da der Reasoner damit unnötig viel Arbeit verrichten müssste.
-
-Ein etwas fortgeschrittener Ansatz ist es die Abhängigkeiten der Regeln auszunutzen, d.h. nur wenn für die Prämisse einer Regel überhaupt Fakten vorhanden sind kann diese ausgelöst werden. Das heißt im konkreten, wenn eine Relation die in einer Regel in der Prämisse verwendet wird neue Daten enthält, dann muss diese Regel ausgelöst werden. Dieses Verfahren ist im Schlussfolgerer so umgesetzt.
-
-Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst wird dann zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
-
-Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrere Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
-
-In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
-
-\subsection{Regelauslösung}
-Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
-
-\begin{verbatim}
-DB Manipulation (1) ===> (1) Reason (1) ===> (n) RuleActions
-\end{verbatim}
-
-
-\begin{verbatim}
-           Realtion                     Delta
-            ######
-            ######         <===           #
-            ######
-                                          |
-(welche Regel) |                          | (welche neuen Daten)
-               |                          |
-                ####>  Reason  <==========
-
-                          | (1)
-                          |
-                          | (eine Regel mit neuen Daten)
-                          |
-                          v (n)
-
-                      RuleAction
-\end{verbatim}
-
-
-
-
-
-
-
 \section{Zurückziehen von Fakten}
 Das Einfügen von Fakten, die man löschen will, um herauszufinden, welche gleich sind, um sie danach wieder zu löschen macht keinen großen Sinn. Erstens ist es Recht aufwendig zu implementieren. Zweitens müsste nach dem Einfügen neuer Fakten ersteinmal wieder die Ableitungsregeln ausgeführt werden. Das zerstört den Vorteil, den man sich durch forward-chaining mit direct-materialisation erkauft hat sofort wieder und bringt außerdem auch Nachteile mit sich wenn man noch nicht komplett fertig war mit dem Schlussfolgern.
 Daher muss es ein Verfahren geben die zu löschenden Fakten zu finden ohne sie vorher einfügen zu müssen.
