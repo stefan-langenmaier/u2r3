@@ -1,23 +1,35 @@
 \chapter{Grundlagen \& Vorarbeiten}
 \label{kapitel-grundlagen}
-Im folgenden werden Begriffe zum Bereich Wissenmodellierung und Wissensrepräsentationnäher erklärt.
+Im folgenden werden Begriffe aus dem Bereich Wissenmodellierung und Wissensrepräsentationnäher erklärt, da diese die formale Grundlage der Arbeit bilden.
 
 Dazu gehören Ontologien, für was sie stehen und die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründe für die Umsetzungen von Ontologien in Datenbanken.
 
+Außerdem werden auch einige Begriffe angesprochen die sonst für die Arbeit wichtig sind, aber nicht intuitiv zu erschließen sind.
+
 \section{Ontologien}
 
-Ontologien sind nach einem gewissen Formalismus erzeugte Beschreibungen eines Teilausschnittes der Welt. Sie erinnern damit stark an Datenabnken, die  z.B. nach einem ER-Modell entwickelt wurden. Ontologien enthalten dabei die Struktur und Beziehung der Daten, sowie die Daten selbst. Der Formalismus auf dem eine Ontologie aufsetzt ist normalerweise stark von Logik geprägt. \cite{Hesse2002}
+Ontologien sind nach einem Formalismus erzeugte Beschreibungen eines Teilausschnittes der Welt, die formal ableitbare AUssagen ermöglichen. Sie haben damit eine entfernte Beziehung zu Datenbanken, die z.B. nach einem ER-Modell entwickelt wurden. Ontologien enthalten dabei die Struktur und Beziehung der Daten, sowie die Daten selbst. Anders als in einem ER-Modell sind aber die Daten und die Struktur nicht strikt von einander getrennt. Der Formalismus auf dem eine Ontologie aufsetzt ist im Rahmen der W3C Semantic Web Initiative stark von Logik geprägt. \cite{Hesse2002}
 
 \subsection{Unterschied zu relationaler Datenbank}
 
-Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als \emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
-Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden, ist es nicht Teil des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch.
+Beim Abspeichern einer Ontologie in einer relationalen Datenbank sind zwei konzpetionelle Dinge zu beachten. In einer Ontologie gilt die \emph{unique name assumption}, das bedeutet das in der Ontologie verwendete Namen zum identifizieren von Entitäten eindeutig sind und sicher immer auf die selbe Entität beziehen. In OWL gilt das nur zum Teil, da es hier möglich ist über auszudrücken, das zwei Namen identisch oder verschieden sind\cite{OWL1}\footnote{Die Ausdrücke sind \texttt{owl:sameAs} und \texttt{owl:differentFrom}.}. In einer Relation ist das nicht zwingend vorausgesetzt. Nur wenn Spalten als Schlüssel oder als \emph{unique} deklariert werden, wird sichergestellt das Namen eindeutig sind.
+Der zweite Unterschied besteht darin, wie man über die Daten schließt. In einer Datenbank geht man davon aus, das man die komplette Welt modelliert hat und alle Fakten vorhanden sind. Kann etwas nicht gefunden werden, ist es nicht Teil des Modells und damit falsch. In einer Ontologie werden Fakten, die nicht vorhanden sind als unbekannt eingestuft. Sie sind damit weder wahr noch falsch. Datenbanken verwenden damit eine sog. \emph{closed-world assumption} (CWA) und Ontologien eine \emph{open-world assumption} (OWA).
 
 \section{OWL2}
 \label{abschnitt-owl2}
 
-\begin{figure}[htp]
-	\caption{W3 Layercake}
+\begin{figure}[htb]
+	\caption{Sprachkomplexitäten}
+	\label{image-sprachhierarchie}
+	\begin{center}
+		\scalebox{0.4}{
+			\includegraphics{images/sprachhierarchie.pdf}
+		}
+    \end{center}
+\end{figure}
+
+\begin{figure}[htb]
+	\caption{Adaption des W3 Layercake\cite{W3SWLayerCake}}
 	\label{image-w3-layercake}
 	\begin{center}
 	\scalebox{0.35}{
@@ -26,16 +38,20 @@ Der zweite Unterschied besteht darin, wie man über die Daten schließt. In eine
 	\end{center}
 \end{figure}
 
-Adaption der offizielen OWL Layer Map \cite{OWLLayerMap}. Es ist nur der in der Arbeit verwendete Teil hervorgehoben.
+Adaption des offizielen W3 OWL Layercake\cite{W3SWLayerCake}. Es wurde alle Teile entfernt, die die Implementierung nicht betreffen. Dabei ist der helle Teil mit einer getrichelten Linie der in der Arbeit verwendete Teil. Der obere Teil ``User Interface \& Applications'' ist die Anwendungsschnittstelle, die z.B. durch die OWLAPI gekapselt wird. Die unteren Blöcke sind Web-Standards auf denen denen aufgebaut wird. Sie spielen in der Arbeit keine Rolle und sind für das Verständnis nicht näher benötigt.
 
-\section{Delta-Relation}
-Im späteren Verlauf wird häufiger auf delts oder delta-Relationen hingewiesen. Das ist keine besondere Art von Datenbankrelationen sondern sind ganz gewöhnliche Tabellen. Allerdings ist damit eine besondere Verwendung gemeint. Im Abschnitt \ref{abschnitt-mema-prinzip} werden einige Tabellen \ref{relations-for-which-data-is-created} vorgestellt für die durch Ableitungen neue Fakten erzeugt werden können. Aus Optmierungsgründen, werden diese neue Fakten allerdings nicht direkt in diese Tabellen geschrieben, sondern erst in eine sog. delta-Relation. Diese Relation hat alle Spalten ihrere ``Original''-Relation und einige weitere. Dieses delta kann dann in weiteren Schlussfolgerungen verwendet werden. Falls nicht die komplette Relation benötigt wird sondern nur neue Fakten. Welche Fakten benötigt werden wird vom Regelprozessor und von den eigentlichen Regeln entschieden.
+Der RIF Abschnitt ist hier erwähnt, weil er eine alternative Regelumsetzung bietet. Dies wird in Abschnitt \ref{abschnitt-rif} näher erläutert.
+
+\begin{verbatim}
+OWL2 TEXT
+\end{verbatim}
+
 
 \section{Sprachkomplexitäten}
 Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenüber gestellt, um einen Vergleichsbasis zu haben.
 
-\begin{figure}[htp]
-	\caption{OWL Layer Map}
+\begin{figure}[htb]
+	\caption{OWL Layer Map, nach einer Vorlage aus \cite{OWLimLayerMap}}
 	\label{image-owl-layer-map}
 	\begin{center}
 	\scalebox{0.35}{
@@ -45,27 +61,19 @@ Im folgenden werden verschieden Sprachen an Hand ihrer Komplexität kurz gegenü
 \end{figure}
 Frei nach der Vorlage aus der OWLim Dokumentation.
 
-\begin{figure}[htp]
+\begin{figure}[htb]
 	\caption{Sprachkomplexitäten}
 	\label{image-sprachhierarchie}
 	\begin{center}
-	\subfigure[]{
-		\scalebox{0.3}{
+		\scalebox{0.4}{
 			\includegraphics{images/sprachkomplexitaeten-wimo-blatt4.pdf}
 		}
-	}
-	\subfigure[]{
-		\scalebox{0.4}{
-			\includegraphics{images/sprachhierarchie.pdf}
-		}
-	}
-    
-    \end{center}
+	\end{center}
 \end{figure}
 Frei nach der Vorlesung/Übung Wissensmodellierung \cite{vonHenke2009}.
 
 \subsection{Attributive Language}
-Die \emph{attributive language} ist eine einfache Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten.
+Die \emph{Attributive Language} ist eine einfache Beschreibungssprache. Sie wird mit $\mathcal{AL}$ abgekürzt und enthält folgende Operatoren für ihre Ausdrucksmöglichkeiten. Sie ist die Grundlage viler Sprachen, wie auch von OWL2.
 
 $\mathcal{AL}$: C,D $\Longrightarrow$ A | $\top$ | $\bot$ | $\lnot$A | C $\land$ D | $\forall$r.C | $\exists$r
 
@@ -75,7 +83,7 @@ Bei diesem Namenschema werden an die Buchstaben $\mathcal{AL}$ noch weitere Kür
 \begin{itemize}
   \item $\mathcal{C}$ für volle Negation (Complement)
   \item (D) für konkrete Domänen\newline
-Damit ist der Einsatz von Literalen möglich, z.B. in datatype properties, data values oder data types.
+Damit ist der Einsatz von Literalen möglich, z.B. in \emph{datatype properties}, \emph{data values} oder \emph{data types}.
   \item $\mathcal{U}$ Konzeptvereinigung (Union)
   \item $\mathcal{E}$ Existenzquantoren für komplexe Ausdrücke (Exists)\newline
 Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
@@ -89,7 +97,7 @@ Existenzquantoren sind an für alle Arten von Ausdrücken erlaubt.
 
 \subsection{Komplexität in Form der attributive language}
 \begin{itemize}
-  \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$)
+  \item U2R2 basiert auf der DLP Sprache und ist damit ein Reasoner auf der $\mathcal{ALCHIF}$-Sprache ($\mathcal{SHIF}$). Hier gibt es allerdings Einschränkungen ähnlich wie in OWL2 RL. Es sind nicht, alle Konsturkte an jeder Stelle erlaubt, ansonsten sind Schlussfolgerungen nicht mehr vollständig.
   \item OWL2 basiert auf $\mathcal{ALCROIQ}$ ($\mathcal{SROIQ}$) \cite{Krötzsch2008}
 \end{itemize}
 
@@ -169,6 +177,7 @@ Eine montone Logik ist besonders wichtig für den Einsatz im Web. Hier werden vi
 
 
 \subsection{RIF}
+\label{abschnitt-rif}
 \begin{verbatim}
 RIF TEXT
 \end{verbatim}
@@ -215,6 +224,10 @@ T(?x, ?property, ?class) & T(?x, rdf:type, ?class)
 \end{table}
 
 Auf der Seite der Vorbedingung sind zwei Tripel, d.h. es muss für beide gleichzeitig eine Belegung der Variablen gefunden werden. Für jede gültige Belegung der Varaiblen gilt dann die Belegung der Variablen auf der rechten Seite.
+
+\section{Delta-Relation}
+Im späteren Verlauf wird häufiger auf delts oder delta-Relationen hingewiesen. Das ist keine besondere Art von Datenbankrelationen sondern sind ganz gewöhnliche Tabellen. Allerdings ist damit eine besondere Verwendung gemeint. Im Abschnitt \ref{abschnitt-mema-prinzip} werden einige Tabellen \ref{relations-for-which-data-is-created} vorgestellt für die durch Ableitungen neue Fakten erzeugt werden können. Aus Optmierungsgründen, werden diese neue Fakten allerdings nicht direkt in diese Tabellen geschrieben, sondern erst in eine sog. delta-Relation. Diese Relation hat alle Spalten ihrere ``Original''-Relation und einige weitere. Dieses delta kann dann in weiteren Schlussfolgerungen verwendet werden. Falls nicht die komplette Relation benötigt wird sondern nur neue Fakten. Welche Fakten benötigt werden wird vom Regelprozessor und von den eigentlichen Regeln entschieden.
+
 
 \section{UML}
 Zur Darstelung der Struktur der Relationen und einigen anderen Konstruktuen wurden die Klassediargramme der UML\cite{UML2} verwendet. Die UML ist ein Standard zur Beschreibung zur Modellierung im Softwarebereich, sowohl in der Sprache als auch in ihrer Darstellung. Es wurden die Klassendiagramme ausgewählt, weil sie eine kompakte Darstellung der Struktur bieten, obwohl ER-Diagramme eine größere Ausdrucksmächtigkeit für Relationen bieten würden. \cite{Martin2005}
