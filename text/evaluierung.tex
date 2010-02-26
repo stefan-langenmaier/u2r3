@@ -14,10 +14,16 @@ Die Implementierung und Optimierung von u2r3 hat sich hauptsächlich mit dem Ber
 Um die Tableaux Reasoner mit dem forward-chaining-Prinzip gut vergleichen zu können werden die Anfragen der Testfälle so ausgelegt sein, das die Tableaux-Reasoner einen ähnlich großen Aufwand habe. Dafür sind drei Varianten ausgewählt worden:
 
 \begin{itemize}
-  \item T-Box Klassifizierung: Dafür wurde die diseases Ontologie ($\mathcal{AL}$) ausgewählt das sie fast ausschließlich aus einer Konzepte-Hierachie besteht.
-  \item A-Box Realisierung: Hier wurde die beiden Ontologien financial ($\mathcal{ALCOIF}$) und VAST2009 ($\mathcal{ALCOIF}(D)$) ausgewählt, da beide sich durch eine große Anzahl an Individuen auszeichen. Die finiancial Ontologie enthält dabei nur objectProperties, die VAST2009 Ontologie enthält hauptsächlich dataProperties und muss daher mit Literalen arbeiten.
+  \item T-Box Klassifizierung: Dafür wurden die instrument ($\mathcal{AL}$) und diseases Ontologien ($\mathcal{AL}$) ausgewählt, das sie fast ausschließlich aus Konzepte-Hierachien bestehen. Die instrument ist eine Ontologie mittlerer Größe, die deases ist eine große Ontologie.
+  \item A-Box Realisierung: Hier wurde die Ontologien financial ($\mathcal{ALCOIF}$) und VAST2009 ($\mathcal{ALCOIF}(D)$) sowie VAST2009-tiny ($\mathcal{ALCOIF}(D)$) ausgewählt. Die ersten beiden zeichnen sich durch eine große Anzahl an Individuen aus. VAST2009-tiny ist dabei eine modifizierte Version der VAST2009, die in ihrer Größ stark reduziert wurde. Die finiancial Ontologie enthält dabei nur objectProperties, die VAST2009 Ontologie enthält hauptsächlich dataProperties und muss daher mit Literalen arbeiten.
   \item OWL2 RL: walter, als ein Beispiel für die Ausdrucksmächtigkeit von OWL2 RL
   \item OWL2 RL + Extras: DomusAG-full ($\mathcal{ALCHOIF}(D)$) als ein Beispiel für die DatatypeRestriction Erweiterung
 \end{itemize}
 
 Alle Ontologien finden sich im Anhang und im Repository im Ordner ontologien/.
+
+Der Ablauf der Vergleiche ist dabei, so gestaltet das jeder Schlussfolgerer die Ontologie einliest und eine Anfrage passend zur Ontolgie bekommt. Danach wird die Ontologie erweitert und es wird danach erneut eine Anfrage gestellt. Danach wird die Erweiterung wieder gelöscht und es wird wieder eine Anfrage gestellt.
+
+\subsection{Laden}
+\subsection{Erweiterung}
+\subsection{Löschung}
