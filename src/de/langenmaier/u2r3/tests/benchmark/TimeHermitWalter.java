@@ -21,8 +21,9 @@ import org.semanticweb.owlapi.model.RemoveAxiom;
 import org.semanticweb.owlapi.reasoner.NodeSet;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
+import de.langenmaier.u2r3.tests.util.LoadReasoner;
 
-public class TimeHermit {
+public class TimeHermitWalter {
 
 	/**
 	 * @param args
@@ -36,12 +37,12 @@ public class TimeHermit {
 			}
 			
 			if (args.length<=0) {
-				System.err.println("USAGE: java " + TimeHermit.class.getName() + " <filename>");
+				System.err.println("USAGE: java " + TimeHermitWalter.class.getName() + " <filename>");
 				return;
 			}
 			
 			Logger.getRootLogger().setLevel(Level.INFO);
-			Logger logger = Logger.getLogger(TimeHermit.class);
+			Logger logger = Logger.getLogger(LoadReasoner.class);
 			logger.info("Java loaded ");
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
