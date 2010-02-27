@@ -23,7 +23,7 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 
 import de.langenmaier.u2r3.tests.util.LoadReasoner;
 
-public class TimeHermitWalter {
+public class TimeHermitDomus {
 
 	/**
 	 * @param args
@@ -36,8 +36,8 @@ public class TimeHermitWalter {
 				BasicConfigurator.configure();
 			}
 			
-			String file_uri = "file:///home/stefan/.workspace/u2r2/ontologien/puzzle/3.owl";
-			String ONTO_URI = "http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#";
+			String file_uri = "file:///home/stefan/.workspace/u2r2/ontologien/DomusAG.owl";
+			String ONTO_URI = "http://www.polizei.hessen.de/CRIME/DomusAG#";
 			
 			Logger.getRootLogger().setLevel(Level.INFO);
 			Logger logger = Logger.getLogger(LoadReasoner.class);
@@ -61,25 +61,25 @@ public class TimeHermitWalter {
 			logger.info("FINISHED");
 
 			long start = System.currentTimeMillis();
-			OWLClass walter = factory.getOWLClass(IRI.create(ONTO_URI + "Walter"));
-			NodeSet<OWLNamedIndividual> walters = reasoner.getInstances(walter, false);
-			System.out.println("Walter: " + (System.currentTimeMillis() - start) +
-				" no of results: " + walters.getFlattened().size());
+			OWLClass test = factory.getOWLClass(IRI.create(ONTO_URI + "Test"));
+			NodeSet<OWLNamedIndividual> kandidaten = reasoner.getInstances(test, false);
+			System.out.println("TEST: " + (System.currentTimeMillis() - start) +
+				" no of results: " + kandidaten.getFlattened().size());
 
 			// Addition
 			OWLNamedIndividual newnid = factory.getOWLNamedIndividual(IRI.create(ONTO_URI + "TEST_IND"));
-			OWLClassAssertionAxiom newca = factory.getOWLClassAssertionAxiom(walter, newnid);
+			OWLClassAssertionAxiom newca = factory.getOWLClassAssertionAxiom(test, newnid);
 			AddAxiom add = new AddAxiom(ont, newca);
 			start = System.currentTimeMillis();
 			manager.applyChange(add);
 			
 			reasoner.prepareReasoner();
-			System.out.println("Walter: " + (System.currentTimeMillis() - start));
+			System.out.println("TEST: " + (System.currentTimeMillis() - start));
 			
 			start = System.currentTimeMillis();
-			walters = reasoner.getInstances(walter, false);
-			System.out.println("Walter: " + (System.currentTimeMillis() - start) +
-				" no of results: " + walters.getFlattened().size());
+			kandidaten = reasoner.getInstances(test, false);
+			System.out.println("TEST: " + (System.currentTimeMillis() - start) +
+				" no of results: " + kandidaten.getFlattened().size());
 
 			//Deletion
 			RemoveAxiom del = new RemoveAxiom(ont, newca);
@@ -87,12 +87,12 @@ public class TimeHermitWalter {
 			manager.applyChange(del);
 			
 			reasoner.prepareReasoner();
-			System.out.println("Walter: " + (System.currentTimeMillis() - start));
+			System.out.println("TEST: " + (System.currentTimeMillis() - start));
 			
 			start = System.currentTimeMillis();
-			walters = reasoner.getInstances(walter, false);
-			System.out.println("Walter: " + (System.currentTimeMillis() - start) +
-				" no of results: " + walters.getFlattened().size());
+			kandidaten = reasoner.getInstances(test, false);
+			System.out.println("TEST: " + (System.currentTimeMillis() - start) +
+				" no of results: " + kandidaten.getFlattened().size());
 
 			
 		} catch (OWLOntologyCreationException e) {
