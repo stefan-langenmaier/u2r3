@@ -29,8 +29,8 @@ public class DtrSvfRule extends ApplicationRule {
 		sql.append("INSERT INTO " + newDelta.getDeltaName());
 		
 		if (settings.getDeletionType() == DeletionType.CASCADING) {
-			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2)");
-			sql.append("\n\t SELECT dpa.subject, svf.part");
+			sql.append(" (entity, colClass, sourceId1, sourceTable1, sourceId2, sourceTable2, sourceId3, sourceTable4)");
+			sql.append("\n\t SELECT dpa.subject, svf.part, ");
 			sql.append(" MIN(dpa.id) AS sourceId1, '" + RelationName.dataPropertyAssertion + "' AS sourceTable1, ");
 			sql.append(" MIN(svf.id) AS sourceId2, '" + RelationName.someValuesFrom + "' AS sourceTable2, ");
 			sql.append(" MIN(dtr.id) AS sourceId3, '" + RelationName.datatypeRestriction + "' AS sourceTable3");
