@@ -259,8 +259,6 @@ public abstract class Relation extends U2R3Component implements Query {
 		}
 	}
 	protected void handleAddAnonymousDataRangeExpression(OWLDataRange dr) {
-		System.out.println(dr);
-		System.out.println(dr.getDataRangeType());
 		if (dr.getDataRangeType() == DataRangeType.DATATYPE_RESTRICTION) {
 			relationManager.getRelation(RelationName.datatypeRestriction).add(dr);
 		}
