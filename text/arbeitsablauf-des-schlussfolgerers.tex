@@ -93,30 +93,37 @@ In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen
 \subsubsection{Regelauslösung}
 Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
 
-\begin{verbatim}
-DB Manipulation (1) ===> (1) Reason (1) ===> (n) RuleActions
-\end{verbatim}
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+\scalebox{0.75}{
+  \begin{tikzpicture}[node distance=10em]
+    \node[entity] (relation) {Relation};
+    \node[relationship] (fireReason) [right of=relation] {löst aus}
+        edge node[auto,swap] {1} (relation);
+    \node[entity] (reason) [right of=fireReason] {Reason}
+        edge node[auto,swap] {1} (fireReason);
+    \node[relationship] (fireRuleAction) [right of=reason] {löst aus}
+        edge node[auto,swap] {1} (reason);
+    \node[entity] (ruleAction) [right of=fireRuleAction] {RuleAction}
+        edge node[auto,swap] {k} (fireRuleAction);
+\end{tikzpicture}
+}
+  \caption{Regelauslösung I}
+  \label{diagram-ruleexecution1}
+\end{center}
+\end{figure}
 
-
-\begin{verbatim}
-           Realtion                     Delta
-            ######
-            ######         <===           #
-            ######
-                                          |
-(welche Regel) |                          | (welche neuen Daten)
-               |                          |
-                ####>  Reason  <==========
-
-                          | (1)
-                          |
-                          | (eine Regel mit neuen Daten)
-                          |
-                          v (n)
-
-                      RuleAction
-\end{verbatim}
-
+%\usepackage{graphics} is needed for \includegraphics
+\begin{figure}[htp]
+\begin{center}
+	\scalebox{0.5}{
+  \includegraphics{images/regelausloesung.pdf}
+  	}
+  \caption{Regelauslösung II}
+  \label{diagram-ruleexecution2}
+\end{center}
+\end{figure}
 
 \subsection{Das Abfragen einer Ontologie}
 Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen Ausdruck und möchte überpürfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur ja oder nein zurück. Die zweite Art von Abfrage möchte eine Ergebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
