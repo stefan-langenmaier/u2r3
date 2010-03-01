@@ -28,7 +28,7 @@
 	%            \nodepart{second}name
 	        };
 	        
-	    \node (ReasonProcessor) [class, rectangle split parts=2, right =0.1cm of RuleManager]
+	    \node (ReasonProcessor) [class, right =0.1cm of RuleManager]
 	        {
 	            \textbf{ReasonProcessor}
 	            %\nodepart{second}+ classify()
@@ -41,7 +41,7 @@
 	\end{tikzpicture}
 \end{figure}
 
-Das Klassendiagram in Abbildung\ref{schema-aufbau-u2r3} stellt den vereinfachten Aufbau des Schlussfolgerers dar. Die Aufgaben des Reasoner sind dabei in vier Hauptbereich zerlegt.
+Das Klassendiagram in Abbildung \ref{schema-aufbau-u2r3} stellt den vereinfachten Aufbau des Schlussfolgerers dar. Die Aufgaben des Reasoner sind dabei in vier Hauptbereich zerlegt.
 \begin{enumerate}
   \item Der RelationManger verwaltet die Relationen in der Datenbank und stellt die Verbindung zu dieser her. Darin sind alle Methoden die mit der Erstellung und Veränderung von Tabellenstrukturen zu tun hat enthalten.
   \item Der RuleManager kapselt alle Regeln ab.

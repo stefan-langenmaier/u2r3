@@ -4,7 +4,7 @@ Im folgenden werden Begriffe aus dem Bereich Wissenmodellierung und Wissensrepr�
 
 Dazu gehören Ontologien, für was sie stehen und die Beschreibung des OWL2 RL Fragments. Das Verständnis für einen Schlussfolgerer, sowie einige Hintergründe für die Umsetzungen von Ontologien in Datenbanken.
 
-Außerdem werden auch einige Begriffe angesprochen die sonst für die Arbeit wichtig sind, aber nicht intuitiv zu erschließen sind.
+Außerdem werden auch einige Begriffe angesprochen die sonst für die Arbeit wichtig sind, aber nicht intuitiv zu erschließen sind. Dazu gehören unter anderem Regeln und Relationen.
 
 \section{Ontologien}
 
@@ -158,9 +158,9 @@ Ein Verfahren ist korrekt, wenn es nicht möglich ist falsche Schlüsse aus eine
 	\item \textbf{Vollständigkeit}:
 Ein Verfahren ist vollständig, wenn alle korrekten Schlüsse folgerbar sind.
 	\item \textbf{Entscheidbarkeit}:
-Ein Verfahren ist entscheidbar, wenn immer ein Algorithmus für das Schlussfolgern existiert.
+Ein Verfahren ist entscheidbar, wenn ein Algorithmus für das Schlussfolgern existiert.
 	\item \textbf{Komplexität}:
-Die Komplexität beschreibt den theoretischen minimalen Aufwand für den Schlussfolgerungs-Alogrithmus
+Die Komplexität beschreibt den theoretischen \emph{worst-case} Aufwand für den Schlussfolgerungs-Alogrithmus
 \end{itemize}
 
 \section{OWL2 RL Eigenschaften}
@@ -199,7 +199,7 @@ Die Klassifizierung soll die Struktur der Ontologie bestimmen, d.h. die Beziehun
 Die Realisierung bestimmt Beziehung zwischen Individuen bzw. Instanzen. Welche Individuen sind Mitglieder von Klassen und über welche Beziehungen sind sie untereinander verbunden.
 
 \section{Regeln}
-Das OWL2 RL Profil wurde unter dem ASpekt entiwckelt, dass Inferenzen darin gut mit einem regelbasierten Ansatz umzusetzen sind.
+Das OWL2 RL Profil wurde unter dem Aspekt entiwckelt, dass Inferenzen darin gut mit einem regelbasierten Ansatz umzusetzen sind.
 
 Wie dabei die Umsetzung der Regeln in SQL stattfindet wird in entsprechenden Abschnitt \ref{abschnitt-regelbeispiele} näher erklärt. Hier wird vorab der Aufbau und die Bedeutung der in der OWL2 RL Spezifikation angegebenen Regeln näher gebracht.
 

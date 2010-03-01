@@ -216,7 +216,7 @@ In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im 
 Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{m{6cm}|m{3cm}}
+	\begin{tabular}{m{7cm}|m{3cm}}
 	if & then \\ \hline
 	T(?p, owl:propertyChainAxiom, ?x),\newline
 	LIST[?x, ?$p_1$, \ldots, ?$p_n$],\newline
@@ -289,7 +289,7 @@ Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits
 Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja wird es der Klasse dieser Schnittmenge hinzugefügt.
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{m{6cm}|m{3.5cm}}
+	\begin{tabular}{m{5cm}|m{3.5cm}}
 	if & then \\ \hline
 	T(?c, owl:intersectionOf, ?x),\newline
 	LIST[?x, ?$c_1$, ..., ?$c_n$],\newline

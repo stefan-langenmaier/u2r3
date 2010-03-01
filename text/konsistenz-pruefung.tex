@@ -11,15 +11,12 @@ Die Möglichkeit die Konsistenzprüfung zu wechseln ist in u2r3 implementiert un
 
 Damit der Regelprozessor zwischen Konsistenzregeln und Anwendungsregeln unterscheiden kann sind alle Regeln die eine Inkonsistenz auslösen könne von der Subklasse ConsistencyRule abgeleitet.
 
-\begin{verbatim}
-        * Was ist die Konsequenz, wenn Konsistenzprüfungen nicht rechtzeitig durchgeführt werden.
-\end{verbatim}
-
 \subsection{Rückmeldung}
 Konsistenzregeln melden sich nur in einem Fehlerfall zurück. Die Rückmeldung erfolgt aus den Regeln selbst während ihrer Ausführung. Die OWLAPI schlägt hier vor eine Exception zu werfen. Allerdings sind nicht alle Inkonsistenz gleich schwerwiegend. Eine Inkonsistenz in der A-Box ist normalerweise nicht so problematisch wie eine Inkonsistenz in der T-Box.
 
 \begin{verbatim}
-Soll das im Reasoner wirklich so bleiben, die OWLAPI schläft vor eine Exception auszulösen?
+Soll das im Reasoner wirklich so bleiben, die OWLAPI
+schlägt vor eine Exception auszulösen?
 \end{verbatim}
 
 Die Möglichkeiten wie auf eine Inkonsistenz reagiert werden kann sind dabei:
