@@ -73,11 +73,8 @@ Der Modus mit dem gelöscht wird kann in der Konfigurationsdatei von u2r3 einges
 
 \subsection{Anmerkung zu Aufblähung von Deltas}
 \label{abschnitt-aufblaehung}
-Welche Regeln sind das:
-Wird nur von den drei Sonderregeln verursacht. Wenn sie nichts erzeugen blähen sie auch nichts auf, wenn doch.
+Deltas enthalten wie vorher schon beschrieben die neu abgeleiteten Fakten. Falls kaskadierendes Löschen aktiv ist werden in den Deltas zu den einzelnen Fakten auch die Informationen woher sie abgeleitet wurden mitgeführt.
 
-Lösungsmöglichkeit. Nach dem bearbeiten dieser Regeln, sofort die Regelqueue flushen, mergen und nochmal anfangen.
+Das ist eigentlich kein Problem, da jede Regel nur eine fixe Anzahl an solchen Quellinformatioen haben kann. Davon ausgenommen sind allderings die drei vorher erwähnten Spezialregeln (cls-int2, prp-key und prp-spo2). Sie können eine beliebig große Anzahl an Quellfakten haben. Daher wird wenn eine dieser Regeln neue Fakten erzeugt hat das Faktum nicht nur einmal abgespeichert, sondern so oft, wie es verschiedene Quellfakten hat und dazu passend die unterschiedlichen Quellfakten.
 
-Spielt also erstens nur eine Rolle wenn im COLLECTIVE Mode.
-
-Nach dem mergen ist das Delta aber sowie so eingeschrumpft. Auf das Schlussfolgern wirkt es sich also kaum negativ aus.
+Diese AUsnahme muss dann beim ABspeichern der Historie berücksichtigt werden. Beim mergen des Deltas mit der Hauptrelation wird das Faktum dann nur einmal abgespeichert. Im IMMEDIATE MOdus hat es daher keinen Nachteil. Nur im COLLECTIVE Modus muss für eine Runde mit einer Relation gearbeitet werden die möglicherweise sehr viele Elemente doppelt enthält.
