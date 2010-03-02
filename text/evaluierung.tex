@@ -9,21 +9,258 @@ Eine Anbindung an die OWLAPI ist zwar bei allen außer OWLim vorhanden, jedoch h
 Diese Punkte machen es alle recht schwer einen brauchbaren Vergleich zu u2r3 zu finden.
 
 \section{Vergleiche}
-Die Implementierung und Optimierung von u2r3 hat sich hauptsächlich mit dem Bereich des Schlussfolgerns und nicht mit der Beantwortung von Abfragen beschäftigt. Die Beantwortung von Anfragen ist sicher auch ein großer und komplexer Teil - einer der Grund warum dies nur rudimentär implementiert wurde - aber durch den direct-materialisation Ansatz sollten alle ERgebnisse möglicher Anfragen schon zur Anfragezeit vorliegen un der begrenzende Faktor ist somit hauptsächlich die Datenbank und die Geschwindigkeit mi der die Daten zurückgeliefert werden können.
+Die Implementierung und Optimierung von u2r3 hat sich hauptsächlich mit dem Bereich des Schlussfolgerns und nicht mit der Beantwortung von Abfragen beschäftigt. Die Beantwortung von Anfragen ist sicher auch ein großer und komplexer Teil - einer der Gründe warum dies nur rudimentär implementiert wurde - aber durch den direct-materialisation Ansatz sollten alle Ergebnisse möglicher Anfragen schon zur Anfragezeit vorliegen und der begrenzende Faktor ist somit hauptsächlich die Datenbank und die Geschwindigkeit mit der die Daten zurückgeliefert werden können.
 
-Um die Tableaux Reasoner mit dem forward-chaining-Prinzip gut vergleichen zu können werden die Anfragen der Testfälle so ausgelegt sein, das die Tableaux-Reasoner einen ähnlich großen Aufwand habe. Dafür sind drei Varianten ausgewählt worden:
 
 \begin{itemize}
   \item T-Box Klassifizierung: Dafür wurden die instrument ($\mathcal{AL}$) und diseases Ontologien ($\mathcal{AL}$) ausgewählt, das sie fast ausschließlich aus Konzepte-Hierachien bestehen. Die instrument ist eine Ontologie mittlerer Größe, die deases ist eine große Ontologie.
-  \item A-Box Realisierung: Hier wurde die Ontologien financial ($\mathcal{ALCOIF}$) und VAST2009 ($\mathcal{ALCOIF}(D)$) sowie VAST2009-tiny ($\mathcal{ALCOIF}(D)$) ausgewählt. Die ersten beiden zeichnen sich durch eine große Anzahl an Individuen aus. VAST2009-tiny ist dabei eine modifizierte Version der VAST2009, die in ihrer Größ stark reduziert wurde. Die finiancial Ontologie enthält dabei nur objectProperties, die VAST2009 Ontologie enthält hauptsächlich dataProperties und muss daher mit Literalen arbeiten.
-  \item OWL2 RL: walter, als ein Beispiel für die Ausdrucksmächtigkeit von OWL2 RL
+  \item A-Box Realisierung: Hier wurde die Ontologien financial ($\mathcal{ALCOIF}$) und VAST2009 ($\mathcal{ALCOIF}(D)$) sowie VAST2009-tiny ($\mathcal{ALCOIF}(D)$) ausgewählt. Die ersten beiden zeichnen sich durch eine große Anzahl an Individuen aus. VAST2009-tiny ist dabei eine modifizierte Version der VAST2009, die in ihrer Größ stark reduziert wurde. Die financial Ontologie enthält dabei nur objectProperties, die VAST2009 Ontologie enthält hauptsächlich dataProperties und muss daher mit Literalen arbeiten.
+  \item OWL2 RL: walter ($\mathcal{ALEROIQ}+$), als ein Beispiel für die Ausdrucksmächtigkeit von OWL2 RL
   \item OWL2 RL + Extras: DomusAG-full ($\mathcal{ALCHOIF}(D)$) als ein Beispiel für die DatatypeRestriction Erweiterung
 \end{itemize}
 
-Alle Ontologien finden sich im Anhang und im Repository im Ordner ontologien/.
+Alle Ontologien finden sich im Anhang und im Repository im Ordner \texttt{ontologien/}.
 
 Der Ablauf der Vergleiche ist dabei, so gestaltet das jeder Schlussfolgerer die Ontologie einliest und eine Anfrage passend zur Ontolgie bekommt. Danach wird die Ontologie erweitert und es wird danach erneut eine Anfrage gestellt. Danach wird die Erweiterung wieder gelöscht und es wird wieder eine Anfrage gestellt.
 
-\subsection{Laden}
-\subsection{Erweiterung}
-\subsection{Löschung}
+Der Ablauf der Tests ist in drei Teile untergliedert, das Laden der Ontologie, das Hinzufügen eines Axioms zur Ontologie und das Löschen eines Axioms aus dieser Ontologie. In jedem Teil wird eine Anfrage gestellt. Es wird zweimal die Zeit gemessen. Einmal für das bearbeiten der Ontologie, das schließt das Laden, Hinzufügen und Löschen sowie das nötige Schlussfolgern mit ein. Die zweite Messung nimmt die Zeit zur Beantwortung der Abfrage. Die Zeit für den ersten Schritt im folgenden ``Ableitung'' genannt wird in Sekunden angegeben, die Zeit für die ``Abfrage'' wird in Millisekunden angegeben.
+
+Der u2r3 Schlussfolgerer wird immer in seiner Standardkonfiguration betrieben. Falls nicht ist dies angegeben.
+
+Das Hinzufügen bei OWLim wurde so umgesetzt das man nochmal eine Ontologie mit dem neuen Teil geladen hat. Das Löschen wurde nicht durchgeführt.
+
+Zunächst wird mit der walter-Ontologie begonnen \ref{table-time-walter}. Sie deckt einen Großteil der inOWL2 RL vorhandenen Sprachkonstrukte ab.
+
+\begin{table}[htbp]
+\caption{Zeiten für die walter-Ontologie}
+\label{table-time-walter}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3\tnote{a}} & 17s & 27ms & 4s & 2ms & 100ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{u2r3\tnote{b}} & 81s & 28ms & 5s & 2ms & 1500ms & 3ms \\ \hline
+\multicolumn{1}{|l|}{u2r3\tnote{c}} & 15s & 54ms & 5s & 2ms & 75ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{u2r3\tnote{d}} & 17s & 36ms & 4s & 3ms & 1215ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{u2r3\tnote{e}} & 16s & 35ms & 3s & 1ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{HermiT} & 3s & 7ms & 0s & 1ms & 1ms & 2ms \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{f}} & 2s & 7ms & 0s & 0ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{g}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{h}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 2s & 230ms & 2s & 245ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] Standardkonfiguration
+	\item[b] (CASCADING, STANDALONE, IMMEDIATE, DEFAULT)
+	\item[c] (CASCADING, STANDALONE, COLLECTIVE, NONE)
+	\item[d] (CASCADING, IN-MEMORY, COLLECTIVE, NONE)
+	\item[e] (CLEAN, STANDALONE, COLLECTIVE, NONE)
+	\item[f] aber falsches Ergebnis
+	\item[g] unable to parse
+	\item[h] unable to parse
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Das Ergebnis entspricht den Erwartungen. Die Vorbereitungszeut bei u2r3 ist zwar hoch. Die Abfragezeitnen sind aber auf einem ähnlichen Niveau.
+Man sieht das der immediate Modus nicht geeignet ist für so eine Ontologie. Die Abfragezeiten von OWLim sind etwas hoch, das liegt vermutlich daran, das sein Backend erst bei größeren Ontologien effizient arbeitet.
+
+Die DomusAG-Ontolgie \ref{table-time-domusag} benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
+\begin{table}[htbp]
+\caption{Zeiten für die DomusAG-Ontologie}
+\label{table-time-domusag}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 57s & 68ms & 1571ms & 28ms & 1ms & 78ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet} & 4s & 8ms & 0ms & 1ms & 0ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer} & 2s & 3ms & 6ms & 1ms & 4ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{b}} & 3s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 4s & 400ms & 2516ms & 411ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] unsupported datatype
+	\item[b] unknown class
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+Das Ergebnis entspricht den Erwartungen.
+
+Die VAST2009-tiny Ontologie \ref{table-time-vast-tiny} ost eome verkleinerte Version der VAST2009-Ontologie. Sie enthält eine große Anzahl an Beziehungen (data- und objectPropertyAssertion) und ist daher das angestrebte Einsatzgebiet von OWL2 RL und damit u2r3.
+
+\begin{table}[htbp]
+\caption{Zeiten für VAST2009-tiny Ontologie}
+\label{table-time-vast-tiny}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 11s & 26ms & 63ms & 4ms & 1ms & 2ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & 3s & 8ms & 1ms & 0ms & 1ms & 0ms \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 2s & 7ms & 0s & 1ms & 0s & 0ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 1s & 3ms & 2ms & 4ms & 4ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 1s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 2s & 228ms & 1918ms & 243 & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] Ergebnis nach dem Hinzufügen falsch
+	\item[b] aber falsch
+	\item[c] aber falsch
+	\item[d] unknown class
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Man sieht das die Zeiten hier nicht mehr weit auseinander liegen.
+
+Die VAST2009-Ontologie \ref{table-time-vast2009} enthält jetzt dievolle Anzahl an Individuen und Beziehungen.
+
+\begin{table}[htbp]
+\caption{Zeiten für die VAST2009-Ontologie}
+\label{table-time-vast2009}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 4166s & 603ms & 1305s & 250ms & 179s & 201ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 13s & 7ms & 0s & 0ms & 1s & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 13s & 3ms & 0s & 1ms & 4s & 2ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{c}} & 12s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 1399s & 1346ms & 15s & 1575ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] 700MB Heap waren zu wenig
+	\item[b] aber falsch
+	\item[c] aber falsch
+	\item[d] unknown class
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+HermiT der einzige Tableaux-basierte Reasoner, der wirklich versuch hat diese Ontologie zu bearbeiten gibt auf, da ihm der Speicher ausgeht. Der relative Abstand zwischen u2r3 und OWLim schrumpft.
+
+Die financial-Ontologie \ref{table-time-financial} ist ähnlich der VAST2009-Ontologie. Sie ist noch ein bißchen größer enthält allerdings nur objectPropertyAssertions und keine Literale.
+
+\begin{table}[htbp]
+\caption{Zeiten für die financial-Ontologie}
+\label{table-time-financial}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 5055s & 263ms & 2130s & 157ms & 84s & 298ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 11s & 14ms & 0s & 1ms & 0s & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 11s & 2s & 0s & 2ms & 0s & 2ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 12s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 16 & 1121ms & 3s & 1124ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] nach zwei Stunden abgebrochen
+	\item[b] aber falsch
+	\item[c] aber falsch
+	\item[d] unknown class
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+HermiT hat zwar diesmal keinen so hhen Speicherverbrauch, muss aber nach zwei Stunden ohne Antwort abgebrochen werden. OWLim scheint mit dieser Ontologie wesentlich besser umgehen zu können. Die anderen Reasoner liefern wieder keine Ergebnisse oder brechen mit einer Fehlermeldung ab.
+
+Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittlere Ontologie, die auschließlich eine Klassenhierarchie enthält.
+
+\begin{table}[htbp]
+\caption{Zeiten für die instrument-Ontologie}
+\label{table-time-instrument}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 22s & 11ms & 294ms & 2ms & 1ms & 2ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & 5s & 9ms & 1ms & 1ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 10ms & 1ms & 1ms & 1ms & 9ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 3s & 276ms & 1650s & 294ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] nach dem Hinzufügen falsch
+	\item[b] aber falsch
+	\item[c] undefined concept
+	\item[d] unable to register concept
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Das Ergebnis entspricht den Erwartungen. Man sieht das die Abfragezeit von u2r3 mit den anderen Schlussfolgerern auf gleicher Höhe ist.
+
+Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontologie nur wesentlich größer.
+\begin{table}[htbp]
+\caption{Zeiten für die disease-Ontologie}
+\label{table-time-disease}
+\begin{center}
+\begin{threeparttable}
+\begin{tabular}{l|r|r|r|r|r|r|}
+\cline{2-7}
+ & \multicolumn{2}{|c|}{Laden} & \multicolumn{2}{|c|}{Hinzufügen} & \multicolumn{2}{|c|}{Löschen} \\
+\cline{2-7}
+ & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
+\hline
+\multicolumn{1}{|l|}{u2r3} & 613s & 6ms & 159s & 3ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{HermiT\tnote{a}} & 292s & 8ms & 0s & 15ms & 0ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 7s & 7ms & 0s & 1ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 6s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 7s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 22s & 783ms & 3s & 768ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\end{tabular}
+\begin{tablenotes}
+	\item[a] nach dem Hinzufügen falsch
+	\item[b] aber falsch
+	\item[c] undefined concept
+	\item[d] unable to register concept
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+Der relative Abstand zwischen u2r3 und HermiT ist stark geschrumpft. OWLim scheint mit solchen Ontologien sehr gut umgehen zu können.
+
+\subsection{Zusammenfassung}
+Die Reasoner die über die alte OWLAPIv2 angesprochen worden sind scheinen nicht mit den Ontologien klar gekommen zu sein. Ob es an Fehlern in den Schlussfolgerern, an der OWLAPI oder an den Ontologien selbst lag konnte nicht ermittelt werden. Das schränkt den Vergleich sehr ein. HermiT der einzige verbleibende Reasoner wurde über die selbe API wie u2r3 angesprochen. Er konnte alle Aufgaben mit Ausnahme der großen Ontologien VAST2009 und financial lösen. Das war aber auch zu erwearten. Unerwartet war, dass das spätere Hinzufügen von Axiomen nicht korrekt abgeleitet werden konnte. OWLim hat sich als zuverlässig herausgestellt, da es jede Ontologie und Anfrage bearbeiten konnte.
+
+Im Hinblick auf u2r3 bedeutet dieses Ergebnis, das er zwar langsam beim Laden ist, dafür aber auch mit großen Ontologien umgehen kann. Die Anfragezeitn sind konstand in einem entsprechend kleinen Zeitfenster gelieben. Außerdem werden Hinzufügungen und Löschungen entsprechend ihrere Größe schnell behandelt ohne die Ontologie neu laden zu müssen.
+
+Um einen bessern Vergleich zu erhalten sollt man diesen Test noch einaml wiederholen, wenn die Schnittstellen der Schlussfolgerer alle auf der OWLAPIv3 basieren. Trotzdem sollten diese Tests einen Überblick über den Anwendungsbereich des u2r3 geschaffen haben.
+
