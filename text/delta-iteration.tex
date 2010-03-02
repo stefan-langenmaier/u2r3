@@ -100,15 +100,9 @@ Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werde
 
 \subsection{Simulation}
 
-Die collective delta-Iteration kann mit der immediate simuliert werden. Dabei lösen die Regeln nicht sofort neue Reasons aus, sondern das passiert erst, wenn die neuen Daten übernommen werden. Neue Daten werden erst nach dem abarbeiten aller Regeln übernommen. Die Hilfstabelle ist dabei das neue Delta, die Delta-Tabelle ist das Delta auf dem auch bei der immediate gearbeitet wird. Es muss dabei darauf geachtet werden, das in das neue delta nur echte neue Fakten kommen bzw. beim eintragen in die gesammte Tabelle die nicht neuen herausgelöscht werden.
+Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neues Reason an den Regelprozessor schicken, sondern es gibt eine eigene Phase nachd dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
 
-Unterscheidungen müssen also an folgenden Stellen getroffen werden:
-\begin{itemize}
-  \item classify(): nach abarbeiten aller Regeln müssen alle Relationen die angefasst wurden noch hinzugefügt werden und evtl. ein weiterer Lauf stattfinden, falls es eine Relation gab.
-  \item apply(): das erzeugen des Deltas brauch eine andere Abfrage, da evtl in das selbe delta aka AUX mehrmals geschrieben werden kann
-  \item apply(): das hinzufügen neuer Fakten darf nur im immediate Fall passieren.
-  \item makeDirty()/isDirty(): eine Relation muss wissen, ob sie noch ausstehende Daten, die zu mergen sind hat.
-  \item merge(): die Relation kann jetzt das alte Delta löschen 
-\end{itemize}
+Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wirde. Die alte Hilfstabllle wird zum delta der aktuellen Runde.
+
 
 Die Implementierung des u2r3 unterstützt beide Varianten der delta-Iteration. Diese können in der Konfigurationsdatei mit der Option DeltaIteration verändert werden. Gültige Werte sind \emph{COLLECTIVE} oder \emph{IMMEDIATE}.
