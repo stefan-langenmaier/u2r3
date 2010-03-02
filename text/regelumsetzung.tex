@@ -64,12 +64,6 @@ Wieso und wie das funktioniert wird ebenfalls in diesem Abschnitt an einigen Bei
 
 \subsection{Regeloptimierung}
 
-Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hier verschiedene Möglichkeiten diesen Prozess zu beeinflussen und damit auf spezielle Bedürfnisse anpassen zu können.
+Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hier verschiedene Möglichkeiten diesen Prozess zu beeinflussen und damit auf spezielle Bedürfnisse anpassen zu können. Daher wurde im vorangehenden Abschnitt nur die allgemeine Umsetzung der Abfragen vorgestellt, die alle spezielleren Anwendungen gemeinsam haben.
 
-Man kann entscheiden, ob man die Ontologie später verändern will. Das hat zur Folge, das die Entstehungsgeschichte von abgeleiteten Fakten erhalten bleiben muss.
-
-Eine naive Anwendung der Regel hätte außerdem zur Folge, das sich die Regeln immer auf alle Fakten beziehen. Meist reicht es aber sich auf erzeugt Fakten aus vorherigen Schritten zu beziehen. Das wird näher im Abschnitt \ref{abschnitt-delta-iteration} geklärt. Hierbei gibt es zwei verschiedene Varianten wie diese umgesetzt ist.
-
-Die Struktur der Umsetzung der Regeln in SQL ist zwar fix, aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implmentiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.
-
-Es wäre sicherlich interessant die Regeln in einer gewissen Reihenfolge anzuwenden. Vielleicht gibt es hier eine Möglichkeit eine effzienten Ablaufpfad zu finden.
+Die Struktur der Umsetzung der Regeln in SQL ist zwar fix, aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implementiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.

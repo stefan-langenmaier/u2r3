@@ -326,7 +326,7 @@ GROUP BY l.name,
 HAVING   COUNT(l.name) = anzl.anzahl
 \end{lstlisting}
 
-Diese Abfrage wurd auch wesentlich vereinfacht. Für die Abspeicherung einer Historie dürfen die Fakten erst danach gruppiert werden, dann wäre allerdings keine Überprüfung mit HAVING möglich.
+Diese Abfrage wurde auch wesentlich vereinfacht. Für die Abspeicherung einer Historie dürfen die Fakten erst danach gruppiert werden, dann wäre allerdings keine Überprüfung mit HAVING möglich.
 
 Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
 
@@ -352,7 +352,7 @@ Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies
 \end{table}
 
 
-Die Abfrage ist der Einfachheit ebenfalls in zwei Teile zerlegt. Die Unterabfrage die mehrmals verwendet wird erzeugt zunächst eine gültige Liste von Individuen die über eine Eigenschaft mit dem gleichen Objekt verbunden sind.
+Die Abfrage ist der Einfachheit ebenfalls in zwei Teile zerlegt. Die Unterabfrage, die mehrmals verwendet wird, erzeugt zunächst eine gültige Liste von Individuen die über eine Eigenschaft mit dem gleichen Objekt verbunden sind.
 \begin{lstlisting}[language=SQL]
 SELECT pax.subject, sl.name, anzl.anz
 FROM list AS sl

@@ -4,15 +4,17 @@
 
 \section{Abfragen}
 \subsection{Komplexe Ausdrücke finden}
-Beim Suchen von komplexen Ausdrücken hat man es damit zu tun, das der Ausdruck zur Speicherung in den Relationen aufgeteilt werden musste. Diese Aufteilung ist mit von sog. NodeId passiert, wie sie in der OWLAPI auch für anonyme Individuen verwendet wird, werden sie auch hier verwendet um eine Beziehung zwischen Teilen herzustellen.. Was aber der Wert dieser IDs war ist bei einer späteren Anfrage nicht mehr bekannt bzw es ist auch nicht bekannt wie diese auf den komplexen Ausdruck passen sollten oder obder Ausdruck überhaupt in der geschlussfolgerten Menge liegt
+Beim Suchen von komplexen Ausdrücken hat man es damit zu tun, das der Ausdruck zur Speicherung in den Relationen aufgeteilt werden musste. Diese Aufteilung ist mit von sog. NodeId passiert, wie sie in der OWLAPI auch für anonyme Individuen verwendet wird, werden sie auch hier verwendet, um eine Beziehung zwischen Teilen herzustellen. Was aber der Wert dieser IDs war ist bei einer späteren Anfrage nicht mehr bekannt bzw. es ist auch nicht bekannt wie diese auf den komplexen Ausdruck passen sollten oder ob der Ausdruck überhaupt in der geschlussfolgerten Menge liegt.
 
-Um den Ausdruck nicht in die Datenbank einfügen zu müssen und ihn durch Schlussfolgern gleichsetzen zu können wird dieser Ausdruck rekursiv durchlaufen und darus ein SQL-Ausruck aufgebaut. Dieser SQL-AUsdruck kann den Namen der Relation, sowie die ID des Konstrukts zurückliefern. Beim AUfbau der SQL-Abfrage erzeugt jedes Unterkonstrukt des komplexen Ausdrucks eine SQL-Unterabfrage. Dabei ist zu beachten, das die Unterabfragen eine Referenz zu ihrer ``Oberabfrage'' enthält.
+Um den Ausdruck nicht in die Datenbank einfügen zu müssen und ihn durch Schlussfolgern gleichsetzen zu können wird dieser Ausdruck rekursiv durchlaufen und daraus ein SQL-Ausrduck aufgebaut. Dieser SQL-Ausdruck kann den Namen der Relation, sowie die ID des Konstrukts zurückliefern. Beim Aufbau der SQL-Abfrage erzeugt jedes Unterkonstrukt des komplexen Ausdrucks eine SQL-Unterabfrage. Dabei ist zu beachten, das die Unterabfragen eine Referenz zu ihrer ``Oberabfrage'' enthalten.
 
-Nachfolgend ein Beispiel, dabei wird ein komplexer OWL-Ausdruck\footnote{Der Ausdruck wird in der FunctionalSyntax dargestellt. Damit ist die Hierarchie so wie das rekursive Vorgehen leicheter nachvollziehbar.} in eine SQL-Abfrage umgewandelt.
+Nachfolgend ein Beispiel, dabei wird ein komplexer OWL-Ausdruck\footnote{Der Ausdruck wird in der FunctionalSyntax dargestellt. Damit ist die Hierarchie so wie das rekursive Vorgehen leichter nachvollziehbar.}
 
 \begin{verbatim}
 ClassAssertion(ind1, SomeValuesFrom(prop1, cls1))
 \end{verbatim}
+
+in eine SQL-Abfrage umgewandelt.
 
 \begin{lstlisting}[language=SQL]
 SELECT id, 'classAssertion'
@@ -26,7 +28,6 @@ WHERE entity = 'ind1' AND
 		total = 'cls1'
 	)
 \end{lstlisting}
-
 
 Beim Löschen werden ebenfalls möglicherweise komplexe Ausdrücke angegeben. Um diese aufzufinden können die selben Methoden verwendet werden.
 
