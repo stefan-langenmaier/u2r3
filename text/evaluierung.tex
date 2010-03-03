@@ -48,7 +48,7 @@ Zunächst wird mit der walter-Ontologie begonnen \ref{table-time-walter}. Sie de
 \multicolumn{1}{|l|}{u2r3\tnote{d}} & 17s & 36ms & 4s & 3ms & 1215ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{u2r3\tnote{e}} & 16s & 35ms & 3s & 1ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{HermiT} & 3s & 7ms & 0s & 1ms & 1ms & 2ms \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{f}} & 2s & 7ms & 0s & 0ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{f}} & 3s & 3ms & 0s & 1ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{Racer\tnote{g}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{Fact++\tnote{h}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 2s & 230ms & 2s & 245ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
@@ -59,7 +59,7 @@ Zunächst wird mit der walter-Ontologie begonnen \ref{table-time-walter}. Sie de
 	\item[c] (CASCADING, STANDALONE, COLLECTIVE, NONE)
 	\item[d] (CASCADING, IN-MEMORY, COLLECTIVE, NONE)
 	\item[e] (CLEAN, STANDALONE, COLLECTIVE, NONE)
-	\item[f] aber falsches Ergebnis
+	\item[f] aber nach dem Hinzufügen falsches Ergebnis
 	\item[g] unable to parse
 	\item[h] unable to parse
 \end{tablenotes}
@@ -84,14 +84,14 @@ Die DomusAG-Ontolgie \ref{table-time-domusag} benutzt Konstrukte, die in OWL2 RL
 \hline
 \multicolumn{1}{|l|}{u2r3} & 57s & 68ms & 1571ms & 28ms & 1ms & 78ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Pellet} & 4s & 8ms & 0ms & 1ms & 0ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Racer} & 2s & 3ms & 6ms & 1ms & 4ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{b}} & 3s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet} & 37s & 13ms & 0ms & 2ms & 1ms & 2ms \\ \hline
+\multicolumn{1}{|l|}{Racer} & 11s & 35ms & 2784ms & 11ms & 2587ms & 10ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{b}} & 5s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 4s & 400ms & 2516ms & 411ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] unsupported datatype
-	\item[b] unknown class
+	\item[b] unknown class, da die Ontologie mit Elementen arbeitet die erst in OWL2 vorhanden sind war dies zu erwarten
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -113,16 +113,16 @@ Die VAST2009-tiny Ontologie \ref{table-time-vast-tiny} ost eome verkleinerte Ver
 \hline
 \multicolumn{1}{|l|}{u2r3} & 11s & 26ms & 63ms & 4ms & 1ms & 2ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & 3s & 8ms & 1ms & 0ms & 1ms & 0ms \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{b}} & 2s & 7ms & 0s & 1ms & 0s & 0ms \\ \hline
-\multicolumn{1}{|l|}{Racer\tnote{c}} & 1s & 3ms & 2ms & 4ms & 4ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{d}} & 1s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 2ms & 1ms & 1ms & 0ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 2s & 2ms & 58ms & 2ms & 58ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 2s & 1ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 2s & 228ms & 1918ms & 243 & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] Ergebnis nach dem Hinzufügen falsch
 	\item[b] aber falsch
 	\item[c] aber falsch
-	\item[d] unknown class
+	\item[d] JVM meldet ein SIGSEV
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -177,16 +177,15 @@ Die financial-Ontologie \ref{table-time-financial} ist ähnlich der VAST2009-Ont
 \hline
 \multicolumn{1}{|l|}{u2r3} & 5055s & 263ms & 2130s & 157ms & 84s & 298ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{b}} & 11s & 14ms & 0s & 1ms & 0s & 1ms \\ \hline
-\multicolumn{1}{|l|}{Racer\tnote{c}} & 11s & 2s & 0s & 2ms & 0s & 2ms \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{d}} & 12s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 128s & 21ms & 0s & 23ms & 0s & 1104ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 112s & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++} & 71s & 8ms & 55s & 8ms & 63s & 7ms \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 16 & 1121ms & 3s & 1124ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] nach zwei Stunden abgebrochen
-	\item[b] aber falsch
-	\item[c] aber falsch
-	\item[d] unknown class
+	\item[b] aber nach Hinzufügen falsch
+	\item[c] danach abgestürzt, da kein Heap-Space mehr vorhanden war (700MB)
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -209,16 +208,16 @@ Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittl
 \hline
 \multicolumn{1}{|l|}{u2r3} & 22s & 11ms & 294ms & 2ms & 1ms & 2ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & 5s & 9ms & 1ms & 1ms & 1ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 10ms & 1ms & 1ms & 1ms & 9ms \\ \hline
-\multicolumn{1}{|l|}{Racer\tnote{c}} & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 14ms & 1ms & 7ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 3s & 1ms & 215ms & 1ms & 397ms & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{Fact++\tnote{d}} & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 3s & 276ms & 1650s & 294ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] nach dem Hinzufügen falsch
-	\item[b] aber falsch
-	\item[c] undefined concept
-	\item[d] unable to register concept
+	\item[b] aber nach Hinzufügen falsch
+	\item[c] Stürtzt ab, da die Klasse nicht gefunden wird, das stimmt zwar ist aber ein komisches Verhalten.
+	\item[d] Stürtzt ab, da die Klasse nicht gefunden wird, das stimmt zwar ist aber ein komisches Verhalten.
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -240,16 +239,16 @@ Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontol
 \hline
 \multicolumn{1}{|l|}{u2r3} & 613s & 6ms & 159s & 3ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & 292s & 8ms & 0s & 15ms & 0ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{b}} & 7s & 7ms & 0s & 1ms & 1ms & 1ms \\ \hline
-\multicolumn{1}{|l|}{Racer\tnote{c}} & 6s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{d}} & 7s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 27s & 175ms & 0s & 1ms & 1ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 10s & 1ms & 493ms & 1ms & 503ms & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 22s & 783ms & 3s & 768ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] nach dem Hinzufügen falsch
-	\item[b] aber falsch
-	\item[c] undefined concept
-	\item[d] unable to register concept
+	\item[b] aber nach dem Hinzufügen falsch
+	\item[c] endet mit einer exception TokenMgrError: Lexical error
+	\item[d] unable to register concept, da die Klasse nicht mehr vorhanden ist korrekt ab seltsam
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
