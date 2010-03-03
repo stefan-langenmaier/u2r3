@@ -36,7 +36,7 @@ Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes 
 \begin{center}
 	\begin{tabular}{l|l}
     If & then \\ \hline
-	T(?i1, ?property, ?i2 ) & T(?property owl:type ObjectProperty) \\
+	T(?i1, ?property, ?i2 ) & T(?property, owl:type, owl:ObjectProperty) \\
    \end{tabular}
 \end{center}
 \end{table}
@@ -50,31 +50,25 @@ In folgendem Beispiel soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubset
 \overbrace{
 	(\overbrace{A \sqcap (
 		\overbrace{\exists{}p.B}
-		^{nid3 \Rightarrow someValuesFrom(nid3, p, B)})}
-	^{nid2 \Rightarrow intersectionOf(nid1, nid2), list(nid2, A, nid3)})}
-^{nid1 \Rightarrow subClass(nid1, C)} \sqsubseteq C
+		^{someValuesFrom(nid3, p, B) mit nid3:})}
+	^{intersectionOf(nid1, nid2), list(nid2, A, nid3) mit nid2:})}
+^{subClass(nid1, C) mit nid1:} \sqsubseteq C
 \end{equation}
-Wenn ein Ausdruck nicht direkt abgespeichert werden kann,, dann wird für den Unterausdruck eine \emph{NodeID} erzeugt. Im obigen Beispiel werden drei Stück davon erzeugt. Diese stehen stellvertretend für den Unterausdruck. Es wird dann rekursiv weitergearbeitet bis alle in einfache Ausdrücke aufgelöst werden konnte.
+Wenn ein Ausdruck nicht direkt abgespeichert werden kann, dann wird für den Unterausdruck eine \emph{NodeID} erzeugt. Im obigen Beispiel werden drei Stück davon erzeugt. Diese stehen stellvertretend für den Unterausdruck. Es wird dann rekursiv weitergearbeitet bis alle in einfache Ausdrücke aufgelöst werden konnte.
 
-Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis (\emph{Reason}) an den Regelprozessor geschickt.
+Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis an Regelprozessor geschickt neue Regelanwendungen in seine Warteschlange mitaufzunehmen. Der Hinweis an den Regelprozessor wird im folgenden oft auch als \emph{Reason} bezeichnet.
+Der Regelprozessor überprüft diesen Hinweis und leitet daraus Regelanwendungen ab die er in einer Warteschleife abspeichert.
 
-Dieser überprüft die Ursache und legt entsprechende Regeln an, die auf diese Veränderung ausgeführt werden können.
+\subsection{Das Schlussfolgern in einer Ontologie}
+Das Schlussfolgern in einer Ontologie besteht daraus die möglichen Regeln der OWL2 RL Spezifiaktion anzuwenden. Diese Regeln erzeugen neue Fakten oder überprüfen die Konsistenz. Der Schlussfolgerer hat seine Arbeit erledigt, wenn keine Regel neue Fakten erzeugen kann. Das sicherzustellen und dabei möglichst wenige Regeln anzuwenden ist seine Aufgabe. Daher wird im folgenden näher beschrieben, wann welche Regeln ausgelöst werden und in welcher Reihenfolge sie angewendet werden.
 
-Die abzuarbeitenden Regeln enthalten eine Referenz auf die Fakten, die hinzugekommen sind. Allgemein sind sie so implementiert, das sie nur auf diesen neuen Fakten arbeiten -  auf den sogenannten Deltas - dies ist allerdings nicht in allen Fällen möglich (\emph{cls-int1}), sinnvoll (zu viele verschiedene Kombinationsmöglichkeiten) oder einfach zu komplex und damit fehleranfällig (\emph{prp-spo2}). Falls zwei oder mehrmals eine Regel auf die selben neuen Fakten erzeugt wird bevor sie ausgelöst wird, werden die beiden Regeln zu einer zusammengefasst und können je nach Einstellung neu priorisiert werden.
+Die abzuarbeitenden Regeln enthalten eine Referenz auf die Fakten, die hinzugekommen sind. Allgemein sind sie so implementiert, das sie nur auf diesen neuen Fakten arbeiten -  auf den sogenannten Deltas - dies ist allerdings nicht in allen Fällen möglich (\emph{cls-int1}), sinnvoll (zu viele verschiedene Kombinationsmöglichkeiten) oder einfach zu komplex und damit fehleranfällig (\emph{prp-spo2}). Falls zwei oder mehrmals eine Regelanwendung auf die selben neuen Fakten erzeugt wird bevor sie ausgelöst wird, werden die beiden Regelanwendungen zu einer reduziert und können je nach Einstellung neu priorisiert werden.
 
 All diese Regeln sind in einer Warteschleife abgelegt, die beim Laden der Ontologie gefüllt wird und beim Abarbeiten, d.h. dem Realisieren, der Ontologie ausgelesen wird.
 
-Regeln können durch das Erzeugen von neuen Fakten Hinweise für den Regelprozessor geben der daraufhin weitere Regeln anlegt und in die Warteschlange einsortiert.
-
-Der Vorgang des Realisierens ist abgeschlossen, wenn keine Regel neue Fakten und damit neue Regeln erzeugen kann.
+Regeln können durch das Erzeugen von neuen Fakten Hinweise für den Regelprozessor geben der daraufhin weitere Regelanwendungen anlegt und in die Warteschlange einsortiert.
 
 Der OWL2 RL Regelsatz garantiert dabei, das es immer zu einem Ende der Regelanwendung kommen wird, egal ob eine gültige oder ungültige Ontologie geladen wird.
-
-Für das Abarbeiten und Erzeugen der Regeln ist hauptsächlich der Regelprozessor verantwortlich. Hier sind noch weitere Einstellungsmöglichkeiten, wie z.B. die parallele Verarbeitung von Regeln vorhanden.
-
-
-\subsection{Das Schlussfolgern in einer Ontologie}
-Das Schlussfolgern in einer Ontologie besteht daraus die möglichen Regeln der OWL2 RL Spezifiaktion anzuwenden. Diese Regeln erzeugen neue Fakten oder überpürfen die Konsistenz. Der Schlussfolgerer hat seine Arbeit erledigt, wenn keine Regel neue Fakten erzeugen kann. Das sicherzustellen und dabei möglichst wenige Regeln anzuwenden ist seine Aufgabe. Daher wird im folgenden näher beschrieben, wann welche Regeln ausgelöst werden und in welcher Rehenfolge sie angewendet werden.
 
 \subsubsection{Auswertungsstrategien}
 Die Auswertungstrategie beschreibt in welcher Reihenfolge der Regelprozessor die Anwendung von Regeln auslöst. 
@@ -126,6 +120,14 @@ Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst
 \subsection{Das Abfragen einer Ontologie}
 Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen Ausdruck und möchte überpürfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur ja oder nein zurück. Die zweite Art von Abfrage möchte eine Ergebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
 
-Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-ABfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden egal on die SQL-ABfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
+Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-Abfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden egal on die SQL-ABfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
 
-\input{komplexe-ausdruecke}
+\subsubsection{Komplexe Ausdrücke finden}
+
+Komplexe Ausdrücke sind OWL Ausdrücke die sich aus einem oder mehr Unterausdrücke zusammensetzt. Für die Abspeicherung in u2r3 sind es alle Ausdrücke, die sich nicht direkt in eine Relation abspeichern lassen, sondern auf mehrere Relationen verteilen lässt. In der OWLAPI sind es alle Objekte die keine eigene IRI haben.
+
+Das Suchen nach einem komplexen Ausdruck gestaltet sich nicht so einfach wie vorher beschrieben, da die Abfrage nicht vollständig vorformliert werden kann, da die Unterausdrücke von unterschiedlicher Natur sind und auch die Tiefe und Verschachtelung der Ausdrücke nicht von vorneherein bekannt ist.
+
+Als Lösung dafür kommen zwei Verfahren in Betracht. Erstens man führt einen neuen Namen für diesen komplexen Ausdruck ein. Dann muss über die Ontologie nocheinmal geschlossen werden, damit alle Zusammenhänge, die mit diesem komplexen Ausdruck verbunden sind auch mit diesem neuen Namen verbunden sind. Das ist alldergins sehr zeitaufwendig und zerstört den Vorteil dieses Reasoner, da alle Ergebnisse, die man Abfragen kann nach dem Schlussfolgern bereits in der Datenbank vorliegen. Außerdem verbaut man sich damit die Möglichkeit der Approximation beim Schlussfolgern. So muss nämlich erst komplett geschlussfolgert werden bevor eine Anfrage gestellt wird.
+
+Darum ist das zweite Verfahren, das Aufbauen einer SQL-Abfrage. Diese kann dann zwar erst zur Laufzeit aufgebaut werden und ist schwerer für das RDBMS zu beantworten. Ein erneutes Schlussfolgern erübrigt sich aber. Das Aufbauen der SQL-Abfrage läuft dabei auch rekursiv ab. Die Unterausdrücke werden zu Unterabfragen in dem erstellten SQL-Ausdruck. Man setzt die Rekursion solange fort bis alle Unterausdrücke bei einfachen Ausdrücken angekommen sind.

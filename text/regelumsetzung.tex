@@ -27,10 +27,10 @@ Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahre
 	\label{table-modus-tollens}
 \end{table}
 
-Diese beiden Ableitungsregeln erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere Ableitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
+Diese beiden Ableitungsregeln [\ref{table-modus-ponens}, \ref{table-modus-tollens}] erlauben es, die beiden Aussagen in der Prämisse durch die Schlussfolgerung zu ersetzen. Für einen Schlussfolgerer mit direct-materialization werden, die Prämissen nicht ersetzt sondern weiterhin erhalten. Es könnte ja möglich sein das weitere Ableitungsschritte damit möglich sind oder das spätere Anfragen auf diese Aussagen abzielen. Mit einer Ableitungsregel kann also die Aussagenbasis vergrößert werden.
 
 Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
-\begin{table}
+\begin{table}[htb]
 \begin{center}
 	\begin{tabular}{l}
 	A$\rightarrow$B \\
@@ -42,18 +42,18 @@ Es sind dabei jedoch nicht alle Ableitungsregeln gültig.
 	\caption{ungültige Ableitung}
 	\label{table-invalid-inferred}
 \end{table}
-ist z.B. kein gültiger Schluss.
+Abbildung \ref{table-invalid-inferred} ist z.B. kein gültiger Schluss.
 
 Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten, ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit dem OWL2 RL Fragement zu erreichen.
 
 
 \section{Regelumsetzung von OWL2 RL}
 
-In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend der Sprachmächtigkeit darin zu schlussfolgern.
+In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend des RL Fragments darin zu schlussfolgern.
 
-Die angegebenen Regeln sind vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
+Die angegebenen Regeln sind korrekt und vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
 
-In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt erhalten ist und somit die Implementierung leichter zu überprüfen ist.
+In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt abgebildet ist und somit die Implementierung leichter zu überprüfen ist.
 Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{abschnitt-regelbeispiele} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
 Wieso und wie das funktioniert wird ebenfalls in diesem Abschnitt an einigen Beispielen und Sonderfällen demonstriert.
 

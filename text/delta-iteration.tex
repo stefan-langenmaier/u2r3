@@ -1,4 +1,4 @@
-\section{delta-Iteration}
+\section{Delta-Iteration}
 \label{abschnitt-delta-iteration}
 
 Unabhängig von der Art der delta-Iteration muss immer der Ausführungskontext bekannt sein, d.h. welche delta-Iteration ist aktiv, auf welches delta wird gearbeitet. Ein delta muss dabei die Information enthalten auf welcher Relation es arbeitet und auf welchen Teil.
@@ -9,7 +9,7 @@ Die delta-Iteration ist ein Verfahren, um bei Regelanwendungen, die Datenmenge s
 
 Während der ersten Entwicklung sind dabei zwei Varianten der delta-Iteration klar geworden. Diese tragen im folgenden die Namen \emph{immediate} delta-Iteration und \emph{collective} delta-Iteration. Timo Weithöhner hat in seiner Implementierung die collective delta-Iteration verwendet.
 
-\subsection{immediate delta-Iteration}
+\subsection{Immediate delta-Iteration}
 
 Hierbei erzeugt jede Regelanwendung sofort ihr eigenes Delta, mit dem weitergearbeitet werden kann.
 
@@ -53,7 +53,7 @@ Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, 
 
 Der Nachteil ist das viele Deltas gleichzeitg entstehen und insgesamt mehr Regel angewendet werden müssen. Die deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber eine Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es istnicht unbedingt klar wie sich das auf ein DBMS auswirkt.
 
-\subsection{collective delta-Iteration}
+\subsection{Collective delta-Iteration}
 
 Vom aktuellen Stand einer Relation werden erst einmal alle Änderungen in einer Hilfsrelation gesammelt. Sind alle abgearbeitet, wird das Delta erstellt und die nächste Phase beginnt.
 
@@ -100,9 +100,8 @@ Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werde
 
 \subsection{Simulation}
 
-Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neues Reason an den Regelprozessor schicken, sondern es gibt eine eigene Phase nachd dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
+Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neues Reason an den Regelprozessor schicken, sondern es gibt eine eigene Phase nach dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
 
 Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wirde. Die alte Hilfstabllle wird zum delta der aktuellen Runde.
-
 
 Die Implementierung des u2r3 unterstützt beide Varianten der delta-Iteration. Diese können in der Konfigurationsdatei mit der Option DeltaIteration verändert werden. Gültige Werte sind \emph{COLLECTIVE} oder \emph{IMMEDIATE}.

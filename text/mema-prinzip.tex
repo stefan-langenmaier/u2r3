@@ -1,7 +1,7 @@
 \section{MEMA-Prinzip}
-Die Idee des MEMA-Prinzip stammt aus der Diplomarbeit von Timo Weithöhner \cite{Weithoehner}. Es ermöglicht die Abspeicherung einer Ontolgie in eine Datenbank mit einem festen Satz von Tabellen. Dies vereinfacht es Regeln in SQL zu erstellen, da diese vorformuliert werden können.
+Die Idee des MEMA-Prinzips stammt aus der Diplomarbeit von Timo Weithöhner \cite{Weithoehner}. Es ermöglicht die Abspeicherung einer Ontologie in eine Datenbank mit einem festen Satz von Tabellen. Dies vereinfacht es Regeln in SQL zu erstellen, da diese vorformuliert werden können.
 
-Diese Diplomarbeit hat aufgezeigt, das die Umwandlung und Abspeicherung einer Ontologie in einen fixen Satz von Relationen möglich ist, so dass danach eine feziente Schlussfolgerung durchgeführt werden kann.
+Diese Diplomarbeit hat aufgezeigt, das die Umwandlung und Abspeicherung einer Ontologie in einen fixen Satz von Relationen möglich ist, so dass danach eine effiziente Schlussfolgerung durchgeführt werden kann.
 
 Das ursprüngliche MEMA-Prinzip von Timo Weithöhner ist um folgende Punkte erweitert.
 Es wurde erstmal auf den erweiterten Sprachschatz von OWL2 RL angepasst. Was aber besonders zu erwähnen ist sind die Relationen \emph{list} und \emph{history} \ref{relations-list-history}. Sie speichern keine Axiome wie alle anderen. Die Relation list dient als Hilfstruktur für Axiome, die eine variable Anzahl von Elementen abspeichern. Die Relation history wird benutzt, um den Abhängigkeitsverlauf beim inferieren von Fakten speichern zu können. Damit ist es möglich Ableitungen gezielt wieder rückgängig zu machen. Deswegen sind auch alle anderen Relationen mit einer \emph{id} Spalte ausgestattet, die Axiome bzw. komplexe Unterausdrücke eindeutig identifiziert.

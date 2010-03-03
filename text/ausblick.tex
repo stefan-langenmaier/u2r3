@@ -1,20 +1,20 @@
 \chapter{Ausblick}
 \label{kapitel-ausblick}
 
-\section{weitere Optimierungen}
-Speicherreduzierung
+\section{Weitere Optimierungen}
+Der Schlussfolgerer wurde immer mit dem  Hintergedanken entwickelt Parallelisierung und Approximation beim ableiten zu ermöglichen. Im Laufe der Arbeit wurden aber noch andere Möglichkeiten zur Verbesserung fedunden, die allerdings auf Grund von Zeitmangel nicht oder nur unvollständig umgesetzt werden konnten.
 
-Nicht die URIs abspeichern sondern nur Referenznummer in eine seperate Tabelle. Evtl funktionieren dann auch die Abfragen schneller (geringeres Datenaufkommen, effizientere Typen)
-
-\begin{verbatim} 
-* Kann man quadrat. Rekursion immmer auflösen?
-* Kann man manche Ableitungsschritte zusammenfassen?
-* Was bringen rekursive Abfragen wirklich? (Es werden dadurch ja auch andere Regeln angestoßen und dann müssen die rekursiven wieder ran)
-
-==== Idee ====
-Evtl. können auch Daten mit einer Art Wildcard angelegt werden. Daten, die keine Quellangabe haben werden immer gelöscht.
-
-\end{verbatim}
+\begin{itemize}
+  \item Die SQL-Abfragen weiter optimieren. Vor allem im nicht kaskadierenden Modus können einige Abfragen mit Datenbank spezifischeren Konstrukten ersetzt werden. Das erzeugt aber mehr Fallunterscheidungen und muss einzeln geprüft werden, ob die Abweichung von der Standardumsetzung korrekt ist.
+  \item Man könnte manche Regeln, insbesondere dt-eq mit anderen zusammenlegen, da wenn sie alleine laufen gelassen wird recht aufwendig ist. Hierbei könnte man sich auch gleich über einen optimaleren Satz an Regeln für das OWL2 RL Fragment Gedanken machen.
+  \item Der Regelsatz könnte noch erweitert werden, wie das Beispiel in der DomusAG-Ontologie zeigt. Vorallem im Bereich der Datatype Restriction kann man noch einiges schlussfolgern.
+  \item Es wäre vorstellbar eine Lösung zwischen der Abspeicherung der vollen Ableitungshierarchie und keiner Abspeicherung zu finden. Besonders bei den drei Spezialregeln ist der Aufwand hoch die Ableitungshierarchie mit abzuspeichern. Man könnte hier eine Art Wildcard benutzen. Das sähe dann folgendermaßen aus, das alle Fakten, die schon von einem Fakt mit einer Wildcard abgeleitet wurden wieder eine Wildcard bekommen. Wird dann eine Fakt gelöscht wird es und alle seine Abhängigkeiten plus alle Fakten die eine Wildcard haben gelöscht.
+  \item Die Zahl der Regeln, die angewendet werden könnte man noch weiter reduzieren. Relationen wissen, ob sie Fakten enthalten oder nicht. Wenn eine Rgel ausgelöst werden soll die auf einer Relation arbeitet die keine Fakten enthält könnte sie schon vorher abgebrochen werden.
+  \item Im Moment sind die Literal über verschiedene Relationen verteilt. Würde man diese in einer zentralen Relation halten würden sich viele Rgeln vereinfachen und die Daten müssten nicht hin und her kopiert werden.
+  \item Die Reihenfolge der Regelanwendung könnte man optimieren. Hier könnte man versuchen die Regeln einer Reihenfolge anzuwenden, um auf die Erzeugung von gewissen Fakten hinzuarbeiten oder man könnte versuchen Regeln so anzuwenden, das sie möglichst wenig neue Regeln auslösen bzw. ``leichtere'' Regeln bevorzugen.
+  \item Beim Hinzufügen von neuen Axiomen könnt man diese gleich in eigene Deltas schreiben. Somit würde man das erneute Schlussfoglern beschleunigen, da nur mit den neuen Fakten gearbeitet werden muss.
+  \item In den Ontologien werden IRIs zur Identifizierung verwendet. Man könnte hier den Speicherverbrauch reduzieren, in dem man die IRIs in einer gesonderten Relation ablegt, sie dort mit Ganzzahlen kodiert und ansonsten nur mit diesen Zahlen arbeitet.
+\end{itemize}
 
 \section{Zukunft}
 OWL2 RL soll in seiner Ausdrucksmächtigkeit in kommenden Versionen noch vergrößert werden. Vielleicht sind damit Facets möglich.

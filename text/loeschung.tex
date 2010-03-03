@@ -45,17 +45,19 @@ $id_{neu}$ & $id_y$
 Um auch in Deltas schon eine deterministische id vergeben zu können wird eine tabellenübergreifende Sequence\footnote{Das ist eine Möglichkeit in einer Datenbank Standardwerte für Spalten aus einer zentralen Stelle vergeben zu können.} verwendet.
 
 \subsection{Löschablauf}
-Man beginnt das Löschen eines Axioms damit das man seine id bestimmt. Dann überprüft man, ob die id in der Historientabelle vorhanden ist. Wenn ja, dann alle Abhängigkeiten finden und rekursiv diese löschen. Danach den Wert selbst löschen. 
+Man beginnt das Löschen eines Axioms damit, das man seine id bestimmt. Dann überprüft man, ob es in der Historientabelle hergeleitet wurde. Falls ja kann man es nicht löschen. Falls nein, überprüft man, ob es etwas hergeleitet hat. Wenn ja dann alle Abhängigkeiten finden und diese rekursiv löschen. Danach den Wert selbst löschen.
 
+Angenommen man will die Subklassenbeziehung \emph{subClas(B,C)} löschen zbd dueses Axiom ist mit der $id_x$ identifizierbar.
 z.B.: $subClass(B,C) \Rightarrow id_y$
 \begin{lstlisting}[language=SQL]
-SELECT id FROM Historie WHERE quelle = $id_y$
+SELECT id FROM history WHERE sourceId = 'id_x'
 
 while(id)
-	delete(id)
-	DELETE FROM Historie WHERE id = id
+	delete(id) // rekursiv
 
-DELETE FROM subClass WHERE id = $id_y$
+DELETE FROM history WHERE sourceId = 'id_x'
+
+DELETE FROM subClass WHERE id = 'id_x'
 \end{lstlisting}
 
 
