@@ -1,4 +1,9 @@
 \chapter{Konzeption des Schlussfolgerers}
+Die Idee hinter der Konzeption des u2r3 ist zweigeteilt.
+
+Zum einen ist das der direct-materialisation Ansatz. Dieser Ansatz speichert alle Fakten die abgeleitet wurden ab, so das sie zur Anfragezeit bereits vorliegen. Das ist der Grund warum der Schlussfolgerer mit einer relationalen Komponente - H2 - entwickelt wurde. Allgemein sind RDBMS dafür ausgelegt große Datenmengen zu verwalten und schnelle Antworten auf Anfragen auf die vorhandenen Daten liefern zu können. Im Abschnitt \ref{abschnitt-mema-prinzip} wird darauf eingegangen wie eine OWL2 RL Ontologie in einem RDBMS abgespeichert wird.
+
+Der zweite Punkt ist der forward-chaining Ansatz. Das Schlussfolgern in u2r3 basiert auf Regeln, die Fakten neue Fakten ableiten können. Dieser Ansatz sorgt dafür das die Regelanwendung erst gestoppt wird, wenn keine Regel mehr neue Fakten erzeugen kann. Entsprechend dem OWL2 RL Fragment sind dann alle Fakten abgeleitet, die abgeleitet werden können. Wie die Regeln zur Anwendung kommen wird im Abschnitt \ref{abschnitt-regelanwendung} behandelt.
 
 \begin{figure}[htb]
 \begin{center}
@@ -9,7 +14,7 @@
   \label{image-konzept}
 \end{center}
 \end{figure}
-TEXT
+Das Konzept in Abb. \ref{image-konzept} ist daher ein relativ geradliniger Ablauf. Es wird eine Ontologie in den Schlussfolgerer geladen. Dieser verarbeitet die Ontologie, d.h. er erzeugt alle ableitbaren Fakten. Danach kann man über eine Anwendung Anfragen an die Ontologie stellen.
 
 \input{mema-prinzip}
 
