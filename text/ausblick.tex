@@ -1,7 +1,11 @@
 \chapter{Ausblick}
 \label{kapitel-ausblick}
+OWL2 wurde im Laufe dieser DIplomarbeit als Recommendation veröffentlicht. Damit ist sie ein offizieller Standard des W3C. Die Anzahl der Konferenzen\footnote{\url{http://semanticweb.org/wiki/Events}}, die zum Thema Semantic Web abgehalten werden und die Ankündigungen von Anwendungen zur Unterstützung für OWL2 versprechen eine lebhafte Zukunft. Es wurden sogar schon die Weiterentwicklung zu OWL3 \cite{Hitzler2009} angedacht.
+
+Wie aktiv dabei das RL Fragment teilnehmen wird die Zukunft zeigen. Durch die Vielzahl an entstehenen Ontologien könnte es sich aber durch sein große Ausdrucksmächtigkeit und gutmütigen Schlussfolgerungseigenschaften abieten. Dafür nötig sind aber gute Werkzeuge. Mit dieser Diplomarbeit soll dazu ein Stückchen beigetragen worden sein.
 
 \section{Weitere Optimierungen}
+\label{abschnitt-weitere-optimierungen}
 Der Schlussfolgerer wurde immer mit dem  Hintergedanken entwickelt Parallelisierung und Approximation beim ableiten zu ermöglichen. Im Laufe der Arbeit wurden aber noch andere Möglichkeiten zur Verbesserung fedunden, die allerdings auf Grund von Zeitmangel nicht oder nur unvollständig umgesetzt werden konnten.
 
 \begin{itemize}
@@ -15,14 +19,3 @@ Der Schlussfolgerer wurde immer mit dem  Hintergedanken entwickelt Parallelisier
   \item Beim Hinzufügen von neuen Axiomen könnt man diese gleich in eigene Deltas schreiben. Somit würde man das erneute Schlussfoglern beschleunigen, da nur mit den neuen Fakten gearbeitet werden muss.
   \item In den Ontologien werden IRIs zur Identifizierung verwendet. Man könnte hier den Speicherverbrauch reduzieren, in dem man die IRIs in einer gesonderten Relation ablegt, sie dort mit Ganzzahlen kodiert und ansonsten nur mit diesen Zahlen arbeitet.
 \end{itemize}
-
-\section{Zukunft}
-OWL2 RL soll in seiner Ausdrucksmächtigkeit in kommenden Versionen noch vergrößert werden. Vielleicht sind damit Facets möglich.
-
-OWL2 wurde erst im Verlaufe dieser Diplomarbeit als Recommendation veröffentlicht, aber die Weiterentwicklung von OWL wird schon angedacht \cite{Hitzler2009} und es werden verschieden Konferenzen zu diesem Thema abgehalten. Auf \url{http://semanticweb.org/wiki/Events}
-findet man eine große Anzahl an Konferenzen und Workshops die zu diesem Gebiet gehören.
-
-\section{Probleme und Chancen}
-Im Moment nimmt die Anzahl an Ontologien drastisch zu. Das OWL2 RL Profil ist allerdings noch neu und es sind kaum Tools für einen produktiven Einsatz vorhanden. Ein Großteil der Anwendungen hat eine große Überdeckung mit dem Zielgebiet von OWL2 RL. Die Frage ist allerdings dabei werden die neu enstehenden Ontologien sich an dieses Profil halten. Wie gut kann man alte konvertieren und wie schnell werden vernünftige Werkzeuge zu Verfügung stehen. Die Zeit ist eigentlich reif für OWL2 RL, fraglich ist nur ob OWL2 RL und sein Umfeld die Anforderungen erfüllen kann.
-
-Die Einsatzgebiete sind schon aus der Einführung bekannt es kommen aber ständig neue hinzu. Möglichen Einsatzgebieten sind quasi keine Grenzen gesetzt. Es zeichnet sich aber ein Trend für Desktop-Anwendungen und für den Web-Bereich ab.
