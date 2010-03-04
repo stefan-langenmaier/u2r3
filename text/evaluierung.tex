@@ -145,16 +145,16 @@ Die VAST2009-Ontologie \ref{table-time-vast2009} enthält jetzt dievolle Anzahl 
 \hline
 \multicolumn{1}{|l|}{u2r3} & 4166s & 603ms & 1305s & 250ms & 179s & 201ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Pellet\tnote{b}} & 13s & 7ms & 0s & 0ms & 1s & 1ms \\ \hline
-\multicolumn{1}{|l|}{Racer\tnote{c}} & 13s & 3ms & 0s & 1ms & 4s & 2ms \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{c}} & 12s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 2982s & 17ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 12s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 1399s & 1346ms & 15s & 1575ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] 700MB Heap waren zu wenig
-	\item[b] aber falsch
-	\item[c] aber falsch
-	\item[d] unknown class
+	\item[b] 700MB Heap waren zu wenig
+	\item[c] JDK Fehler
+	\item[d] 700MB Heap waren zu wenig
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -210,7 +210,7 @@ Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittl
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & 5s & 9ms & 1ms & 1ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 14ms & 1ms & 7ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{Racer\tnote{c}} & 3s & 1ms & 215ms & 1ms & 397ms & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{d}} & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 2s & 1ms & 1ms4 & 1ms & 13ms & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{OWLim} & 3s & 276ms & 1650s & 294ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
