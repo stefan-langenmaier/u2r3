@@ -84,7 +84,7 @@ Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch expe
 In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
 
 \subsubsection{Regelauslösung}
-Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind.
+Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind [\ref{diagram-ruleexecution1}].
 
 \begin{figure}[htp]
 \begin{center}
@@ -101,18 +101,19 @@ Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst
         edge node[auto,swap] {k} (fireRuleAction);
 \end{tikzpicture}
 }
-  \caption{Regelauslösung I}
+  \caption{Erzeugung der Regelanwendungen (Verhältnis)}
   \label{diagram-ruleexecution1}
 \end{center}
 \end{figure}
 
-%\usepackage{graphics} is needed for \includegraphics
+Bei der Erzeugung einer Reason sind dabei zwei Dinge wichtig. Das Delta, das sind die neuen Fakten und die Relation, da dort gespeichert ist welche Regeln auf die Relation angewendet werden können. Diese beiden Informationen ergeben eine Reason. Der Regelprozessor legt dann aus der Information in einer Reason evtl. mehrere Regelanwendungen in seiner Wartschleife an. Dieser Ablauf ist in Abb. \ref{diagram-ruleexecution2} dargestellt.
+
 \begin{figure}[htp]
 \begin{center}
 	\scalebox{0.5}{
   \includegraphics{images/regelausloesung.pdf}
-  	}
-  \caption{Regelauslösung II}
+	}
+  \caption{Erzeugung der Regelanwendungen (Ablauf)}
   \label{diagram-ruleexecution2}
 \end{center}
 \end{figure}
