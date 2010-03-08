@@ -1,17 +1,17 @@
 \chapter{Konzeption des Schlussfolgerers}
 Die Idee hinter der Konzeption des u2r3 ist zweigeteilt.
 
-Zum einen ist das der direct-materialisation Ansatz. Dieser Ansatz speichert alle Fakten die abgeleitet wurden ab, so das sie zur Anfragezeit bereits vorliegen. Das ist der Grund warum der Schlussfolgerer mit einer relationalen Komponente - H2 - entwickelt wurde. Allgemein sind RDBMS dafür ausgelegt große Datenmengen zu verwalten und schnelle Antworten auf Anfragen auf die vorhandenen Daten liefern zu können. Im Abschnitt \ref{abschnitt-mema-prinzip} wird darauf eingegangen wie eine OWL2 RL Ontologie in einem RDBMS abgespeichert wird.
+Zum einen ist das der direct-materialisation Ansatz. Dieser Ansatz speichert alle Fakten die abgeleitet wurden ab, so das sie zur Anfragezeit bereits vorliegen. Das ist der Grund warum der Schlussfolgerer mit einer relationalen Komponente - H2 - entwickelt wurde. Allgemein sind RDBMS dafür ausgelegt große Datenmengen zu verwalten und schnelle Antworten auf Anfragen auf die vorhandenen Daten liefern zu können. Im Abschnitt \ref{abschnitt-mema-prinzip} wird darauf eingegangen wie eine OWL2 RL Ontologie in einem RDBMS abgespeichert wird und in Abschnitt \ref{abschnitt-laden-einer-ontologie} wie die Konstrukte dafür umgewandelt werden.
 
-Der zweite Punkt ist der forward-chaining Ansatz. Das Schlussfolgern in u2r3 basiert auf Regeln, die Fakten neue Fakten ableiten können. Dieser Ansatz sorgt dafür das die Regelanwendung erst gestoppt wird, wenn keine Regel mehr neue Fakten erzeugen kann. Entsprechend dem OWL2 RL Fragment sind dann alle Fakten abgeleitet, die abgeleitet werden können. Wie die Regeln zur Anwendung kommen wird im Abschnitt \ref{abschnitt-regelanwendung} behandelt.
+Der zweite Punkt ist der forward-chaining Ansatz. Das Schlussfolgern in u2r3 basiert auf Regeln, die aus Fakten neue Fakten ableiten können. Dieser Ansatz sorgt dafür das die Regelanwendung erst gestoppt wird, wenn keine Regel mehr neue Fakten erzeugen kann. Entsprechend dem OWL2 RL Fragment sind dann alle Fakten abgeleitet, die abgeleitet werden können. Wie die Regeln zur Anwendung kommen wird im Abschnitt \ref{abschnitt-regelumsetzung-owl2-rl} behandelt.
 
 \begin{figure}[htb]
 \begin{center}
 	\scalebox{0.3}{
 		\includegraphics{images/u2r3-konzeption.pdf}
-  	}
-  \caption{Das Konzept des u2r3 Reasoner}
-  \label{image-konzept}
+	}
+	\caption{Das Konzept des u2r3 Reasoner}
+	\label{image-konzept}
 \end{center}
 \end{figure}
 Das Konzept in Abb. \ref{image-konzept} ist daher ein relativ geradliniger Ablauf. Es wird eine Ontologie in den Schlussfolgerer geladen. Dieser verarbeitet die Ontologie, d.h. er erzeugt alle ableitbaren Fakten. Danach kann man über eine Anwendung Anfragen an die Ontologie stellen.
@@ -20,11 +20,11 @@ Das Konzept in Abb. \ref{image-konzept} ist daher ein relativ geradliniger Ablau
 
 \section{Wissensrepräsentation in Zusammenhang mit einem Schlussfolgerer}
 
-Die Formalismus einer Wissensrepräsentation hängt nicht direkt mit dem Kalkül zusammen, wenn man allerdings über die gewünschte Wissensrepräsentation bescheid weiß, ist es möglich den Schlussfolger daraufhin zu optimieren. Im Falle dieser Arbeit wird mit einer Wissensrepräsentation gearbeitet -- OWL2 RL -- und der Schlussfolgerer ist daraufhin optimiert, die in der Sprache repräsentierten Kriterien, wie Entscheidbarkeit und Komplexität zu erreichen.
+Der Formalismus einer Wissensrepräsentation hängt nicht direkt mit dem Kalkül zusammen, wenn man allerdings über die gewünschte Wissensrepräsentation bescheid weiß, ist es möglich den Schlussfolger daraufhin zu optimieren. Im Falle dieser Arbeit wird mit einer Wissensrepräsentation gearbeitet -- OWL2 RL -- und der Schlussfolgerer ist daraufhin optimiert, die in der Sprache repräsentierten Kriterien, wie Entscheidbarkeit und Komplexität zu erreichen.
 
-Das bedeutet zum einen, das wenn die Sprache entscheidbar ist, also es einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
+Das bedeutet zum einen, das wenn die Sprache entscheidbar ist, es einen terminierenden Alogrithmus gibt. Das ist durch zwei Dinge zu erreichen, ein gutes Design, welches diesen Algorithmus überhaupt ermöglicht und eine fehlerfreie Programmierung. Diese beiden Dinge sind natürlich nie so in der Praxis zu ereichen, aber es wurde versucht den Code und die Architektur so einfach und verständlich wie möglich zu halten, um Fehler schnell zu finden.
 
-Die Komplexität einer Sprache gibt nur eine obere Schranke, den sog. \emph{worst-case} an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nahe an der Definition der Sprache umgesetzt werden und somit auch nicht schlechter als die theoretischen Komplexität wird.
+Zum anderen gibt dieie Komplexität einer Sprache nur eine obere Schranke, den sog. \emph{worst-case} an, der für eine Lösungsfindung nötig ist. Die Umsetzung in einem Programm muss diesen dann erst noch erreichen. Das wird im hier behandelten Schlussfolgerer versucht zu erreichen, indem man sich nur auf eine Wissensrepräsentation konzentriert. Damit können die Regeln zur Wissensgewinnung nahe an der Definition der Sprache umgesetzt werden und somit auch nicht schlechter als die theoretischen Komplexität werden.
 Die anderen Kriterien spielen für den Schlussfolgerer nur eine untergeordnete Rolle.
 
 \input{aufbau-des-schlussfolgerers}

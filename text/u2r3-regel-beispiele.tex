@@ -1,3 +1,13 @@
+\section{Regelumsetzung von OWL2 RL}
+\label{abschnitt-regelumsetzung-owl2-rl}
+In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend des RL Fragments darin zu schlussfolgern.
+
+Die angegebenen Regeln sind korrekt und vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
+
+In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt abgebildet ist und somit die Implementierung leichter zu überprüfen ist.
+Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{abschnitt-regelbeispiele} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
+Wieso und wie das funktioniert wird ebenfalls in diesem Abschnitt an einigen Beispielen und Sonderfällen demonstriert.
+
 \subsection{Regelbeispiele}
 \label{abschnitt-regelbeispiele}
 In diesem Teil der Regelumsetzung wird an konkreten Beispielen gezeigt, wie eine Umsetzung der OWL2 RL Regeln in SQL möglich ist. Die SQL Abfragen benutzen dabei die vorher im MEMA-Prinzip erstellen Relationen
@@ -30,7 +40,7 @@ Bei der Abbildungs der OWL2 RL Regeln in RIF \cite{Reynolds2009} wird nur in vie
 \end{table}
 
 
-Diese Regel \ref{rule-cls-thing} wird einmal zu Beginn in die Liste der Regelanwendungen gesteckt. Sie sorgt dafür das dieses Faktum eingefügt wird.
+Die Regel \ref{rule-cls-thing} wird einmal zu Beginn in die Liste der Regelanwendungen gesteckt. Sie sorgt dafür das dieses Faktum eingefügt wird.
 
 In SQL lautet dies:
 \begin{lstlisting}[language=SQL]
@@ -87,8 +97,8 @@ Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Um
 
 \begin{enumerate}
   \item Was passiert wenn eine Zeile eingefügt werden soll, die schon enthalten ist?
-  \item Wie würde man hier die Delta-Iteration einsetzen können, um nicht immer auf alle Fakten schließen zu müssen?
-  \item Wie kann man die Entstehungsgeschiechte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen.
+  \item Wie würde man hier die delta-Iteration einsetzen können, um nicht immer auf alle Fakten schließen zu müssen?
+  \item Wie kann man die Entstehungsgeschiechte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen?
 \end{enumerate}
 
 Diese Punkte werden jeweils in ihren speziellen Abschnitten behandelt. Um die Beispiele nicht unnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
@@ -108,7 +118,8 @@ Ein komplexeres Beispiel ist die Verknüpfung von Fakten, um auf neue Fakten sch
 Die Verknüpfung wird durch einen JOIN auf die entsprechende Spalte realisiert.
 
 \begin{lstlisting}[language=SQL]
-INSERT INTO objectPropertyAssertion(subject, object, property)
+INSERT INTO objectPropertyAssertion 
+	(subject, object, property)
 SELECT sa.right, opa.property, opa.object
 FROM objectPropertyAssertion AS opa
 INNER JOIN sameAs AS sa
@@ -119,7 +130,7 @@ INNER JOIN sameAs AS sa
 Dabei können Listenregeln auch Regeln sein die neue Fakten erzeugen oder Inkonsistenzen überprüfen. Eine Inkonsistenzregel mit einer Liste ist z.B. prp-adp:
 \begin{table}[htb]
 \begin{center}
-	\begin{tabular}{M{7cm}|M{1.2cm}|M{2.5cm}}
+	\begin{tabular}{M{7.5cm}|M{1.2cm}|M{2.5cm}}
 	if & then & \\ \hline
 	T(?x, rdf:type, owl:AllDisjointProperties),\newline
 	T(?x, owl:members, ?y),\newline
@@ -133,7 +144,7 @@ Dabei können Listenregeln auch Regeln sein die neue Fakten erzeugen oder Inkons
 \end{table}
 
 
-Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert dese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
+Bei der Erstellung der Abfrage kann man rein schematisch vorgehen. Es werden alle Relation auf den Variablen mit den gleichen Namen gejoint. Liefert diese Abfrage ein Ergebnis zurück ist eine Inkonsistenz vorhanden.
 
 \begin{lstlisting}[language=SQL]
 SELECT 1
@@ -144,7 +155,8 @@ INNER JOIN objectPropertyAssertion AS opa1
 	ON opa1.property = l.property
 INNER JOIN objectPropertyAssertion AS opa2
 	ON opa2.property = l.property
-WHERE opa1.subject = opa2.subject AND opa1.object = opa2.object
+WHERE opa1.subject = opa2.subject
+	AND opa1.object = opa2.object
 	AND ca.class = 'owl:AllDisjointProperties'
 \end{lstlisting}
 
@@ -210,13 +222,13 @@ CROSS JOIN classAssertionLit AS ca2
 WHERE isSameLiteral(ca1.literal, ca2.literal)
 \end{lstlisting}
 
-Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenbankoperationen ist, außerdem können Literale nicht mit den üblichen Datenbankoperatoren verglichen werden. Hierzu wurde eine eigene Datenbankmethode geschrieben die dies übernimmt. Die Datenbankmethode ruft eine Java-Routine auf, die dann den eigentlichen Vergleich vornimmt. Diese beiden Verlangsamungen sind noch nicht genug. In der aktuellen IMplementierung sind nicht gleich alle Literal in der Relation, sondern können später noch hinzukommen, d.h. das diese Regel öfters aufgerufen werden kann. Hier ist also noch Potential für eine Optimierung vorhanden.
+Zum einen wird hier ein CROSS JOIN verwendet der eine der aufwendigsten Datenbankoperationen ist, außerdem können Literale nicht mit den üblichen Datenbankoperatoren verglichen werden. Hierzu wurde eine eigene Datenbankmethode geschrieben, die dies übernimmt. Die Datenbankmethode ruft eine Java-Routine auf, die dann den eigentlichen Vergleich vornimmt. Diese beiden Verlangsamungen sind noch nicht genug. In der aktuellen Implementierung sind nicht gleich alle Literal in der Relation, sondern können später noch hinzukommen, d.h. das diese Regel öfters aufgerufen werden kann. Hier ist also noch Potential für eine Optimierung vorhanden.
 
 
 \subsubsection{Spezialfälle} 
 In die Kategorie der Spezialfälle fallen drei Regeln aus OWL2 RL. Sie haben im Gegensatz zu den anderen Regeln eine variable Anzahl von Fakten in der Prämisse. Diese Fakten sind allerdings nur indirekt über eine Liste verknüpft.
 
-Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigenschaften.
+Die erste Regel ist \emph{prp-spo2}, sie erweitert eine Liste in eine Kette von Eigenschaften.
 \begin{table}[htb]
 \begin{center}
 	\begin{tabular}{m{7cm}|m{3cm}}
@@ -233,7 +245,7 @@ Die erste Regel ist prp-spo2, sie erweitert eine Liste in eine Kette von Eigensc
 	\label{rule-prp-spo2}
 \end{table}
 
-Die Kette muss dabei einen Start und ein Ende haben und die Glieder der Kette müssen untereinander verbunden sein. Die Variable ?u2 wird einmal als object und einmal als subject verwendet. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neues Faktum.
+Die Kette muss dabei einen Start und ein Ende haben und die Glieder der Kette müssen untereinander verbunden sein. Die Variable \emph{?u2} wird einmal als object und einmal als subject verwendet. Wenn das so ist ergeben der Start, die Eigenschaft und das Ende einen neues Faktum.
 
 Diese Regel ist in SQL in zwei Schritten übersetzt worden. Zunächst eine Hilfsabfrage die in der späteren Abfrage mehrmals verwendet wird.
 
@@ -275,21 +287,21 @@ FROM   (SELECT   lname,
         HAVING   COUNT(lname) = anz) AS thel
        INNER JOIN (SELECT lname,
                           start
-                   FROM   (--- Unterabfrage fuer Vorgaenger ---)
+                   FROM  (/* Unterabfrage fuer Vorgaenger */)
                    WHERE  vorgaenger IS NULL) AS start
          ON start.lname = thel.lname
        INNER JOIN (SELECT lname,
                           ende
-                   FROM   (--- Unterabfrage fuer Nachfolger ---)
+                   FROM  (/* Unterabfrage fuer Nachfolger */)
                    WHERE  nachfolger IS NULL) AS ende
          ON ende.lname = thel.lname
        INNER JOIN propertyChain AS pc
          ON pc.list = thel.lname
 \end{lstlisting}
 
-Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoined.
+Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoint.
 
-Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja wird es der Klasse dieser Schnittmenge hinzugefügt.
+Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja, wird es der Klasse dieser Schnittmenge hinzugefügt.
 \begin{table}[htb]
 \begin{center}
 	\begin{tabular}{m{5cm}|m{3.5cm}}
@@ -333,7 +345,7 @@ Diese Abfrage wurde auch wesentlich vereinfacht. Für die Abspeicherung einer Hi
 
 Die aktuelle Umsetzung kann im Wiki oder im Code gefunden werden.
 
-Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die die Individuen gleich.
+Die dritte Abfrage prp-key überprüft ob zwei Individuen das Gleiche sind. Dies geschieht an Hand einer Liste  von Key-Eigenschaften, wenn diese übereinstimmen sind auch die Individuen gleich.
 \begin{table}[htb]
 \begin{center}
 	\begin{tabular}{m{4.5cm}|m{4cm}}
@@ -404,3 +416,9 @@ FROM hasKey AS hk
      INNER JOIN (--- ...Unterabfrage... ---) AS valid2
                 ON valid2.subject = ca2.entity
 \end{lstlisting}
+
+\subsection{Regeloptimierung}
+
+Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hier verschiedene Möglichkeiten diesen Prozess zu beeinflussen und damit auf spezielle Bedürfnisse anpassen zu können. Daher wurde im vorangehenden Abschnitt nur die allgemeine Umsetzung der Abfragen vorgestellt, die alle spezielleren Anwendungen gemeinsam haben.
+
+Die Struktur der Umsetzung der Regeln in SQL ist zwar fix, aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implementiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.

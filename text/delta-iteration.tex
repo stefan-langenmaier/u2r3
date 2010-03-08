@@ -1,9 +1,7 @@
 \section{Delta-Iteration}
 \label{abschnitt-delta-iteration}
 
-Unabhängig von der Art der delta-Iteration muss immer der Ausführungskontext bekannt sein, d.h. welche delta-Iteration ist aktiv, auf welches delta wird gearbeitet. Ein delta muss dabei die Information enthalten auf welcher Relation es arbeitet und auf welchen Teil.
-
-Zum Ausführungskontext gehört je nach Modus auch noch die Information, ob die Regel schon auf das Ziel delta angewendet wurde.
+Unabhängig von der Art der delta-Iteration muss immer der Ausführungskontext bekannt sein, d.h. welche delta-Iteration ist aktiv, auf welches delta wird gearbeitet. Ein delta muss dabei die Information enthalten auf welcher Relation es arbeitet und auf welchen Teil. Zum Ausführungskontext gehört je nach Modus auch noch die Information, ob eine Regel schon auf das Ziel delta angewendet wurde.
 
 Die delta-Iteration ist ein Verfahren, um bei Regelanwendungen, die Datenmenge so zu reduzieren, das nur solche enthalten sind, die noch nicht berücksichtigt wurden und somit die tatsächlich zu betrachtenden Menge zu reduzieren.
 
@@ -11,24 +9,25 @@ Während der ersten Entwicklung sind dabei zwei Varianten der delta-Iteration kl
 
 \subsection{Immediate delta-Iteration}
 
-Hierbei erzeugt jede Regelanwendung sofort ihr eigenes Delta, mit dem weitergearbeitet werden kann.
+Hierbei erzeugt jede Regelanwendung sofort ihr eigenes Delta, mit dem weitergearbeitet werden kann. Wenn Zeilen erzeugt wurden, wird sofort das dazugehörige Delta erzeugt und dafür alle notwendigen Regelanwendungen ausgelöst.
 
-Wenn Zeilen erzeugt wurden, wird sofort das dazugehörige Delta erzeugt und dafür alle notwendigen Regelanwendungen ausgelöst.
-
-Im folgenden ist ein Beispiel gegeben, wie der Ablauf bei der Anwendung einer Regel ist die neue Fakten erzeugt hat und wie diese dann verarbeitet wird.
-
-Angenommen die Regel eq-ref-s erzeugt neue Fakten, diese landen in einem delta der sameas Relation. Das löst eine ``Reason'' aus mit der Information welches delta neue Fakten enthalten hat. Wenn der Regelprozessor diese erhält erzeugt er für diese Kombination sog. RuleActions, d.h. er bringt alle Regeln die auf diesem delta arbeiten in eine Warteschlange. Zu jeder Regel speichert er den Ausführungskontext, auf den sie angewendet werden soll mit ab. Die RuleActions warten dann bis sie zur Ausführung gebracht werden.
+Im folgenden ist ein Beispiel gegeben, wie der Ablauf bei der Anwendung einer Regel ist die neue Fakten erzeugt hat und wie diese dann verarbeitet wird. Angenommen die Regel \emph{eq-ref-s} erzeugt neue Fakten, diese landen in einem Delta der \emph{sameas}-Relation. Das löst eine ``Reason'' aus mit der Information welches Delta neue Fakten enthalten hat. Wenn der Regelprozessor diese erhält erzeugt er für diese Kombination sog. RuleActions, d.h. er bringt alle Regeln die auf diesem delta arbeiten in eine Warteschlange. Zu jeder Regel speichert er den Ausführungskontext, auf den sie angewendet werden soll mit ab. Die Regelanwendungen warten dann bis sie zur Ausführung gebracht werden.
 
 \begin{verbatim}
 Regel: eq-ref-s //neue Fakten
 => delta sameas
    => new Reason(sameas, delta)
-      => new RuleAction(rule1, delta)
-         new RuleAction(rule2, delta)
-         ...
+      => new RuleAction(eq-sym, delta)
+         new RuleAction(eq-trans, delta)
+         new RuleAction(eq-rep-s, delta)
+         new RuleAction(eq-rep-p, delta)
+         new RuleAction(eq-rep-o, delta)
+         new RuleAction(eq-diff1, delta)
+         new RuleAction(eq-diff2, delta)
+         new RuleAction(eq-diff3, delta)
 \end{verbatim}
 
-Der RuleProcessor ist dann auch verantwortlich die Ausführung der RuleActions zu starten. Das passiert in einer Schleife, die die Elemente der Warteschlange abarbeitet bis keine weiteren Elemente vorhanden sind.
+Der Regelprozessor ist dann auch verantwortlich die Ausführung der Regelanwendungen zu starten. Das passiert in einer Schleife, die die Elemente der Warteschlange abarbeitet bis keine weiteren Elemente vorhanden sind.
 
 Dies ist im folgenden Code \ref{code-immediate-delta-iteration} schematisch dargestellt:
 
@@ -51,13 +50,11 @@ while(action = rulesToApply.popAction()) {
 
 Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, da soviele Actions wie möglich gleizeitig angewand werden können. Die Parallelisierung ist eines der Ziele die eventuell in der Zukunft umgesetzt werden sollen.
 
-Der Nachteil ist das viele Deltas gleichzeitg entstehen und insgesamt mehr Regel angewendet werden müssen. Die deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber eine Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es istnicht unbedingt klar wie sich das auf ein DBMS auswirkt.
+Der Nachteil ist das viele Deltas gleichzeitg entstehen und insgesamt mehr Regel angewendet werden müssen. Die Deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber ein Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es ist nicht unbedingt klar wie sich das auf ein DBMS auswirkt.
 
 \subsection{Collective delta-Iteration}
 
 Vom aktuellen Stand einer Relation werden erst einmal alle Änderungen in einer Hilfsrelation gesammelt. Sind alle abgearbeitet, wird das Delta erstellt und die nächste Phase beginnt.
-
-Wenn Zeilen erzeugt werden, dann kommen diese ersteinmal in eine Hilfsrelation, bis alle Rgeln, die sich diese Relation berufen abgearbeitet sind. Dann wird das Delta erzeugt und hinzugefügt.
 
 \begin{verbatim}
 Regel: sameas-eq-ref-s //neue Fakten
@@ -73,7 +70,7 @@ do {
 		action.rule.apply(action.delta);
 	}
 }
-while (applyRelations()); //WAIT
+while (applyRelations()); //WAIT --- SYNC
 
 boolean applyRelations() {
 	for(r : relations)
@@ -93,15 +90,15 @@ applyAux() {
 Vorteile:
 \begin{itemize}
   \item Es gibt immer nur eine Hilfsrelation und ein Delta, also eine fixe Anzahl an Tabellen.
-  \item Es werden evtl. größere Menge an neuen Fakten zusammengefasst. (Muss nicht notwendiger weise gut sein.)
+  \item Es werden evtl. größere Menge an neuen Fakten zusammengefasst. Das muss nicht notwendiger weise gut sein.
 \end{itemize}
 
 Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werden kann, da zu gewissen Zeitpunkten (Zeile 6), die Regelanwendung unterbrochen wird und die Ausführung wieder synchronisiert werden muss.
 
 \subsection{Simulation}
 
-Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neues Reason an den Regelprozessor schicken, sondern es gibt eine eigene Phase nach dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
+Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neue Hinweise an den Regelprozessor schicken, sondern es gibt eine eigene Phase nach dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
 
-Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wirde. Die alte Hilfstabllle wird zum delta der aktuellen Runde.
+Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wirde. Die alte Hilfstabelle wird zum Delta der aktuellen Runde.
 
 Die Implementierung des u2r3 unterstützt beide Varianten der delta-Iteration. Diese können in der Konfigurationsdatei mit der Option DeltaIteration verändert werden. Gültige Werte sind \emph{COLLECTIVE} oder \emph{IMMEDIATE}.

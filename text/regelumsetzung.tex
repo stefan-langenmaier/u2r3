@@ -1,4 +1,5 @@
 \section{Regelumsetzung allgemein}
+\label{abschnitt-regelumsetzung}
 Regeln sind hier sogenannte Inferenzprozeduren, das sind automatisierte Verfahren zur Berechnung logischer Folgerungen. Inferenzenprozeduren sind bereits aus der Aussagenlogik bekannt.
 
 \begin{table}[htb]
@@ -46,24 +47,6 @@ Abbildung \ref{table-invalid-inferred} ist z.B. kein gültiger Schluss.
 
 Eine Menge von vernünftigen Ableitungsregeln zu finden ist keine leichte Aufgabe. Dabei eine möglichst große Ausdrucksmächtigkeit zu erhalten, ohne die Komplexität der Regeln aus den Augen zu verlieren wurde versucht mit dem OWL2 RL Fragement zu erreichen.
 
-
-\section{Regelumsetzung von OWL2 RL}
-
-In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend des RL Fragments darin zu schlussfolgern.
-
-Die angegebenen Regeln sind korrekt und vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
-
-In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt abgebildet ist und somit die Implementierung leichter zu überprüfen ist.
-Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{abschnitt-regelbeispiele} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
-Wieso und wie das funktioniert wird ebenfalls in diesem Abschnitt an einigen Beispielen und Sonderfällen demonstriert.
-
-\input{delta-iteration}
-
 \input{u2r3-regel-beispiele}
 
-
-\subsection{Regeloptimierung}
-
-Die Regelanwendungen sind der teuerste Teil im Programmablauf, darum gibt es hier verschiedene Möglichkeiten diesen Prozess zu beeinflussen und damit auf spezielle Bedürfnisse anpassen zu können. Daher wurde im vorangehenden Abschnitt nur die allgemeine Umsetzung der Abfragen vorgestellt, die alle spezielleren Anwendungen gemeinsam haben.
-
-Die Struktur der Umsetzung der Regeln in SQL ist zwar fix, aber durch gewisse Optimierungen abhängig vom Ausführungskontext. Zum einen wurden zwei verschiedene Varianten der delta-Iteration implementiert und zum anderen müssen die Regeln, wenn ein kaskadierender Löschmodus aktiv ist auch Informationen mitführen, welche Fakten das aktuelle Faktum erzeugt haben.
+\input{delta-iteration}

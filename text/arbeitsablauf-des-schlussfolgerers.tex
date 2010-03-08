@@ -21,16 +21,16 @@ Die sonstigen Bereich erledigen dabei das folgende:
 
 \subsection{OWLAPI Anbindung}
 
-Der obere Teil ist die sogenannte OWLAPI. Die OWLAPI ist eine Bibliothek die das Auslesen von Ontologien in verschiedenen Formaten erlaubt und eine Schlussfolgererschnittstelle für andere Programme zur Verfügung stellt. Durch die Implementierung dieser Schnittstelle in U2R3 ist es für alle Programme zugänglich die mit der OWLAPI arbeiten.
-Die Schnittstelle stellt dabei auch eine Liste typischer Abfragen für einen Reasoner dar und kann allein dadurch schon als Messlatte für die Fähigkeiten eines Schlussfolgerers verwendet werden. Das OWLAPI-Projekt ist open-source und in Java implementiert und ist damit auch optimal für die Implementierung von U2R3 geeignet. Neben der reinen Parsertätigkeit kann die OWLAPI auch noch helfen zu überprüfen, ob eine Ontologie im OWL2 RL Profil liegt und nimmt damit weitere Arbeit ab.
+Der obere Teil ist die sogenannte OWLAPI. Die OWLAPI ist eine Bibliothek die das Auslesen von Ontologien in verschiedenen Formaten erlaubt und eine Schlussfolgererschnittstelle für andere Programme zur Verfügung stellt. Durch die Implementierung dieser Schnittstelle in u2r3 ist es für alle Programme zugänglich die mit der OWLAPI arbeiten.
+Die Schnittstelle stellt dabei auch eine Liste typischer Abfragen für einen Reasoner dar und kann allein dadurch schon als Messlatte für die Fähigkeiten eines Schlussfolgerers verwendet werden. Das OWLAPI-Projekt ist open-source und in Java implementiert und ist damit auch optimal für die Implementierung von u2r3 geeignet. Neben der reinen Parsertätigkeit kann die OWLAPI auch noch helfen zu überprüfen, ob eine Ontologie im OWL2 RL Profil liegt und nimmt damit weitere Arbeit ab.
 
 \subsection{Das Laden einer Ontologie}
+\label{abschnitt-laden-einer-ontologie}
+Die Inhalte einer Ontolgie, die für das Schlussfolgern wichtig sind, sind die Axiome. Axiome sind dabei Fakten die als allgemein gültig angenommen werden. Sie dienen dazu das Universum der Ontologie zu modellieren und einen Startpunkt für weitere Schlussfolgerungen zu erzeugen.
 
-Die Inhalte einer Ontolgie die für das Schlussfolgern wichtig sind, sind die Axiome. Axiome sind dabei Fakten die als allgemein gültig angenommen werden. Sie dienen dazu das Universum der Ontologie zu modellieren und einen Startpunkt für weitere Schlussfolgerungen zu erzeugen.
+Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes Axiom genau eine Relation vorgesehen. Falls die Ontologie nicht OWL2 RL konform ist müssen für gewisse Axiome implizite Informationen abgelegt, wie. z.B. in der Regel \ref{rule-impl} zu sehen ist.
 
-Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes Axiom genau eine Relation vorgesehen. Falls die Ontologie nicht OWL2 RL konform ist müssen für gewisse Axiome implizite Informationen abgelegt, wie. z.B.
-
-\begin{table}
+\begin{table}[htp]
 	\caption{Eine implizite Regel}
 	\label{rule-impl}
 \begin{center}
@@ -56,7 +56,7 @@ In folgendem Beispiel soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubset
 \end{equation}
 Wenn ein Ausdruck nicht direkt abgespeichert werden kann, dann wird für den Unterausdruck eine \emph{NodeID} erzeugt. Im obigen Beispiel werden drei Stück davon erzeugt. Diese stehen stellvertretend für den Unterausdruck. Es wird dann rekursiv weitergearbeitet bis alle in einfache Ausdrücke aufgelöst werden konnte.
 
-Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis an Regelprozessor geschickt neue Regelanwendungen in seine Warteschlange mitaufzunehmen. Der Hinweis an den Regelprozessor wird im folgenden oft auch als \emph{Reason} bezeichnet.
+Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis an den Regelprozessor geschickt neue Regelanwendungen in seine Warteschlange mitaufzunehmen. Der Hinweis an den Regelprozessor wird im folgenden oft auch als \emph{Reason} bezeichnet.
 Der Regelprozessor überprüft diesen Hinweis und leitet daraus Regelanwendungen ab die er in einer Warteschleife abspeichert.
 
 \subsection{Das Schlussfolgern in einer Ontologie}
@@ -73,18 +73,18 @@ Der OWL2 RL Regelsatz garantiert dabei, das es immer zu einem Ende der Regelanwe
 \subsubsection{Auswertungsstrategien}
 Die Auswertungstrategie beschreibt in welcher Reihenfolge der Regelprozessor die Anwendung von Regeln auslöst. 
 
-Der naive Ansatz wäre alle Regeln nacheinander auszuführen, d.h. alle Regeln die implementiert sind anwenden, wenn eine der Regeln dabei neue Fakten erzeugt muss dieser Vorgang wiederholt werden. Dieses Vorgehen ist trotz seiner leichten Umsetzbarkeit nicht implementiert, da der Reasoner damit unnötig viel Arbeit verrichten müssste.
+Der naive Ansatz wäre alle Regeln nacheinander auszuführen, d.h. alle Regeln die implementiert sind anwenden, wenn eine der Regeln dabei neue Fakten erzeugt muss dieser Vorgang wiederholt werden. Dieses Vorgehen ist trotz seiner leichten Umsetzbarkeit nicht implementiert, da der Reasoner damit unnötig viel Arbeit verrichten müsste.
 
 Ein etwas fortgeschrittener Ansatz ist es die Abhängigkeiten der Regeln auszunutzen, d.h. nur wenn für die Prämisse einer Regel überhaupt Fakten vorhanden sind kann diese ausgelöst werden. Das heißt im konkreten, wenn eine Relation die in einer Regel in der Prämisse verwendet wird neue Daten enthält, dann muss diese Regel ausgelöst werden. Dieses Verfahren ist im Schlussfolgerer so umgesetzt.
 
-Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst wird dann zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
+Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst, dann wird zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
 
 Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrere Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
 
 In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
 
 \subsubsection{Regelauslösung}
-Für jede Manipulation der Datenbank (DELETE/INSERT) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Actions aus, je nachdem welche Regeln davon betroffen sind [\ref{diagram-ruleexecution1}].
+Für jede Manipulation der Datenbank (Hinzufügung/Löschung) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Regelanwendungen aus, je nachdem welche Regeln davon betroffen sind [\ref{diagram-ruleexecution1}].
 
 \begin{figure}[htp]
 \begin{center}
@@ -121,11 +121,11 @@ Bei der Erzeugung einer Reason sind dabei zwei Dinge wichtig. Das Delta, das sin
 \subsection{Das Abfragen einer Ontologie}
 Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen Ausdruck und möchte überpürfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur ja oder nein zurück. Die zweite Art von Abfrage möchte eine Ergebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
 
-Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-Abfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden egal on die SQL-ABfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
+Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-Abfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden, egal ob die SQL-Abfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
 
 \subsubsection{Komplexe Ausdrücke finden}
 
-Komplexe Ausdrücke sind OWL Ausdrücke die sich aus einem oder mehr Unterausdrücke zusammensetzt. Für die Abspeicherung in u2r3 sind es alle Ausdrücke, die sich nicht direkt in eine Relation abspeichern lassen, sondern auf mehrere Relationen verteilen lässt. In der OWLAPI sind es alle Objekte die keine eigene IRI haben.
+Komplexe Ausdrücke sind OWL-Ausdrücke die sich aus einem oder mehr Unterausdrücken zusammensetzen. Für die Abspeicherung in u2r3 sind es alle Ausdrücke, die sich nicht direkt in eine Relation abspeichern lassen, sondern auf mehrere Relationen verteilen lässt. In der OWLAPI sind es alle Objekte, die keine eigene IRI haben.
 
 Das Suchen nach einem komplexen Ausdruck gestaltet sich nicht so einfach wie vorher beschrieben, da die Abfrage nicht vollständig vorformliert werden kann, da die Unterausdrücke von unterschiedlicher Natur sind und auch die Tiefe und Verschachtelung der Ausdrücke nicht von vorneherein bekannt ist.
 
@@ -133,6 +133,4 @@ Als Lösung dafür kommen zwei Verfahren in Betracht. Erstens man führt einen n
 
 Darum ist das zweite Verfahren, das Aufbauen einer SQL-Abfrage. Diese kann dann zwar erst zur Laufzeit aufgebaut werden und ist schwerer für das RDBMS zu beantworten. Ein erneutes Schlussfolgern erübrigt sich aber. Das Aufbauen der SQL-Abfrage läuft dabei auch rekursiv ab. Die Unterausdrücke werden zu Unterabfragen in dem erstellten SQL-Ausdruck. Man setzt die Rekursion solange fort bis alle Unterausdrücke bei einfachen Ausdrücken angekommen sind.
 
-\subsection{Zurückziehen von Fakten}
-Das Einfügen von Fakten, die man löschen will, um herauszufinden, welche gleich sind, um sie danach wieder zu löschen macht keinen großen Sinn. Erstens ist es Recht aufwendig zu implementieren. Zweitens müsste nach dem Einfügen neuer Fakten ersteinmal wieder die Ableitungsregeln ausgeführt werden. Das zerstört den Vorteil, den man sich durch forward-chaining mit direct-materialisation erkauft hat sofort wieder und bringt außerdem auch Nachteile mit sich wenn man noch nicht komplett fertig war mit dem Schlussfolgern.
-Daher muss es ein Verfahren geben die zu löschenden Fakten zu finden ohne sie vorher einfügen zu müssen.
+Beim Zurückziehen von Fakten kann man das selbe Verfahren verwenden, um die komplexen Ausdrücke zu finden die man löschen möchte.

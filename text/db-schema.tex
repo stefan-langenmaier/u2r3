@@ -1,4 +1,4 @@
-Die Gattung der relational database management systems wird shcon seit den 1970er Jahren entwickelt. Sie entstammen nicht nur dem theoretischen Gebiet, sondern freuen sich vor allem in der Praxis großer Beliebtheit. Durch die einheitliche Abfragesprache SQL sind fast alle heutigen Systeme anzusprechen. Dadurch konnte sich eine Vielzahl von Systemen auf dem Markt etablieren. Durch diese Auswahl kann man sich aussuchen, welches System am  besten zu den gewünschten Anforderung passt und bei Änderungen der Anforderungen kann das System leicht durch ein anderes ausgetauscht werden. Durch den hohen Einsatz in der PRaxis haben sich äußerst robuste, schnelle und skalierbare Lösungen entwickelt. Durch den Einsatz einens RDBMS bekommt man folgendes Wissen, Erfahrung und Vorteile ``gratis'':
+Die Gattung der \emph{relational database management systems} wird schon seit den 1970er Jahren entwickelt. Sie entstammen nicht nur dem theoretischen Gebiet, sondern freuen sich vor allem in der Praxis großer Beliebtheit. Durch die einheitliche Abfragesprache SQL sind fast alle heutigen Systeme anzusprechen. Dadurch konnte sich eine Vielzahl von Systemen auf dem Markt etablieren. Durch diese Auswahl kann man sich aussuchen, welches System am  besten zu den gewünschten Anforderung passt und bei Änderungen der Anforderungen kann das System leicht durch ein anderes ausgetauscht werden. Durch den hohen Einsatz in der Praxis haben sich äußerst robuste, schnelle und skalierbare Lösungen entwickelt. Durch den Einsatz einens RDBMS bekommt man folgendes Wissen, Erfahrung und Vorteile ``gratis'':
 \begin{itemize}
   \item Schnelle und geprüfte Algorithmen
   \item Robustheit, durch die \emph{ACID}-Eigenschaft auch im parallelisierten Betrieb
@@ -7,7 +7,7 @@ Die Gattung der relational database management systems wird shcon seit den 1970e
   \item geringere Codegröße
 \end{itemize}
 
-In den Diagrammen sind Spalten, die ``fett'' markiert sind mit einem Index ausgestattet. Felder die Unterstrichend sind wurden in der Datenbank als Primärschluss umgesetzt und müssen eindeutig in der Relation sein.
+In den Diagrammen sind Spalten, die ``fett'' markiert sind mit einem Index ausgestattet. Felder die unterstrichen sind wurden in der Datenbank als Primärschlüsses umgesetzt und müssen eindeutig in der Relation sein.
 
 \tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=4cm]
 
@@ -153,7 +153,7 @@ In den Diagrammen sind Spalten, die ``fett'' markiert sind mit einem Index ausge
 \end{center}
 \end{figure}
 
-Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die neue Fakten abgeleitet werden können. Alle anderen Relationen werden nur beim laden einer Ontologie gefüllt und danach nicht mehr verändert.
+Die Abbildung \ref{relations-for-which-data-is-created} stellt die Relationen dar für die neue Fakten abgeleitet werden können. Alle anderen Relationen werden nur beim Laden einer Ontologie gefüllt und danach nicht mehr verändert.
 
 \begin{figure}
 	\caption{Relationen die auf Listen arbeiten}
@@ -214,8 +214,8 @@ Die Abbildung \ref{relations-for-which-data-is-created} sind Relationen für die
 \end{figure}
 Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relationen die mit einer variablen Anzahl von Elementen umgehen und daher mit Listen arbeiten. Es gibt Relationen wie sameAs und differentFrom die mehrere Fakten enthalten können. Hier ist es so festgelegt, das wenn nur ein Paar erzeugt wird, dann wird es in der speziellen Relation abgelegt. Falls die Anzahl größer ist wird es in der members Relation abgelegt. Hier gilt aber ebenfalls das neue Fakten nur für Relationen in der Abbildung \ref{relations-for-which-data-is-created} erzeugt werden können, d.h. es können nur paarweise Daten erzeugt werden und keine Liste.\footnote{Die Bennenung der Spalten ist vereinfacht gegenüber der Umsetzung in der Datenbank, das es hier reservierte Schlüselwörter gibt. Außerdem sind Spalten nicht wirklich von dem angegeben Typ. Es soll damit aufgezeigt werden, das sehr wohl klar ist in welcher Tabelle welche Fakten abgespeichert werden. Auch wenn die Grenzen zwischen A-Box und T-Box verschwimmen, werden sie trotzdem nicht durcheinander gebracht.}
 
-\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=6cm]
 \begin{figure}
+	\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=6cm]
 	\caption{sonstige Relationen}
 	\label{relations-others-1}
 \begin{center}
@@ -274,7 +274,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{right}}: PROPERTY
 		};
 		
-		\node (maxCardinality) [relation, rectangle split, rectangle split parts=2, below of= disjointWith]{
+		\node (maxCardinality) [relation, rectangle split, rectangle split parts=2, below =1cm of disjointWith]{
 				\textbf{maxCardinality}
 			\nodepart{second}
 				id: INT\newline
@@ -292,8 +292,18 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{total}}: CLASS\newline
 				\textbf{\underline{value}}: NUMBER
 		};
-		
-		\node (complementOf) [relation, rectangle split, rectangle split parts=2, below of= maxCardinality]{
+
+	\end{tikzpicture}
+\end{center}
+\end{figure}
+
+\begin{figure}
+	\tikzstyle{relation}=[rectangle, draw=black, rounded corners, fill=white, drop shadow, text justified, anchor=north, text=black, text width=6.5cm]
+	\caption{sonstige Relationen}
+	\label{relations-others-2}
+\begin{center}
+	\begin{tikzpicture}[node distance=2.7cm]
+\node (complementOf) [relation, rectangle split, rectangle split parts=2]{
 				\textbf{complementOf}
 			\nodepart{second}
 				id: INT\newline
@@ -327,7 +337,7 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 				\textbf{\underline{object}}: IND
 		};
 		
-		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2, below = 1cm of negativeObjectPropertyAssertion]{
+		\node (differentFromEnt) [relation, rectangle split, rectangle split parts=2, below = 1.5cm of negativeObjectPropertyAssertion]{
 				\textbf{differentFromEnt}
 			\nodepart{second}
 				id: INT\newline
@@ -349,5 +359,4 @@ Die Relationen aus Abbildung \ref{relations-that-work-on-lists} sind alle Relati
 	\end{tikzpicture}
 \end{center}
 \end{figure}
-
-Die sonstige Relationen aus Abbildung \ref{relations-others-1} sind so umfangreich, da in OWL2 RL fast die komplette Sprachmächtigkeit von OWL2 abbildbar ist.
+Die sonstige Relationen aus Abbildung \ref{relations-others-1} und \ref{relations-others-2} sind so umfangreich, da in OWL2 RL fast die komplette Sprachmächtigkeit von OWL2 abbildbar ist.

@@ -1,19 +1,19 @@
 \section{MEMA-Prinzip}
 \label{abschnitt-mema-prinzip}
-Die Idee des MEMA-Prinzips stammt aus der Diplomarbeit von Timo Weithöhner \cite{Weithoehner}. Es ermöglicht die Abspeicherung einer Ontologie in eine Datenbank mit einem festen Satz von Tabellen. Dies vereinfacht es Regeln in SQL zu erstellen, da diese vorformuliert werden können.
+Die Idee des MEMA-Prinzips stammt aus der Diplomarbeit von Timo Weithöhner \cite{Weithoehner2003}. Es ermöglicht die Abspeicherung einer Ontologie in eine Datenbank mit einem festen Satz von Tabellen. Dies vereinfacht es Regeln in SQL zu erstellen, da diese vorformuliert werden können.
 
 Diese Diplomarbeit hat aufgezeigt, das die Umwandlung und Abspeicherung einer Ontologie in einen fixen Satz von Relationen möglich ist, so dass danach eine effiziente Schlussfolgerung durchgeführt werden kann.
 
 Das ursprüngliche MEMA-Prinzip von Timo Weithöhner ist um folgende Punkte erweitert.
 Es wurde erstmal auf den erweiterten Sprachschatz von OWL2 RL angepasst. Was aber besonders zu erwähnen ist sind die Relationen \emph{list} und \emph{history} \ref{relations-list-history}. Sie speichern keine Axiome wie alle anderen. Die Relation list dient als Hilfstruktur für Axiome, die eine variable Anzahl von Elementen abspeichern. Die Relation history wird benutzt, um den Abhängigkeitsverlauf beim inferieren von Fakten speichern zu können. Damit ist es möglich Ableitungen gezielt wieder rückgängig zu machen. Deswegen sind auch alle anderen Relationen mit einer \emph{id} Spalte ausgestattet, die Axiome bzw. komplexe Unterausdrücke eindeutig identifiziert.
 
-Allgemein wurde bei der Erstellung der Tabellenstruktur darauf geachtet, das die Formulierung der Regeln in SQL vereinfacht wird. So ist im Normalfall die Ergebnismenge einer Regel dadurch zu erhalten, in dem man die beteiligten Relationen miteinander joinet auf den Variablen, die in den Regeln angegeben sind.
+Allgemein wurde bei der Erstellung der Tabellenstruktur darauf geachtet, das die Formulierung der Regeln in SQL vereinfacht wird. So ist im Normalfall die Ergebnismenge einer Regel dadurch zu erhalten, in dem man die beteiligten Relationen auf den Variablen, die in den Regeln angegeben sind, miteinander joinet.
 
 \input{db-schema}
 
 \section{Optimierungen für das MEMA-Prinzip}
 
-Im Paper Classifying $\mathcal{ELH}$ Ontologies in SQL Databases \cite{Delaitre2009} sind interessante Ansätze für Verbesserungen.
+Im Paper Classifying $\mathcal{ELH}$ Ontologies in SQL Databases \cite{Delaitre2009} befinden sich interessante Ansätze für Verbesserungen.
 
 Zum einen wird eine Normalisierung vorgeschlagen. Diese ist über zwei Wege möglich:
 \begin{itemize}
@@ -24,13 +24,13 @@ Zum einen wird eine Normalisierung vorgeschlagen. Diese ist über zwei Wege mög
 
 Desweitern wird beschrieben, wie sie die Leistung beim Laden der Ontologie steigern. Hier werden ebenfalls zwei Tricks verwendet:
 \begin{itemize}
-  \item Zum einen wird die Ontologie \emph{on-the-fly} in die Datenbank geschrieben, d.h. während die Ontologie gelesen wird wird sie auch parallel in die Datenbank geschrieben. Das hat den Vorteil das sie nicht zweimal durchlaufen werden muss. Die OWLAPI lässt zwar auch die Serialisierung direkt in eine Datenbank zu. Das Laden der Ontologie in die OWLAPI und den Schlussfolgerer ist aus den folgenden Gründen entkoppelt. Zum einen kann es sein, dass man die OWLAPI ersteinmal läd und erst später den Schlussfolgerer dazu startet. So ist zumindest der normale Ablauf. Hier würde ein solche Optimierung also nichts bringen. Zweitens müsste man sich bei einer direkten Serialisierung um alle Konstrukte in einer Ontologie kümmern und nicht nur um die, die man zum ableiten verwendet. Es würde also den Schlussfolgerer komplexer in seinem Aufbau machen.
-  \item Es werden Konstrukte immer in eine \emph{in-memory} Relation eingefügt und dann in größeren Blöcken auf einmal rausgeschrieben. Ob diese Optimierung wirklich soviel bringt ist fraglich, da ein gutes Datenbanksystem ein solches Caching von alleine betreiben sollte. Außerdem liegt der Overhead dabei vermutlich eher beim parsen der vielen INSERT Statements. Trotzdem könnte man diese Optimierung in betracht ziehen. Sie wurde ebenfalls aus Komplexitätsgrunden außer Acht gelassen.
+  \item Zum einen wird die Ontologie \emph{on-the-fly} in die Datenbank geschrieben, d.h. während die Ontologie gelesen wird, wird sie auch parallel in die Datenbank geschrieben. Das hat den Vorteil das sie nicht zweimal durchlaufen werden muss. Die OWLAPI lässt zwar auch die Serialisierung direkt in eine Datenbank zu. Das Laden der Ontologie in die OWLAPI und den Schlussfolgerer ist aus den folgenden Gründen entkoppelt. Zum einen kann es sein, dass man die OWLAPI ersteinmal läd und erst später den Schlussfolgerer dazu startet. So ist zumindest der normale Ablauf. Hier würde ein solche Optimierung also nichts bringen. Zweitens müsste man sich bei einer direkten Serialisierung um alle Konstrukte in einer Ontologie kümmern und nicht nur um die, die man zum ableiten verwendet. Es würde also den Schlussfolgerer komplexer in seinem Aufbau machen.
+  \item Es werden Konstrukte immer in eine \emph{in-memory} Relation eingefügt und dann in größeren Blöcken auf einmal auf eine Festlplatte geschrieben. Ob diese Optimierung wirklich soviel bringt ist fraglich, da ein gutes Datenbanksystem ein solches Caching von alleine betreiben sollte. Außerdem liegt der Overhead dabei vermutlich eher beim parsen der vielen INSERT Statements. Trotzdem könnte man diese Optimierung in betracht ziehen. Sie wurde ebenfalls aus Komplexitätsgrunden außer Acht gelassen.
 \end{itemize}
 
 \subsection{Andere Serialisierungsmöglichkeiten}
-Die OWLAPI bietet eine Reihe von Formaten zur Serialisierung von OWL-Ontologien an. Diese sind zum Teil auch in der Spezifikation von OWL erwähnt. Das Problem was allen Formatne gemein ist, ist das es einfach Textformate sind die entweder vollständig in den Hauptspeicher eingelsen werden müssen oder nur sehr langsame Zugriffsmöglihckeiten anbieten.
+Die OWLAPI bietet eine Reihe von Formaten zur Serialisierung von OWL-Ontologien an. Diese sind zum Teil auch in der Spezifikation von OWL erwähnt. Das Problem was allen Formaten gemein ist, ist das es einfach Textformate sind die entweder vollständig in den Hauptspeicher eingelesen werden müssen oder nur sehr langsame Zugriffsmöglichkeiten anbieten.
 
 Dieses Problem wurde schon von mehreren erkannt \cite{Kleb2009ProtegeDB}, \cite{Kleb2009OWLDB} und versucht durch eine Abbildung in einer Datenbank zu lösen.
 
-Hier ist das Problem einerseits, dass sich diese Paper noch mit der OWLAPIv3 beschäftigen nud andererseits ist es ja nicht das Ziel dieser Diplomarbeit  eine Serialisierungsmöglichkeit für eine komplete Ontologie in einer Datenbank zu finden, sondern nur die nötigen Fakten abzulegen, um darauf gut Regeln in SQL abbilden zu können.
+Hier ist das Problem einerseits, dass sich dieses Paper noch mit der OWLAPIv2 beschäftigen und andererseits ist es ja nicht das Ziel dieser Diplomarbeit  eine Serialisierungsmöglichkeit für eine komplette Ontologie in einer Datenbank zu finden, sondern nur die nötigen Fakten abzulegen, um darauf gut Regeln in SQL abbilden zu können.
