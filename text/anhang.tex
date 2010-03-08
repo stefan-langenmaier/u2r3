@@ -2,18 +2,17 @@
 % hier Anhänge einbinden
 
 \section{Projektverwaltung}
-Zur Verwaltung der Diplomarbeit wurde die Weboberfläche Trac eingesetzt. Darin enthalten ist ein Wiki und ein Bugtracker, die den Enticklungsablauf dokumentieren. Der Programmcode wurde in einem SVN Repository verwalter das ebenfalls in Trac integriert war.
+Zur Verwaltung der Diplomarbeit wurde die Weboberfläche Trac eingesetzt. Darin enthalten ist ein Wiki und ein Bugtracker, die den Enticklungsablauf dokumentieren. Der Programmcode wurde in einem SVN Repository verwaltet, das ebenfalls in Trac integriert war.
 
-Die Daten, um dieses System wiederherzustellen sind auf der beiligenden CD enthalten. Darauf befindet isch ebfenfalls eine README mit einer Beschreibung, wie man eine lauffähige Version erstellen kann.
+Die Daten, um dieses System wiederherzustellen sind auf der beiligenden CD enthalten. Darauf befindet sich ebfenfalls eine README mit einer Beschreibung, wie man eine lauffähige Version erstellen kann.
 
 \section{Testfälle}
-Damit überprüft werden kann, ob der Schlussfolgerer korrekt arbeitet wurden Testfälle verwendet. Die Testfälle sind eine Reihe von Ontologien, deren Ergebnis bzw ihre Inkonsistenz bekannt ist.
+Damit überprüft werden kann, ob der Schlussfolgerer korrekt arbeitet wurden Testfälle verwendet. Die Testfälle sind eine Reihe von Ontologien, deren Ergebnis bzw. ihre Inkonsistenz bekannt ist.
 
-Die Testfälle setzten sich dabei aus drei Quellen zusammen. Das ist zum einen die Conformance Test Suite \ref{Schneider2009}, Teile der offiziellen Testsuite des W3C für OWL2 RL \ref{W3CTestsuite} sowie eigenen Testfälle. Alle Testfälle sind im Unterordner \texttt{/ontologien/tests} im Repository. Im Quellcode sind zwei Klassen unter tests.util zu finden, die diese Testfälle zur Ausführung bringen können. Diese Testfälle garantieren natürlich keine Korrektheit des Schlussfolgerers, sie helfen aber dabei das Vertrauen in die Anwendung zu erhöhen und bei Änderungen schneller Fehler zu finden.
+Die Testfälle setzten sich dabei aus drei Quellen zusammen. Das ist zum einen die Conformance Test Suite \cite{Schneider2009}, Teile der offiziellen Testsuite des W3C für OWL2 RL \cite{SWTestcases} sowie eigenen Testfälle. Alle Testfälle sind im Unterordner \texttt{/ontologien/tests} im Repository. Im Quellcode sind zwei Klassen unter tests.util zu finden, die diese Testfälle zur Ausführung bringen können. Diese Testfälle garantieren natürlich keine Korrektheit des Schlussfolgerers, sie helfen aber dabei das Vertrauen in die Anwendung zu erhöhen und bei Änderungen schneller Fehler zu finden.
 
-\section{Systemanforderungen}
 \section{Bibliotheken}
-Die Entwicklung des Schlussfolgerers setzt auf verschiedenen Anwendungen und Bibliotheken auf. Diese dienen teilweise zur Entwicklung, teilweise als Schnittstelle zu anderen Anwendungen und teilweise als Hilfsanwendungen um von komplexen Bereich zu abstrahieren und des Schlussfolgerers möglichst modular halten. Natürlich büerlappen sich diese Bereich auch. Im folgenden wird kurz darauf eingegangen wieso diese Anwendungen und Bibliotheken verwendet wurden und was ihre Rolle in der Entwicklung spielte.
+Die Entwicklung des Schlussfolgerers setzt auf verschiedenen Anwendungen und Bibliotheken auf. Diese dienen teilweise zur Entwicklung, teilweise als Schnittstelle zu anderen Anwendungen und teilweise als Hilfsanwendungen um von komplexen Bereich zu abstrahieren und des Schlussfolgerers möglichst modular halten. Natürlich überlappen sich diese Bereich auch. Im folgenden wird kurz darauf eingegangen wieso diese Anwendungen und Bibliotheken verwendet wurden und was ihre Rolle in der Entwicklung spielte.
 
 \subsection{Entwicklung}
 
@@ -33,7 +32,7 @@ Die hier aufgeführten Anwendungen wurden nur zum entwickeln des Programmcodes u
 \subsection{Laufzeitabhängigkeiten}
 Die hier aufgeführten Programmen und Anwendungen sind für die Ausführung des Schlussfolgerers nötig.
 \begin{itemize}
-  \item OWLAPI v3 \ref{Horridge2009}
+  \item OWLAPI v3 \cite{Horridge2009}
   \item H2 Datenbank
 \end{itemize}
  
