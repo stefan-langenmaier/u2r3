@@ -4,9 +4,7 @@
 
 \section{Abfragen}
 
-\begin{verbatim}
-TEXT
-\end{verbatim}
+Abfragen der Ontologie sind u2r3 im Prinzip durch einfache SLQ-Abfragen der Datenbank umzusetzen, da darin bereits alle gültigen Schlüsse nach dem Schlussfolgern vorliegen.
 
 \subsection{Komplexe Ausdrücke finden}
 Beim Suchen von komplexen Ausdrücken hat man es damit zu tun, das der Ausdruck zur Speicherung in den Relationen aufgeteilt werden musste. Diese Aufteilung ist mit einer sogenannten NodeId passiert, wie sie in der OWLAPI auch für anonyme Individuen verwendet wird. Diese IDs wurden verwandet, um eine Beziehung zwischen Teilen herzustellen. Was aber der Wert dieser IDs war ist bei einer späteren Anfrage nicht mehr bekannt bzw. es ist auch nicht bekannt wie diese auf den komplexen Ausdruck passen sollten oder ob der Ausdruck überhaupt in der geschlussfolgerten Menge liegt.
