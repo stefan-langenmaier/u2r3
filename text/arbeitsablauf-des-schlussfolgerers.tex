@@ -26,7 +26,7 @@ Die Schnittstelle stellt dabei auch eine Liste typischer Abfragen für einen Rea
 
 \subsection{Das Laden einer Ontologie}
 \label{abschnitt-laden-einer-ontologie}
-Die Inhalte einer Ontolgie, die für das Schlussfolgern wichtig sind, sind die Axiome. Axiome sind dabei Fakten die als allgemein gültig angenommen werden. Sie dienen dazu das Universum der Ontologie zu modellieren und einen Startpunkt für weitere Schlussfolgerungen zu erzeugen.
+Die Inhalte einer Ontologie, die für das Schlussfolgern wichtig sind, sind die Axiome. Axiome sind dabei Fakten die als allgemein gültig angenommen werden. Sie dienen dazu das Universum der Ontologie zu modellieren und einen Startpunkt für weitere Schlussfolgerungen zu erzeugen.
 
 Alle Axiome werden entsprechend dem MEMA-Prinzip abgelegt. Dabei ist für jedes Axiom genau eine Relation vorgesehen. Falls die Ontologie nicht OWL2 RL konform ist müssen für gewisse Axiome implizite Informationen abgelegt, wie. z.B. in der Regel \ref{rule-impl} zu sehen ist.
 
@@ -56,15 +56,15 @@ In folgendem Beispiel soll der komplexe Ausdruck $A \sqcap \exists p.B \sqsubset
 \end{equation}
 Wenn ein Ausdruck nicht direkt abgespeichert werden kann, dann wird für den Unterausdruck eine \emph{NodeID} erzeugt. Im obigen Beispiel werden drei Stück davon erzeugt. Diese stehen stellvertretend für den Unterausdruck. Es wird dann rekursiv weitergearbeitet bis alle in einfache Ausdrücke aufgelöst werden konnte.
 
-Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis an den Regelprozessor geschickt neue Regelanwendungen in seine Warteschlange mitaufzunehmen. Der Hinweis an den Regelprozessor wird im folgenden oft auch als \emph{Reason} bezeichnet.
-Der Regelprozessor überprüft diesen Hinweis und leitet daraus Regelanwendungen ab die er in einer Warteschleife abspeichert.
+Wenn Fakten in eine Relation geschrieben werden, wird von dieser ein Hinweis an den Regelprozessor geschickt neue Regelanwendungen in seine Warteschlange mit aufzunehmen. Der Hinweis an den Regelprozessor wird im folgenden oft auch als \emph{Reason} bezeichnet.
+Der Regelprozessor überprüft diesen Hinweis und leitet daraus Regelanwendungen ab die er in einer Warteschlange abspeichert.
 
 \subsection{Das Schlussfolgern in einer Ontologie}
-Das Schlussfolgern in einer Ontologie besteht daraus die möglichen Regeln der OWL2 RL Spezifiaktion anzuwenden. Diese Regeln erzeugen neue Fakten oder überprüfen die Konsistenz. Der Schlussfolgerer hat seine Arbeit erledigt, wenn keine Regel neue Fakten erzeugen kann. Das sicherzustellen und dabei möglichst wenige Regeln anzuwenden ist seine Aufgabe. Daher wird im folgenden näher beschrieben, wann welche Regeln ausgelöst werden und in welcher Reihenfolge sie angewendet werden.
+Das Schlussfolgern in einer Ontologie besteht daraus die möglichen Regeln der OWL2 RL Spezifikation anzuwenden. Diese Regeln erzeugen neue Fakten oder überprüfen die Konsistenz. Der Schlussfolgerer hat seine Arbeit erledigt, wenn keine Regel neue Fakten erzeugen kann. Das sicherzustellen und dabei möglichst wenige Regeln anzuwenden ist seine Aufgabe. Daher wird im folgenden näher beschrieben, wann welche Regeln ausgelöst werden und in welcher Reihenfolge sie angewendet werden.
 
 Die abzuarbeitenden Regeln enthalten eine Referenz auf die Fakten, die hinzugekommen sind. Allgemein sind sie so implementiert, das sie nur auf diesen neuen Fakten arbeiten -  auf den sogenannten Deltas - dies ist allerdings nicht in allen Fällen möglich (\emph{cls-int1}), sinnvoll (zu viele verschiedene Kombinationsmöglichkeiten) oder einfach zu komplex und damit fehleranfällig (\emph{prp-spo2}). Falls zwei oder mehrmals eine Regelanwendung auf die selben neuen Fakten erzeugt wird bevor sie ausgelöst wird, werden die beiden Regelanwendungen zu einer reduziert und können je nach Einstellung neu priorisiert werden.
 
-All diese Regeln sind in einer Warteschleife abgelegt, die beim Laden der Ontologie gefüllt wird und beim Abarbeiten, d.h. dem Realisieren, der Ontologie ausgelesen wird.
+All diese Regeln sind in einer Warteschlange abgelegt, die beim Laden der Ontologie gefüllt wird und beim Abarbeiten, d.h. dem Realisieren, der Ontologie ausgelesen wird.
 
 Regeln können durch das Erzeugen von neuen Fakten Hinweise für den Regelprozessor geben der daraufhin weitere Regelanwendungen anlegt und in die Warteschlange einsortiert.
 
@@ -79,12 +79,12 @@ Ein etwas fortgeschrittener Ansatz ist es die Abhängigkeiten der Regeln auszunu
 
 Es wurde allerdings diese Vorgehen noch etwas weiter verbessert. Veränderungen in verschiedenen Tabellen könnten mehrmals die selbe Regel auslösen, da die Regel mehrere Vorbedingungen  hat. Die Regel wird dann nicht mehrfach ausgelöst sondern es werden erst alle Regeln in eine Warteschlange gesammelt. Wird eine neue Regel ausgelöst, dann wird zuerst geschaut, ob diese Regel schon in der Warteschlange vorhanden ist.
 
-Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrere Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
+Außerdem gibt es hier noch eine Optimierungsmöglichkeit, mit der man noch experimentieren kann. Wenn eine Regel in der Warteschlange erneut eingereiht werden soll, kann man sich entscheiden, ob die Regel an ihrer Stelle in der Schlange verbleibt oder ob sie herausgenommen wird und wieder ans Ende gestellt. Welches der beiden Verfahren besser ist muss sich erst noch in der Praxis zeigen.
 
 In der Konfiguration des u2r3 ist diese Einstellungsmöglichkeit unter dem Namen \emph{EvaluationStrategy} zu finden. Gültige Werte dafür sind \emph{COMMONLAST} oder \emph{RARELAST}
 
 \subsubsection{Regelauslösung}
-Für jede Manipulation der Datenbank (Hinzufügung/Löschung) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wieviele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Regelanwendungen aus, je nachdem welche Regeln davon betroffen sind [\ref{diagram-ruleexecution1}].
+Für jede Manipulation der Datenbank (Hinzufügung/Löschung) wird eine Reason ausgelöst. Es wird dabei nur eine Reason ausgelöst, egal wie viele Zeilen von der Manipulation betroffen waren. Eine Reason löst dann weitere Regelanwendungen aus, je nachdem welche Regeln davon betroffen sind [\ref{diagram-ruleexecution1}].
 
 \begin{figure}[htp]
 \begin{center}
@@ -106,7 +106,7 @@ Für jede Manipulation der Datenbank (Hinzufügung/Löschung) wird eine Reason a
 \end{center}
 \end{figure}
 
-Bei der Erzeugung einer Reason sind dabei zwei Dinge wichtig. Das Delta, das sind die neuen Fakten und die Relation, da dort gespeichert ist welche Regeln auf die Relation angewendet werden können. Diese beiden Informationen ergeben eine Reason. Der Regelprozessor legt dann aus der Information in einer Reason evtl. mehrere Regelanwendungen in seiner Wartschleife an. Dieser Ablauf ist in Abb. \ref{diagram-ruleexecution2} dargestellt.
+Bei der Erzeugung einer Reason sind dabei zwei Dinge wichtig. Das Delta, das sind die neuen Fakten und die Relation, da dort gespeichert ist welche Regeln auf die Relation angewendet werden können. Diese beiden Informationen ergeben eine Reason. Der Regelprozessor legt dann aus der Information in einer Reason evtl. mehrere Regelanwendungen in seiner Warteschlange an. Dieser Ablauf ist in Abb. \ref{diagram-ruleexecution2} dargestellt.
 
 \begin{figure}[htp]
 \begin{center}
@@ -119,17 +119,17 @@ Bei der Erzeugung einer Reason sind dabei zwei Dinge wichtig. Das Delta, das sin
 \end{figure}
 
 \subsection{Das Abfragen einer Ontologie}
-Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen Ausdruck und möchte überpürfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur ja oder nein zurück. Die zweite Art von Abfrage möchte eine Ergebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
+Das Abfragen in einer Ontologie lässt sich grundlegend in zwei Arten aufteilen. Erstens man hat einen Ausdruck und möchte überprüfen, ob dieser geschlussfolgert worden ist. Diese Art von Abfrage liefert nur ja oder nein zurück. Die zweite Art von Abfrage möchte eine Ergebnismenge zurück. Dabei ist im Gegensatz zur ersten Art von Abfrage eine Variable in der Abfrage, die gefüllt wird.
 
-Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-Abfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden, egal ob die SQL-Abfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis ereugt werden, so das es dem OWLAPI Format entspricht.
+Bei beiden ist grundsätzlich so, dass das ``Anfrage'' OWL-Konstrukt in eine SQL-Abfrage umgeformt wird. In beiden Fällen kann die Abfrage beantwortet werden, egal ob die SQL-Abfrage etwas zurückbringt oder nicht. Im zweiten Fall muss aber bei einem Ergebnis daraus noch eine Ergebnis erzeugt werden, so das es dem OWLAPI Format entspricht.
 
 \subsubsection{Komplexe Ausdrücke finden}
 
 Komplexe Ausdrücke sind OWL-Ausdrücke die sich aus einem oder mehr Unterausdrücken zusammensetzen. Für die Abspeicherung in u2r3 sind es alle Ausdrücke, die sich nicht direkt in eine Relation abspeichern lassen, sondern auf mehrere Relationen verteilen lässt. In der OWLAPI sind es alle Objekte, die keine eigene IRI haben.
 
-Das Suchen nach einem komplexen Ausdruck gestaltet sich nicht so einfach wie vorher beschrieben, da die Abfrage nicht vollständig vorformliert werden kann, da die Unterausdrücke von unterschiedlicher Natur sind und auch die Tiefe und Verschachtelung der Ausdrücke nicht von vorneherein bekannt ist.
+Das Suchen nach einem komplexen Ausdruck gestaltet sich nicht so einfach wie vorher beschrieben, da die Abfrage nicht vollständig vorformuliert werden kann, da die Unterausdrücke von unterschiedlicher Natur sind und auch die Tiefe und Verschachtelung der Ausdrücke nicht von vornherein bekannt ist.
 
-Als Lösung dafür kommen zwei Verfahren in Betracht. Erstens man führt einen neuen Namen für diesen komplexen Ausdruck ein. Dann muss über die Ontologie nocheinmal geschlossen werden, damit alle Zusammenhänge, die mit diesem komplexen Ausdruck verbunden sind auch mit diesem neuen Namen verbunden sind. Das ist alldergins sehr zeitaufwendig und zerstört den Vorteil dieses Reasoner, da alle Ergebnisse, die man Abfragen kann nach dem Schlussfolgern bereits in der Datenbank vorliegen. Außerdem verbaut man sich damit die Möglichkeit der Approximation beim Schlussfolgern. So muss nämlich erst komplett geschlussfolgert werden bevor eine Anfrage gestellt wird.
+Als Lösung dafür kommen zwei Verfahren in Betracht. Erstens man führt einen neuen Namen für diesen komplexen Ausdruck ein. Dann muss über die Ontologie noch einmal geschlossen werden, damit alle Zusammenhänge, die mit diesem komplexen Ausdruck verbunden sind auch mit diesem neuen Namen verbunden sind. Das ist allerdings sehr zeitaufwendig und zerstört den Vorteil dieses Reasoner, da alle Ergebnisse, die man Abfragen kann nach dem Schlussfolgern bereits in der Datenbank vorliegen. Außerdem verbaut man sich damit die Möglichkeit der Approximation beim Schlussfolgern. So muss nämlich erst komplett geschlussfolgert werden bevor eine Anfrage gestellt wird.
 
 Darum ist das zweite Verfahren, das Aufbauen einer SQL-Abfrage. Diese kann dann zwar erst zur Laufzeit aufgebaut werden und ist schwerer für das RDBMS zu beantworten. Ein erneutes Schlussfolgern erübrigt sich aber. Das Aufbauen der SQL-Abfrage läuft dabei auch rekursiv ab. Die Unterausdrücke werden zu Unterabfragen in dem erstellten SQL-Ausdruck. Man setzt die Rekursion solange fort bis alle Unterausdrücke bei einfachen Ausdrücken angekommen sind.
 
