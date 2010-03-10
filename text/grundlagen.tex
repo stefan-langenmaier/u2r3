@@ -117,7 +117,7 @@ Die Abbildung \ref{image-sprachkomplexitaeten} ist frei nach der Vorlesung/Übun
 		\renewcommand{\arraystretch}{1.2}
 		\begin{tabular}{|M{2cm}|p{2cm}|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
 		\hline
-		\rr Sprache & \rr Schluss\-folger\-ungs\-problem & \rr Komplexität der Taxonmie & \rr Daten\-komplexität & \rr Abfrage Komplexität & \rr Kombinierte Komplexität \tn
+		\rr Sprache & \rr Schluss\-folger\-ungs\-problem & \rr Komplexität der Taxonomie & \rr Daten\-komplexität & \rr Abfrage Komplexität & \rr Kombinierte Komplexität \tn
 		\hline
 		\hline
 		\multirow{3}{*}{OWL-DL} & Ableitung & NEXPTIME-vollständig & Offen & Nicht anwendbar & NEXPTIME-vollständig \\ 
@@ -170,7 +170,7 @@ Die Komplexität beschreibt den theoretischen \emph{worst-case} Aufwand für den
 \end{itemize}
 
 \section{OWL2 RL Eigenschaften}
-Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren zu wollen effizient ableitbar zu sein. Effizient ist dabei im theoretischen Sinne zu verstehen, d.h. die Ableitungsfunktion ist in polynomieller Zeit ausführbar. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, dass sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben, die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragement wurde dabei von DLP \cite{Grosof2003} und pD* \cite{Li2006} inspiriert.
+Das OWL2 RL Sprachfragment wurde speziell für Anwendungsgebiete entwickelt, die die größtmögliche Ausdrucksmächtigkeit benötigen, ohne dabei die Eigenschaft verlieren zu wollen effizient ableitbar zu sein. Effizient ist dabei im theoretischen Sinne zu verstehen, d.h. die Ableitungsfunktion ist in polynomieller Zeit ausführbar. Die Sprachuntermenge von OWL2 wurde dabei so gewählt, dass sie günstig mit einem regelbasierten Ansatz abzuleiten ist. Dazu wurde auch direkt Inferenzregeln angegeben, die diesem Fragment eine Semantik gibt. Der Entwurf dieses Sprachfragment wurde dabei von DLP \cite{Grosof2003} und pD* \cite{Li2006} inspiriert.
 
 Damit fällt OWL2 RL auch in die Kategorie der monotonen Sprachen, das bedeutet wenn neue expliziten Fakten zur Wissensbasis hinzugefügt werden, dann fügen diese zwar durch Ableitung neue implizite Fakten zur Wissensbasis hinzu, aber unter keine Umständen können die expliziten Fakten das Entfernen von bereits abgeleiteten Fakten verursachen. Damit kann das Hinzufügen von neuen Fakten die abgeleitete Wissensbasis nur monoton erweitern.
 
