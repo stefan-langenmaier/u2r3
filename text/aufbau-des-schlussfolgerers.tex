@@ -41,9 +41,9 @@
 	\end{tikzpicture}
 \end{figure}
 
-Das Klassendiagram in Abbildung \ref{schema-aufbau-u2r3} stellt den vereinfachten Aufbau des Schlussfolgerers dar. Die Aufgaben des Reasoner sind dabei in vier Hauptbereich zerlegt.
+Das Klassendiagramm in Abbildung \ref{schema-aufbau-u2r3} stellt den vereinfachten Aufbau des Schlussfolgerers dar. Die Aufgaben des Reasoner sind dabei in vier Hauptbereiche zerlegt.
 \begin{enumerate}
-  \item Der RelationManger verwaltet die Relationen in der Datenbank und stellt die Verbindung zu dieser her. Darin sind alle Methoden die mit der Erstellung und Veränderung von Tabellenstrukturen zu tun hat enthalten.
+  \item Der RelationManager verwaltet die Relationen in der Datenbank und stellt die Verbindung zu dieser her. Darin sind alle Methoden die mit der Erstellung und Veränderung von Tabellenstrukturen zu tun hat enthalten.
   \item Der RuleManager kapselt alle Regeln ab.
   \item Der ReasonProcessor bringt Regeln zur Ausführung. Damit ist er das eigentliche Herz des Schlussfolgerers. Hier wird bestimmt welche Regeln auf welche Relationen angewendet werden und in welcher Reihenfolge.
   \item Der U2R3Reasoner stellt die Schnittstelle nach außen dar. Er nimmt Ontologien, sowie Anfragen an diese Ontologien entgegen.

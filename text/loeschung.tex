@@ -2,7 +2,7 @@
 
 Wie aus dem Grundlagen Kapitel \ref{kapitel-grundlagen} bekannt ist handelt es sich bei OWL2 RL um eine monotone Logik. Damit ist das Hinzufügen von Fakten kein Problem, da es sich nicht auf schon geschlussfolgerte Fakten auswirkt. In der Implementierung ist damit die Änderung von Fakten damit umgesetzt, das die zu ändernden Fakten gelöscht und dann die neuen Fakten wieder hinzugefügt werden. Die Änderung von Fakten ist damit auf die Löschung von Fakten reduzierbar.
 
-Allgemein gibt es zwei Arten wie die Löschung von Fakten umgesetzt werden kann. Der naive Ansatz wär es, wenn ein Faktum gelöscht werden soll, werden alle bisher geschlussfolgerten Ergebnisse verworfen und der Schlussfolgerungsprozess wird danach von vorne gestartet. Ein optimierter Ansatz wäre es das ein Faktum, das gelöscht wird nur die Löschung von daraus geschlussfolgerten Ergebnissen auslöst. Dieses Vorgehen wurde im Schlussfolgerer umgesetzt und im folgeden näher beschrieben. Zunächst die grundlegenden Bedingungen für das Löschen von Fakten:
+Allgemein gibt es zwei Arten wie die Löschung von Fakten umgesetzt werden kann. Der naive Ansatz wäre es, wenn ein Faktum gelöscht werden soll, werden alle bisher geschlussfolgerten Ergebnisse verworfen und der Schlussfolgerungsprozess wird danach von vorne gestartet. Ein optimierter Ansatz wäre es das ein Faktum, das gelöscht wird nur die Löschung von daraus geschlussfolgerten Ergebnissen auslöst. Dieses Vorgehen wurde im Schlussfolgerer umgesetzt und im folgenden näher beschrieben. Zunächst die grundlegenden Bedingungen für das Löschen von Fakten:
 
 \begin{itemize}
   \item Fakten, die hergeleitet wurden können nicht gelöscht werden.
@@ -17,11 +17,11 @@ Dabei ist die Frage wichtig, woher etwas abgeleitet ist. Regeln erzeugen diese F
 Gut ist hingegen das durch das MEMA-Prinzip die Unterscheidung zwischen T-Box und A-Box aufgehoben wird. Der Regelsatz von OWL2 RL nimmt darauf auch keinen besonderen Bezug. Damit ist es möglich für Löschungen in der T-Box und in der A-Box das selbe Verfahren verwenden zu können.
 
 \subsection{Abspeichern der Ableitungsreihenfolge}
-Alle Regeln, die neue Fakten erzeugen können, wurden so erweitern, dass sie von jeder verwendeten Tabelle in der Regel, die id der Zeile mitliefert. Jede Tabelle wurde so ausgestatte das jede Zeile, also jeder Fakt, eine eindeutige Nummer hat. So kann jedes Konstrukt einer Tabelle über eine Nummer angesprochen werden, egal wieviele Unterelemente dieses Konstrukt hat. Das entspricht sehr dem MEMA-Schema, da durch eine id eine klare, einheitlich Historien-Tabelle angelegt werden kann, die unabhängig von unterschiedlichen Axiom-Konstrukten ist. Die ids müssen eindeutig pro Tabelle sein, das wird durch eine fortlaufende Nummer sichergestellt.
+Alle Regeln, die neue Fakten erzeugen können, wurden so erweitern, dass sie von jeder verwendeten Tabelle in der Regel, die id der Zeile mitliefert. Jede Tabelle wurde so ausgestattet das jede Zeile, also jeder Fakt, eine eindeutige Nummer hat. So kann jedes Konstrukt einer Tabelle über eine Nummer angesprochen werden, egal wie viele Unterelemente dieses Konstrukt hat. Das entspricht sehr dem MEMA-Schema, da durch eine id eine klare, einheitlich Historien-Tabelle angelegt werden kann, die unabhängig von unterschiedlichen Axiom-Konstrukten ist. Die ids müssen eindeutig pro Tabelle sein, das wird durch eine fortlaufende Nummer sichergestellt.
 
 Die Anzahl der Spalten die eine Regelanwendung für die Angabe der Historiendaten ist von Regel zu Regel unterschiedlich aber dabei immer für jede Regel fest. Davon ausgenommen sind die drei Spezialregeln. Wie die Historiendaten hier mitgeschrieben werden, wird in Abschnitt \ref{abschnitt-aufblaehung} geklärt.
 
-Danach müssen die Historiendaten in eine seperate Referenztabelle (history [\ref{relations-list-history}]). Hier wird zu einer id und einer Tabelle, die Quelldaten woher dieser Fakt stammt ebenfalls in Form von einer id und Tabelle abgepseichert.
+Danach müssen die Historiendaten in eine separate Referenztabelle (history [\ref{relations-list-history}]). Hier wird zu einer id und einer Tabelle, die Quelldaten woher dieser Fakt stammt ebenfalls in Form von einer id und Tabelle abgespeichert.
 
 Im nachfolgenden Beispiel wird die Situation angenommen das eine Subklassenbeziehung zwischen A,B, und B,C besteht. Damit besteht auch eine Subklassenbeziehung zwischen A,C. All diese Ausdrücke sind mit einer eindeutigen id identifizierbar.
 \begin{verbatim}
@@ -29,7 +29,7 @@ subClass(A,C) := subClass(A,B), subClass(B,C)
    id_neu             id_x           id_y
 \end{verbatim}
 
-Dadurch werden folgende Zeilen in der Historietabelle angelegt.
+Dadurch werden folgende Zeilen in der Historientabelle angelegt.
 
 \begin{table}[htb]
 \begin{center}
@@ -61,7 +61,7 @@ DELETE FROM subClass WHERE id = 'id_x'
 
 
 Nachdem Fakten gelöscht wurden müssen ebenfalls Regeln ausgelöst werden, da es sein könnte das gelöschte geschlussfolgerte Ergebnisse auch über andere Fakten ableitbar gewesen wären. 
-Hier wär auch ein naiver Ansatz möglich, indem man alle Regeln auf alle bekannt Fakten anwendet. Es wurde aber ein effizienteres Verfahren implementiert, so dass nur Regeln ausgelöst werden, die Fakten in den Relationen erzeugen können aus denen etwas gelöscht wurde.
+Hier wäre auch ein naiver Ansatz möglich, indem man alle Regeln auf alle bekannt Fakten anwendet. Es wurde aber ein effizienteres Verfahren implementiert, so dass nur Regeln ausgelöst werden, die Fakten in den Relationen erzeugen können aus denen etwas gelöscht wurde.
 Um entscheiden zu können welche Regeln ausgelöst werden sollen, müssen die Relationen wissen welche Regeln in ihnen neue Fakten erzeugen können. Diese Regeln müssen dann ausgelöst werden im Gegenteil zu ''normalen'' Inferenzregeln.
 
 Für die Unterscheidung wurden zwei verschiedene Reason eingeführt werden.
@@ -76,6 +76,6 @@ Der Modus mit dem gelöscht wird kann in der Konfigurationsdatei von u2r3 einges
 \label{abschnitt-aufblaehung}
 Deltas enthalten wie vorher schon beschrieben die neu abgeleiteten Fakten. Falls kaskadierendes Löschen aktiv ist werden in den Deltas zu den einzelnen Fakten auch die Informationen woher sie abgeleitet wurden mitgeführt.
 
-Das ist eigentlich kein Problem, da jede Regel nur eine fixe Anzahl an solchen Quellinformatioen haben kann. Davon ausgenommen sind allderings die drei vorher erwähnten Spezialregeln (cls-int2, prp-key und prp-spo2). Sie können eine beliebig große Anzahl an Quellfakten haben. Daher wird wenn eine dieser Regeln neue Fakten erzeugt hat das Faktum nicht nur einmal abgespeichert, sondern so oft, wie es verschiedene Quellfakten hat und dazu passend die unterschiedlichen Quellfakten.
+Das ist eigentlich kein Problem, da jede Regel nur eine fixe Anzahl an solchen Quellinformationen haben kann. Davon ausgenommen sind allerdings die drei vorher erwähnten Spezialregeln (cls-int2, prp-key und prp-spo2). Sie können eine beliebig große Anzahl an Quellfakten haben. Daher wird wenn eine dieser Regeln neue Fakten erzeugt hat das Faktum nicht nur einmal abgespeichert, sondern so oft, wie es verschiedene Quellfakten hat und dazu passend die unterschiedlichen Quellfakten.
 
 Diese Ausnahme muss dann beim Abspeichern der Historie berücksichtigt werden. Beim \emph{mergen} des Deltas mit der Hauptrelation wird das Faktum dann nur einmal abgespeichert. Im immediate-Modus hat es daher keinen Nachteil. Nur im collective-Modus muss für eine Runde mit einer Relation gearbeitet werden, die möglicherweise sehr viele Elemente mehrfach enthält.

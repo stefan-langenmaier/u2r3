@@ -4,12 +4,12 @@
 
 \section{Abfragen}
 
-Abfragen der Ontologie sind u2r3 im Prinzip durch einfache SLQ-Abfragen der Datenbank umzusetzen, da darin bereits alle gültigen Schlüsse nach dem Schlussfolgern vorliegen.
+Abfragen der Ontologie sind u2r3 im Prinzip durch einfache SQL-Abfragen der Datenbank umzusetzen, da darin bereits alle gültigen Schlüsse nach dem Schlussfolgern vorliegen.
 
 \subsection{Komplexe Ausdrücke finden}
-Beim Suchen von komplexen Ausdrücken hat man es damit zu tun, das der Ausdruck zur Speicherung in den Relationen aufgeteilt werden musste. Diese Aufteilung ist mit einer sogenannten NodeId passiert, wie sie in der OWLAPI auch für anonyme Individuen verwendet wird. Diese IDs wurden verwandet, um eine Beziehung zwischen Teilen herzustellen. Was aber der Wert dieser IDs war ist bei einer späteren Anfrage nicht mehr bekannt bzw. es ist auch nicht bekannt wie diese auf den komplexen Ausdruck passen sollten oder ob der Ausdruck überhaupt in der geschlussfolgerten Menge liegt.
+Beim Suchen von komplexen Ausdrücken hat man es damit zu tun, das der Ausdruck zur Speicherung in den Relationen aufgeteilt werden musste. Diese Aufteilung ist mit einer sogenannten NodeID passiert, wie sie in der OWLAPI auch für anonyme Individuen verwendet wird. Diese IDs wurden verwendet, um eine Beziehung zwischen Teilen herzustellen. Was aber der Wert dieser IDs war ist bei einer späteren Anfrage nicht mehr bekannt bzw. es ist auch nicht bekannt wie diese auf den komplexen Ausdruck passen sollten oder ob der Ausdruck überhaupt in der geschlussfolgerten Menge liegt.
 
-Um den Ausdruck nicht in die Datenbank einfügen zu müssen und ihn durch Schlussfolgern gleichsetzen zu können wird dieser Ausdruck rekursiv durchlaufen und daraus ein SQL-Ausrduck aufgebaut. Dieser SQL-Ausdruck kann den Namen der Relation, sowie die ID des Konstrukts zurückliefern. Beim Aufbau der SQL-Abfrage erzeugt jedes Unterkonstrukt des komplexen Ausdrucks eine SQL-Unterabfrage. Dabei ist zu beachten, das die Unterabfragen eine Referenz zu ihrer ``Oberabfrage'' enthalten.
+Um den Ausdruck nicht in die Datenbank einfügen zu müssen und ihn durch Schlussfolgern gleichsetzen zu können wird dieser Ausdruck rekursiv durchlaufen und daraus ein SQL-Ausdruck aufgebaut. Dieser SQL-Ausdruck kann den Namen der Relation, sowie die ID des Konstrukts zurückliefern. Beim Aufbau der SQL-Abfrage erzeugt jedes Unterkonstrukt des komplexen Ausdrucks eine SQL-Unterabfrage. Dabei ist zu beachten, das die Unterabfragen eine Referenz zu ihrer ``Oberabfrage'' enthalten.
 
 Nachfolgend ein Beispiel, dabei wird ein komplexer OWL-Ausdruck\footnote{Der Ausdruck wird in der FunctionalSyntax dargestellt. Damit ist die Hierarchie so wie das rekursive Vorgehen leichter nachvollziehbar.}
 

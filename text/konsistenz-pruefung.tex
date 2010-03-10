@@ -1,5 +1,5 @@
 \section{Konsistenzprüfungen}
-Um die Konsistenz einer Ontologie aus dem OWL2 RL Profil sicherzustellen, sind in der Spezifikation eigene Regeln vorgegeben. Es ist dabei aber nicht vorgeschrieben wann diese Regeln zur Üpberprüfung zur Ausführung gebracht werden müssen. Außerdem muss eine Ontologie unter Umständen nicht immer auf ihre Konsistenz überpüft werden, daher ergeben sich zunächst folgende Ideen wann und wie man die Prüfungen durchführt.
+Um die Konsistenz einer Ontologie aus dem OWL2 RL Profil sicherzustellen, sind in der Spezifikation eigene Regeln vorgegeben. Es ist dabei aber nicht vorgeschrieben wann diese Regeln zur Überprüfung zur Ausführung gebracht werden müssen. Außerdem muss eine Ontologie unter Umständen nicht immer auf ihre Konsistenz überprüft werden, daher ergeben sich zunächst folgende Ideen wann und wie man die Prüfungen durchführt.
 
 \begin{itemize}
   \item Nach jeder Regelanwendung: Dies ist nicht sinnvoll, da durch eine Regelanwendung nicht gegen beliebige Konsistenzregeln verstoßen werden kann.
@@ -9,7 +9,7 @@ Um die Konsistenz einer Ontologie aus dem OWL2 RL Profil sicherzustellen, sind i
 \end{itemize} 
 Die Möglichkeit die Konsistenzprüfung zu wechseln ist in u2r3 implementiert und kann in der Konfigurationsdatei unter dem Namen \emph{ConsistencyLevel} gesetzt werden. Gültige Werte dabei sind \emph{NONE} oder \emph{DEFAULT}.
 
-Damit der Regelprozessor zwischen Konsistenzregeln und Anwendungsregeln unterscheiden kann sind alle Regeln, die eine Inkonsistenz auslösen können von der Subklasse ConsistencyRule abgeleitet.
+Damit der Regelprozessor zwischen Konsistenzregeln und Anwendungsregeln unterscheiden kann sind alle Regeln, die eine Inkonsistenz auslösen können von der Unterklasse ConsistencyRule abgeleitet.
 
 \subsection{Rückmeldung}
 Konsistenzregeln melden sich nur in einem Fehlerfall zurück. Die Rückmeldung erfolgt aus den Regeln selbst während ihrer Ausführung. Die OWLAPI schlägt hier vor eine Exception zu werfen. Allerdings sind nicht alle Inkonsistenz gleich schwerwiegend. Eine Inkonsistenz in der A-Box ist normalerweise nicht so problematisch wie eine Inkonsistenz in der T-Box.
@@ -21,5 +21,5 @@ Die Möglichkeiten wie auf eine Inkonsistenz reagiert werden kann sind dabei:
   \item Die Verarbeitung unterbrechen und bei jeder Inkonsistenz eine Exception erzeugen.
 \end{itemize}
 
-Im Reasoner kann dies mit der Option \emph{InconsitencyReaction} verändert werden, dabei sind \emph{WARN}, \emph{PERCASE} oder \emph{FAIL}.
+Im Reasoner kann dies mit der Option \emph{InconsistencyReaction} verändert werden, dabei sind \emph{WARN}, \emph{PERCASE} oder \emph{FAIL}.
 

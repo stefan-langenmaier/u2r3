@@ -11,7 +11,7 @@ Während der ersten Entwicklung sind dabei zwei Varianten der delta-Iteration kl
 
 Hierbei erzeugt jede Regelanwendung sofort ihr eigenes Delta, mit dem weitergearbeitet werden kann. Wenn Zeilen erzeugt wurden, wird sofort das dazugehörige Delta erzeugt und dafür alle notwendigen Regelanwendungen ausgelöst.
 
-Im folgenden ist ein Beispiel gegeben, wie der Ablauf bei der Anwendung einer Regel ist die neue Fakten erzeugt hat und wie diese dann verarbeitet wird. Angenommen die Regel \emph{eq-ref-s} erzeugt neue Fakten, diese landen in einem Delta der \emph{sameas}-Relation. Das löst eine ``Reason'' aus mit der Information welches Delta neue Fakten enthalten hat. Wenn der Regelprozessor diese erhält erzeugt er für diese Kombination sog. RuleActions, d.h. er bringt alle Regeln die auf diesem delta arbeiten in eine Warteschlange. Zu jeder Regel speichert er den Ausführungskontext, auf den sie angewendet werden soll mit ab. Die Regelanwendungen warten dann bis sie zur Ausführung gebracht werden.
+Im folgenden ist ein Beispiel gegeben, wie der Ablauf bei der Anwendung einer Regel ist die neue Fakten erzeugt hat und wie diese dann verarbeitet wird. Angenommen die Regel \emph{eq-ref-s} erzeugt neue Fakten, diese landen in einem Delta der \emph{sameAs}-Relation. Das löst eine ``Reason'' aus mit der Information welches Delta neue Fakten enthalten hat. Wenn der Regelprozessor diese erhält erzeugt er für diese Kombination sog. RuleActions, d.h. er bringt alle Regeln die auf diesem delta arbeiten in eine Warteschlange. Zu jeder Regel speichert er den Ausführungskontext, auf den sie angewendet werden soll mit ab. Die Regelanwendungen warten dann bis sie zur Ausführung gebracht werden.
 
 \begin{verbatim}
 Regel: eq-ref-s //neue Fakten
@@ -48,9 +48,9 @@ while(action = rulesToApply.popAction()) {
 \end{figure}
 
 
-Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, da soviele Actions wie möglich gleizeitig angewand werden können. Die Parallelisierung ist eines der Ziele die eventuell in der Zukunft umgesetzt werden sollen.
+Der Vorteil dieser Vorgehensweise ist das es besser parallelisiert werden kann, da so viele Regelanwendungen wie möglich gleichzeitig angewandt werden können. Die Parallelisierung ist eines der Ziele die eventuell in der Zukunft umgesetzt werden sollen.
 
-Der Nachteil ist das viele Deltas gleichzeitg entstehen und insgesamt mehr Regel angewendet werden müssen. Die Deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber ein Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es ist nicht unbedingt klar wie sich das auf ein DBMS auswirkt.
+Der Nachteil ist das viele Deltas gleichzeitig entstehen und insgesamt mehr Regel angewendet werden müssen. Die Deltas enthalten unter Umständen nur wenig Inhalt, d.h. die Abfragen arbeiten auf kleineren Datenmenge aber ein Datenbanksystem lohnt sich eventuell erst wirklich bei großen Datenmengen. Es muss nicht zwangsläufig schlecht sein, aber es ist nicht unbedingt klar wie sich das auf ein DBMS auswirkt.
 
 \subsection{Collective delta-Iteration}
 
@@ -93,12 +93,12 @@ Vorteile:
   \item Es werden evtl. größere Menge an neuen Fakten zusammengefasst. Das muss nicht notwendiger weise gut sein.
 \end{itemize}
 
-Ein Nachteil ist, das die Parallelsierung nicht vollständig durchgeführt werden kann, da zu gewissen Zeitpunkten (Zeile 6), die Regelanwendung unterbrochen wird und die Ausführung wieder synchronisiert werden muss.
+Ein Nachteil ist, das die Parallelisierung nicht vollständig durchgeführt werden kann, da zu gewissen Zeitpunkten (Zeile 6), die Regelanwendung unterbrochen wird und die Ausführung wieder synchronisiert werden muss.
 
 \subsection{Simulation}
 
-Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neue Hinweise an den Regelprozessor schicken, sondern es gibt eine eigene Phase nach dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Reasons an den Regelprozessor geschickt.
+Die collective delta-Iteration kann mit Hilfe der immediate delta-Iteration und ein paar Änderungen umgesetzt werden. Dazu dürfen die Relationen nicht sofort neue Hinweise an den Regelprozessor schicken, sondern es gibt eine eigene Phase nach dem Abarbeiten aller Regeln. Dabei wird erst der Inhalt der Deltas in die Haupttabelle übernommen und es werden die Hinweise an den Regelprozessor geschickt.
 
-Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wirde. Die alte Hilfstabelle wird zum Delta der aktuellen Runde.
+Die Hilfstabelle in der die Daten für die Runde zwischengespeichert werden ist das Delta, das neu angelegt wird. Die alte Hilfstabelle wird zum Delta der aktuellen Runde.
 
 Die Implementierung des u2r3 unterstützt beide Varianten der delta-Iteration. Diese können in der Konfigurationsdatei mit der Option DeltaIteration verändert werden. Gültige Werte sind \emph{COLLECTIVE} oder \emph{IMMEDIATE}.

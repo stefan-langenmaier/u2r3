@@ -1,8 +1,8 @@
 \chapter{Evaluierung}
-Die Evaluierung sollen einen Vergleich von u2r3 mit anderen Schlussfolgereren ermöglichen, um seine Leistung in Relations zu sehen. Es sollen die Vor- und Nachteile mit anderen Anwendungen gegenüber gestellt werden.
+Die Evaluierung sollen einen Vergleich von u2r3 mit anderen Schlussfolgern ermöglichen, um seine Leistung in Relations zu sehen. Es sollen die Vor- und Nachteile mit anderen Anwendungen gegenüber gestellt werden.
 
 \section{Konkurrenz}
-Die ``großen'' Schlussfolgerer im Moment sind FaCT++ \cite{Factpp}, Pellet \cite{Pellet}, HermiT \cite{HermiT}, RacerPro \cite{RacerPro} und OWLim \cite{OWLim}. Mit der Ausnahme von OWLim sind dabei alle Tableaux-basiert und für den DL- Bereich ausgelegt. Von der Heransgehenweise ist dabei OWLim der einzig Vergleichbare, da er ebenfalls auf einem direct-materialisation und zu mindest teilweise forward-chaining Ansatz basiert. Allerdings gibt es hier größere Unterschiede bzgl. der Anbindung nach außen (\mbox{SERQL}/\mbox{SPARQL}) und auch dem Sprachbereich in dem geschlussfolgert wird.
+Die ``großen'' Schlussfolgerer im Moment sind FaCT++ \cite{Factpp}, Pellet \cite{Pellet}, HermiT \cite{HermiT}, RacerPro \cite{RacerPro} und OWLim \cite{OWLim}. Mit der Ausnahme von OWLim sind dabei alle Tableaux-basiert und für den DL- Bereich ausgelegt. Von der Herangehensweise ist dabei OWLim der einzig Vergleichbare, da er ebenfalls auf einem direct-materialisation und zu mindest teilweise forward-chaining Ansatz basiert. Allerdings gibt es hier größere Unterschiede bzgl. der Anbindung nach außen (\mbox{SERQL}/\mbox{SPARQL}) und auch dem Sprachbereich in dem geschlussfolgert wird.
 
 Eine Anbindung an die OWLAPI ist zwar bei allen außer OWLim vorhanden, jedoch hat mit der Ausnahme von HermiT keiner eine lauffähige Version bei der Erscheinung der OWLAPIv3 vorweisen können. HermiT ist ein jüngerer Reasoner der ziemlich rapide entwickelt werden.
 
@@ -68,7 +68,7 @@ Zunächst wird mit der walter-Ontologie [\ref{table-time-walter}] begonnen. Sie 
 Das Ergebnis entspricht den Erwartungen. Die Vorbereitungszeit bei u2r3 ist zwar hoch. Die Abfragezeiten sind aber auf einem ähnlichen Niveau.
 Man sieht, dass der immediate-Modus nicht geeignet ist für so eine Ontologie. Die Abfragezeiten von OWLim sind etwas hoch, das liegt vermutlich daran, das sein Backend erst bei größeren Ontologien effizient arbeitet.
 
-Die DomusAG-Ontolgie [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
+Die DomusAG-Ontologie [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
 \begin{table}[htbp]
 \caption{Zeiten für die DomusAG-Ontologie}
 \label{table-time-domusag}
@@ -96,7 +96,7 @@ Die DomusAG-Ontolgie [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 
 \end{table}
 Das Ergebnis entspricht den Erwartungen.
 
-Die VAST2009-tiny Ontologie [\ref{table-time-vast-tiny}] ist eime verkleinerte Version der VAST2009-Ontologie. Sie enthält eine große Anzahl an Beziehungen (data- und objectPropertyAssertion) und ist daher das angestrebte Einsatzgebiet von OWL2 RL und damit u2r3.
+Die VAST2009-tiny Ontologie [\ref{table-time-vast-tiny}] ist eine verkleinerte Version der VAST2009-Ontologie. Sie enthält eine große Anzahl an Beziehungen (data- und objectPropertyAssertion) und ist daher das angestrebte Einsatzgebiet von OWL2 RL und damit u2r3.
 
 \begin{table}[htbp]
 \caption{Zeiten für VAST2009-tiny Ontologie}
@@ -127,7 +127,7 @@ Die VAST2009-tiny Ontologie [\ref{table-time-vast-tiny}] ist eime verkleinerte V
 
 Man sieht das die Zeiten hier nicht mehr weit auseinander liegen.
 
-Die VAST2009-Ontologie [\ref{table-time-vast2009}] enthält jetzt dievolle Anzahl an Individuen und Beziehungen.
+Die VAST2009-Ontologie [\ref{table-time-vast2009}] enthält jetzt die volle Anzahl an Individuen und Beziehungen.
 
 \begin{table}[htbp]
 \caption{Zeiten für die VAST2009-Ontologie}
@@ -219,7 +219,7 @@ Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittl
 \end{center}
 \end{table}
 
-Das Ergebnis entspricht den Erwartungen. Man sieht das die Abfragezeit von u2r3 mit den anderen Schlussfolgerern auf gleicher Höhe ist.
+Das Ergebnis entspricht den Erwartungen. Man sieht das die Abfragezeit von u2r3 mit den anderen Schlussfolgern auf gleicher Höhe ist.
 
 Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontologie nur wesentlich größer.
 \begin{table}[htbp]
@@ -243,7 +243,7 @@ Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontol
 \begin{tablenotes}
 	\item[a] Das Ergebnis nach dem Hinzufügen ist aber falsch.
 	\item[b] Fact++ endet mit der Fehlermeldung \emph{TokenMgrError: Lexical error}.
-	\item[c] Stürtzt ab, da die gesuchteKlasse nicht mehr vorhanden ist. Das ist zwar korrekt aber seltsam.
+	\item[c] Stürtzt ab, da die gesuchte Klasse nicht mehr vorhanden ist. Das ist zwar korrekt aber seltsam.
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
@@ -252,6 +252,6 @@ Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontol
 Der relative Abstand zwischen u2r3 und HermiT ist stark geschrumpft. OWLim scheint mit solchen Ontologien sehr gut umgehen zu können.
 
 \subsection{Zusammenfassung}
-Die Tableaux-basierten Reasoner waren wie erwartet schnell beim Laden der meisten Ontologien, aber auch unerwartet schnell beim Beantworten von Abfragen. Das lag unter anderem an der Art der Abfragen und an der Größe der Ontologien. Das sieht man z.B. auch an den Antwortzeiten von OWLim der häufig am längsten für das Beantworten brauchte. Die Ansätze von OWLim und u2r3 mit ihren Datenbanken greifen erst richtig bei größeren  Ontologien. Trotzdem blieb u2r3 immer auf Augenhöhe mit den Tableaux-basierten Reasonern bei den Abfragezeiten. Der Vorteil von OWLim und u2r3 wird dann aber recht schnell deutlich. Nur diese beiden konnten überhaupt alle Ontologien verarbeiten. Besonders der Arbeitsspeicherverbrauch war bei den anderen Reasonern vorrauszusehen oder abzuschätzen.
+Die Tableaux-basierten Reasoner waren wie erwartet schnell beim Laden der meisten Ontologien, aber auch unerwartet schnell beim Beantworten von Abfragen. Das lag unter anderem an der Art der Abfragen und an der Größe der Ontologien. Das sieht man z.B. auch an den Antwortzeiten von OWLim der häufig am längsten für das Beantworten brauchte. Die Ansätze von OWLim und u2r3 mit ihren Datenbanken greifen erst richtig bei größeren  Ontologien. Trotzdem blieb u2r3 immer auf Augenhöhe mit den Tableaux-basierten Reasonern bei den Abfragezeiten. Der Vorteil von OWLim und u2r3 wird dann aber recht schnell deutlich. Nur diese beiden konnten überhaupt alle Ontologien verarbeiten. Besonders der Arbeitsspeicherverbrauch war bei den anderen Reasonern vorauszusehen oder abzuschätzen.
 
-Der eigentliche Vorteil des u2r3 wird aber erst beim Hinzufügen oder beim Löschen von Axiomen sichtbar. Erstens wird das von den Tableau-basierten Reasoneren noch nicht richtig unterstützt und zweitens kann man hier schon Vorteile in Bezug auf die Ableitungs- und Anfrage dauer erkennen.
+Der eigentliche Vorteil des u2r3 wird aber erst beim Hinzufügen oder beim Löschen von Axiomen sichtbar. Erstens wird das von den Tableaux-basierten Reasonern noch nicht richtig unterstützt und zweitens kann man hier schon Vorteile in Bezug auf die Ableitungs- und Anfrage dauer erkennen.
