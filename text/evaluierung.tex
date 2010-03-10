@@ -28,7 +28,7 @@ Der u2r3 Schlussfolgerer wird immer in seiner Standardkonfiguration betrieben. F
 
 Das Hinzufügen bei OWLim wurde so umgesetzt, dass man nochmal eine Ontologie mit dem neuen Teil geladen hat. Das Löschen wurde nicht durchgeführt.
 
-Zunächst wird mit der walter-Ontologie [\ref{table-time-walter}] begonnen. Sie deckt einen Großteil der in OWL2 RL vorhandenen Sprachkonstrukte ab.
+Zunächst wird mit der walter-Ontologie\footnote{Die walter-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/puzzle/3.owl} gefunden.} [\ref{table-time-walter}] begonnen. Sie deckt einen Großteil der in OWL2 RL vorhandenen Sprachkonstrukte ab.
 
 \begin{table}[htbp]
 \caption{Zeiten für die walter-Ontologie}
@@ -68,7 +68,7 @@ Zunächst wird mit der walter-Ontologie [\ref{table-time-walter}] begonnen. Sie 
 Das Ergebnis entspricht den Erwartungen. Die Vorbereitungszeit bei u2r3 ist zwar hoch. Die Abfragezeiten sind aber auf einem ähnlichen Niveau.
 Man sieht, dass der immediate-Modus nicht geeignet ist für so eine Ontologie. Die Abfragezeiten von OWLim sind etwas hoch, das liegt vermutlich daran, das sein Backend erst bei größeren Ontologien effizient arbeitet.
 
-Die DomusAG-Ontologie [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
+Die DomusAG-Ontologie\footnote{Die DomusAG-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/domusag.owl} gefunden.} [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
 \begin{table}[htbp]
 \caption{Zeiten für die DomusAG-Ontologie}
 \label{table-time-domusag}
@@ -96,7 +96,7 @@ Die DomusAG-Ontologie [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2
 \end{table}
 Das Ergebnis entspricht den Erwartungen.
 
-Die VAST2009-tiny Ontologie [\ref{table-time-vast-tiny}] ist eine verkleinerte Version der VAST2009-Ontologie. Sie enthält eine große Anzahl an Beziehungen (data- und objectPropertyAssertion) und ist daher das angestrebte Einsatzgebiet von OWL2 RL und damit u2r3.
+Die VAST2009-tiny Ontologie\footnote{Die VAST2009-tiny-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/owl2rl/VAST2009-tiny-RL.owl} gefunden.} [\ref{table-time-vast-tiny}] ist eine verkleinerte Version der VAST2009-Ontologie. Sie enthält eine große Anzahl an Beziehungen (data- und objectPropertyAssertion) und ist daher das angestrebte Einsatzgebiet von OWL2 RL und damit u2r3.
 
 \begin{table}[htbp]
 \caption{Zeiten für VAST2009-tiny Ontologie}
@@ -127,7 +127,7 @@ Die VAST2009-tiny Ontologie [\ref{table-time-vast-tiny}] ist eine verkleinerte V
 
 Man sieht das die Zeiten hier nicht mehr weit auseinander liegen.
 
-Die VAST2009-Ontologie [\ref{table-time-vast2009}] enthält jetzt die volle Anzahl an Individuen und Beziehungen.
+Die VAST2009-Ontologie\footnote{Die VAST2009-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/VAST2009-RL.owl} gefunden.} [\ref{table-time-vast2009}] enthält jetzt die volle Anzahl an Individuen und Beziehungen.
 
 \begin{table}[htbp]
 \caption{Zeiten für die VAST2009-Ontologie}
@@ -159,7 +159,7 @@ Die VAST2009-Ontologie [\ref{table-time-vast2009}] enthält jetzt die volle Anza
 
 Die Tableaux-basierten Reasoner arbeiten alle hauptsächlich im Arbeitsspeicher. Das zeigt sich bei einer solchen Ontologie ziemlich deutlich, da sie gegen Speicherbeschränkungen stoßen.
 
-Die financial-Ontologie \ref{table-time-financial} ist ähnlich der VAST2009-Ontologie. Sie ist noch ein bißchen größer enthält allerdings nur objectPropertyAssertions und keine Literale.
+Die financial-Ontologie\footnote{Die financial-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/owl2rl/financial.owl} gefunden.} \ref{table-time-financial} ist ähnlich der VAST2009-Ontologie. Sie ist noch ein bißchen größer enthält allerdings nur objectPropertyAssertions und keine Literale.
 
 \begin{table}[htbp]
 \caption{Zeiten für die financial-Ontologie}
@@ -177,7 +177,7 @@ Die financial-Ontologie \ref{table-time-financial} ist ähnlich der VAST2009-Ont
 \multicolumn{1}{|l|}{Pellet\tnote{b}} & 128s & 21ms & 0s & 23ms & 0s & 1104ms \\ \hline
 \multicolumn{1}{|l|}{Racer\tnote{c}} & 112s & 2s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \multicolumn{1}{|l|}{Fact++} & 71s & 8ms & 55s & 8ms & 63s & 7ms \\ \hline
-\multicolumn{1}{|l|}{OWLim} & 16 & 1121ms & 3s & 1124ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 16s & 1121ms & 3s & 1124ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] HermiT wurde nach zwei Stunden ohne Antwort abgebrochen
@@ -190,7 +190,7 @@ Die financial-Ontologie \ref{table-time-financial} ist ähnlich der VAST2009-Ont
 
 HermiT hat zwar diesmal keinen so hohen Speicherverbrauch, muss aber nach zwei Stunden ohne Antwort abgebrochen werden. OWLim scheint mit dieser Ontologie wesentlich besser umgehen zu können.
 
-Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittlere Ontologie, die auschließlich eine Klassenhierarchie enthält.
+Die instrument-Ontologie\footnote{Die instrument-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/owl2rl/gcmd-instrument.owl} gefunden.} \ref{table-time-instrument} ist eine kleinere bis mittlere Ontologie, die auschließlich eine Klassenhierarchie enthält.
 
 \begin{table}[htbp]
 \caption{Zeiten für die instrument-Ontologie}
@@ -207,8 +207,8 @@ Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittl
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & 5s & 9ms & 1ms & 1ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{Pellet\tnote{b}} & 3s & 14ms & 1ms & 7ms & 1ms & 1ms \\ \hline
 \multicolumn{1}{|l|}{Racer\tnote{c}} & 3s & 1ms & 215ms & 1ms & 397ms & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{c}} & 2s & 1ms & 1ms4 & 1ms & 13ms & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{OWLim} & 3s & 276ms & 1650s & 294ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{c}} & 2s & 1ms & 4ms & 1ms & 13ms & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 3s & 276ms & 1650ms & 294ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
 	\item[a] nach dem Hinzufügen falsch
@@ -221,7 +221,7 @@ Die instrument-Ontologie \ref{table-time-instrument} ist eine kleinere bis mittl
 
 Das Ergebnis entspricht den Erwartungen. Man sieht das die Abfragezeit von u2r3 mit den anderen Schlussfolgern auf gleicher Höhe ist.
 
-Die disease-Ontologie \ref{table-time-disease} ist ähnlich der instrument-Ontologie nur wesentlich größer.
+Die disease-Ontologie\footnote{Die disease-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/oowl2rl/disease_ontology.owl} gefunden.} \ref{table-time-disease} ist ähnlich der instrument-Ontologie nur wesentlich größer.
 \begin{table}[htbp]
 \caption{Zeiten für die disease-Ontologie}
 \label{table-time-disease}
