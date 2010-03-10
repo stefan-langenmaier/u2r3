@@ -9,7 +9,7 @@ import de.langenmaier.u2r3.util.AdditionReason;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class SameAsLitRelation extends MergeableRelation {
+public class SameAsLitRelation extends Relation {
 	
 	protected SameAsLitRelation(U2R3Reasoner reasoner) {
 		super(reasoner);

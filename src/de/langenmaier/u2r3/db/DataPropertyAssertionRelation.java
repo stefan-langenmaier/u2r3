@@ -26,7 +26,7 @@ import de.langenmaier.u2r3.util.DatatypeCheck;
 import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class DataPropertyAssertionRelation extends MergeableRelation {
+public class DataPropertyAssertionRelation extends Relation {
 	static Logger logger = Logger.getLogger(DataPropertyAssertionRelation.class);
 	
 	protected DataPropertyAssertionRelation(U2R3Reasoner reasoner) {

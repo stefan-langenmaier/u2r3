@@ -20,7 +20,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EquivalentPropertyRelation extends MergeableRelation {
+public class EquivalentPropertyRelation extends Relation {
 	static Logger logger = Logger.getLogger(EquivalentPropertyRelation.class);
 	
 	protected EquivalentPropertyRelation(U2R3Reasoner reasoner) {

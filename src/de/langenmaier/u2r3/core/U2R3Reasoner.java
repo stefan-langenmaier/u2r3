@@ -58,6 +58,17 @@ public class U2R3Reasoner extends OWLReasonerBase {
 	private Settings settings;
 	private NodeIDMapper nidMapper;
 	
+	private boolean additionMode = false;
+	private int additionRound = 0;
+	
+	public boolean isAdditionMode() {
+		return additionMode;
+	}
+
+	public int getAdditionRound() {
+		return additionRound;
+	}
+
 	public U2R3Reasoner(OWLOntology ontology, OWLReasonerConfiguration config,
 			BufferingMode non_buffering) {
 		super(ontology, config, non_buffering);
@@ -96,12 +107,17 @@ public class U2R3Reasoner extends OWLReasonerBase {
 			Set<OWLAxiom> removeAxioms) {
 		OWL2RLDBRemover axiomRemover = new OWL2RLDBRemover(this);
 		OWL2RLDBAdder axiomAdder = new OWL2RLDBAdder(this);
+		
 		for (OWLAxiom change : removeAxioms) {
 			change.accept(axiomRemover);
 		}
+		
+		++additionRound;
+		additionMode = true;
 		for (OWLAxiom change : addAxioms) {
 			change.accept(axiomAdder);
 		}
+		additionMode = false;
 	}
 	
 	@Override

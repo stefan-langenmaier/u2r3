@@ -45,7 +45,7 @@ public abstract class Rule extends U2R3Component{
 		DeltaRelation newDelta = null;
 		
 		if (targetRelation != null) {
-			newDelta = relationManager.getMergeableRelation(targetRelation).createNewDeltaRelation();
+			newDelta = relationManager.getRelation(targetRelation).createNewDeltaRelation();
 		}
 		
 		if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {

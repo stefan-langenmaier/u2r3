@@ -3,7 +3,7 @@ package de.langenmaier.u2r3.core;
 import org.apache.log4j.Logger;
 
 import de.langenmaier.u2r3.db.DeltaRelation;
-import de.langenmaier.u2r3.db.MergeableRelation;
+import de.langenmaier.u2r3.db.Relation;
 import de.langenmaier.u2r3.db.RelationManager;
 import de.langenmaier.u2r3.db.RelationManager.RelationName;
 import de.langenmaier.u2r3.exceptions.U2R3RuntimeException;
@@ -39,15 +39,15 @@ public class ReasonProcessor {
 	
 	public void initialize() {
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.dt_type1),
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.cls_thing),
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.cls_nothing_1),
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.prp_ap),
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		actions.add(new RuleAction(ruleManager.getRule(RuleName.dt_type_2),
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.classAssertionEnt).createDeltaRelation(DeltaRelation.NO_DELTA)));
 
 	}
 	
@@ -94,7 +94,7 @@ public class ReasonProcessor {
 			}
 			
 			logger.info("Merging relations");
-			for (MergeableRelation r : relationManager.getMergeableRelations()) {
+			for (Relation r : relationManager.getRelations()) {
 				if (r.isDirty()) {
 					r.merge();
 				}

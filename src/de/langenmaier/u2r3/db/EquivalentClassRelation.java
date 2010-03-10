@@ -18,7 +18,7 @@ import de.langenmaier.u2r3.util.Reason;
 import de.langenmaier.u2r3.util.TableId;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
 
-public class EquivalentClassRelation extends MergeableRelation {
+public class EquivalentClassRelation extends Relation {
 	static Logger logger = Logger.getLogger(EquivalentClassRelation.class);
 	
 	protected EquivalentClassRelation(U2R3Reasoner reasoner) {

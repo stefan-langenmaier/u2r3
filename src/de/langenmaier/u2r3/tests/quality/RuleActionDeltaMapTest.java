@@ -31,21 +31,21 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RelationManager relationManager = reasoner.getRelationManager();
 		
 		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		assertEquals(1, dm.size());
 		
 		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());
 		
 		ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(3, dm.size());
@@ -65,17 +65,17 @@ public class RuleActionDeltaMapTest extends TestCase {
 		RelationManager relationManager = reasoner.getRelationManager();
 		
 		RuleAction ra2 = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA));
 		
 		dm.put(ra2);
 		assertEquals(1, dm.size());
 		
 		dm.put(new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
+				relationManager.getRelation(RelationName.subClass).createDeltaRelation(DeltaRelation.NO_DELTA)));
 		
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		System.out.println(ra.hashCode());
 		dm.put(ra);
 		assertEquals(2, dm.size());

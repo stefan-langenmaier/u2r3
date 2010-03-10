@@ -41,20 +41,36 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLNegativeObjectPropertyAssertionAxiom) {
 			OWLNegativeObjectPropertyAssertionAxiom naxiom = (OWLNegativeObjectPropertyAssertionAxiom) axiom;
-			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=1 && reasoner.isAdditionMode(); nextRound(add), ++run) {
+				if (naxiom.getSubject().isAnonymous()) {
+					add.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
+				} else {
+					add.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
+				}
+				add.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+				if (naxiom.getObject().isAnonymous()) {
+					add.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
+				} else {
+					add.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
+				}
 			}
-			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
-			if (naxiom.getObject().isAnonymous()) {
-				addStatement.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
-			}
+
 		}
 		return AdditionMode.ADD;
 	}
+
+	private void nextRound(PreparedStatement add) {
+		if (reasoner.isAdditionMode()) {
+			if (reasoner.getAdditionRound() > lastAdditionRound) {
+				lastAdditionRound = reasoner.getAdditionRound();
+				createNewDeltaRelation();
+			}
+			add = addDeltaStatement;
+		}
+	}
+
 
 	@Override
 	public PreparedStatement getAxiomLocation(OWLAxiom ax) throws SQLException {
@@ -97,6 +113,13 @@ public class NegativeObjectPropertyAssertionRelation extends Relation {
 			return stmt;
 		}
 		throw new U2R3RuntimeException();
+	}
+
+	@Override
+	public void createDeltaImpl(int id) {
+		// TODO Auto-generated method stub
+		//createDelta
+		//addDelta
 	}
 
 }

@@ -22,7 +22,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue(reasoner);
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -40,7 +40,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue(reasoner);
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		
 		aq.add(ra);
 		assertEquals(1, aq.size());
@@ -60,7 +60,7 @@ public class RuleActionQueueTest extends TestCase {
 		RuleActionQueue aq = new RuleActionQueue(reasoner);
 		
 		RuleAction ra = new RuleAction(ruleManager.getRule(RuleName.eq_trans_ent), 
-				relationManager.getMergeableRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
+				relationManager.getRelation(RelationName.classAssertionEnt).createNewDeltaRelation());
 		
 		aq.add(ra);		
 		assertEquals(1, aq.size());

@@ -14,6 +14,7 @@ public class U2R3Component {
 	protected ReasonProcessor reasonProcessor;
 	protected NodeIDMapper nidMapper;
 	protected OWLDataFactory dataFactory;
+	protected U2R3Reasoner reasoner;
 	
 	protected U2R3Component(U2R3Reasoner reasoner) {
 		settings = reasoner.getSettings();
@@ -22,5 +23,6 @@ public class U2R3Component {
 		reasonProcessor = reasoner.getReasonProcessor();
 		nidMapper = reasoner.getNIDMapper();
 		dataFactory = reasoner.getOWLDataFactory();
+		this.reasoner = reasoner;
 	}
 }

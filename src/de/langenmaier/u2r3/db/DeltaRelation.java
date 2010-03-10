@@ -1,7 +1,5 @@
 package de.langenmaier.u2r3.db;
 
-
-
 /**
  * This class specifies a certain delta of a relation.
  * @author stefan
@@ -46,12 +44,7 @@ public class DeltaRelation {
 	}
 	
 	public String getDeltaName() {
-		if (relation instanceof MergeableRelation) {
-			MergeableRelation mrelation = (MergeableRelation) relation;
-			return mrelation.getDeltaName(delta);
-		} else {
-			return relation.getTableName();
-		}
+		return relation.getDeltaName(delta);
 	}
 	
 	public String getTableName () {
@@ -59,34 +52,19 @@ public class DeltaRelation {
 	}
 
 	public void dispose() {
-		if (relation instanceof MergeableRelation) {
-			MergeableRelation mrelation = (MergeableRelation) relation;
-			mrelation.removeDeltaRelation(delta);
-		}
+		relation.removeDeltaRelation(delta);
 	}
 
 	public String getDeltaName(String table) {
-		if (relation instanceof MergeableRelation) {
-			MergeableRelation mrelation = (MergeableRelation) relation;
-			return mrelation.getDeltaName(delta, table);
-		} else {
-			if (!table.equals(relation.getTableName())) return table;
-			return relation.getTableName();
-		}
+		return relation.getDeltaName(delta, table);
 	}
 
 	public void merge(DeltaRelation delta) {
-		if (relation instanceof MergeableRelation) {
-			MergeableRelation mrelation = (MergeableRelation) relation;
-			mrelation.merge(delta);
-		}
+		relation.merge(delta);
 	}
 	
 	public void makeDirty() {
-		if (relation instanceof MergeableRelation) {
-			MergeableRelation mrelation = (MergeableRelation) relation;
-			mrelation.makeDirty();
-		}
+		relation.makeDirty();
 	}
 
 
