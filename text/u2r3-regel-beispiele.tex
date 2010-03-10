@@ -2,7 +2,7 @@
 \label{abschnitt-regelumsetzung-owl2-rl}
 In der Profil-Spezifikation von OWL2 RL \cite{OWL2Profiles} wird eine Reihe von Regeln angegeben, die es ermöglichen entsprechend des RL Fragments darin zu schlussfolgern.
 
-Die angegebenen Regeln sind korrekt und vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschloßen werden, auf was im RL Profil geschloßen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
+Die angegebenen Regeln sind korrekt und vollständig aber nicht optimal - wie aus der Profilspezifikation zu entnehmen ist -, d.h. mit diesem Satz an Regeln kann auf alles geschlossen werden, auf was im RL Profil geschlossen werden kann. Allerdings muss dieser Satz an Regeln nicht der einzige oder minimale Satz sein, der zu diesem Ergebnis kommt.
 
 In dieser Diplomarbeit wird versucht möglichst nah an dieser Regelmenge zu bleiben, um sicherzustellen, das die Semantik korrekt abgebildet ist und somit die Implementierung leichter zu überprüfen ist.
 Abweichungen von den vorgegebenen Regeln findet nur in besonderen Ausnahmen statt und werden später \ref{abschnitt-regelbeispiele} auch einzeln begründet. Eine allgemeine Begründung für die Existenz der Ausnahmen liegt darin, dass die Regeln in SQL übersetzt werden - was schon von alleine eine andere Schreib- und Sichtweise  mitbringt - und zum anderen sind gewisse Optimierungen erwünscht.
@@ -15,9 +15,9 @@ In diesem Teil der Regelumsetzung wird an konkreten Beispielen gezeigt, wie eine
 Die Abfragen werden zunächst allgemein an einfachen Regeln prinzipiell erklärt, danach wird auf die Sonderfälle eingegangen.
 
 Insgesamt kann dabei in sechs Kategorien unterschieden werden:
-Bei der Abbildungs der OWL2 RL Regeln in RIF \cite{Reynolds2009} wird nur in vier Kategorie unterschieden. Hier werden zusätzlich nur einmalige Regeln erwähnt und die in RIF als \emph{triple rules} bezeichneten Regeln sind in gewöhnliche und Spezialregeln unterteilt.
+Bei der Abbildung der OWL2 RL Regeln in RIF \cite{Reynolds2009} wird nur in vier Kategorie unterschieden. Hier werden zusätzlich nur einmalige Regeln erwähnt und die in RIF als \emph{triple rules} bezeichneten Regeln sind in gewöhnliche und Spezialregeln unterteilt.
 \begin{itemize}
-  \item Einmalige Regeln: Einige Regeln haben keine Vorbedigung. Diese werden einmal zum Start des Regelprozessors ausgeführt.
+  \item Einmalige Regeln: Einige Regeln haben keine Vorbedingung. Diese werden einmal zum Start des Regelprozessors ausgeführt.
   \item Inkonsistenzregeln: Sie sind ähnlich der gewöhnlichen Regeln, erzeugen allerdings keine neuen Fakten. Falls sie neue Fakten erzeugen könnten, bedeutet dies eine Inkonsistenz in der Ontologie.
   \item Gewöhnliche Regeln: Dabei werden verschiedene Fakten miteinander verknüpft, so dass dabei neue Fakten entstehen können. Diese Regeln sind alle sehr schematisch umsetzbar.
   \item Listenregeln: Hier werden Listen von Fakten bearbeitet. Dabei ist nicht klar wie viele Elemente eine Liste enthält. Dies kann zu einem Problem werden, wenn man die Entstehungsgeschichte von Fakten, z.B. für das Löschen mitabspeichern will. Hier muss man gesondert darauf achten, dass diese Information der Entstehung nicht verloren geht.
@@ -70,7 +70,7 @@ FROM classAssertionEnt
 WHERE class = 'owl:Nothing'
 \end{lstlisting}
 
-Die Relation classAssertionEnt ist die Relation, die die type-Beziehung speichert. Ist darin eine Zeile zu finden, die als type die KLasse owl:Nothing hat wird eine Zeile zurückgegeben. Falls also diese Abfrage eine oder mehrere Zeilen erzeugt liegt eine Inkonsistenz vor.
+Die Relation classAssertionEnt ist die Relation, die die type-Beziehung speichert. Ist darin eine Zeile zu finden, die als type die Klasse owl:Nothing hat wird eine Zeile zurückgegeben. Falls also diese Abfrage eine oder mehrere Zeilen erzeugt liegt eine Inkonsistenz vor.
 
 \subsubsection{Gewöhnliche Regeln}
 Gewöhnliche Regeln erzeugen neue Fakten in der Datenbank. Eine einfache Regel ist hier eq-sym:
@@ -79,7 +79,7 @@ Gewöhnliche Regeln erzeugen neue Fakten in der Datenbank. Eine einfache Regel i
 \begin{center}
 	\begin{tabular}{l|l}
 	if & then \\ \hline
-	T(?x, owl:sameAS, ?y) & T(?y, owl:sameAS, ?x)
+	T(?x, owl:sameAs, ?y) & T(?y, owl:sameAs, ?x)
 	\end{tabular}
 \end{center}
 	\caption{Die gewöhnliche Regel eq-sym}
@@ -93,12 +93,12 @@ SELECT right, left
 FROM sameAs
 \end{lstlisting}
 
-Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Umwandlung schon einge Dinge vereinfacht, die in der Implementierung so nicht gemacht wurden.
+Wie die Abfrage zu Stande kommt sollte klar sein. Allerdings wurden in dieser Umwandlung schon einige Dinge vereinfacht, die in der Implementierung so nicht gemacht wurden.
 
 \begin{enumerate}
   \item Was passiert wenn eine Zeile eingefügt werden soll, die schon enthalten ist?
   \item Wie würde man hier die delta-Iteration einsetzen können, um nicht immer auf alle Fakten schließen zu müssen?
-  \item Wie kann man die Entstehungsgeschiechte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen?
+  \item Wie kann man die Entstehungsgeschichte von neuen Fakten mitschreiben, um später effizientes Löschen zu ermöglichen?
 \end{enumerate}
 
 Diese Punkte werden jeweils in ihren speziellen Abschnitten behandelt. Um die Beispiele nicht unnötig komplizierter zu machen wird hier nicht näher darauf eingegangen.
@@ -301,7 +301,7 @@ FROM   (SELECT   lname,
 
 Die vorher beschriebene Abfrage wird mehrmals eingesetzt. Sie erzeugt einerseits nur gültige Liste. Das ist die erste Abfrage. Die zweite Unterabfrage wählt das Startelement aus und die dritte das Endeelement. Am Ende wird es noch auf die eigentliche propertyChain gejoint.
 
-Die zweite Regel überprüft, ob ein Invidivum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja, wird es der Klasse dieser Schnittmenge hinzugefügt.
+Die zweite Regel überprüft, ob ein Individuum in allen Teilen einer Schnittmenge vorhanden ist. Falls ja, wird es der Klasse dieser Schnittmenge hinzugefügt.
 \begin{table}[htb]
 \begin{center}
 	\begin{tabular}{m{5cm}|m{3.5cm}}
