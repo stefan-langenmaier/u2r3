@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
@@ -37,12 +38,34 @@ public class ClassAssertionLitRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);");
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (literal, colClass, language) VALUES (?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + "(" +
+			" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+			" literal TEXT," +
+			" colClass TEXT," +
+			" language TEXT," +
+			" sourceId1 BIGINT," +
+			" sourceTable1 VARCHAR(100)," +
+			" sourceId2 BIGINT," +
+			" sourceTable2 VARCHAR(100)," +
+			" sourceId3 BIGINT," +
+			" sourceTable3 VARCHAR(100)," +
+			" sourceId4 BIGINT," +
+			" sourceTable4 VARCHAR(100)," +
+			" PRIMARY KEY (id, literal, colClass));" +
+			" CREATE INDEX " + table + "_literal ON " + table + "(literal);" +
+			" CREATE INDEX " + table + "_class ON " + table + "(colClass);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (literal, colClass, language) VALUES (?, ?, ?)";
+	}
 	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
@@ -52,50 +75,32 @@ public class ClassAssertionLitRelation extends Relation {
 	@Override
 	public void add(OWLObject o) {
 		try {
-			if (o instanceof OWLTypedLiteral) {
-				OWLTypedLiteral tl = (OWLTypedLiteral) o;
-				addStatement.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
-				addStatement.setString(2, tl.getDatatype().getIRI().toString());
-				addStatement.setNull(3, Types.LONGVARCHAR);
-			} else if (o instanceof OWLStringLiteral) {
-				OWLStringLiteral sl = (OWLStringLiteral) o;
-				addStatement.setString(1, sl.getLiteral());
-				addStatement.setString(2, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
-				addStatement.setString(3, sl.getLang());
-			}
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (o instanceof OWLTypedLiteral) {
+					OWLTypedLiteral tl = (OWLTypedLiteral) o;
+					add.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));
+					add.setString(2, tl.getDatatype().getIRI().toString());
+					add.setNull(3, Types.LONGVARCHAR);
+				} else if (o instanceof OWLStringLiteral) {
+					OWLStringLiteral sl = (OWLStringLiteral) o;
+					add.setString(1, sl.getLiteral());
+					add.setString(2, OWLRDFVocabulary.RDF_PLAIN_LITERAL.getIRI().toString());
+					add.setString(3, sl.getLang());
+				}
 				
-			addStatement.executeUpdate();		
+				add.executeUpdate();
+			}
+			if (reasoner.isAdditionMode()) {
+				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+			} else {
+				reasonProcessor.add(new AdditionReason(this));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();			
 		}
-		reasonProcessor.add(new AdditionReason(this));
-	}
 
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			//max 4 quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" literal TEXT," +
-					" colClass TEXT," +
-					" language TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 BIGINT," +
-					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, literal, colClass));" +
-					" CREATE INDEX " + getDeltaName(id) + "_literal ON " + getDeltaName(id) + "(literal);" +
-					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
 	}
 
 	@Override

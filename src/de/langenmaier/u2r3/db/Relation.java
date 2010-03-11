@@ -182,18 +182,34 @@ public abstract class Relation extends U2R3Component implements Query {
 		removeImpl(pe);
 	}
 	
-	/**
-	 * Creates the delta of an relation for reasoning
-	 * The deltas have a different number od columns
-	 * @param id
-	 */
-	public abstract void createDeltaImpl(int id);
+	protected abstract String getCreateStatement(String table);
+	protected abstract String getAddStatement(String table);
 	
 	private void createDelta(int id) {
 			if (settings.getDeltaIteration() == DeltaIteration.IMMEDIATE) {
 				++nextDelta;
 			}
-			createDeltaImpl(id);
+			try {
+				dropDelta(id);
+				createDeltaStatement = conn.prepareStatement(getCreateStatement(getDeltaName(id)));
+				addDeltaStatement = conn.prepareStatement(getAddStatement(getDeltaName(id)));
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	/**
+	 * Creates a extra delta and sets it up for a round of additions
+	 * @param add
+	 */
+	protected void nextRound(PreparedStatement add) {
+		if (reasoner.isAdditionMode()) {
+			if (reasoner.getAdditionRound() > lastAdditionRound) {
+				lastAdditionRound = reasoner.getAdditionRound();
+				createNewDeltaRelation();
+			}
+			add = addDeltaStatement;
+		}
 	}
 	
 	protected void dropDelta(int id) {

@@ -43,54 +43,55 @@ public class ObjectPropertyAssertionRelation extends Relation {
 					" CREATE INDEX " + tableName + "_object ON " + tableName + "(object);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (subject, property, object) VALUES (?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + "(" +
+			" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+			" subject TEXT," +
+			" property TEXT," +
+			" object TEXT," +
+			" sourceId1 BIGINT," +
+			" sourceTable1 VARCHAR(100)," +
+			" sourceId2 BIGINT," +
+			" sourceTable2 VARCHAR(100)," +
+			" sourceId3 BIGINT," +
+			" sourceTable3 VARCHAR(100)," +
+			" PRIMARY KEY (id, subject, property, object));" +
+			" CREATE INDEX " + table + "_subject ON " + table + "(subject);" +
+			" CREATE INDEX " + table + "_property ON " + table + "(property);" +
+			" CREATE INDEX " + table + "_object ON " + table + "(object);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + getTableName() + " (subject, property, object) VALUES (?, ?, ?)";
 	}
 	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLObjectPropertyAssertionAxiom) {
 			OWLObjectPropertyAssertionAxiom naxiom = (OWLObjectPropertyAssertionAxiom) axiom;
-			if (naxiom.getSubject().isAnonymous()) {
-				addStatement.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
-			}
-			addStatement.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
-			if (naxiom.getObject().isAnonymous()) {
-				addStatement.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
-			} else {
-				addStatement.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getSubject().isAnonymous()) {
+					add.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
+				} else {
+					add.setString(1, naxiom.getSubject().asOWLNamedIndividual().getIRI().toString());
+				}
+				add.setString(2, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+				if (naxiom.getObject().isAnonymous()) {
+					add.setString(3, naxiom.getObject().asOWLAnonymousIndividual().toStringID());
+				} else {
+					add.setString(3, naxiom.getObject().asOWLNamedIndividual().getIRI().toString());
+				}
 			}
 		}
 		return AdditionMode.ADD;
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			//max 3 Quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" subject TEXT," +
-					" property TEXT," +
-					" object TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" PRIMARY KEY (id, subject, property, object));" +
-					" CREATE INDEX " + getDeltaName(id) + "_subject ON " + getDeltaName(id) + "(subject);" +
-					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE INDEX " + getDeltaName(id) + "_object ON " + getDeltaName(id) + "(object);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

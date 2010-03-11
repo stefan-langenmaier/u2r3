@@ -53,108 +53,99 @@ public class ClassAssertionEntRelation extends Relation {
 					" CREATE INDEX " + tableName + "_class ON " + tableName + "(colClass);");
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (entity, colClass) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected String getCreateStatement(String table) {
+		//max 4 quellen außer in cls-int1
+		return "CREATE TABLE " + table + "(" +
+			" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+			" entity TEXT," +
+			" colClass TEXT," +
+			" sourceId1 BIGINT," +
+			" sourceTable1 VARCHAR(100)," +
+			" sourceId2 BIGINT," +
+			" sourceTable2 VARCHAR(100)," +
+			" sourceId3 BIGINT," +
+			" sourceTable3 VARCHAR(100)," +
+			" sourceId4 BIGINT," +
+			" sourceTable4 VARCHAR(100)," +
+			" PRIMARY KEY (id, entity, colClass));" +
+			" CREATE INDEX " + table + "_entity ON " + table + "(entity);" +
+			" CREATE INDEX " + table + "_class ON " + table + "(colClass);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + getTableName() + " (entity, colClass) VALUES (?, ?)";
 	}
 
 	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
-		if (axiom instanceof OWLClassAssertionAxiom) {
-			OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
-			addStatement.setString(1, naxiom.getIndividual().asOWLNamedIndividual().getIRI().toString());
-			addStatement.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
-			OWLAsymmetricObjectPropertyAxiom naxiom = (OWLAsymmetricObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
-			OWLSymmetricObjectPropertyAxiom naxiom = (OWLSymmetricObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
-			OWLFunctionalObjectPropertyAxiom naxiom = (OWLFunctionalObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
-			OWLFunctionalDataPropertyAxiom naxiom = (OWLFunctionalDataPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
-			OWLInverseFunctionalObjectPropertyAxiom naxiom = (OWLInverseFunctionalObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
-			OWLIrreflexiveObjectPropertyAxiom naxiom = (OWLIrreflexiveObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
-			OWLTransitiveObjectPropertyAxiom naxiom = (OWLTransitiveObjectPropertyAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
-			addStatement.setString(2, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI().toString());
-			return AdditionMode.ADD;
-		} else if (axiom instanceof OWLDeclarationAxiom) {
-			OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
-			addStatement.setString(1, naxiom.getEntity().getIRI().toString());
-			
-			if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {				
-				addStatement.setString(2, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString());
-				return AdditionMode.ADD;
-			} else if (naxiom.getEntity().getEntityType() == EntityType.DATA_PROPERTY) {				
-				addStatement.setString(2, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString());
-				return AdditionMode.ADD;
-			} else if (naxiom.getEntity().getEntityType() == EntityType.CLASS) {				
-				addStatement.setString(2, OWLRDFVocabulary.OWL_CLASS.getIRI().toString());
-				return AdditionMode.ADD;
-			} else if (naxiom.getEntity().getEntityType() == EntityType.NAMED_INDIVIDUAL) {				
-				addStatement.setString(2, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString());
-				return AdditionMode.ADD;
-			} else if (naxiom.getEntity().getEntityType() == EntityType.ANNOTATION_PROPERTY) {				
-				addStatement.setString(2, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString());
-				return AdditionMode.ADD;
+		PreparedStatement add = addStatement;
+
+		for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			if (axiom instanceof OWLClassAssertionAxiom) {
+				OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
+				add.setString(1, naxiom.getIndividual().asOWLNamedIndividual().getIRI().toString());
+				add.setString(2, naxiom.getClassExpression().asOWLClass().getIRI().toURI().toString());
+			} else if (axiom instanceof OWLAsymmetricObjectPropertyAxiom) {
+				OWLAsymmetricObjectPropertyAxiom naxiom = (OWLAsymmetricObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_ASYMMETRIC_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLSymmetricObjectPropertyAxiom) {
+				OWLSymmetricObjectPropertyAxiom naxiom = (OWLSymmetricObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_SYMMETRIC_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLFunctionalObjectPropertyAxiom) {
+				OWLFunctionalObjectPropertyAxiom naxiom = (OWLFunctionalObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_OBJECT_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLFunctionalDataPropertyAxiom) {
+				OWLFunctionalDataPropertyAxiom naxiom = (OWLFunctionalDataPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_FUNCTIONAL_DATA_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLInverseFunctionalObjectPropertyAxiom) {
+				OWLInverseFunctionalObjectPropertyAxiom naxiom = (OWLInverseFunctionalObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_INVERSE_FUNCTIONAL_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLIrreflexiveObjectPropertyAxiom) {
+				OWLIrreflexiveObjectPropertyAxiom naxiom = (OWLIrreflexiveObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_IRREFLEXIVE_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLTransitiveObjectPropertyAxiom) {
+				OWLTransitiveObjectPropertyAxiom naxiom = (OWLTransitiveObjectPropertyAxiom) axiom;
+				add.setString(1, naxiom.getProperty().getNamedProperty().getIRI().toString());
+				add.setString(2, OWLRDFVocabulary.OWL_TRANSITIVE_PROPERTY.getIRI().toString());
+			} else if (axiom instanceof OWLDeclarationAxiom) {
+				OWLDeclarationAxiom naxiom = (OWLDeclarationAxiom) axiom;
+				add.setString(1, naxiom.getEntity().getIRI().toString());
+				
+				if (naxiom.getEntity().getEntityType() == EntityType.OBJECT_PROPERTY) {				
+					add.setString(2, OWLRDFVocabulary.OWL_OBJECT_PROPERTY.getIRI().toString());
+				} else if (naxiom.getEntity().getEntityType() == EntityType.DATA_PROPERTY) {				
+					add.setString(2, OWLRDFVocabulary.OWL_DATA_PROPERTY.getIRI().toString());
+				} else if (naxiom.getEntity().getEntityType() == EntityType.CLASS) {				
+					add.setString(2, OWLRDFVocabulary.OWL_CLASS.getIRI().toString());
+				} else if (naxiom.getEntity().getEntityType() == EntityType.NAMED_INDIVIDUAL) {				
+					add.setString(2, OWLRDFVocabulary.OWL_NAMED_INDIVIDUAL.getIRI().toString());
+				} else if (naxiom.getEntity().getEntityType() == EntityType.ANNOTATION_PROPERTY) {				
+					add.setString(2, OWLRDFVocabulary.OWL_ANNOTATION_PROPERTY.getIRI().toString());
+				} else {
+					logger.error(naxiom.getEntity().getEntityType().toString());
+					throw new U2R3NotImplementedException();
+				}
 			} else {
-				logger.error(naxiom.getEntity().getEntityType().toString());
 				throw new U2R3NotImplementedException();
 			}
-		} else {
-			throw new U2R3NotImplementedException();
 		}
+		return AdditionMode.ADD;
 	}
 
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			//max 4 quellen außer in cls-int1
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + "(" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" entity TEXT," +
-					" colClass TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 BIGINT," +
-					" sourceTable4 VARCHAR(100)," +
-					" PRIMARY KEY (id, entity, colClass));" +
-					" CREATE INDEX " + getDeltaName(id) + "_entity ON " + getDeltaName(id) + "(entity);" +
-					" CREATE INDEX " + getDeltaName(id) + "_class ON " + getDeltaName(id) + "(colClass);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-	}
+
 
 	@Override
 	public void merge(DeltaRelation delta) {

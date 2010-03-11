@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -19,35 +20,51 @@ public class ComplementOfRelation extends Relation {
 		try {
 			tableName = "complementOf";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" PRIMARY KEY (colLeft, colRight));" +
-					" CREATE INDEX " + getTableName() + "_colLeft ON " + getTableName() + "(colLeft);" +
-					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+			" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+			" colLeft TEXT," +
+			" colRight TEXT," +
+			" PRIMARY KEY (colLeft, colRight));" +
+			" CREATE INDEX " + table + "_colLeft ON " + table + "(colLeft);" +
+			" CREATE INDEX " + table + "_right ON " + table + "(colRight);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight) VALUES (?, ?)";
+	}
+	
 	@Override
 	public void add(OWLObject ce) {
 		if (ce instanceof OWLObjectComplementOf) {
 			OWLObjectComplementOf oco = (OWLObjectComplementOf) ce;
 			try {
-				addStatement.setString(1, nidMapper.get(ce).toString());
-				if (oco.getOperand().isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(oco.getOperand()).toString());
-				} else {
-					addStatement.setString(2, oco.getOperand().asOWLClass().getIRI().toString());
+				PreparedStatement add = addStatement;
+
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+					add.setString(1, nidMapper.get(ce).toString());
+					if (oco.getOperand().isAnonymous()) {
+						add.setString(2, nidMapper.get(oco.getOperand()).toString());
+					} else {
+						add.setString(2, oco.getOperand().asOWLClass().getIRI().toString());
+					}
+					add.execute();
 				}
-				addStatement.execute();
-				reasonProcessor.add(new AdditionReason(this));
+				if (reasoner.isAdditionMode()) {
+					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+				} else {
+					reasonProcessor.add(new AdditionReason(this));
+				}
 				
 				if (oco.getOperand().isAnonymous()) {
 					handleAddAnonymousClassExpression(oco.getOperand());

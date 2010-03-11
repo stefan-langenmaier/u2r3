@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.semanticweb.owlapi.model.OWLClassExpression;
@@ -19,22 +20,30 @@ public class AllValuesFromRelation extends Relation {
 		try {
 			tableName = "allValuesFrom";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" part TEXT," +
-					" property TEXT, " +
-					" total TEXT, " +
-					" PRIMARY KEY (id, part, property, total));" +
-					" CREATE INDEX " + getTableName() + "_part ON " + getTableName() + "(part);" +
-					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
-					" CREATE INDEX " + getTableName() + "_total ON " + getTableName() + "(total);");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 			
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (part, property, total) VALUES (?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+			" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+			" part TEXT," +
+			" property TEXT, " +
+			" total TEXT, " +
+			" PRIMARY KEY (id, part, property, total));" +
+			" CREATE INDEX " + table + "_part ON " + getTableName() + "(part);" +
+			" CREATE INDEX " + table + "_property ON " + getTableName() + "(property);" +
+			" CREATE INDEX " + table + "_total ON " + getTableName() + "(total);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (part, property, total) VALUES (?, ?, ?)";
 	}
 
 	@Override
@@ -42,22 +51,31 @@ public class AllValuesFromRelation extends Relation {
 		try {
 			if (ce instanceof  OWLObjectAllValuesFrom) {
 				OWLObjectAllValuesFrom avf = (OWLObjectAllValuesFrom) ce;
-				addStatement.setString(1, nidMapper.get(ce).toString());
-				
-				if (avf.getProperty().isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(avf.getProperty()).toString());
-				} else {
-					addStatement.setString(2, avf.getProperty().asOWLObjectProperty().getIRI().toString());
+				PreparedStatement add = addStatement;
+
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+					add.setString(1, nidMapper.get(ce).toString());
+					
+					if (avf.getProperty().isAnonymous()) {
+						add.setString(2, nidMapper.get(avf.getProperty()).toString());
+					} else {
+						add.setString(2, avf.getProperty().asOWLObjectProperty().getIRI().toString());
+					}
+					
+					if (avf.getFiller().isAnonymous()) {
+						add.setString(3, nidMapper.get(avf.getFiller()).toString());
+					} else {
+						add.setString(3, avf.getFiller().asOWLClass().getIRI().toString());
+					}
+					
+					add.execute();
+					
 				}
-				
-				if (avf.getFiller().isAnonymous()) {
-					addStatement.setString(3, nidMapper.get(avf.getFiller()).toString());
+				if (reasoner.isAdditionMode()) {
+					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
 				} else {
-					addStatement.setString(3, avf.getFiller().asOWLClass().getIRI().toString());
+					reasonProcessor.add(new AdditionReason(this));
 				}
-				
-				addStatement.execute();
-				reasonProcessor.add(new AdditionReason(this));
 				
 				//WATCHOUT recursive calls
 				if (avf.getProperty().isAnonymous()) {
