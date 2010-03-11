@@ -40,16 +40,14 @@ public class TimeU2R3 {
 			Logger logger = Logger.getLogger(TimeU2R3.class);
 			logger.info("Java loaded ");
 			
-			if (args.length<=0) {
-				System.err.println("USAGE: java " + TimeU2R3.class.getName() + " <filename>");
-				return;
-			}
-			
+			String file_uri = "file:///home/stefan/.workspace/u2r2/ontologien/DomusAG-06-03-2010-X1-dtr.owl";
+			String ONTO_URI = "http://www.polizei.hessen.de/CRIME/DomusAG#";
+
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 			OWLDataFactory factory = manager.getOWLDataFactory();
 
 			OWLOntology ont;
-			ont = manager.loadOntology(IRI.create(args[0]));
+			ont = manager.loadOntology(IRI.create(file_uri));
 			logger.info("OWLAPI loaded " + ont.getOntologyID());
 			
 			OWLReasonerFactory reasonerFactory = new U2R3ReasonerFactory();
@@ -60,8 +58,6 @@ public class TimeU2R3 {
 			reasoner.prepareReasoner();
 
 			logger.info("FERTIG");
-			
-			String ONTO_URI = "http://quality.tests.u2r3.langenmaier.de/puzzle/3.owl#";
 			
 			long start = System.currentTimeMillis();
 			OWLClass walter = factory.getOWLClass(IRI.create(ONTO_URI + "Walter"));

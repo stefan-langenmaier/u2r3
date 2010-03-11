@@ -40,8 +40,9 @@ public class TimeU2R3Domus {
 			Logger logger = Logger.getLogger(TimeU2R3Domus.class);
 			logger.info("Java loaded ");
 
-			String file_uri = "file:///home/stefan/.workspace/u2r2/ontologien/DomusAG.owl";
-			String ONTO_URI = "http://www.polizei.hessen.de/CRIME/DomusAG#";
+
+			String file_uri = "file:///home/stefan/.workspace/u2r2/ontologien/DomusAG-06-03-2010-X1-dtr.owl";
+			String ONTO_URI = "http://www.informatik.uni-ulm.de/ki/Liebig/owl2/DomusAG.owx#";
 			
 			OWLOntologyManager manager = OWLManager.createOWLOntologyManager();
 			OWLDataFactory factory = manager.getOWLDataFactory();
