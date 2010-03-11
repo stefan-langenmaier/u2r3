@@ -68,7 +68,7 @@ Zunächst wird mit der walter-Ontologie\footnote{Die walter-Ontologie wird im Re
 Das Ergebnis entspricht den Erwartungen. Die Vorbereitungszeit bei u2r3 ist zwar hoch. Die Abfragezeiten sind aber auf einem ähnlichen Niveau.
 Man sieht, dass der immediate-Modus nicht geeignet ist für so eine Ontologie. Die Abfragezeiten von OWLim sind etwas hoch, das liegt vermutlich daran, das sein Backend erst bei größeren Ontologien effizient arbeitet.
 
-Die DomusAG-Ontologie\footnote{Die DomusAG-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/domusag.owl} gefunden.} [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
+Die DomusAG-Ontologie\footnote{Die DomusAG-Ontologie wird im Repository unter dem Pfad \texttt{/ontologien/DomusAG-06-03-2010-X1-dtr.owl} gefunden.} [\ref{table-time-domusag}] benutzt Konstrukte, die in OWL2 RL nicht erlaubt sind. Mit einer Konfigurationsoption kann man aber extra Regeln in u2r3 aktivieren, damit er damit umgehen kann.
 \begin{table}[htbp]
 \caption{Zeiten für die DomusAG-Ontologie}
 \label{table-time-domusag}
@@ -80,16 +80,18 @@ Die DomusAG-Ontologie\footnote{Die DomusAG-Ontologie wird im Repository unter de
 \cline{2-7}
  & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} & \multicolumn{1}{|c|}{Ableitung} & \multicolumn{1}{|c|}{Abfrage} \\
 \hline
-\multicolumn{1}{|l|}{u2r3} & 57s & 68ms & 1571ms & 28ms & 1ms & 78ms \\ \hline
+\multicolumn{1}{|l|}{u2r3} & 159s & 104ms & 5638ms & 78ms & 1ms & 86ms \\ \hline
 \multicolumn{1}{|l|}{HermiT\tnote{a}} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{Pellet} & 37s & 13ms & 0ms & 2ms & 1ms & 2ms \\ \hline
-\multicolumn{1}{|l|}{Racer} & 11s & 35ms & 2784ms & 11ms & 2587ms & 10ms \\ \hline
-\multicolumn{1}{|l|}{Fact++\tnote{b}} & 5s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
-\multicolumn{1}{|l|}{OWLim} & 4s & 400ms & 2516ms & 411ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{Pellet\tnote{b}} & 110s & 9ms & 0ms & 6ms & 1ms & 8ms \\ \hline
+\multicolumn{1}{|l|}{Racer\tnote{c}} & 19s & 2ms & 7248ms & 3ms & 7077ms & 1ms \\ \hline
+\multicolumn{1}{|l|}{Fact++\tnote{d}} & 10s & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
+\multicolumn{1}{|l|}{OWLim} & 8s & 1294ms & 4046ms & 1178ms & \multicolumn{1}{c|}{x} & \multicolumn{1}{c|}{x} \\ \hline
 \end{tabular}
 \begin{tablenotes}
-	\item[a] Hermit bricht mit der Meldung \emph{unsupported datatype} ab.
-	\item[b] Fact++ bricht mit der Meldung \emph{unknown class} ab, da die Ontologie mit Elementen arbeitet die erst in OWL2 vorhanden sind war dies zu erwarten
+	\item[a] Hermit nach 10min ohne Ergebnis abgebrochen.
+	\item[b] Das Ergebnis nach dem Hinzufügen ist falsch.
+	\item[c] Das Ergebnis ist nicht korrekt, das Hinzufügen wird aber richtig durchgeführt. RacerPro unterstützt aber auch noch nicht OWL2.
+	\item[d] Fact++ bricht mit der Meldung \emph{unknown class} ab, da die Ontologie mit Elementen arbeitet die erst in OWL2 vorhanden sind war dies zu erwarten
 \end{tablenotes}
 \end{threeparttable}
 \end{center}
