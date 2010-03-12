@@ -35,71 +35,75 @@ public class SubPropertyRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (sub, super) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" sub TEXT," +
+		" super TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" PRIMARY KEY (sub, super));" +
+		" CREATE INDEX " + table + "_sub ON " + table + "(sub);" +
+		" CREATE INDEX " + table + "_super ON " + table + "(super);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (sub, super) VALUES (?, ?)";
+	}
 
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLSubObjectPropertyOfAxiom) {
 			OWLSubObjectPropertyOfAxiom naxiom = (OWLSubObjectPropertyOfAxiom) axiom;
-			if (naxiom.getSubProperty().isAnonymous()) {
-				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
-				handleAddAnonymousObjectPropertyExpression(naxiom.getSubProperty());
-			} else {
-				addStatement.setString(1, naxiom.getSubProperty().asOWLObjectProperty().getIRI().toString());
-			}
-			if (naxiom.getSuperProperty().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
-				handleAddAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
-			} else {
-				addStatement.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
-			}
+			PreparedStatement add = addStatement;
 
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getSubProperty().isAnonymous()) {
+					add.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
+					handleAddAnonymousObjectPropertyExpression(naxiom.getSubProperty());
+				} else {
+					add.setString(1, naxiom.getSubProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				if (naxiom.getSuperProperty().isAnonymous()) {
+					add.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
+					handleAddAnonymousObjectPropertyExpression(naxiom.getSuperProperty());
+				} else {
+					add.setString(2, naxiom.getSuperProperty().asOWLObjectProperty().getIRI().toString());
+				}
+			}
 			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLSubDataPropertyOfAxiom) {
 			OWLSubDataPropertyOfAxiom naxiom = (OWLSubDataPropertyOfAxiom) axiom;
-			if (naxiom.getSubProperty().isAnonymous()) {
-				addStatement.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
-				handleAddAnonymousDataPropertyExpression(naxiom.getSubProperty());
-			} else {
-				addStatement.setString(1, naxiom.getSubProperty().asOWLDataProperty().getIRI().toString());
-			}
-			if (naxiom.getSuperProperty().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
-				handleAddAnonymousDataPropertyExpression(naxiom.getSuperProperty());
-			} else {
-				addStatement.setString(2, naxiom.getSuperProperty().asOWLDataProperty().getIRI().toString());
-			}
+			PreparedStatement add = addStatement;
 
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getSubProperty().isAnonymous()) {
+					add.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
+					handleAddAnonymousDataPropertyExpression(naxiom.getSubProperty());
+				} else {
+					add.setString(1, naxiom.getSubProperty().asOWLDataProperty().getIRI().toString());
+				}
+				if (naxiom.getSuperProperty().isAnonymous()) {
+					add.setString(2, nidMapper.get(naxiom.getSuperProperty()).toString());
+					handleAddAnonymousDataPropertyExpression(naxiom.getSuperProperty());
+				} else {
+					add.setString(2, naxiom.getSuperProperty().asOWLDataProperty().getIRI().toString());
+				}
+			}
 			return AdditionMode.ADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}
 	}
 
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" sub TEXT," +
-					" super TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (sub, super));" +
-					" CREATE INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
-					" CREATE INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void merge(DeltaRelation delta) {
 		try {
 			Statement stmt = conn.createStatement();

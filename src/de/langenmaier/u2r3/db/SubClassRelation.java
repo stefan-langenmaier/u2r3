@@ -34,60 +34,63 @@ public class SubClassRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_super ON " + getTableName() + "(super);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (sub, super) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" sub TEXT," +
+		" super TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" sourceId3 BIGINT," +
+		" sourceTable3 VARCHAR(100)," +
+		" sourceId4 BIGINT," +
+		" sourceTable4 VARCHAR(100)," +
+		" sourceId5 BIGINT," +
+		" sourceTable5 VARCHAR(100)," +
+		" PRIMARY KEY (sub, super));" +
+		" CREATE INDEX " + table + "_sub ON " + table + "(sub);" +
+		" CREATE INDEX " + table + "_super ON " + table + "(super);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (sub, super) VALUES (?, ?)";
+	}
 
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLSubClassOfAxiom) {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
-			if (naxiom.getSubClass().isAnonymous()) {
-				addStatement.setString(1, nidMapper.get(naxiom.getSubClass()).toString());
-				handleAddAnonymousClassExpression(naxiom.getSubClass());
-			} else {
-				addStatement.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
-			}
-			if (naxiom.getSuperClass().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getSuperClass()).toString());
-				handleAddAnonymousClassExpression(naxiom.getSuperClass());
-			} else {
-				addStatement.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
-			}
+			PreparedStatement add = addStatement;
 
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getSubClass().isAnonymous()) {
+					add.setString(1, nidMapper.get(naxiom.getSubClass()).toString());
+					handleAddAnonymousClassExpression(naxiom.getSubClass());
+				} else {
+					add.setString(1, naxiom.getSubClass().asOWLClass().getIRI().toString());
+				}
+				if (naxiom.getSuperClass().isAnonymous()) {
+					add.setString(2, nidMapper.get(naxiom.getSuperClass()).toString());
+					handleAddAnonymousClassExpression(naxiom.getSuperClass());
+				} else {
+					add.setString(2, naxiom.getSuperClass().asOWLClass().getIRI().toString());
+				}
+			}
+			
 			return AdditionMode.ADD;
 		} else {
 			throw new U2R3NotImplementedException();
 		}
 	}
 
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" sub TEXT," +
-					" super TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 BIGINT," +
-					" sourceTable4 VARCHAR(100)," +
-					" sourceId5 BIGINT," +
-					" sourceTable5 VARCHAR(100)," +
-					" PRIMARY KEY (sub, super));" +
-					" CREATE INDEX " + getDeltaName(id) + "_sub ON " + getDeltaName(id) + "(sub);" +
-					" CREATE INDEX " + getDeltaName(id) + "_super ON " + getDeltaName(id) + "(super);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public void merge(DeltaRelation delta) {
 		try {
