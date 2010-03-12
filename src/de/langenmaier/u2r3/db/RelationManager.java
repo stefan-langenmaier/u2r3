@@ -2,7 +2,6 @@ package de.langenmaier.u2r3.db;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import de.langenmaier.u2r3.core.U2R3Reasoner;
 import de.langenmaier.u2r3.util.Settings.DeletionType;
@@ -36,9 +35,6 @@ public class RelationManager {
 		return relations.get(name);
 	}
 	
-	public synchronized MergeableRelation getMergeableRelation(RelationName name) {
-		return (MergeableRelation) relations.get(name);
-	}
 	
 	public RelationManager(U2R3Reasoner reasoner) {
 		this.reasoner = reasoner;
@@ -100,16 +96,6 @@ public class RelationManager {
 
 	public Collection<Relation> getRelations() {
 		return relations.values();
-	}
-	
-	public Collection<MergeableRelation> getMergeableRelations() {
-		Collection<MergeableRelation> ret = new HashSet<MergeableRelation>();
-		for (Relation r : relations.values()) {
-			if (r instanceof MergeableRelation) {
-				ret.add((MergeableRelation) r);
-			}
-		}
-		return ret;
 	}
 
 	public void addHistory(String sql) {

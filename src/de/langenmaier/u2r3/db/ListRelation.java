@@ -14,20 +14,28 @@ public class ListRelation extends Relation {
 		try {
 			tableName = "list";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" name TEXT," +
-					" element TEXT," +
-					" PRIMARY KEY (id));" +
-					" CREATE INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
-					" CREATE INDEX " + getTableName() + "_element ON " + getTableName() + "(element)");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, element) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" name TEXT," +
+		" element TEXT," +
+		" PRIMARY KEY (id));" +
+		" CREATE INDEX " + table + "_name ON " + table + "(name);" +
+		" CREATE INDEX " + table + "_element ON " + table + "(element)";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (name, element) VALUES (?, ?)";
 	}
 
 }

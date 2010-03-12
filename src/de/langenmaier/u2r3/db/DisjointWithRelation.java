@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Iterator;
 
@@ -20,20 +21,28 @@ public class DisjointWithRelation extends Relation {
 		try {
 			tableName = "disjointWith";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" PRIMARY KEY (colLeft, colRight));" +
-					" CREATE INDEX " + getTableName() + "_left ON " + getTableName() + "(colLeft);" +
-					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colLeft TEXT," +
+		" colRight TEXT," +
+		" PRIMARY KEY (colLeft, colRight));" +
+		" CREATE INDEX " + table + "_left ON " + table + "(colLeft);" +
+		" CREATE INDEX " + table + "_right ON " + table + "(colRight);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight) VALUES (?, ?)";
 	}
 
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
@@ -43,20 +52,27 @@ public class DisjointWithRelation extends Relation {
 				Iterator<OWLClassExpression> it = naxiom.getClassExpressions().iterator();
 				OWLClassExpression ce1 = it.next();
 				OWLClassExpression ce2 = it.next();
-				
-				if (ce1.isAnonymous()) {
-					addStatement.setString(1, nidMapper.get(ce1).toString());
-				} else {
-					addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
+				PreparedStatement add = addStatement;
+
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+					if (ce1.isAnonymous()) {
+						add.setString(1, nidMapper.get(ce1).toString());
+					} else {
+						add.setString(1, ce1.asOWLClass().getIRI().toString());
+					}
+					if (ce2.isAnonymous()) {
+						add.setString(2, nidMapper.get(ce2).toString());
+					} else {
+						add.setString(2, ce2.asOWLClass().getIRI().toString());
+					}
+					
+					add.execute();
 				}
-				if (ce2.isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(ce2).toString());
+				if (reasoner.isAdditionMode()) {
+					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
 				} else {
-					addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
+					reasonProcessor.add(new AdditionReason(this));
 				}
-				
-				addStatement.execute();
-				reasonProcessor.add(new AdditionReason(this));
 				
 				if (ce1.isAnonymous()) {
 					handleAddAnonymousClassExpression(ce1);

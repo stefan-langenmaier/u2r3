@@ -35,40 +35,71 @@ public class PropertyRangeRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_range ON " + getTableName() + "(range);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, range) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" property TEXT," +
+		" range TEXT," +
+		" sourceId1 BIGINT, " +
+		" sourceTable1 VARCHAR(100), " +
+		" sourceId2 BIGINT, " +
+		" sourceTable2 VARCHAR(100), " +
+		" PRIMARY KEY (property, range));" +
+		" CREATE INDEX " + table + "_property ON " + table + "(property);" +
+		" CREATE INDEX " + table + "_range ON " + table + "(range);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (property, range) VALUES (?, ?)";
+	}
+
+	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyRangeAxiom) {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
-			
-			if (naxiom.getProperty().isAnonymous()) {
-				addStatement.setString(1, nidMapper.get(naxiom.getProperty()).toString());
-			} else {
-				addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getProperty().isAnonymous()) {
+					add.setString(1, nidMapper.get(naxiom.getProperty()).toString());
+				} else {
+					add.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+				}
+				add.setString(2, naxiom.getRange().asOWLDatatype().getIRI().toString());
 			}
-			addStatement.setString(2, naxiom.getRange().asOWLDatatype().getIRI().toString());
+			return AdditionMode.ADD;
+			
 		} else if (axiom instanceof OWLObjectPropertyRangeAxiom) {
 			OWLObjectPropertyRangeAxiom naxiom = (OWLObjectPropertyRangeAxiom) axiom;
-			if (naxiom.getProperty().isAnonymous()) {
-				addStatement.setString(1, nidMapper.get(naxiom.getProperty()).toString());
-			} else {
-				addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				if (naxiom.getProperty().isAnonymous()) {
+					add.setString(1, nidMapper.get(naxiom.getProperty()).toString());
+				} else {
+					add.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+				}
+				
+				if (naxiom.getRange().isAnonymous()) {
+					add.setString(2, nidMapper.get(naxiom.getRange()).toString());
+				} else {
+					add.setString(2, naxiom.getRange().asOWLClass().getIRI().toString());
+				}
+				
+				add.execute();
 			}
-			
-			if (naxiom.getRange().isAnonymous()) {
-				addStatement.setString(2, nidMapper.get(naxiom.getRange()).toString());
+			if (reasoner.isAdditionMode()) {
+				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
 			} else {
-				addStatement.setString(2, naxiom.getRange().asOWLClass().getIRI().toString());
+				reasonProcessor.add(new AdditionReason(this));
 			}
-			
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
-			
 			if (naxiom.getProperty().isAnonymous()) {
 				handleAddAnonymousObjectPropertyExpression(naxiom.getProperty());
 			}
@@ -81,27 +112,6 @@ public class PropertyRangeRelation extends Relation {
 		}
 		return AdditionMode.NOADD;
 	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" property TEXT," +
-					" range TEXT," +
-					" sourceId1 BIGINT, " +
-					" sourceTable1 VARCHAR(100), " +
-					" sourceId2 BIGINT, " +
-					" sourceTable2 VARCHAR(100), " +
-					" PRIMARY KEY (property, range));" +
-					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE INDEX " + getDeltaName(id) + "_range ON " + getDeltaName(id) + "(range);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 
 	@Override
 	public void merge(DeltaRelation delta) {

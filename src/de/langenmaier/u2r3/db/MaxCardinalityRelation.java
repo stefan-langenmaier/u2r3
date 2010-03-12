@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.semanticweb.owlapi.model.OWLObject;
@@ -16,41 +17,55 @@ public class MaxCardinalityRelation extends Relation {
 		try {
 			tableName = "maxCardinality";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colClass TEXT," +
-					" property TEXT, " +
-					" value TEXT," +
-					" PRIMARY KEY (colClass, property, value));" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
-					" CREATE INDEX " + getTableName() + "_property ON " + getTableName() + "(property);" +
-					" CREATE INDEX " + getTableName() + "_value ON " + getTableName() + "(value);");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, property, value) VALUES (?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colClass TEXT," +
+		" property TEXT, " +
+		" value TEXT," +
+		" PRIMARY KEY (colClass, property, value));" +
+		" CREATE INDEX " + table + "_class ON " + table + "(colClass);" +
+		" CREATE INDEX " + table + "_property ON " + table + "(property);" +
+		" CREATE INDEX " + table + "_value ON " + table + "(value);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colClass, property, value) VALUES (?, ?, ?)";
+	}
 
 	@Override
 	public void add(OWLObject ce) {
 		try {
-			addStatement.setString(1, nidMapper.get(ce).toString());
-			
-			
 			if (ce instanceof OWLObjectMaxCardinality) {
 				OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
-				
-				if (mc.getProperty().isAnonymous()) {
-					addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
-				} else {
-					addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
+				PreparedStatement add = addStatement;
+
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+					addStatement.setString(1, nidMapper.get(ce).toString());
+					if (mc.getProperty().isAnonymous()) {
+						addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
+					} else {
+						addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
+					}
+					
+					addStatement.setString(3, Integer.toString(mc.getCardinality()));
+					addStatement.execute();
 				}
-				
-				addStatement.setString(3, Integer.toString(mc.getCardinality()));
-				addStatement.execute();
+				if (reasoner.isAdditionMode()) {
+					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+				} else {
+					reasonProcessor.add(new AdditionReason(this));
+				}
 				
 				if (mc.getProperty().isAnonymous()) {
 					handleAddAnonymousObjectPropertyExpression(mc.getProperty());
@@ -59,7 +74,6 @@ public class MaxCardinalityRelation extends Relation {
 				throw new U2R3NotImplementedException();
 			}
 			
-			reasonProcessor.add(new AdditionReason(this));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

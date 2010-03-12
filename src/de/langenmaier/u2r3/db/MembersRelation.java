@@ -28,16 +28,10 @@ public class MembersRelation extends Relation {
 		try {
 			tableName = "members";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colClass TEXT," +
-					" list TEXT," +
-					" PRIMARY KEY (colClass, list));" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
-					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
+			createMainStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, list) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
 			addTypeStatement = conn.prepareStatement("INSERT INTO classAssertionEnt (entity, colClass) VALUES (?, ?)");
@@ -45,6 +39,21 @@ public class MembersRelation extends Relation {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colClass TEXT," +
+		" list TEXT," +
+		" PRIMARY KEY (colClass, list));" +
+		" CREATE INDEX " + table + "_class ON " + table + "(colClass);" +
+		" CREATE INDEX " + table + "_list ON " + table + "(list);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colClass, list) VALUES (?, ?)";
 	}
 	
 	@Override
@@ -56,9 +65,12 @@ public class MembersRelation extends Relation {
 			NodeID lid = NodeID.getNodeID();
 			
 			//members
-			addStatement.setString(1, nid.toString());
-			addStatement.setString(2, lid.toString());
-			//addStatement.execute();
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				addStatement.setString(1, nid.toString());
+				addStatement.setString(2, lid.toString());
+			}//addStatement.execute();
 			
 			//type
 			addTypeStatement.setString(1, nid.toString());
@@ -84,10 +96,18 @@ public class MembersRelation extends Relation {
 			NodeID lid = NodeID.getNodeID();
 			
 			//members
-			addStatement.setString(1, nid.toString());
-			addStatement.setString(2, lid.toString());
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				addStatement.setString(1, nid.toString());
+				addStatement.setString(2, lid.toString());
+				addStatement.execute();
+			}
+			if (reasoner.isAdditionMode()) {
+				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+			} else {
+				reasonProcessor.add(new AdditionReason(this));
+			}
 			
 			//type
 			addTypeStatement.setString(1, nid.toString());
@@ -119,10 +139,14 @@ public class MembersRelation extends Relation {
 			NodeID lid = NodeID.getNodeID();
 			
 			//members
-			addStatement.setString(1, nid.toString());
-			addStatement.setString(2, lid.toString());
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				addStatement.setString(1, nid.toString());
+				addStatement.setString(2, lid.toString());
+			}
+//			addStatement.execute();
+//			reasonProcessor.add(new AdditionReason(this));
 			
 			//type
 			addTypeStatement.setString(1, nid.toString());
@@ -140,13 +164,14 @@ public class MembersRelation extends Relation {
 				addListStatement.execute();
 			}
 			
-			for (OWLDataPropertyExpression dpe : naxiom.getProperties()) {
-				if (dpe.isAnonymous()) {
-					handleAddAnonymousDataPropertyExpression(dpe);
-				}
-			}
+			//es gibt keine anonyme dpe
+//			for (OWLDataPropertyExpression dpe : naxiom.getProperties()) {
+//				if (dpe.isAnonymous()) {
+//					handleAddAnonymousDataPropertyExpression(dpe);
+//				}
+//			}
 			
-			return AdditionMode.NOADD;
+			return AdditionMode.ADD;
 		} else if (axiom instanceof OWLDisjointObjectPropertiesAxiom) {
 			OWLDisjointObjectPropertiesAxiom naxiom = (OWLDisjointObjectPropertiesAxiom) axiom;
 			
@@ -154,10 +179,18 @@ public class MembersRelation extends Relation {
 			NodeID lid = NodeID.getNodeID();
 			
 			//members
-			addStatement.setString(1, nid.toString());
-			addStatement.setString(2, lid.toString());
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				addStatement.setString(1, nid.toString());
+				addStatement.setString(2, lid.toString());
+				addStatement.execute();
+			}
+			if (reasoner.isAdditionMode()) {
+				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+			} else {
+				reasonProcessor.add(new AdditionReason(this));
+			}
 			
 			//type
 			addTypeStatement.setString(1, nid.toString());

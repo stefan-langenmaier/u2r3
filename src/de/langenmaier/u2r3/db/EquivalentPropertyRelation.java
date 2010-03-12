@@ -37,13 +37,32 @@ public class EquivalentPropertyRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colLeft TEXT," +
+		" colRight TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" PRIMARY KEY (colLeft, colRight));" +
+		" CREATE INDEX " + table + "_left ON " + table + "(colLeft);" +
+		" CREATE INDEX " + table + "_right ON " + table + "(colRight);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight) VALUES (?, ?)";
+	}
+
+	
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLEquivalentObjectPropertiesAxiom) {
 			OWLEquivalentObjectPropertiesAxiom naxiom = (OWLEquivalentObjectPropertiesAxiom) axiom;
@@ -95,26 +114,6 @@ public class EquivalentPropertyRelation extends Relation {
 			return AdditionMode.NOADD;
 		} else {
 			throw new U2R3NotImplementedException();
-		}
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (colLeft, colRight));" +
-					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight);");
-		} catch (SQLException e) {
-			e.printStackTrace();
 		}
 	}
 	
@@ -195,7 +194,7 @@ public class EquivalentPropertyRelation extends Relation {
 					if (first) {
 						first = false;
 					} else {
-						sql.append(" AND "); //XXX
+						sql.append(" AND ");
 					}
 					
 					sql.append("(");

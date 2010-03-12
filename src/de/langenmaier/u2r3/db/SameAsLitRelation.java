@@ -29,44 +29,41 @@ public class SameAsLitRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight)");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			// bis zu 8 Quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" left_language TEXT," +
-					" left_type TEXT," +
-					" right_language TEXT," +
-					" right_type TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 BIGINT," +
-					" sourceTable4 VARCHAR(100)," +
-					" sourceId5 BIGINT," +
-					" sourceTable5 VARCHAR(100)," +
-					" sourceId6 BIGINT," +
-					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, colLeft, colRight));" +
-					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colLeft TEXT," +
+		" colRight TEXT," +
+		" left_language TEXT," +
+		" left_type TEXT," +
+		" right_language TEXT," +
+		" right_type TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" sourceId3 BIGINT," +
+		" sourceTable3 VARCHAR(100)," +
+		" sourceId4 BIGINT," +
+		" sourceTable4 VARCHAR(100)," +
+		" sourceId5 BIGINT," +
+		" sourceTable5 VARCHAR(100)," +
+		" sourceId6 BIGINT," +
+		" sourceTable6 VARCHAR(100)," +
+		" PRIMARY KEY (id, colLeft, colRight));" +
+		" CREATE INDEX " + table + "_left ON " + table + "(colLeft);" +
+		" CREATE INDEX " + table + "_right ON " + table + "(colRight)";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight, left_language, left_type, right_language, right_type) VALUES (?, ?, ?, ?, ?, ?)";
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package de.langenmaier.u2r3.db;
 
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.semanticweb.owlapi.model.NodeID;
@@ -17,16 +18,10 @@ public class OneOfRelation extends Relation {
 		try {
 			tableName = "oneOf";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colClass TEXT," +
-					" list TEXT," +
-					" PRIMARY KEY (colClass, list));" +
-					" CREATE INDEX " + getTableName() + "_class ON " + getTableName() + "(colClass);" +
-					" CREATE INDEX " + getTableName() + "_list ON " + getTableName() + "(list);");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colClass, list) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 			addListStatement = conn.prepareStatement("INSERT INTO list (name, element) VALUES (?, ?)");
 
 		} catch (SQLException e) {
@@ -34,15 +29,37 @@ public class OneOfRelation extends Relation {
 		}
 	}
 	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colClass TEXT," +
+		" list TEXT," +
+		" PRIMARY KEY (colClass, list));" +
+		" CREATE INDEX " + table + "_class ON " + table + "(colClass);" +
+		" CREATE INDEX " + table + "_list ON " + table + "(list);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colClass, list) VALUES (?, ?)";
+	}
+	
 	@Override
 	public void add(OWLObject ce) {
 		OWLObjectOneOf oo = (OWLObjectOneOf) ce;
 		try {
 			NodeID nid = NodeID.getNodeID();
-			addStatement.setString(1, nidMapper.get(ce).toString());
-			addStatement.setString(2, nid.toString());
-			addStatement.execute();
-			reasonProcessor.add(new AdditionReason(this));
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				add.setString(1, nidMapper.get(ce).toString());
+				add.setString(2, nid.toString());
+				add.execute();
+			}
+			if (reasoner.isAdditionMode()) {
+				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+			} else {
+				reasonProcessor.add(new AdditionReason(this));
+			}
 			
 			for (OWLIndividual ind : oo.getIndividuals()) {
 				addListStatement.setString(1, nid.toString());

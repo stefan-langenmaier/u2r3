@@ -33,12 +33,39 @@ public class SameAsEntRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_right ON " + getTableName() + "(colRight)");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (colLeft, colRight) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colLeft TEXT," +
+		" colRight TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" sourceId3 BIGINT," +
+		" sourceTable3 VARCHAR(100)," +
+		" sourceId4 BIGINT," +
+		" sourceTable4 VARCHAR(100)," +
+		" sourceId5 BIGINT," +
+		" sourceTable5 VARCHAR(100)," +
+		" sourceId6 BIGINT," +
+		" sourceTable6 VARCHAR(100)," +
+		" PRIMARY KEY (id, colLeft, colRight));" +
+		" CREATE INDEX " + table + "_left ON " + table + "(colLeft);" +
+		" CREATE INDEX " + table + "_right ON " + table + "(colRight)";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight) VALUES (?, ?)";
+	}
+
 	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
@@ -47,19 +74,27 @@ public class SameAsEntRelation extends Relation {
 			for (OWLIndividual ind1 : naxiom.getIndividuals()) {
 				for (OWLIndividual ind2 : naxiom.getIndividuals()) {
 					if (!ind1.equals(ind2)) {
-						if (ind1.isAnonymous()) {
-							addStatement.setString(1, ind1.asOWLAnonymousIndividual().getID().toString());
-						} else {
-							addStatement.setString(1, ind1.asOWLNamedIndividual().getIRI().toString());
+						PreparedStatement add = addStatement;
+
+						for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+							if (ind1.isAnonymous()) {
+								add.setString(1, ind1.asOWLAnonymousIndividual().getID().toString());
+							} else {
+								add.setString(1, ind1.asOWLNamedIndividual().getIRI().toString());
+							}
+							if (ind2.isAnonymous()) {
+								add.setString(2, ind2.asOWLAnonymousIndividual().getID().toString());
+							} else {
+								add.setString(2, ind2.asOWLNamedIndividual().getIRI().toString());
+							}
+							
+							add.execute();
 						}
-						if (ind2.isAnonymous()) {
-							addStatement.setString(2, ind2.asOWLAnonymousIndividual().getID().toString());
+						if (reasoner.isAdditionMode()) {
+							reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
 						} else {
-							addStatement.setString(2, ind2.asOWLNamedIndividual().getIRI().toString());
+							reasonProcessor.add(new AdditionReason(this));
 						}
-						
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
 					}
 				}
 			}
@@ -69,35 +104,6 @@ public class SameAsEntRelation extends Relation {
 			throw new U2R3NotImplementedException();
 		}
 
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			// bis zu 6 Quellen
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" sourceId3 BIGINT," +
-					" sourceTable3 VARCHAR(100)," +
-					" sourceId4 BIGINT," +
-					" sourceTable4 VARCHAR(100)," +
-					" sourceId5 BIGINT," +
-					" sourceTable5 VARCHAR(100)," +
-					" sourceId6 BIGINT," +
-					" sourceTable6 VARCHAR(100)," +
-					" PRIMARY KEY (id, colLeft, colRight));" +
-					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight)");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override

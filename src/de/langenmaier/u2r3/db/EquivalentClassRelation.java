@@ -41,6 +41,24 @@ public class EquivalentClassRelation extends Relation {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" colLeft TEXT," +
+		" colRight TEXT," +
+		" sourceId1 BIGINT," +
+		" sourceTable1 VARCHAR(100)," +
+		" sourceId2 BIGINT," +
+		" sourceTable2 VARCHAR(100)," +
+		" PRIMARY KEY (colLeft, colRight));" +
+		" CREATE INDEX " + table + "_left ON " + table + "(colLeft);" +
+		" CREATE INDEX " + table + "_right ON " + table + "(colRight);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (colLeft, colRight) VALUES (?, ?)";
+	}
 
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLEquivalentClassesAxiom) {
@@ -48,18 +66,26 @@ public class EquivalentClassRelation extends Relation {
 			for (OWLClassExpression ce1 : naxiom.getClassExpressions()) {
 				for (OWLClassExpression ce2 : naxiom.getClassExpressions()) {
 					if (!ce1.equals(ce2)) {
-						if (ce1.isAnonymous()) {
-							addStatement.setString(1, nidMapper.get(ce1).toString());
-						} else {
-							addStatement.setString(1, ce1.asOWLClass().getIRI().toString());
+						PreparedStatement add = addStatement;
+
+						for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+							if (ce1.isAnonymous()) {
+								add.setString(1, nidMapper.get(ce1).toString());
+							} else {
+								add.setString(1, ce1.asOWLClass().getIRI().toString());
+							}
+							if (ce2.isAnonymous()) {
+								add.setString(2, nidMapper.get(ce2).toString());
+							} else {
+								add.setString(2, ce2.asOWLClass().getIRI().toString());
+							}
+							add.execute();
 						}
-						if (ce2.isAnonymous()) {
-							addStatement.setString(2, nidMapper.get(ce2).toString());
+						if (reasoner.isAdditionMode()) {
+							reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
 						} else {
-							addStatement.setString(2, ce2.asOWLClass().getIRI().toString());
+							reasonProcessor.add(new AdditionReason(this));
 						}
-						addStatement.execute();
-						reasonProcessor.add(new AdditionReason(this));
 					}
 				}
 				if (ce1.isAnonymous()) {
@@ -72,26 +98,6 @@ public class EquivalentClassRelation extends Relation {
 		}
 	}
 
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" colLeft TEXT," +
-					" colRight TEXT," +
-					" sourceId1 BIGINT," +
-					" sourceTable1 VARCHAR(100)," +
-					" sourceId2 BIGINT," +
-					" sourceTable2 VARCHAR(100)," +
-					" PRIMARY KEY (colLeft, colRight));" +
-					" CREATE INDEX " + getDeltaName(id) + "_left ON " + getDeltaName(id) + "(colLeft);" +
-					" CREATE INDEX " + getDeltaName(id) + "_right ON " + getDeltaName(id) + "(colRight);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public void merge(DeltaRelation delta) {
 		try {
 			Statement stmt = conn.createStatement();

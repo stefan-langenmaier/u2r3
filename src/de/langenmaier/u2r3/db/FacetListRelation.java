@@ -14,26 +14,35 @@ public class FacetListRelation extends Relation {
 		try {
 			tableName = "facetList";
 			
-			createMainStatement = conn.prepareStatement("CREATE TABLE " + getTableName() + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" name TEXT," +
-					" facet TEXT," +
-					" value TEXT," +
-					" type TEXT," +
-					" language TEXT," +
-					" PRIMARY KEY (name, facet, value, type, language));" +
-					" CREATE INDEX " + getTableName() + "_name ON " + getTableName() + "(name);" +
-					" CREATE INDEX " + getTableName() + "_facet ON " + getTableName() + "(facet);" +
-					" CREATE INDEX " + getTableName() + "_value ON " + getTableName() + "(value);" +
-					" CREATE INDEX " + getTableName() + "_type ON " + getTableName() + "(type);" +
-					" CREATE INDEX " + getTableName() + "_language ON " + getTableName() + "(language)");
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, facet, value, type, language) VALUES (?, ?, ?, ?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" name TEXT," +
+		" facet TEXT," +
+		" value TEXT," +
+		" type TEXT," +
+		" language TEXT," +
+		" PRIMARY KEY (name, facet, value, type, language));" +
+		" CREATE INDEX " + table + "_name ON " + table + "(name);" +
+		" CREATE INDEX " + table + "_facet ON " + table + "(facet);" +
+		" CREATE INDEX " + table + "_value ON " + table + "(value);" +
+		" CREATE INDEX " + table + "_type ON " + table + "(type);" +
+		" CREATE INDEX " + table + "_language ON " + table + "(language)";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (name, facet, value, type, language) VALUES (?, ?, ?, ?, ?)";
+	}
+
 
 }

@@ -34,44 +34,51 @@ public class PropertyDomainRelation extends Relation {
 					" CREATE INDEX " + getTableName() + "_domain ON " + getTableName() + "(domain);");
 
 			create();
-			addStatement = conn.prepareStatement("INSERT INTO " + getTableName() + " (property, domain) VALUES (?, ?)");
+			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	protected String getCreateStatement(String table) {
+		return "CREATE TABLE " + table + " (" +
+		" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
+		" property TEXT," +
+		" domain TEXT," +
+		" sourceId1 BIGINT, " +
+		" sourceTable1 VARCHAR(100), " +
+		" sourceId2 BIGINT, " +
+		" sourceTable2 VARCHAR(100), " +
+		" PRIMARY KEY (property, domain));" +
+		" CREATE INDEX " + table + "_property ON " + table + "(property);" +
+		" CREATE INDEX " + table + "_domain ON " + table + "(domain);";
+	}
+	
+	protected String getAddStatement(String table) {
+		return "INSERT INTO " + table + " (property, domain) VALUES (?, ?)";
+	}
+
+	
 	@Override
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		if (axiom instanceof OWLDataPropertyDomainAxiom) {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
-			addStatement.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				add.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
+				add.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
+			}
 		} else if (axiom instanceof OWLObjectPropertyDomainAxiom) {
 			OWLObjectPropertyDomainAxiom naxiom = (OWLObjectPropertyDomainAxiom) axiom;
-			addStatement.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
-			addStatement.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
+			PreparedStatement add = addStatement;
+
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				add.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
+				add.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
+			}
 		}
 		return AdditionMode.ADD;
-	}
-
-	@Override
-	public void createDeltaImpl(int id) {
-		try {
-			dropDelta(id);
-			createDeltaStatement.execute("CREATE TABLE " + getDeltaName(id) + " (" +
-					" id BIGINT DEFAULT NEXT VALUE FOR uid NOT NULL," +
-					" property TEXT," +
-					" domain TEXT," +
-					" sourceId1 BIGINT, " +
-					" sourceTable1 VARCHAR(100), " +
-					" sourceId2 BIGINT, " +
-					" sourceTable2 VARCHAR(100), " +
-					" PRIMARY KEY (property, domain));" +
-					" CREATE INDEX " + getDeltaName(id) + "_property ON " + getDeltaName(id) + "(property);" +
-					" CREATE INDEX " + getDeltaName(id) + "_domain ON " + getDeltaName(id) + "(domain);");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
