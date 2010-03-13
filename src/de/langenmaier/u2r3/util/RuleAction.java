@@ -21,6 +21,7 @@ public class RuleAction implements Comparable<RuleAction>{
 	 * @param delta
 	 */
 	public RuleAction(Rule r, DeltaRelation delta) {
+		if (r == null) throw new NullPointerException();
 		rule = r;
 		this.delta = delta;
 	}

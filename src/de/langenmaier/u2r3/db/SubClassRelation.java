@@ -70,7 +70,7 @@ public class SubClassRelation extends Relation {
 			OWLSubClassOfAxiom naxiom = (OWLSubClassOfAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getSubClass().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getSubClass()).toString());
 					handleAddAnonymousClassExpression(naxiom.getSubClass());

@@ -83,7 +83,7 @@ public class DataPropertyAssertionRelation extends Relation {
 			OWLDataPropertyAssertionAxiom naxiom = (OWLDataPropertyAssertionAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getSubject().isAnonymous()) {
 					add.setString(1, naxiom.getSubject().asOWLAnonymousIndividual().toStringID());
 				} else {

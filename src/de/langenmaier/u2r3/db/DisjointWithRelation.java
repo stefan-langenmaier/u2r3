@@ -54,7 +54,7 @@ public class DisjointWithRelation extends Relation {
 				OWLClassExpression ce2 = it.next();
 				PreparedStatement add = addStatement;
 
-				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 					if (ce1.isAnonymous()) {
 						add.setString(1, nidMapper.get(ce1).toString());
 					} else {

@@ -46,7 +46,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	protected PreparedStatement dropMainStatement;
 	protected PreparedStatement addListStatement;
 	
-	protected Statement createDeltaStatement;
+	protected PreparedStatement createDeltaStatement;
 	protected Statement dropDeltaStatement;
 	protected PreparedStatement addDeltaStatement;
 	
@@ -68,9 +68,7 @@ public abstract class Relation extends U2R3Component implements Query {
 	protected Relation(U2R3Reasoner reasoner) {
 		super(reasoner);
 		conn = U2R3DBConnection.getConnection();
-		
 		try {
-			createDeltaStatement = conn.createStatement();
 			dropDeltaStatement = conn.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -94,7 +92,14 @@ public abstract class Relation extends U2R3Component implements Query {
 			if (addImpl(axiom) == AdditionMode.ADD) {
 				logger.trace(addStatement.toString());
 				addStatement.executeUpdate();
-				reasonProcessor.add(new AdditionReason(this));
+				if (reasoner.isAdditionMode()) {
+					logger.trace(addDeltaStatement.toString());
+					addDeltaStatement.executeUpdate();
+					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
+				} else {
+					reasonProcessor.add(new AdditionReason(this));
+				}
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -192,6 +197,7 @@ public abstract class Relation extends U2R3Component implements Query {
 			try {
 				dropDelta(id);
 				createDeltaStatement = conn.prepareStatement(getCreateStatement(getDeltaName(id)));
+				createDeltaStatement.executeUpdate();
 				addDeltaStatement = conn.prepareStatement(getAddStatement(getDeltaName(id)));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -202,14 +208,17 @@ public abstract class Relation extends U2R3Component implements Query {
 	 * Creates a extra delta and sets it up for a round of additions
 	 * @param add
 	 */
-	protected void nextRound(PreparedStatement add) {
+	protected PreparedStatement nextRound() {
 		if (reasoner.isAdditionMode()) {
 			if (reasoner.getAdditionRound() > lastAdditionRound) {
 				lastAdditionRound = reasoner.getAdditionRound();
+				//dropDelta(getNewDelta());
 				createNewDeltaRelation();
+				++nextDelta;
 			}
-			add = addDeltaStatement;
+			return addDeltaStatement;
 		}
+		return addStatement;
 	}
 	
 	protected void dropDelta(int id) {

@@ -65,7 +65,7 @@ public class PropertyDomainRelation extends Relation {
 			OWLDataPropertyDomainAxiom naxiom = (OWLDataPropertyDomainAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				add.setString(1, naxiom.getProperty().asOWLDataProperty().getIRI().toString());
 				add.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
 			}
@@ -73,7 +73,7 @@ public class PropertyDomainRelation extends Relation {
 			OWLObjectPropertyDomainAxiom naxiom = (OWLObjectPropertyDomainAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				add.setString(1, naxiom.getProperty().asOWLObjectProperty().getIRI().toString());
 				add.setString(2, naxiom.getDomain().asOWLClass().getIRI().toString());
 			}

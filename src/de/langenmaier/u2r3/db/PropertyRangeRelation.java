@@ -66,7 +66,7 @@ public class PropertyRangeRelation extends Relation {
 			OWLDataPropertyRangeAxiom naxiom = (OWLDataPropertyRangeAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getProperty()).toString());
 				} else {
@@ -80,7 +80,7 @@ public class PropertyRangeRelation extends Relation {
 			OWLObjectPropertyRangeAxiom naxiom = (OWLObjectPropertyRangeAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getProperty()).toString());
 				} else {

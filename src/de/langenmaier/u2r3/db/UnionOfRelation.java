@@ -50,10 +50,10 @@ public class UnionOfRelation extends Relation {
 			NodeID nid = NodeID.getNodeID();
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-				addStatement.setString(1, nidMapper.get(ce).toString());
-				addStatement.setString(2, nid.toString());
-				addStatement.execute();
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+				add.setString(1, nidMapper.get(ce).toString());
+				add.setString(2, nid.toString());
+				add.execute();
 			}
 			if (reasoner.isAdditionMode()) {
 				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));

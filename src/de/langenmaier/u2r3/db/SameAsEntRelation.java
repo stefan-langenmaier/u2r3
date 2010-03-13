@@ -76,7 +76,7 @@ public class SameAsEntRelation extends Relation {
 					if (!ind1.equals(ind2)) {
 						PreparedStatement add = addStatement;
 
-						for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+						for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 							if (ind1.isAnonymous()) {
 								add.setString(1, ind1.asOWLAnonymousIndividual().getID().toString());
 							} else {

@@ -77,7 +77,7 @@ public class ClassAssertionLitRelation extends Relation {
 		try {
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (o instanceof OWLTypedLiteral) {
 					OWLTypedLiteral tl = (OWLTypedLiteral) o;
 					add.setString(1, DatatypeCheck.validateType(tl.getLiteral(), tl.getDatatype()));

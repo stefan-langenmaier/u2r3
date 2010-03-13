@@ -28,7 +28,7 @@ public class MembersRelation extends Relation {
 		try {
 			tableName = "members";
 			
-			createMainStatement = conn.prepareStatement(getAddStatement(getTableName()));
+			createMainStatement = conn.prepareStatement(getCreateStatement(getTableName()));
 
 			create();
 			addStatement = conn.prepareStatement(getAddStatement(getTableName()));
@@ -67,10 +67,10 @@ public class MembersRelation extends Relation {
 			//members
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-				addStatement.setString(1, nid.toString());
-				addStatement.setString(2, lid.toString());
-			}//addStatement.execute();
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+				add.setString(1, nid.toString());
+				add.setString(2, lid.toString());
+			}//add.execute();
 			
 			//type
 			addTypeStatement.setString(1, nid.toString());
@@ -98,10 +98,10 @@ public class MembersRelation extends Relation {
 			//members
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-				addStatement.setString(1, nid.toString());
-				addStatement.setString(2, lid.toString());
-				addStatement.execute();
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+				add.setString(1, nid.toString());
+				add.setString(2, lid.toString());
+				add.execute();
 			}
 			if (reasoner.isAdditionMode()) {
 				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));
@@ -141,11 +141,11 @@ public class MembersRelation extends Relation {
 			//members
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-				addStatement.setString(1, nid.toString());
-				addStatement.setString(2, lid.toString());
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+				add.setString(1, nid.toString());
+				add.setString(2, lid.toString());
 			}
-//			addStatement.execute();
+//			add.execute();
 //			reasonProcessor.add(new AdditionReason(this));
 			
 			//type
@@ -181,10 +181,10 @@ public class MembersRelation extends Relation {
 			//members
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-				addStatement.setString(1, nid.toString());
-				addStatement.setString(2, lid.toString());
-				addStatement.execute();
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+				add.setString(1, nid.toString());
+				add.setString(2, lid.toString());
+				add.execute();
 			}
 			if (reasoner.isAdditionMode()) {
 				reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));

@@ -52,7 +52,7 @@ public class InverseOfRelation extends Relation {
 			OWLInverseObjectPropertiesAxiom naxiom = (OWLInverseObjectPropertiesAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getFirstProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getFirstProperty()).toString());
 					handleAddAnonymousObjectPropertyExpression(naxiom.getFirstProperty());
@@ -80,7 +80,7 @@ public class InverseOfRelation extends Relation {
 			try {
 				PreparedStatement add = addStatement;
 
-				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 					add.setString(1, nidMapper.get(ce).toString());
 					if (io.getInverse().isAnonymous()) {
 						add.setString(2, nidMapper.get(io.getInverse()).toString());

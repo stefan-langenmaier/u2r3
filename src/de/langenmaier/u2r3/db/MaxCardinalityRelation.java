@@ -50,16 +50,16 @@ public class MaxCardinalityRelation extends Relation {
 				OWLObjectMaxCardinality mc = (OWLObjectMaxCardinality) ce;
 				PreparedStatement add = addStatement;
 
-				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
-					addStatement.setString(1, nidMapper.get(ce).toString());
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
+					add.setString(1, nidMapper.get(ce).toString());
 					if (mc.getProperty().isAnonymous()) {
-						addStatement.setString(2, nidMapper.get(mc.getProperty()).toString());
+						add.setString(2, nidMapper.get(mc.getProperty()).toString());
 					} else {
-						addStatement.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
+						add.setString(2, mc.getProperty().asOWLObjectProperty().getIRI().toString());
 					}
 					
-					addStatement.setString(3, Integer.toString(mc.getCardinality()));
-					addStatement.execute();
+					add.setString(3, Integer.toString(mc.getCardinality()));
+					add.execute();
 				}
 				if (reasoner.isAdditionMode()) {
 					reasonProcessor.add(new AdditionReason(this, new DeltaRelation(this, getDelta())));

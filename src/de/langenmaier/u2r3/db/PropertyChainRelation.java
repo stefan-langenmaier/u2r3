@@ -51,7 +51,7 @@ public class PropertyChainRelation extends Relation {
 			NodeID nid = NodeID.getNodeID();
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (pc.getSuperProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(pc.getSuperProperty()).toString());
 				} else {

@@ -51,7 +51,7 @@ public class ComplementOfRelation extends Relation {
 			try {
 				PreparedStatement add = addStatement;
 
-				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 					add.setString(1, nidMapper.get(ce).toString());
 					if (oco.getOperand().isAnonymous()) {
 						add.setString(2, nidMapper.get(oco.getOperand()).toString());

@@ -65,7 +65,7 @@ public class SubPropertyRelation extends Relation {
 			OWLSubObjectPropertyOfAxiom naxiom = (OWLSubObjectPropertyOfAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getSubProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
 					handleAddAnonymousObjectPropertyExpression(naxiom.getSubProperty());
@@ -84,7 +84,7 @@ public class SubPropertyRelation extends Relation {
 			OWLSubDataPropertyOfAxiom naxiom = (OWLSubDataPropertyOfAxiom) axiom;
 			PreparedStatement add = addStatement;
 
-			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+			for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 				if (naxiom.getSubProperty().isAnonymous()) {
 					add.setString(1, nidMapper.get(naxiom.getSubProperty()).toString());
 					handleAddAnonymousDataPropertyExpression(naxiom.getSubProperty());

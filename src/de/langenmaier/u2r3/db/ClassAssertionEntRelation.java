@@ -79,7 +79,7 @@ public class ClassAssertionEntRelation extends Relation {
 	}
 	
 	protected String getAddStatement(String table) {
-		return "INSERT INTO " + getTableName() + " (entity, colClass) VALUES (?, ?)";
+		return "INSERT INTO " + table + " (entity, colClass) VALUES (?, ?)";
 	}
 
 	
@@ -87,7 +87,7 @@ public class ClassAssertionEntRelation extends Relation {
 	public AdditionMode addImpl(OWLAxiom axiom) throws SQLException {
 		PreparedStatement add = addStatement;
 
-		for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+		for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 			if (axiom instanceof OWLClassAssertionAxiom) {
 				OWLClassAssertionAxiom naxiom = (OWLClassAssertionAxiom) axiom;
 				add.setString(1, naxiom.getIndividual().asOWLNamedIndividual().getIRI().toString());

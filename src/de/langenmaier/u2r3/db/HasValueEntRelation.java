@@ -51,7 +51,7 @@ public class HasValueEntRelation extends Relation {
 				OWLObjectHasValue hv = (OWLObjectHasValue) ce;
 				PreparedStatement add = addStatement;
 
-				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); nextRound(add), ++run) {
+				for(int run=0; run<=0 || (run<=1 && reasoner.isAdditionMode()); add = nextRound(), ++run) {
 					add.setString(1, nidMapper.get(ce).toString());
 					
 					if (hv.getProperty().isAnonymous()) {
